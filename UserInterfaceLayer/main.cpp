@@ -10,14 +10,16 @@
 #include "workmodels.h"
 #include "environmentvariant.h"
 #include <QTranslator>
+#include <QDir>
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
     app.setApplicationName("Mindgo");
 
+    qDebug()<<QDir::currentPath();
     QTranslator translator;
-    translator.load("/Users/sunwp/Desktop/MindgoMachineConfigTool/MindgoMachineConfigTool/cn.qm");
+    translator.load("./config/cn.qm");
     app.installTranslator(&translator);
 
     qmlRegisterType<OperationParamObject>("Common", 1,0, "OperationParamObject");
@@ -25,9 +27,9 @@ int main(int argc, char *argv[])
 
     QQuickView view;
 
-    EnvironmentVariant::instance()->parseConfigFile("/Users/sunwp/Desktop/MindgoMachineConfigTool/MindgoMachineConfigTool/UserInterfaceLayer/OperationParams.json");
-    EnvironmentVariant::instance()->initUserConfig("/Users/sunwp/Desktop/MindgoMachineConfigTool/MindgoMachineConfigTool/UserInterfaceLayer/UserConfig.json");
-    EnvironmentVariant::instance()->initProtocol("/Users/sunwp/Desktop/MindgoMachineConfigTool/MindgoMachineConfigTool/UserInterfaceLayer/Protocol.json");
+    EnvironmentVariant::instance()->parseConfigFile("./config/OperationParams.json");
+    EnvironmentVariant::instance()->initUserConfig("./config/UserConfig.json");
+    EnvironmentVariant::instance()->initProtocol("./config/Protocol.json");
     EnvironmentVariant::instance()->initModels(view.rootContext());
 
 

@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>MainScreen.qml</file>
+        <file>TextButton.qml</file>
+        <file>SingleStepPage.qml</file>
+        <file>SystemSetting.qml</file>
+        <file>SystemSettingForm.ui.qml</file>
+        <file>PlanSetting.qml</file>
+        <file>PlanSettingForm.ui.qml</file>
+        <file>OperationList.qml</file>
+    </qresource>
+</RCC>

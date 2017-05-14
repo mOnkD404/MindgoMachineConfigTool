@@ -27,42 +27,69 @@ Item {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
 
-            Text {
+            Rectangle{
                 id: operationType
-                text: qsTr("Operation type")
-                horizontalAlignment: Text.AlignHCenter
                 anchors.right: parent.right
                 anchors.rightMargin: 0
                 anchors.left: parent.left
                 anchors.leftMargin: 0
-                font.pixelSize: 17
-                width: 120
+                anchors.top: parent.top
+                color:"#747474"
+                height: 30
+
+                Text {
+                    text: qsTr("Operation type")
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.fill: parent
+                    font.pixelSize: 17
+                    font.bold: true
+                    width: 120
+                    color:"#d9d9d9"
+                }
             }
+
 
             ListView {
                 id: operationList
-                anchors.leftMargin: 20
                 spacing: 4
                 anchors.top: operationType.bottom
+                anchors.topMargin: 10
                 anchors.right: parent.right
+                anchors.rightMargin: 10
                 anchors.left: parent.left
+                anchors.leftMargin: 10
                 anchors.bottom: parent.bottom
+                anchors.bottomMargin: 10
+
                 clip: true
                 highlight: Rectangle{
-                    height: 25
-                    width: 100
-                    color: "lightblue"
-                    radius: 3
+                    height: 30
+                    anchors.left:parent.left
+                    anchors.leftMargin: 10
+                    anchors.right: parent.right
+                    anchors.rightMargin: 10
+
+                    color: "#5cc5ff"
+                    radius: 0
                 }
                 highlightFollowsCurrentItem: true
                 currentIndex: 0
                 interactive: false
 
                 delegate: TextButton {
-                    height: 25
-                    width:100
-                    text: modelData
-                    backColor: "transparent"
+                    height: 30
+
+                    anchors.left:parent.left
+                    anchors.leftMargin: 10
+                    anchors.right: parent.right
+                    anchors.rightMargin: 10
+
+                    buttonradius: 0
+
+                    textValue: modelData
+                    startColor: "transparent"
+                    stopColor: "transparent"
                     onClicked: {
                         console.debug(modelData+"clicked");
                         operationList.currentIndex = index;
@@ -83,20 +110,33 @@ Item {
 
         Item {
             id: column1
-            width: row.width/2
+            width: column.width*2
             anchors.bottom: parent.bottom
             anchors.top: parent.top
 
-            Text {
+            Rectangle{
                 id: operationParam
-                text: qsTr("Operation param")
                 anchors.right: parent.right
                 anchors.rightMargin: 0
                 anchors.left: parent.left
-                anchors.leftMargin: 10
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignLeft
-                font.pixelSize: 17
+                anchors.leftMargin: 0
+                anchors.top: parent.top
+                color:"#747474"
+                height: 30
+
+                Text {
+                    text: qsTr("Operation param")
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 10
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.pixelSize: 17
+                    font.bold: true
+
+                    color:"#d9d9d9"
+                }
             }
 
             ListView {
@@ -105,6 +145,7 @@ Item {
                 clip:true
                 spacing: 4
                 anchors.top: operationParam.bottom
+                anchors.topMargin: 10
                 anchors.right: parent.right
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
@@ -115,8 +156,10 @@ Item {
                 }
 
                 delegate: Item {
-                    height:25
-                    width:260
+                    height:30
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+
 
 
                     enabled:getSwitchState()
@@ -133,11 +176,14 @@ Item {
 
                     Text {
                         id: paramName
-                        height:25
+                        height:30
                         width:100
                         text: modelData.Display
                         horizontalAlignment: Text.AlignRight
                         verticalAlignment: Text.AlignVCenter
+                        color:"#d9d9d9"
+                        font.pixelSize: 17
+                        font.bold: true
                     }
 
                     Component{
@@ -146,7 +192,7 @@ Item {
                         Rectangle{
                             anchors.fill: parent
                             border.width: 2
-                            border.color: "steelblue"
+                            border.color: "#ffffff"
                             radius: 4
 
                             TextInput{
@@ -242,8 +288,8 @@ Item {
                         anchors.bottom: parent.bottom
                         anchors.right: parent.right
 
-                        height: 25
-                        width: 100
+                        height: 30
+
 
                         anchors.leftMargin: 10
                         sourceComponent:getcomponent(modelData.Type)

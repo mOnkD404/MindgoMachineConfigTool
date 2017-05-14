@@ -3,8 +3,9 @@ import QtQuick.Window 2.2
 
 Item {
     visible: true
-    width: 640
-    height: 480
+    width: 800
+
+    height: 600
     //title: qsTr("Mindgo automatic tool")
 
     MainScreen{

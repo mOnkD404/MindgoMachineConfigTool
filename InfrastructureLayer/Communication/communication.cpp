@@ -35,11 +35,19 @@ QByteArray Communication::readData()
 {
     if (m_socket.waitForReadyRead())
     {
-        return m_socket.readAll();
+        return m_socket.read(m_socket.bytesAvailable());
     }
     else
     {
         qWarning("socket read error!");
         return 0;
+    }
+}
+
+void Communication::disconnect()
+{
+    if(m_socket.isOpen())
+    {
+        m_socket.close();
     }
 }

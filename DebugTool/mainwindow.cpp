@@ -29,24 +29,30 @@ void MainWindow::newConnection()
     qDebug()<<"client connectting ip:"<<skt->peerAddress()<<" port:"<<skt->peerPort();
 
     QByteArray recvArray;
-    while(skt->isOpen())
+    while(skt->isOpen() && skt->isValid())
     {
-        skt->waitForReadyRead();
-
-        if (skt->bytesAvailable() > 0)
+        if(skt->waitForReadyRead(5000))
         {
-            QByteArray array = skt->read(skt->bytesAvailable());
-            qDebug()<<array.size()<<"data recv"<<array;
-            recvArray.append(array);
-
-            if (handleData(array))
+            if (skt->bytesAvailable() > 0)
             {
-                skt->write(m_ackData);
-                skt->waitForBytesWritten();
+                QByteArray array = skt->read(skt->bytesAvailable());
+                qDebug()<<array.size()<<"data recv"<<array;
+                recvArray.append(array);
+
+                if (handleData(array))
+                {
+                    skt->write(m_ackData);
+                    skt->waitForBytesWritten();
+                }
             }
+
+        }
+        else
+        {
+            break;
         }
     }
-
+    skt->close();
 }
 
 bool MainWindow::handleData(const QByteArray& array)
@@ -66,7 +72,7 @@ bool MainWindow::handleData(const QByteArray& array)
         qDebug()<<"load tip command recv"<<array;
 
         memcpy(ack+3, array.data()+3, 4);
-        m_ackData = QByteArray(ack,6);
+        m_ackData = QByteArray(ack,9);
     }
     else if(memcmp(array.data(), command[1], 5) == 0)
     {
@@ -74,7 +80,7 @@ bool MainWindow::handleData(const QByteArray& array)
         qDebug()<<"dump tip command recv"<<array;
 
         memcpy(ack+3, array.data()+3, 4);
-        m_ackData = QByteArray(ack,6);
+        m_ackData = QByteArray(ack,9);
     }
     else if(memcmp(array.data(), command[2], 5) == 0)
     {
@@ -82,7 +88,7 @@ bool MainWindow::handleData(const QByteArray& array)
         qDebug()<<"suction command recv"<<array;
 
         memcpy(ack+3, array.data()+3, 4);
-        m_ackData = QByteArray(ack,6);
+        m_ackData = QByteArray(ack,9);
     }
     else if(memcmp(array.data(), command[3], 5) == 0)
     {
@@ -90,7 +96,7 @@ bool MainWindow::handleData(const QByteArray& array)
         qDebug()<<"despense command recv"<<array;
 
         memcpy(ack+3, array.data()+3, 4);
-        m_ackData = QByteArray(ack,6);
+        m_ackData = QByteArray(ack,9);
     }
     else if(memcmp(array.data(), command[4], 5) == 0)
     {
@@ -98,8 +104,14 @@ bool MainWindow::handleData(const QByteArray& array)
         qDebug()<<"mix command recv"<<array;
 
         memcpy(ack+3, array.data()+3, 4);
-        m_ackData = QByteArray(ack,6);
+        m_ackData = QByteArray(ack,9);
+
     }
+    else
+    {
+        return false;
+    }
+    return true;
 }
 
 

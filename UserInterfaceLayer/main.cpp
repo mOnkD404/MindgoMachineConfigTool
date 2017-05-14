@@ -14,6 +14,7 @@
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+    app.setApplicationName("Mindgo");
 
     QTranslator translator;
     translator.load("/Users/sunwp/Desktop/MindgoMachineConfigTool/MindgoMachineConfigTool/cn.qm");
@@ -30,6 +31,8 @@ int main(int argc, char *argv[])
     EnvironmentVariant::instance()->initModels(view.rootContext());
 
 
+    view.connect(view.engine(), &QQmlEngine::quit, &app, &QCoreApplication::quit);
+    view.setResizeMode(QQuickView::SizeRootObjectToView);
     view.setSource(QUrl("qrc:/main.qml"));
     view.show();
 

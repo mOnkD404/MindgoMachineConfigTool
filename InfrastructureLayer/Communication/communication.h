@@ -13,6 +13,7 @@ public:
     Communication();
 
     bool connectToServer(const QString& host, quint16 port);
+    void disconnect();
 
     qint64 write(const QByteArray &byteArray);
     QByteArray readData();

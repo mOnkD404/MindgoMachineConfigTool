@@ -162,7 +162,7 @@ bool WorkflowProtocol::parseAckFrame(const QByteArray& buff, QJsonObject& ret)
 
 
 
-    for(int index = 0; index + frameLen < buff.size(); index++)
+    for(int index = 0; index + frameLen <= buff.size(); index++)
     {
         if(memcmp(standardHead, buff.data()+index, sizeof(standardHead)) == 0)
         {
@@ -258,7 +258,7 @@ void SubThreadWorker::doWork(const QJsonObject &jsObj)
         while(com.connected() && timer.elapsed() < 1000)
         {
             int send = com.write(btarray);
-            qDebug()<<"client write "<<send<<" bytes"<<btarray.left(send);
+            qDebug()<<"client write "<<send<<" bytes"<<hex<<btarray.left(send);
             if(send < 0)
             {
                 break;
@@ -292,6 +292,7 @@ void SubThreadWorker::doWork(const QJsonObject &jsObj)
             const QByteArray &array = com.readData();
             if(array.size() > 0)
             {
+                qDebug()<<"recv ack"<<hex<<array;
                 recvArray.append(array);
                 if (m_protocol->parseAckFrame(recvArray, retObj))
                 {
@@ -307,6 +308,7 @@ void SubThreadWorker::doWork(const QJsonObject &jsObj)
         if(!recvret)
             return;
     }
+    com.disconnect();
 }
 
 void SubThreadWorker::changeHost(const QString& host, quint16 port)

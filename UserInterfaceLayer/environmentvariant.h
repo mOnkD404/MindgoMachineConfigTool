@@ -31,7 +31,7 @@ public:
     QStringList StepList(int planIndex );
     SingleOperationData planStepParam(int planIndex, int stepIndex);
 
-    void AddPlanStep(int planIndex, int before, const QString&);
+    void AddPlanStep(int planIndex, int before, int operationIndex);
 
 
     QJsonObject formatSingleOperationParam(const SingleOperationData & obj);

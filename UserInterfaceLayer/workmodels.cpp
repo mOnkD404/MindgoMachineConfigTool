@@ -331,7 +331,7 @@ void PlanSelector::addStep(int planIndex, int pos, int index)
         m_stepListModel.insert(pos, m_operationListModel[index]);
     }
 
-    EnvironmentVariant::instance()->AddPlanStep(planIndex, pos, m_operationListModel[index]);
+    EnvironmentVariant::instance()->AddPlanStep(planIndex, pos, index);
 }
 
 void PlanSelector::onComplete()

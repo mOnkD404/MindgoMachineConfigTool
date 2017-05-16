@@ -20,16 +20,27 @@ public:
     QQmlContext* context(){return m_context;}
     //void changeModel(const QString& pagename, const QString& modelname, const QString& opname);
     QList<OperationParamData> getOperationParams(int index);
+    int getOperationIndex(const QString& name);
 
     const QMap<QString, QStringList> & operationParamMap() {return m_operationParamMap;}
 
-    const QStringList OperationNameList();
+    QStringList OperationNameList();
+    QStringList LogicalControlList();
 
-    QJsonObject formatSingleOperationParam(const SingleOperationObject & obj);
+    QStringList PlanList();
+    QStringList StepList(int planIndex );
+    SingleOperationData planStepParam(int planIndex, int stepIndex);
+
+    void AddPlanStep(int planIndex, int before, const QString&);
+
+
+    QJsonObject formatSingleOperationParam(const SingleOperationData & obj);
 
     void runTask(const QJsonObject& task);
 
     WorkflowController& workFlow(){ return m_workFlow; }
+
+    SingleOperationData defaultValue(const QString& Operationname);
 
 private:
     EnvironmentVariant():m_context(0) {}
@@ -40,10 +51,14 @@ private:
 
     QQmlContext* m_context;
     QStringList m_operationList;
+    QStringList m_logicalControlList;
     QMap<QString, QStringList> m_operationParamMap;
     QMap<QString, QString> m_operationNameDispMap;
     QMap<QString, QString> m_operationDispNameMap;
     QMap<QString, OperationParamData> m_paramDefaultValueMap;
+
+    QList<QPair<QString, QList<SingleOperationData> > >  m_planList;
+
     QString m_configFilename;
 
     WorkflowController m_workFlow;

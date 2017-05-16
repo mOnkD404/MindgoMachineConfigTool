@@ -3,18 +3,15 @@ import QtQuick.Controls 1.4
 import Common 1.0
 
 Item {
-    property string operationGroupType
+    id: root
 
-    Component.onCompleted: {
-        selector.init(operationGroupType);
-    }
-    OperationParamSelector{
+    PlanSelector{
         id:selector
     }
-    function commitData(){
-        selector.onCompleteSingleOperation();
-    }
 
+    property var columnWidth;
+
+    columnWidth: 150
 
     Row {
         id: row
@@ -23,12 +20,205 @@ Item {
         anchors.fill: parent
 
         Item {
-            id: column
-            width: 150
+            id: planColumn
+            width: columnWidth
             anchors.top: parent.top
             anchors.topMargin: 0
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
+
+            Rectangle{
+                id: userPlanSelect
+                anchors.right: parent.right
+                anchors.rightMargin: 0
+                anchors.left: parent.left
+                anchors.leftMargin: 0
+                anchors.top: parent.top
+                color:"#747474"
+                height: 30
+
+                Text {
+                    text: qsTr("Plan list")
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.fill: parent
+                    font.pixelSize: 17
+                    font.bold: true
+                    width: 120
+                    color:"#d9d9d9"
+                }
+            }
+
+
+            ListView {
+                id: planListView
+                spacing: 4
+                anchors.top: userPlanSelect.bottom
+                anchors.topMargin: 10
+                anchors.right: parent.right
+                anchors.rightMargin: 10
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 10
+
+                clip: true
+                highlight: Rectangle{
+                    height: 30
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+
+                    color: "#ffb902"
+                    radius: 0
+                }
+                highlightFollowsCurrentItem: true
+                currentIndex: 0
+                interactive: false
+
+                delegate: TextButton {
+                    height: 30
+
+                    anchors.left:parent.left
+                    anchors.leftMargin: 0
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+
+                    buttonradius: 0
+
+                    textValue: modelData
+                    startColor: "transparent"
+                    stopColor: "transparent"
+                    onClicked: {
+                        console.debug(modelData+"clicked");
+                        planListView.currentIndex = index;
+                    }
+                }
+                onCurrentIndexChanged: {
+                    selector.setSelectedPlan(currentIndex);
+                    stepListView.model = selector.stepListModel();
+                }
+
+                Component.onCompleted:
+                {
+                    model = selector.planListModel();
+                    selector.setSelectedPlan(currentIndex);
+                }
+            }
+        }
+
+
+        Item {
+            id: stepColumn
+            width: columnWidth
+            anchors.top: parent.top
+            anchors.topMargin: 0
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+
+            Rectangle{
+                id: stepList
+                anchors.right: parent.right
+                anchors.rightMargin: 0
+                anchors.left: parent.left
+                anchors.leftMargin: 0
+                anchors.top: parent.top
+                color:"#747474"
+                height: 30
+
+                Text {
+                    text: qsTr("Step list")
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.fill: parent
+                    font.pixelSize: 17
+                    font.bold: true
+                    width: 85
+                    color:"#d9d9d9"
+                }
+
+                TextButton{
+                    id:addStepButton
+                    width: 30
+                    anchors.top: parent.top
+                    anchors.topMargin: 4
+                    anchors.right: parent.right
+                    anchors.rightMargin: 4
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 4
+                    textValue: "+"
+
+                    onClicked: {
+                        operationColumn.visible = true;
+                    }
+                }
+            }
+
+
+            ListView {
+                id: stepListView
+                spacing: 4
+                anchors.top: stepList.bottom
+                anchors.topMargin: 10
+                anchors.right: parent.right
+                anchors.rightMargin: 10
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 10
+
+                clip: true
+                highlight: Rectangle{
+                    height: 30
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+
+                    color: "#5cc5ff"
+                    radius: 0
+                }
+                highlightFollowsCurrentItem: true
+                currentIndex: 0
+                interactive: true
+
+                delegate: TextButton {
+                    height: 30
+
+                    anchors.left:parent.left
+                    anchors.leftMargin: 0
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    textHorizontalAlignment: Text.AlignLeft
+
+                    buttonradius: 0
+
+                    textValue: (index+1)+". "+modelData
+                    startColor: "transparent"
+                    stopColor: "transparent"
+                    onClicked: {
+                        console.debug(modelData+"clicked");
+                        stepListView.currentIndex = index;
+                    }
+                }
+                onCurrentIndexChanged: {
+                    selector.setSelectedStep(planListView.currentIndex, currentIndex);
+
+                    //operationList.currentIndex = selector.operationCurrentIndex();
+                    paramList.model = selector.paramListModel();
+                }
+            }
+        }
+
+        Item {
+            property bool  addOperation;
+
+            id: operationColumn
+            width: columnWidth
+            anchors.top: parent.top
+            anchors.topMargin: 0
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+            visible: false
+
+            addOperation:true
 
             Rectangle{
                 id: operationType
@@ -55,6 +245,9 @@ Item {
 
             ListView {
                 id: operationList
+                highlightRangeMode: ListView.NoHighlightRange
+                highlightMoveDuration: 0
+                snapMode: ListView.NoSnap
                 spacing: 4
                 anchors.top: operationType.bottom
                 anchors.topMargin: 10
@@ -75,7 +268,7 @@ Item {
                     radius: 0
                 }
                 highlightFollowsCurrentItem: true
-                currentIndex: 0
+                currentIndex: -1
                 interactive: false
 
                 delegate: TextButton {
@@ -94,24 +287,37 @@ Item {
                     onClicked: {
                         console.debug(modelData+"clicked");
                         operationList.currentIndex = index;
+                        operationColumn.visible = false;
+
+
+                        var oldIndex = stepListView.currentIndex;
+                        if(operationColumn.addOperation){
+                            selector.addStep(planListView.currentIndex, stepListView.currentIndex, index);
+                            stepListView.model = selector.stepListModel();
+                            stepListView.currentIndex = oldIndex;
+                        }else {
+                            selector.setSelectedOperation(stepListView.currentIndex, index);
+                            stepListView.model = selector.stepListModel();
+                            stepListView.currentIndex = oldIndex;
+                        }
                     }
-                }
-                onCurrentIndexChanged: {
-                    selector.setSelectedOperation(currentIndex);
-                    paramList.model = selector.paramModel();
                 }
 
                 Component.onCompleted:
                 {
-                    model = selector.operationModel();
-                    selector.setSelectedOperation(currentIndex);
+                    model = selector.operationListModel();
+                }
+                onVisibleChanged: {
+                    if(operationColumn.visible == true){
+                        currentIndex = selector.operationCurrentIndex();
+                    }
                 }
             }
         }
 
         Item {
-            id: column1
-            width: column.width*2
+            id: paramColumn
+            width: columnWidth*2
             anchors.bottom: parent.bottom
             anchors.top: parent.top
 
@@ -148,10 +354,6 @@ Item {
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
                 interactive: false
-
-                Component.onCompleted: {
-                    model = selector.paramModel();
-                }
 
                 delegate: Item {
                     height:30

@@ -151,3 +151,68 @@ QMap<QString, OperationParamData> configFileHandler::ParseParamValue(const QStri
     return retmap;
 }
 
+QString configFileHandler::ParseHostIP()
+{
+    QJsonObject targetObj = m_configFileObj["target"].toObject();
+    return targetObj["IP"].toString();
+}
+
+qint16 configFileHandler::ParseHostPort()
+{
+    QJsonObject targetObj = m_configFileObj["target"].toObject();
+
+    return  targetObj["port"].toInt();
+}
+
+void configFileHandler::ParsePlanList(QList<QPair<QString, QList<SingleOperationData> > >& planMap, const QMap<QString, OperationParamData> & defaultParamMap)
+{
+    planMap.clear();
+
+    QJsonObject planObj = m_configFileObj["plan"].toObject();
+    for(QJsonObject::Iterator objIter = planObj.begin(); objIter != planObj.end(); objIter++)
+    {
+        QString planName = objIter.key();
+
+        QJsonArray steplist = objIter.value().toArray();
+        QList<SingleOperationData> oplist;
+
+        for(QJsonArray::Iterator iter = steplist.begin(); iter != steplist.end(); iter++)
+        {
+            QJsonObject opObj = iter->toObject();
+            QJsonObject paramObj = opObj["params"].toObject();
+
+            SingleOperationData opData;
+            opData.operationName = opObj["operation"].toString();
+
+            for(QJsonObject::Iterator iter2 = paramObj.begin(); iter2 != paramObj.end(); iter2++)
+            {
+                OperationParamData paramData;
+                paramData.Name = iter2.key();
+
+                if (defaultParamMap.contains(paramData.Name))
+                {
+                    const OperationParamData& data = defaultParamMap[paramData.Name];
+                    paramData.Type = data.Type;
+                    if(data.Type == "enum")
+                    {
+                        paramData.IntegerValue = iter2->toInt();
+                    }
+                    else if(data.Type == "integer")
+                    {
+                        paramData.IntegerValue = iter2->toInt();
+                    }
+                    else if(data.Type == "float")
+                    {
+                        paramData.FloatValue = iter2->toDouble();
+                    }
+                    opData.params.append(paramData);
+                }
+
+            }
+            oplist.append(opData);
+        }
+        planMap.append(qMakePair(planName,oplist));
+    }
+
+}
+

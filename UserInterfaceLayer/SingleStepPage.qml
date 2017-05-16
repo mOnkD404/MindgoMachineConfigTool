@@ -35,7 +35,7 @@ Item {
                 anchors.rightMargin: 0
                 buttonradius: 0
                 onClicked: {
-                    singleStepOperation.commitData(0);
+                    singleStepOperation.commitData();
                     console.debug("Execute single step operation.");
                 }
             }
@@ -49,7 +49,7 @@ Item {
             anchors.right: parent.right
             anchors.bottom: parent.bottom
 
-            name: "SingleStepPage"
+            operationGroupType: "NormalOperation"
         }
     }
 

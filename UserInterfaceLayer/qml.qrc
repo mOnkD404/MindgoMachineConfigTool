@@ -7,7 +7,7 @@
         <file>SystemSetting.qml</file>
         <file>SystemSettingForm.ui.qml</file>
         <file>PlanSetting.qml</file>
-        <file>PlanSettingForm.ui.qml</file>
         <file>OperationList.qml</file>
+        <file>PlanList.qml</file>
     </qresource>
 </RCC>

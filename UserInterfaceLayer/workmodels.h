@@ -255,6 +255,8 @@ class OperationParamSelector: public QObject
 public:
     OperationParamSelector(QObject* parent = 0);
 
+    Q_INVOKABLE void init(const QString& pageName);
+
     QString pageName()const { return m_pagename;}
     void setPageName(const QString& name);
 
@@ -274,7 +276,7 @@ public:
     //for qml
     Q_INVOKABLE void setSelectedOperation(int index);
     Q_INVOKABLE QObject* getSwitch(const QString& name);
-    Q_INVOKABLE void onCompleteSingleOperation(int seq);
+    Q_INVOKABLE void onCompleteSingleOperation();
 
 
 signals:
@@ -290,13 +292,70 @@ private:
     QList<OperationParamData> m_paramData;
 };
 
-class SingleOperationObject
+class SingleOperationData
 {
 public:
-
     QString operationName;
     int sequenceNumber;
-    QList<OperationParamObject*> params;
+    QList<OperationParamData> params;
+};
+
+class SingleOperationObject:public QObject, SingleOperationData
+{
+    Q_OBJECT
+    Q_PROPERTY(QString operationName READ getOperationName WRITE setOperationName NOTIFY operationNameChanged)
+public:
+
+    QString getOperationName(){return operationName;}
+    void setOperationName(const QString& name)
+    {
+        if(operationName != name)
+        {
+            operationName = name;
+            emit operationNameChanged();
+        }
+    }
+
+signals:
+    void operationNameChanged();
+};
+
+class PlanSelector: public QObject
+{
+    Q_OBJECT
+
+public:
+    PlanSelector(QObject* parent = 0);
+
+    Q_INVOKABLE QStringList planListModel() {return m_planListModel;}
+    Q_INVOKABLE QStringList stepListModel() {return m_stepListModel;}
+    Q_INVOKABLE QStringList operationListModel() {return m_operationListModel;}
+    Q_INVOKABLE QList<QObject*> paramListModel() {return m_paramListModel;}
+
+    Q_INVOKABLE void setSelectedPlan(int index);
+    Q_INVOKABLE void setSelectedStep(int planIndex, int stepIndex);
+    Q_INVOKABLE void setSelectedOperation(int stepIndex, int index);
+
+    Q_INVOKABLE int operationCurrentIndex();
+    Q_INVOKABLE void addStep(int planIndex, int pos, int );
+
+    Q_INVOKABLE QObject* getSwitch(const QString& name);
+
+    Q_INVOKABLE void onComplete();
+    Q_INVOKABLE void onSave();
+
+
+signals:
+    void pageNameChanged();
+    void currentIndexChanged();
+
+private:
+    QStringList m_planListModel;
+    QStringList m_stepListModel;
+    QStringList m_operationListModel;
+    QList<QObject*> m_paramListModel;
+    QList<OperationParamData> m_paramData;
+    SingleOperationData m_operationData;
 };
 
 

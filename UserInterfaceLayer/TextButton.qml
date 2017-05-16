@@ -8,7 +8,10 @@ Item{
     property var textValue;
     property color textColor;
     property var buttonradius;
+    property var textHorizontalAlignment : textItem.horizontalAlignment;
     signal clicked;
+    signal pressed;
+
 
     id:textbutton
     width: parent.width
@@ -72,6 +75,9 @@ Item{
 
             onClicked: {
                 textbutton.clicked();
+            }
+            onPressed:{
+                textbutton.pressed();
             }
         }
     }

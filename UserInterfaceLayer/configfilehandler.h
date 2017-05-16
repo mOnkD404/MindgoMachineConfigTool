@@ -19,6 +19,10 @@ public:
     QMap<QString, QString> ParseMapRevertKeyValue(const QString&);
     QMap<QString, OperationParamData> ParseParamValue(const QString&);
 
+    QString ParseHostIP();
+    qint16 ParseHostPort();
+    void ParsePlanList(QList<QPair<QString, QList<SingleOperationData> > >& planMap, const QMap<QString, OperationParamData> &);
+
 signals:
 
 public slots:

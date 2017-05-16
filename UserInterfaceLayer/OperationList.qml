@@ -3,13 +3,16 @@ import QtQuick.Controls 1.4
 import Common 1.0
 
 Item {
-    property string name
+    property string operationGroupType
 
+    Component.onCompleted: {
+        selector.init(operationGroupType);
+    }
     OperationParamSelector{
         id:selector
     }
-    function commitData(index){
-        selector.onCompleteSingleOperation(index);
+    function commitData(){
+        selector.onCompleteSingleOperation();
     }
 
 
@@ -65,10 +68,8 @@ Item {
                 clip: true
                 highlight: Rectangle{
                     height: 30
-                    anchors.left:parent.left
-                    anchors.leftMargin: 10
+                    anchors.left: parent.left
                     anchors.right: parent.right
-                    anchors.rightMargin: 10
 
                     color: "#5cc5ff"
                     radius: 0
@@ -81,9 +82,9 @@ Item {
                     height: 30
 
                     anchors.left:parent.left
-                    anchors.leftMargin: 10
+                    anchors.leftMargin: 0
                     anchors.right: parent.right
-                    anchors.rightMargin: 10
+                    anchors.rightMargin: 0
 
                     buttonradius: 0
 
@@ -126,10 +127,7 @@ Item {
 
                 Text {
                     text: qsTr("Operation param")
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
-                    anchors.left: parent.left
-                    anchors.leftMargin: 10
+                    anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     font.pixelSize: 17

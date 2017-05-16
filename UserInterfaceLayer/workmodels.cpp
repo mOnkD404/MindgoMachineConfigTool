@@ -175,23 +175,35 @@ const char* paramModelName = "ParamModel";
 OperationParamSelector::OperationParamSelector(QObject* parent)
     :QObject(parent),m_currentIndex(-1)
 {
-    m_operationModel = EnvironmentVariant::instance()->OperationNameList();
+
 }
 
+void OperationParamSelector::init(const QString& group)
+{
+    if (group == "NormalOperation")
+    {
+        m_operationModel = EnvironmentVariant::instance()->OperationNameList();
+    }
+    else if (group == "LogicalControl")
+    {
+        m_operationModel = EnvironmentVariant::instance()->OperationNameList();
+        m_operationModel.append(EnvironmentVariant::instance()->LogicalControlList());
+    }
+}
 
 void OperationParamSelector::setSelectedOperation(int index)
 {
-//    if (selectedOp == "")
-//    {
-//        m_selectedOperation = "";
-//        EnvironmentVariant::instance()->changeModel(m_pagename, paramModelName, QString());
-//    }
-//    else if (selectedOp != m_selectedOperation)
-//    {
-//        m_selectedOperation = selectedOp;
+    //    if (selectedOp == "")
+    //    {
+    //        m_selectedOperation = "";
+    //        EnvironmentVariant::instance()->changeModel(m_pagename, paramModelName, QString());
+    //    }
+    //    else if (selectedOp != m_selectedOperation)
+    //    {
+    //        m_selectedOperation = selectedOp;
 
-//        EnvironmentVariant::instance()->changeModel(m_pagename, paramModelName, selectedOp);
-//    }
+    //        EnvironmentVariant::instance()->changeModel(m_pagename, paramModelName, selectedOp);
+    //    }
 
     if (index != m_currentIndex)
     {
@@ -233,17 +245,19 @@ QObject* OperationParamSelector::getSwitch(const QString &name)
     return NULL;
 }
 
-void OperationParamSelector::onCompleteSingleOperation(int seq)
+void OperationParamSelector::onCompleteSingleOperation()
 {
-    SingleOperationObject opobj;
+    SingleOperationData opobj;
     opobj.operationName = EnvironmentVariant::instance()->OperationNameList().at(m_currentIndex);
-    opobj.sequenceNumber = seq;
+    opobj.sequenceNumber = 0;
     foreach(QObject* pObj, m_paramModel)
     {
         OperationParamObject* pParam = qobject_cast<OperationParamObject*>(pObj);
         if (pParam)
         {
-            opobj.params.append(pParam);
+            OperationParamData* data = static_cast<OperationParamData*>(pParam);
+            if (data)
+                opobj.params.append(*data);
         }
     }
     QJsonObject operationObj = EnvironmentVariant::instance()->formatSingleOperationParam(opobj);
@@ -252,6 +266,95 @@ void OperationParamSelector::onCompleteSingleOperation(int seq)
 }
 
 
+PlanSelector::PlanSelector(QObject* parent )
+    :QObject(parent)
+{
+    m_planListModel = EnvironmentVariant::instance()->PlanList();
+
+    m_operationListModel = EnvironmentVariant::instance()->OperationNameList();
+    m_operationListModel.append(EnvironmentVariant::instance()->LogicalControlList());
+
+}
+
+void PlanSelector::setSelectedPlan(int index)
+{
+    m_stepListModel = EnvironmentVariant::instance()->StepList(index);
+}
+
+void PlanSelector::setSelectedStep(int planIndex, int stepIndex)
+{
+    m_operationData = EnvironmentVariant::instance()->planStepParam(planIndex, stepIndex);
+
+    foreach (QObject* obj, m_paramListModel) {
+        if(obj)
+            delete obj;
+    }
+    m_paramListModel.clear();
+    foreach(const OperationParamData& data, m_operationData.params)
+    {
+        m_paramListModel.append(new OperationParamObject(data));
+    }
+}
+
+void PlanSelector::setSelectedOperation(int stepIndex, int opIndex)
+{
+    if (stepIndex >= 0 && stepIndex < m_stepListModel.size() && opIndex >= 0 && opIndex < m_operationListModel.size())
+    {
+        m_paramData = EnvironmentVariant::instance()->getOperationParams(opIndex);
+        m_stepListModel[stepIndex] = m_operationListModel[opIndex];
+
+        foreach (QObject* obj, m_paramListModel) {
+            if(obj)
+                delete obj;
+        }
+        m_paramListModel.clear();
+        foreach(const OperationParamData& data, m_paramData)
+        {
+            m_paramListModel.append(new OperationParamObject(data));
+        }
+    }
+}
+
+int PlanSelector::operationCurrentIndex()
+{
+    return EnvironmentVariant::instance()->getOperationIndex(m_operationData.operationName);
+}
+
+void PlanSelector::addStep(int planIndex, int pos, int index)
+{
+    if (pos == -1)
+    {
+        m_stepListModel.append(m_operationListModel[index]);
+    }
+    else
+    {
+        m_stepListModel.insert(pos, m_operationListModel[index]);
+    }
+
+    EnvironmentVariant::instance()->AddPlanStep(planIndex, pos, m_operationListModel[index]);
+}
+
+void PlanSelector::onComplete()
+{
+}
+
+void PlanSelector::onSave()
+{
+}
+
+QObject* PlanSelector::getSwitch(const QString &name)
+{
+    foreach(QObject* pObj, m_paramListModel)
+    {
+        OperationParamObject* pParam = dynamic_cast<OperationParamObject*>(pObj);
+        if (pParam && name == pParam->name())
+        {
+            qDebug()<<"getswitch:"<<pParam->name()<<" value:"<<pParam->boolValue();
+            return pParam;
+        }
+    }
+    return NULL;
+}
 
 
 

@@ -106,7 +106,7 @@ Item {
                 stopColor:"#6e6d71"
                 borderColor:"#cecece"
 
-                onClicked: subPage.subPageUrl = Qt.resolvedUrl("SingleStepPage.qml");
+                onClicked: subPage.subPageUrl = Qt.resolvedUrl("SingleStepPage.qml")
             }
 
             TextButton{
@@ -117,7 +117,7 @@ Item {
                 stopColor:"#6e6d71"
                 borderColor:"#cecece"
 
-                onClicked: subPage.subPageUrl = Qt.resolvedUrl("SystemSdtting.qml")
+                onClicked: subPage.subPageUrl = Qt.resolvedUrl("SystemSetting.qml")
             }
 
             TextButton{

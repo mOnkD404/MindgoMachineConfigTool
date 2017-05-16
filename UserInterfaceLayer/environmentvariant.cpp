@@ -167,7 +167,10 @@ QStringList EnvironmentVariant::StepList(int planIndex)
         const QList<SingleOperationData> & data = m_planList[planIndex].second;
         foreach (const SingleOperationData& pda, data)
         {
-            steplist.append(pda.operationName);
+            if(m_operationNameDispMap.contains(pda.operationName))
+            {
+                steplist.append(m_operationNameDispMap[pda.operationName]);
+            }
         }
     }
     return steplist;
@@ -256,14 +259,14 @@ void EnvironmentVariant::runTask(const QJsonObject &task)
      m_workFlow.runTask(task);
 }
 
-void EnvironmentVariant::AddPlanStep(int planIndex, int before, const QString &opName)
+void EnvironmentVariant::AddPlanStep(int planIndex, int before, int operationIndex)
 {
     if(planIndex < 0 || planIndex >= m_planList.size())
         return;
 
     QPair<QString, QList<SingleOperationData> > plan = m_planList[planIndex];
 
-    SingleOperationData data = defaultValue(opName);
+    SingleOperationData data = defaultValue(m_operationList[operationIndex]);
 
     if(before < 0 || before > plan.second.size())
     {
@@ -294,5 +297,6 @@ SingleOperationData EnvironmentVariant::defaultValue(const QString& Operationnam
         }
         return data;
     }
+
     return SingleOperationData();
 }

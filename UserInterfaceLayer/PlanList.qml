@@ -169,11 +169,16 @@ Item {
                 clip: true
                 highlight: Rectangle{
                     height: 30
-                    anchors.left: parent.left
-                    anchors.right: parent.right
 
                     color: "#5cc5ff"
                     radius: 0
+
+                    Component.onCompleted: {
+                        if(parent){
+                            anchors.left = parent.left;
+                            anchors.right = parent.right;
+                        }
+                    }
                 }
                 highlightFollowsCurrentItem: true
                 currentIndex: 0
@@ -261,11 +266,15 @@ Item {
                 clip: true
                 highlight: Rectangle{
                     height: 30
-                    anchors.left: parent.left
-                    anchors.right: parent.right
 
                     color: "#5cc5ff"
                     radius: 0
+                    Component.onCompleted: {
+                        if(parent){
+                            anchors.left = parent.left;
+                            anchors.right = parent.right;
+                        }
+                    }
                 }
                 highlightFollowsCurrentItem: true
                 currentIndex: -1
@@ -293,13 +302,12 @@ Item {
                         var oldIndex = stepListView.currentIndex;
                         if(operationColumn.addOperation){
                             selector.addStep(planListView.currentIndex, stepListView.currentIndex, index);
-                            stepListView.model = selector.stepListModel();
-                            stepListView.currentIndex = oldIndex;
                         }else {
                             selector.setSelectedOperation(stepListView.currentIndex, index);
-                            stepListView.model = selector.stepListModel();
-                            stepListView.currentIndex = oldIndex;
                         }
+                        stepListView.model = selector.stepListModel();
+                        stepListView.currentIndex = oldIndex;
+                        paramList.model = selector.paramListModel();
                     }
                 }
 

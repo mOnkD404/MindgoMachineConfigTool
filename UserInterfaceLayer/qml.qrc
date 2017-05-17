@@ -9,5 +9,13 @@
         <file>PlanSetting.qml</file>
         <file>OperationList.qml</file>
         <file>PlanList.qml</file>
+        <file>ActionBar.qml</file>
+        <file>image/down.png</file>
+        <file>image/edit.png</file>
+        <file>image/garbage.png</file>
+        <file>image/next.png</file>
+        <file>image/paper-plane.png</file>
+        <file>image/up.png</file>
+        <file>image/add.png</file>
     </qresource>
 </RCC>

@@ -49,11 +49,21 @@ Item {
                 }
             }
 
+            ActionBar{
+                id:planActionbar
+                positionAction: false
+
+                height: 30
+
+                anchors.top: userPlanSelect.bottom
+                anchors.left: parent.left
+                anchors.right: parent.right
+            }
 
             ListView {
                 id: planListView
                 spacing: 4
-                anchors.top: userPlanSelect.bottom
+                anchors.top: planActionbar.bottom
                 anchors.topMargin: 10
                 anchors.right: parent.right
                 anchors.rightMargin: 10
@@ -76,6 +86,7 @@ Item {
                 interactive: false
 
                 delegate: TextButton {
+
                     height: 30
 
                     anchors.left:parent.left
@@ -94,14 +105,13 @@ Item {
                     }
                 }
                 onCurrentIndexChanged: {
-                    selector.setSelectedPlan(currentIndex);
-                    stepListView.model = selector.stepListModel();
+                    stepListView.refreshStepListModel();
+
                 }
 
                 Component.onCompleted:
                 {
                     model = selector.planListModel();
-                    selector.setSelectedPlan(currentIndex);
                 }
             }
         }
@@ -132,32 +142,64 @@ Item {
                     anchors.fill: parent
                     font.pixelSize: 17
                     font.bold: true
-                    width: 85
+                    width: 120
                     color:"#d9d9d9"
                 }
 
-                TextButton{
-                    id:addStepButton
-                    width: 30
-                    anchors.top: parent.top
-                    anchors.topMargin: 4
-                    anchors.right: parent.right
-                    anchors.rightMargin: 4
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 4
-                    textValue: "+"
+            }
 
-                    onClicked: {
+            ActionBar{
+                id:stepActionBar
+
+                height: 30
+
+                anchors.top: stepList.bottom
+                anchors.left: parent.left
+                anchors.right: parent.right
+
+                onDoAction: {
+                    if (str == "add"){
+                        operationColumn.changeOperation = "add"
                         operationColumn.visible = true;
+                    }else if(str == "edit"){
+                        operationColumn.changeOperation = "edit";
+                        operationColumn.visible = true;
+                    }else if(str == "up"){
+                        selector.moveStep(planListView.currentIndex, stepListView.currentIndex, stepListView.currentIndex-1);
+                        stepListModel.move(stepListView.currentIndex, stepListView.currentIndex - 1, 1);
+                    }else if(str == "down"){
+                        selector.moveStep(planListView.currentIndex, stepListView.currentIndex, stepListView.currentIndex+1);
+                        stepListModel.move(stepListView.currentIndex, stepListView.currentIndex + 1, 1);
+                    }else if(str == "delete"){
+                        selector.removeStep(planListView.currentIndex, stepListView.currentIndex);
+                        stepListModel.remove(stepListView.currentIndex);
+                        stepListView.currentIndex = -1;
                     }
                 }
             }
 
 
+            ListModel{
+                id:stepListModel
+            }
+
             ListView {
                 id: stepListView
+
+                function refreshStepListModel(){
+                    var list = selector.stepListModel(planListView.currentIndex);
+                    stepListModel.clear();
+                    for(var ind = 0; ind < list.length; ind++){
+                        stepListModel.append({"name":list[ind]});
+                    }
+                    currentIndex = 0;
+
+                    selector.setSelectedStep(planListView.currentIndex, 0);
+                    paramList.model = selector.paramListModel();
+                }
+
                 spacing: 4
-                anchors.top: stepList.bottom
+                anchors.top: stepActionBar.bottom
                 anchors.topMargin: 10
                 anchors.right: parent.right
                 anchors.rightMargin: 10
@@ -165,6 +207,7 @@ Item {
                 anchors.leftMargin: 10
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 10
+                model: stepListModel
 
                 clip: true
                 highlight: Rectangle{
@@ -184,36 +227,37 @@ Item {
                 currentIndex: 0
                 interactive: true
 
-                delegate: TextButton {
+                delegate:TextButton {
+                    id: stepItem
                     height: 30
 
                     anchors.left:parent.left
                     anchors.leftMargin: 0
                     anchors.right: parent.right
                     anchors.rightMargin: 0
-                    textHorizontalAlignment: Text.AlignLeft
 
                     buttonradius: 0
 
-                    textValue: (index+1)+". "+modelData
+                    textValue: (index+1) + ". " + name
                     startColor: "transparent"
                     stopColor: "transparent"
                     onClicked: {
-                        console.debug(modelData+"clicked");
                         stepListView.currentIndex = index;
                     }
                 }
+
                 onCurrentIndexChanged: {
                     selector.setSelectedStep(planListView.currentIndex, currentIndex);
 
                     //operationList.currentIndex = selector.operationCurrentIndex();
                     paramList.model = selector.paramListModel();
                 }
+
             }
         }
 
         Item {
-            property bool  addOperation;
+            property var  changeOperation;
 
             id: operationColumn
             width: columnWidth
@@ -223,7 +267,7 @@ Item {
             anchors.bottomMargin: 0
             visible: false
 
-            addOperation:true
+            changeOperation:"add"
 
             Rectangle{
                 id: operationType
@@ -299,14 +343,15 @@ Item {
                         operationColumn.visible = false;
 
 
-                        var oldIndex = stepListView.currentIndex;
-                        if(operationColumn.addOperation){
+                        if(operationColumn.changeOperation == "add"){
+                            var oldIndex = stepListView.currentIndex;
                             selector.addStep(planListView.currentIndex, stepListView.currentIndex, index);
-                        }else {
-                            selector.setSelectedOperation(stepListView.currentIndex, index);
+                            stepListModel.insert(oldIndex, {"name":textValue});
+                            stepListView.currentIndex = oldIndex;
+                        }else if (operationColumn.changeOperation == "edit"){
+                            selector.setSelectedOperation(planListView.currentIndex, stepListView.currentIndex, index);
+                            stepListModel.setProperty(stepListView.currentIndex, "name", textValue);
                         }
-                        stepListView.model = selector.stepListModel();
-                        stepListView.currentIndex = oldIndex;
                         paramList.model = selector.paramListModel();
                     }
                 }
@@ -316,8 +361,10 @@ Item {
                     model = selector.operationListModel();
                 }
                 onVisibleChanged: {
-                    if(operationColumn.visible == true){
+                    if((operationColumn.changeOperation == false) && (operationColumn.visible == true)){
                         currentIndex = selector.operationCurrentIndex();
+                    }else {
+                        currentIndex = -1;
                     }
                 }
             }
@@ -328,6 +375,7 @@ Item {
             width: columnWidth*2
             anchors.bottom: parent.bottom
             anchors.top: parent.top
+            visible: !operationColumn.visible
 
             Rectangle{
                 id: operationParam
@@ -446,6 +494,8 @@ Item {
                                     else{
                                         modelData.StringValue = text;
                                     }
+
+                                    selector.commitParam(planListView.currentIndex, stepListView.currentIndex);
                                 }
                                 onEnabledChanged: {
                                     if(enabled == false)
@@ -469,6 +519,8 @@ Item {
 
                             onCurrentIndexChanged: {
                                 modelData.IntegerValue = currentIndex;
+
+                                selector.commitParam(planListView.currentIndex, stepListView.currentIndex);
                             }
 
                         }
@@ -485,6 +537,8 @@ Item {
 
                             onCheckedChanged: {
                                 modelData.BoolValue = checked;
+
+                                selector.commitParam(planListView.currentIndex, stepListView.currentIndex);
                             }
                         }
                     }

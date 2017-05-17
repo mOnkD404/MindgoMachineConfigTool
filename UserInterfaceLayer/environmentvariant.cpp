@@ -23,7 +23,8 @@ void EnvironmentVariant::parseConfigFile(const QString& str)
     configFileHandler handler(NULL);
     handler.loadConfigFile(m_configFilename);
     m_operationList = handler.toList("OperationEnum");
-    m_logicalControlList = handler.toList("LogicalControlEnum");
+    m_controlOperationList = m_operationList;
+    m_controlOperationList.append(handler.toList("LogicalControlEnum"));
 
     m_operationParamMap = handler.ParseListMap("NormalOperation");
     QMap<QString, QStringList> controls = handler.ParseListMap("logicalControl");
@@ -87,20 +88,10 @@ void EnvironmentVariant::initModels(QQmlContext* context)
 QList<OperationParamData> EnvironmentVariant::getOperationParams(int index)
 {
     QList<OperationParamData> parmList;
-    if (index >= 0 && index < m_operationList.size())
-    {
-        foreach(const QString& parmname, m_operationParamMap[m_operationList[index]])
-        {
-            if (m_paramDefaultValueMap.contains(parmname))
-            {
-                parmList.append(m_paramDefaultValueMap[parmname]);
-            }
 
-        }
-    }
-    else if (index >= m_operationList.size() && index < m_operationList.size() + m_logicalControlList.size())
+    if (index >= 0 && index < m_controlOperationList.size())
     {
-        foreach(const QString& parmname, m_operationParamMap[m_logicalControlList[index - m_operationList.size()]])
+        foreach(const QString& parmname, m_operationParamMap[m_controlOperationList[index]])
         {
             if (m_paramDefaultValueMap.contains(parmname))
             {
@@ -138,7 +129,7 @@ QStringList EnvironmentVariant::OperationNameList()
 QStringList EnvironmentVariant::LogicalControlList()
 {
     QStringList strlist;
-    foreach (const QString& str, m_logicalControlList)
+    foreach (const QString& str, m_controlOperationList)
     {
         if(m_operationNameDispMap.contains(str))
         {
@@ -199,7 +190,7 @@ SingleOperationData EnvironmentVariant::planStepParam(int planIndex, int stepInd
             OperationParamData defaultData = retData.params.at(index);
             if (defaultData.Name == realData.Name)
             {
-                if(defaultData.Type == "integer")
+                if(defaultData.Type == "integer" || defaultData.Type == "enum")
                 {
                     defaultData.IntegerValue = realData.IntegerValue;
                 }
@@ -266,7 +257,7 @@ void EnvironmentVariant::AddPlanStep(int planIndex, int before, int operationInd
 
     QPair<QString, QList<SingleOperationData> > plan = m_planList[planIndex];
 
-    SingleOperationData data = defaultValue(m_operationList[operationIndex]);
+    SingleOperationData data = defaultValue(m_controlOperationList[operationIndex]);
 
     if(before < 0 || before > plan.second.size())
     {
@@ -280,6 +271,62 @@ void EnvironmentVariant::AddPlanStep(int planIndex, int before, int operationInd
     m_planList[planIndex] = plan;
 }
 
+void EnvironmentVariant::RemovePlanStep(int planIndex, int stepIndex)
+{
+    if(planIndex < 0 || planIndex >= m_planList.size())
+        return;
+
+    QPair<QString, QList<SingleOperationData> > &plan = m_planList[planIndex];
+
+    if(stepIndex >= 0 && stepIndex < plan.second.size())
+    {
+        plan.second.removeAt(stepIndex);
+    }
+}
+
+void EnvironmentVariant::MovePlanStep(int planIndex, int stepIndex, int newIndex)
+{
+    if(planIndex < 0 || planIndex >= m_planList.size())
+        return;
+
+    QPair<QString, QList<SingleOperationData> > &plan = m_planList[planIndex];
+
+    if(stepIndex >= 0 && stepIndex < plan.second.size() && newIndex >=0 && newIndex < plan.second.size())
+    {
+        SingleOperationData data = plan.second.at(stepIndex);
+        plan.second.removeAt(stepIndex);
+        plan.second.insert(newIndex, data);
+    }
+}
+
+void EnvironmentVariant::SetPlanStepToDefault(int planIndex, int stepIndex, int operationIndex)
+{
+    if(planIndex < 0 || planIndex >= m_planList.size())
+        return;
+
+    QPair<QString, QList<SingleOperationData> > &plan = m_planList[planIndex];
+
+    if(stepIndex >= 0 && stepIndex < plan.second.size())
+    {
+        SingleOperationData data = defaultValue(m_controlOperationList[operationIndex]);
+        plan.second[stepIndex] = data;
+        //m_planList[planIndex] = plan;
+    }
+
+}
+
+void EnvironmentVariant::SetPlanStepParam(int planIndex, int stepIndex, const QList<OperationParamData>& data)
+{
+    if(planIndex < 0 || planIndex >= m_planList.size())
+        return;
+
+    QPair<QString, QList<SingleOperationData> > &plan = m_planList[planIndex];
+
+    if(stepIndex >= 0 && stepIndex < plan.second.size())
+    {
+        plan.second[stepIndex].params = data;
+    }
+}
 
 SingleOperationData EnvironmentVariant::defaultValue(const QString& Operationname)
 {

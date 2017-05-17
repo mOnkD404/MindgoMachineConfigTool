@@ -32,6 +32,10 @@ public:
     SingleOperationData planStepParam(int planIndex, int stepIndex);
 
     void AddPlanStep(int planIndex, int before, int operationIndex);
+    void SetPlanStepToDefault(int planIndex, int stepIndex, int operationIndex);
+    void SetPlanStepParam(int planIndex, int stepIndex, const QList<OperationParamData>& data);
+    void RemovePlanStep(int planIndex, int stepIndex);
+    void MovePlanStep(int planIndex, int stepIndex, int newIndex);
 
 
     QJsonObject formatSingleOperationParam(const SingleOperationData & obj);
@@ -51,7 +55,7 @@ private:
 
     QQmlContext* m_context;
     QStringList m_operationList;
-    QStringList m_logicalControlList;
+    QStringList m_controlOperationList;
     QMap<QString, QStringList> m_operationParamMap;
     QMap<QString, QString> m_operationNameDispMap;
     QMap<QString, QString> m_operationDispNameMap;

@@ -186,8 +186,7 @@ void OperationParamSelector::init(const QString& group)
     }
     else if (group == "LogicalControl")
     {
-        m_operationModel = EnvironmentVariant::instance()->OperationNameList();
-        m_operationModel.append(EnvironmentVariant::instance()->LogicalControlList());
+        m_operationModel = EnvironmentVariant::instance()->LogicalControlList();
     }
 }
 
@@ -270,15 +269,12 @@ PlanSelector::PlanSelector(QObject* parent )
     :QObject(parent)
 {
     m_planListModel = EnvironmentVariant::instance()->PlanList();
-
-    m_operationListModel = EnvironmentVariant::instance()->OperationNameList();
-    m_operationListModel.append(EnvironmentVariant::instance()->LogicalControlList());
-
+    m_operationListModel = EnvironmentVariant::instance()->LogicalControlList();
 }
 
-void PlanSelector::setSelectedPlan(int index)
+QStringList PlanSelector::stepListModel(int planIndex)
 {
-    m_stepListModel = EnvironmentVariant::instance()->StepList(index);
+    return EnvironmentVariant::instance()->StepList(planIndex);
 }
 
 void PlanSelector::setSelectedStep(int planIndex, int stepIndex)
@@ -296,19 +292,20 @@ void PlanSelector::setSelectedStep(int planIndex, int stepIndex)
     }
 }
 
-void PlanSelector::setSelectedOperation(int stepIndex, int opIndex)
+void PlanSelector::setSelectedOperation(int planIndex, int stepIndex, int opIndex)
 {
-    if (stepIndex >= 0 && stepIndex < m_stepListModel.size() && opIndex >= 0 && opIndex < m_operationListModel.size())
+    if (opIndex >= 0 && opIndex < m_operationListModel.size())
     {
-        m_paramData = EnvironmentVariant::instance()->getOperationParams(opIndex);
-        m_stepListModel[stepIndex] = m_operationListModel[opIndex];
+        EnvironmentVariant::instance()->SetPlanStepToDefault(planIndex, stepIndex, opIndex);
+
+        QList<OperationParamData> paramData = EnvironmentVariant::instance()->getOperationParams(opIndex);
 
         foreach (QObject* obj, m_paramListModel) {
             if(obj)
                 delete obj;
         }
         m_paramListModel.clear();
-        foreach(const OperationParamData& data, m_paramData)
+        foreach(const OperationParamData& data, paramData)
         {
             m_paramListModel.append(new OperationParamObject(data));
         }
@@ -322,16 +319,17 @@ int PlanSelector::operationCurrentIndex()
 
 void PlanSelector::addStep(int planIndex, int pos, int index)
 {
-    if (pos == -1)
-    {
-        m_stepListModel.append(m_operationListModel[index]);
-    }
-    else
-    {
-        m_stepListModel.insert(pos, m_operationListModel[index]);
-    }
-
     EnvironmentVariant::instance()->AddPlanStep(planIndex, pos, index);
+}
+
+void PlanSelector::removeStep(int planIndex, int stepIndex)
+{
+    EnvironmentVariant::instance()->RemovePlanStep(planIndex, stepIndex);
+}
+
+void PlanSelector::moveStep(int planIndex, int stepIndex, int newIndex)
+{
+    EnvironmentVariant::instance()->MovePlanStep(planIndex, stepIndex, newIndex);
 }
 
 void PlanSelector::onComplete()
@@ -340,6 +338,22 @@ void PlanSelector::onComplete()
 
 void PlanSelector::onSave()
 {
+}
+
+void PlanSelector::commitParam(int planIndex, int stepIndex)
+{
+    QList<OperationParamData> data;
+    foreach(QObject* obj, m_paramListModel)
+    {
+        OperationParamObject* parmObj = qobject_cast<OperationParamObject*>(obj);
+        if(parmObj)
+        {
+            OperationParamData* pda = static_cast<OperationParamData*>(parmObj);
+            if(pda)
+                data.append(*pda);
+        }
+    }
+    EnvironmentVariant::instance()->SetPlanStepParam(planIndex, stepIndex, data);
 }
 
 QObject* PlanSelector::getSwitch(const QString &name)
@@ -355,6 +369,3 @@ QObject* PlanSelector::getSwitch(const QString &name)
     }
     return NULL;
 }
-
-
-

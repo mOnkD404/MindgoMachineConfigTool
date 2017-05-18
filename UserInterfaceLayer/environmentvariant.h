@@ -39,6 +39,9 @@ public:
     void SetPlanName(int planIndex, const QString& name);
     void AddPlan(const QString& name);
     void RemovePlan(int planIndex);
+    void SavePlan();
+
+    void StartPlan(int planIndex);
 
 
     QJsonObject formatSingleOperationParam(const SingleOperationData & obj);

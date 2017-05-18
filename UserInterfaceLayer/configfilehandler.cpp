@@ -193,17 +193,21 @@ void configFileHandler::ParsePlanList(QList<QPair<QString, QList<SingleOperation
                 {
                     const OperationParamData& data = defaultParamMap[paramData.Name];
                     paramData.Type = data.Type;
-                    if(data.Type == "enum")
-                    {
-                        paramData.IntegerValue = iter2->toInt();
-                    }
-                    else if(data.Type == "integer")
+                    if(data.Type == "enum" || data.Type == "integer")
                     {
                         paramData.IntegerValue = iter2->toInt();
                     }
                     else if(data.Type == "float")
                     {
                         paramData.FloatValue = iter2->toDouble();
+                    }
+                    else if(data.Type == "bool")
+                    {
+                        paramData.BoolValue = iter2->toBool();
+                    }
+                    else if(data.Type == "string")
+                    {
+                        paramData.StringValue = iter2->toString();
                     }
                     opData.params.append(paramData);
                 }
@@ -214,5 +218,72 @@ void configFileHandler::ParsePlanList(QList<QPair<QString, QList<SingleOperation
         planMap.append(qMakePair(planName,oplist));
     }
 
+}
+
+void configFileHandler::SavePlanList(const QString& configFile, const QList<QPair<QString, QList<SingleOperationData> > > & planData, const QMap<QString, QStringList> &paramMap)
+{
+    QFile loadFile(configFile);
+    if(!loadFile.open(QIODevice::ReadWrite))
+    {
+        qFatal("configFile error");
+        return;
+    }
+    QByteArray data = loadFile.readAll();
+    loadFile.close();
+
+    QJsonDocument loadDoc(QJsonDocument::fromJson(data));
+    QJsonObject fileObj = loadDoc.object();
+    fileObj.remove("plan");
+
+    QJsonObject planObj;
+    int seq = 1;
+
+    for(QList<QPair<QString, QList<SingleOperationData> > >::const_iterator iter = planData.begin(); iter != planData.end(); iter++)
+    {
+        QString planName = iter->first;
+        const QList<SingleOperationData>& opList = iter->second;
+        QJsonArray planStepList;
+        for(QList<SingleOperationData>::const_iterator iter2 = opList.begin(); iter2 != opList.end(); iter2++)
+        {
+            QJsonObject value;
+            value["operation"] = iter2->operationName;
+            value["sequenceNumber"] = seq++;
+
+            QJsonObject paramObj;
+            foreach(const OperationParamData& data, iter2->params)
+            {
+                if(data.Type == "enum" || data.Type == "integer")
+                {
+                    paramObj[data.Name] = data.IntegerValue;
+                }
+                else if(data.Type == "float")
+                {
+                    paramObj[data.Name] = data.FloatValue;
+                }
+                else if(data.Type == "string")
+                {
+                    paramObj[data.Name] = data.StringValue;
+                }
+                else if(data.Type == "bool")
+                {
+                    paramObj[data.Name] = data.BoolValue;
+                }
+            }
+
+            value["params"] = paramObj;
+            planStepList.append(value);
+        }
+
+
+        planObj[planName] = planStepList;
+    }
+
+
+    fileObj["plan"] = planObj;
+    QJsonDocument writeDoc(fileObj);
+    QFile::resize(configFile, 0);
+    loadFile.open(QIODevice::ReadWrite);
+    loadFile.write(writeDoc.toJson());
+    loadFile.close();
 }
 

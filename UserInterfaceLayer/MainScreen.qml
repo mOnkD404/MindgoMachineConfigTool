@@ -139,7 +139,9 @@ Item {
                 stopColor:"#92d456"
                 borderColor:"#99da73"
 
-                onClicked: console.debug("start")
+                onClicked: {
+                    startPage.visible = true;
+                }
             }
 
 
@@ -205,5 +207,11 @@ Item {
             }
 
         }
+    }
+
+    StartPage{
+        id:startPage
+        anchors.fill: parent
+        visible: false
     }
 }

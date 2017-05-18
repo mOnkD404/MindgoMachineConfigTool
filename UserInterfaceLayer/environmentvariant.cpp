@@ -231,6 +231,14 @@ QJsonObject EnvironmentVariant::formatSingleOperationParam(const SingleOperation
             {
                 paramobj[data.Name] = static_cast<int>(data.FloatValue*10.0);
             }
+            else if(data.Type == "string")
+            {
+                paramobj[data.Name] = data.StringValue;
+            }
+            else if(data.Type == "bool")
+            {
+                paramobj[data.Name] = data.BoolValue;
+            }
 
     }
     singleOperationObj["params"] = paramobj;
@@ -349,6 +357,61 @@ void EnvironmentVariant::RemovePlan(int planIndex)
         return;
 
     m_planList.removeAt(planIndex);
+}
+
+void EnvironmentVariant::SavePlan()
+{
+    configFileHandler handler(NULL);
+    handler.SavePlanList(m_userConfigFile, m_planList, m_operationParamMap);
+}
+
+void EnvironmentVariant::StartPlan(int planIndex)
+{
+    if(planIndex < 0 || planIndex >= m_planList.size())
+        return;
+
+    const QList<SingleOperationData> & stepList = m_planList.at(planIndex).second;
+
+
+    QJsonObject planObj;
+    QJsonArray oparray;
+    foreach(const SingleOperationData& opData, stepList)
+    {
+        QJsonObject singleOperationObj;
+        singleOperationObj["operation"] = opData.operationName;
+        singleOperationObj["sequence number"] = opData.sequenceNumber;
+        QJsonObject paramobj;
+        foreach(const OperationParamData& data, opData.params)
+        {
+            if (data.Type == "enum")
+            {
+                paramobj[data.Name] = m_paramDefaultValueMap[data.Name].IntListValue[data.IntegerValue];
+            }
+            else if(data.Type == "integer")
+            {
+                paramobj[data.Name] = data.IntegerValue;
+            }
+            else if(data.Type == "float")
+            {
+                paramobj[data.Name] = static_cast<int>(data.FloatValue*10.0);
+            }
+            else if(data.Type == "string")
+            {
+                paramobj[data.Name] = data.StringValue;
+            }
+            else if(data.Type == "bool")
+            {
+                paramobj[data.Name] = data.BoolValue;
+            }
+        }
+        singleOperationObj["params"] = paramobj;
+
+        oparray.append(singleOperationObj);
+
+    }
+    planObj["operations"] = oparray;
+
+    EnvironmentVariant::instance()->runTask(planObj);
 }
 
 SingleOperationData EnvironmentVariant::defaultValue(const QString& Operationname)

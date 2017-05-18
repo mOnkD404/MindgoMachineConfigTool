@@ -6,6 +6,10 @@ import QtQml.Models 2.2
 Item {
     id: root
 
+    function savePlan(){
+        selector.onSave();
+    }
+
     PlanSelector{
         id:selector
     }

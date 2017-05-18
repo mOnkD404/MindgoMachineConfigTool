@@ -327,7 +327,7 @@ class PlanSelector: public QObject
 public:
     PlanSelector(QObject* parent = 0);
 
-    Q_INVOKABLE QStringList planListModel() {return m_planListModel;}
+    Q_INVOKABLE QStringList planListModel();
     Q_INVOKABLE QStringList stepListModel(int planIndex);
     Q_INVOKABLE QStringList operationListModel() {return m_operationListModel;}
     Q_INVOKABLE QList<QObject*> paramListModel() {return m_paramListModel;}
@@ -350,13 +350,14 @@ public:
     Q_INVOKABLE void onSave();
     Q_INVOKABLE void commitParam(int planIndex, int stepIndex);
 
+    Q_INVOKABLE void startPlan(int planIndex);
+
 
 signals:
     void pageNameChanged();
     void currentIndexChanged();
 
 private:
-    QStringList m_planListModel;
     QStringList m_operationListModel;
     QList<QObject*> m_paramListModel;
     SingleOperationData m_operationData;

@@ -268,8 +268,12 @@ void OperationParamSelector::onCompleteSingleOperation()
 PlanSelector::PlanSelector(QObject* parent )
     :QObject(parent)
 {
-    m_planListModel = EnvironmentVariant::instance()->PlanList();
     m_operationListModel = EnvironmentVariant::instance()->LogicalControlList();
+}
+
+QStringList PlanSelector::planListModel()
+{
+    return EnvironmentVariant::instance()->PlanList();
 }
 
 QStringList PlanSelector::stepListModel(int planIndex)
@@ -353,6 +357,7 @@ void PlanSelector::onComplete()
 
 void PlanSelector::onSave()
 {
+    EnvironmentVariant::instance()->SavePlan();
 }
 
 void PlanSelector::commitParam(int planIndex, int stepIndex)
@@ -383,4 +388,9 @@ QObject* PlanSelector::getSwitch(const QString &name)
         }
     }
     return NULL;
+}
+
+void PlanSelector::startPlan(int planIndex)
+{
+    EnvironmentVariant::instance()->StartPlan(planIndex);
 }

@@ -10,11 +10,6 @@ Item {
     ListModel{
         id: actionBarModel
         ListElement{
-            name:"add"
-            icon:"./image/add.png"
-            colorVal:"#da3430"
-        }
-        ListElement{
             name:"delete"
             icon:"./image/garbage.png"
             colorVal:"#da3430"
@@ -34,14 +29,14 @@ Item {
             icon:"./image/edit.png"
             colorVal:"#36b278"
         }
-    }
-    ListModel{
-        id: actionBarModelWithOutPositionAction
         ListElement{
             name:"add"
             icon:"./image/add.png"
             colorVal:"#da3430"
         }
+    }
+    ListModel{
+        id: actionBarModelWithOutPositionAction
         ListElement{
             name:"delete"
             icon:"./image/garbage.png"
@@ -52,6 +47,11 @@ Item {
             name:"edit"
             icon:"./image/edit.png"
             colorVal:"#36b278"
+        }
+        ListElement{
+            name:"add"
+            icon:"./image/add.png"
+            colorVal:"#da3430"
         }
     }
 

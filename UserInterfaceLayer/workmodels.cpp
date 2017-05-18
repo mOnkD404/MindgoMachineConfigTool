@@ -332,6 +332,21 @@ void PlanSelector::moveStep(int planIndex, int stepIndex, int newIndex)
     EnvironmentVariant::instance()->MovePlanStep(planIndex, stepIndex, newIndex);
 }
 
+void PlanSelector::setPlanName(int planIndex, const QString &name)
+{
+    EnvironmentVariant::instance()->SetPlanName(planIndex, name);
+}
+
+void PlanSelector::addPlan(const QString &name)
+{
+    EnvironmentVariant::instance()->AddPlan(name);
+}
+
+void PlanSelector::removePlan(int index)
+{
+    EnvironmentVariant::instance()->RemovePlan(index);
+}
+
 void PlanSelector::onComplete()
 {
 }

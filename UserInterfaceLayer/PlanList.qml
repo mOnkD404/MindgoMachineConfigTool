@@ -1,6 +1,7 @@
 import QtQuick 2.5
 import QtQuick.Controls 1.4
 import Common 1.0
+import QtQml.Models 2.2
 
 Item {
     id: root
@@ -58,7 +59,30 @@ Item {
                 anchors.top: userPlanSelect.bottom
                 anchors.left: parent.left
                 anchors.right: parent.right
+
+                onDoAction: {
+                    if(str == "edit"){
+                        if(planListView.currentIndex != -1){
+                            planListView.currentItem.inEdit = true;
+                        }
+                    }else if(str == "add"){
+                        planListModel.append({"name":"NewPlan"});
+                        selector.addPlan(planListView.currentIndex, "");
+                        planListView.currentIndex = planListModel.count - 1;
+                        stepListView.refreshStepListModel();
+                        planListView.currentItem.inEdit = true;
+                    }else if(str == "delete"){
+                        planListModel.remove(planListView.currentIndex);
+                        selector.removePlan(planListView.currentIndex);
+                        stepListView.refreshStepListModel();
+                    }
+                }
             }
+
+            ListModel{
+                id:planListModel
+            }
+
 
             ListView {
                 id: planListView
@@ -84,34 +108,90 @@ Item {
                 highlightFollowsCurrentItem: true
                 currentIndex: 0
                 interactive: false
+                model: planListModel
 
-                delegate: TextButton {
-
+                delegate: Item{
+                    property bool inEdit: false
                     height: 30
-
                     anchors.left:parent.left
                     anchors.leftMargin: 0
                     anchors.right: parent.right
                     anchors.rightMargin: 0
+                    focus:true
 
-                    buttonradius: 0
+                    TextInput{
+                        id:inputArea
+                        visible: inEdit
 
-                    textValue: modelData
-                    startColor: "transparent"
-                    stopColor: "transparent"
-                    onClicked: {
-                        console.debug(modelData+"clicked");
-                        planListView.currentIndex = index;
+                        height: 30
+                        font.italic: true
+                        verticalAlignment: Text.AlignVCenter
+                        font.pointSize: 20
+
+                        anchors.left:parent.left
+                        anchors.leftMargin: 0
+                        anchors.right: parent.right
+                        anchors.rightMargin: 0
+                        focus: true
+                        text:name
+
+                        onAccepted: {
+                            planListModel.setProperty(index, "name", text);
+                            selector.setPlanName(index, text);
+                            parent.inEdit = false;
+                        }
+                        onVisibleChanged: {
+                            if(visible){
+                                selectAll();
+                                forceActiveFocus();
+                            }
+                        }
+
+                        onFocusChanged: {
+                            if(!focus){
+                                planListModel.setProperty(index, "name", text);
+                                selector.setPlanName(index, text);
+                                parent.inEdit = false;
+                            }
+                        }
+                    }
+
+                    TextButton {
+                        visible: !inEdit
+
+                        height: 30
+                        anchors.left:parent.left
+                        anchors.leftMargin: 0
+                        anchors.right: parent.right
+                        anchors.rightMargin: 0
+
+                        buttonradius: 0
+
+                        textValue: name
+                        startColor: "transparent"
+                        stopColor: "transparent"
+                        onClicked: {
+                            console.debug(modelData+"clicked");
+                            planListView.currentIndex = index;
+                        }
                     }
                 }
                 onCurrentIndexChanged: {
                     stepListView.refreshStepListModel();
 
                 }
+                Component.onCompleted: {
+                    refreshPlanListModel();
+                    stepListView.refreshStepListModel();
+                }
 
-                Component.onCompleted:
-                {
-                    model = selector.planListModel();
+                function refreshPlanListModel(){
+                    var list = selector.planListModel();
+                    planListModel.clear();
+                    for(var ind = 0; ind < list.length; ind++){
+                        planListModel.append({"name":list[ind]});
+                    }
+                    currentIndex = 0;
                 }
             }
         }
@@ -178,9 +258,15 @@ Item {
                 }
             }
 
-
             ListModel{
                 id:stepListModel
+            }
+
+            DelegateModel{
+                id:stepVisualModel
+
+                model: stepListModel
+                delegate:stepDelegate
             }
 
             ListView {
@@ -207,7 +293,7 @@ Item {
                 anchors.leftMargin: 10
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 10
-                model: stepListModel
+                model: stepVisualModel
 
                 clip: true
                 highlight: Rectangle{
@@ -227,32 +313,80 @@ Item {
                 currentIndex: 0
                 interactive: true
 
-                delegate:TextButton {
-                    id: stepItem
-                    height: 30
-
-                    anchors.left:parent.left
-                    anchors.leftMargin: 0
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
-
-                    buttonradius: 0
-
-                    textValue: (index+1) + ". " + name
-                    startColor: "transparent"
-                    stopColor: "transparent"
-                    onClicked: {
-                        stepListView.currentIndex = index;
-                    }
-                }
-
                 onCurrentIndexChanged: {
                     selector.setSelectedStep(planListView.currentIndex, currentIndex);
 
                     //operationList.currentIndex = selector.operationCurrentIndex();
                     paramList.model = selector.paramListModel();
+                    if(operationColumn.visible) operationColumn.visible = false;
                 }
+            }
 
+            Component{
+                id: stepDelegate
+
+                MouseArea {
+                    id: stepItem
+
+                    property bool held: false
+
+                    anchors { left: parent.left; right: parent.right }
+                    height: stepContent.height
+
+                    drag.target: held ? stepContent : undefined
+                    drag.axis: Drag.YAxis
+
+                    onPressAndHold: {
+                        console.debug("holding");
+                        parent.held = true;
+                    }
+                    onReleased: {
+                        console.debug("release");
+                        parent.height = false;
+                    }
+
+                    TextButton {
+                        id: stepContent
+                        height: 30
+                        anchors.left:parent.left
+                        anchors.leftMargin: 0
+                        anchors.right: parent.right
+                        anchors.rightMargin: 0
+
+                        buttonradius: 0
+                        textValue: (index+1) + ". " + name
+                        startColor: "transparent"
+                        stopColor: "transparent"
+
+                        Drag.active: stepItem.held
+                        Drag.source: stepItem
+                        Drag.hotSpot.x: width / 2
+                        Drag.hotSpot.y: height / 2
+
+                        states: State {
+                            when: stepItem.held
+
+                            ParentChange { target: stepContent; parent: stepListView }
+                            AnchorChanges {
+                                target: stepContent
+                                anchors { horizontalCenter: undefined; verticalCenter: undefined }
+                            }
+                        }
+
+                        onClicked: {
+                            stepListView.currentIndex = index;
+                        }
+                    }
+
+                    DropArea {
+                        anchors { fill: parent; margins: 10 }
+
+                        onEntered: {
+                            console.debug("start pos "+drag.source.DelegateModel.itemsIndex+" new index "+stepItem.DelegateModel.itemsIndex);
+                            stepVisualModel.items.move(drag.source.DelegateModel.itemsIndex,stepItem.DelegateModel.itemsIndex);
+                        }
+                    }
+                }
             }
         }
 
@@ -344,10 +478,9 @@ Item {
 
 
                         if(operationColumn.changeOperation == "add"){
-                            var oldIndex = stepListView.currentIndex;
-                            selector.addStep(planListView.currentIndex, stepListView.currentIndex, index);
-                            stepListModel.insert(oldIndex, {"name":textValue});
-                            stepListView.currentIndex = oldIndex;
+                            selector.addStep(planListView.currentIndex, stepListView.count, index);
+                            stepListModel.append({"name":textValue});
+                            stepListView.currentIndex = stepListView.count - 1;
                         }else if (operationColumn.changeOperation == "edit"){
                             selector.setSelectedOperation(planListView.currentIndex, stepListView.currentIndex, index);
                             stepListModel.setProperty(stepListView.currentIndex, "name", textValue);

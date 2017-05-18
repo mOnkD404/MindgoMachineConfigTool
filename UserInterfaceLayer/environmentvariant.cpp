@@ -328,6 +328,29 @@ void EnvironmentVariant::SetPlanStepParam(int planIndex, int stepIndex, const QL
     }
 }
 
+void EnvironmentVariant::SetPlanName(int planIndex, const QString &name)
+{
+    if(planIndex < 0 || planIndex >= m_planList.size())
+        return;
+
+    QPair<QString, QList<SingleOperationData> > &plan = m_planList[planIndex];
+
+    plan.first = name;
+}
+
+void EnvironmentVariant::AddPlan(const QString &name)
+{
+    m_planList.append(qMakePair(name, QList<SingleOperationData>()));
+}
+
+void EnvironmentVariant::RemovePlan(int planIndex)
+{
+    if(planIndex < 0 || planIndex >= m_planList.size())
+        return;
+
+    m_planList.removeAt(planIndex);
+}
+
 SingleOperationData EnvironmentVariant::defaultValue(const QString& Operationname)
 {
     if(m_operationParamMap.contains(Operationname))

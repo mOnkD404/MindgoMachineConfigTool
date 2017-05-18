@@ -35,7 +35,7 @@ Item {
                 anchors.rightMargin: 0
                 buttonradius: 0
                 onClicked: {
-                    planList.onSave();
+                    planList.savePlan();
                 }
             }
         }

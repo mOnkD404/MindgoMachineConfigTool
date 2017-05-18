@@ -5,7 +5,6 @@
         <file>TextButton.qml</file>
         <file>SingleStepPage.qml</file>
         <file>SystemSetting.qml</file>
-        <file>SystemSettingForm.ui.qml</file>
         <file>PlanSetting.qml</file>
         <file>OperationList.qml</file>
         <file>PlanList.qml</file>
@@ -17,5 +16,6 @@
         <file>image/paper-plane.png</file>
         <file>image/up.png</file>
         <file>image/add.png</file>
+        <file>StartPage.qml</file>
     </qresource>
 </RCC>

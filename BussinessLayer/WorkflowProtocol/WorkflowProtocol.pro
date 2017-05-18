@@ -33,9 +33,13 @@ unix {
     INSTALLS += target
 }
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../InfrastructureLayer/Communication/ -lCommunication
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../InfrastructureLayer/Communication/ -lCommunicationd
-else:unix: LIBS += -L$$OUT_PWD/../../InfrastructureLayer/Communication/ -lCommunication
 
 INCLUDEPATH += $$PWD/../../InfrastructureLayer/Communication
 DEPENDPATH += $$PWD/../../InfrastructureLayer/Communication
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../InfrastructureLayer/Communication/release/ -lCommunication
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../InfrastructureLayer/Communication/debug/ -lCommunication
+else:unix: LIBS += -L$$OUT_PWD/../../InfrastructureLayer/Communication/ -lCommunication
+
+INCLUDEPATH += $$PWD/../../../build-MindgoMachineConfigTool-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/InfrastructureLayer/Communication/debug
+DEPENDPATH += $$PWD/../../../build-MindgoMachineConfigTool-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/InfrastructureLayer/Communication/debug

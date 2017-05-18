@@ -340,6 +340,10 @@ public:
     Q_INVOKABLE void removeStep(int planIndex, int stepIndex);
     Q_INVOKABLE void moveStep(int planIndex, int stepIndex, int newIndex);
 
+    Q_INVOKABLE void setPlanName(int planIndex, const QString& name);
+    Q_INVOKABLE void addPlan(const QString& name);
+    Q_INVOKABLE void removePlan(int index);
+
     Q_INVOKABLE QObject* getSwitch(const QString& name);
 
     Q_INVOKABLE void onComplete();

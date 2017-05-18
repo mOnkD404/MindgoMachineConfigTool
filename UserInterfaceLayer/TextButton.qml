@@ -11,7 +11,10 @@ Item{
     property var textHorizontalAlignment : textItem.horizontalAlignment;
     signal clicked;
     signal pressed;
+    signal released;
 
+    //drag
+    signal holding;
 
     id:textbutton
     width: parent.width
@@ -22,6 +25,9 @@ Item{
     stopColor: "#5cc5ff"
     borderColor: "transparent"
     buttonradius: 8
+
+
+
 
     Rectangle{
         anchors.fill: parent
@@ -72,12 +78,29 @@ Item{
         MouseArea{
             id:mouseButton
             anchors.fill: parent
+            property int pressAndHoldDuration: 500
 
             onClicked: {
                 textbutton.clicked();
             }
             onPressed:{
+                mouse.acccepted = true;
                 textbutton.pressed();
+                pressAndHoldTimer.start();
+            }
+            onReleased: {
+                textbutton.released();
+                pressAndHoldTimer.stop();
+            }
+
+            Timer {
+                id:  pressAndHoldTimer
+                interval: parent.pressAndHoldDuration
+                running: false
+                repeat: false
+                onTriggered: {
+                    textbutton.holding();
+                }
             }
         }
     }

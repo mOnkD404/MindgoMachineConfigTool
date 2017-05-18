@@ -36,6 +36,9 @@ public:
     void SetPlanStepParam(int planIndex, int stepIndex, const QList<OperationParamData>& data);
     void RemovePlanStep(int planIndex, int stepIndex);
     void MovePlanStep(int planIndex, int stepIndex, int newIndex);
+    void SetPlanName(int planIndex, const QString& name);
+    void AddPlan(const QString& name);
+    void RemovePlan(int planIndex);
 
 
     QJsonObject formatSingleOperationParam(const SingleOperationData & obj);

@@ -4,15 +4,13 @@ import QtGraphicalEffects 1.0
 import QtQuick.Controls 1.4
 
 Item {
+    signal okClicked(int index);
+
     id:root
     anchors.fill: parent
     Rectangle{
         anchors.fill: parent
         color:"#99000000"
-    }
-
-    PlanSelector{
-        id:selector
     }
 
     Rectangle{
@@ -64,6 +62,9 @@ Item {
             color: "#b5b7b6"
         }
 
+        PlanSelector{
+            id:selector
+        }
 
 
         ComboBox {
@@ -119,7 +120,7 @@ Item {
 
             textValue: qsTr("Start")
             onClicked: {
-                selector.startPlan(plancomboBox.currentIndex);
+                okClicked(plancomboBox.currentIndex);
                 root.visible = false;
             }
         }

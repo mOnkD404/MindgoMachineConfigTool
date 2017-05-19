@@ -1,7 +1,13 @@
 import QtQuick 2.4
+import Common 1.0
 
 Item {
     anchors.fill: parent
+
+    PlanController{
+        id:controller
+    }
+
     Rectangle{
 
         height: 70
@@ -86,6 +92,20 @@ Item {
             radius: 8
             anchors.rightMargin: 10
             anchors.leftMargin: 10
+
+
+            StatusListView{
+                id:statusList
+                visible: true
+                anchors.top:mainVDewID.top
+                anchors.right: mainVDewID.right
+                anchors.bottom: mainVDewID.bottom
+
+                onStopped: {
+                    button4.visible = true;
+                    visible = false;
+                }
+            }
         }
 
         Column {
@@ -143,7 +163,32 @@ Item {
                     startPage.visible = true;
                 }
             }
+            TextButton{
+                id:button5
+                textValue: qsTr("Stop test")
+                height: 80
+                startColor:"#cffe9e"
+                stopColor:"#92d456"
+                borderColor:"#99da73"
+                visible:false
 
+                onClicked: {
+                    controller.stopPlan();
+                }
+            }
+            TextButton{
+                id:button6
+                textValue: qsTr("Pause test")
+                height: 80
+                startColor:"#cffe9e"
+                stopColor:"#92d456"
+                borderColor:"#99da73"
+                visible:false
+
+                onClicked: {
+                    controller.stopPlan();
+                }
+            }
 
         }
     }
@@ -213,5 +258,13 @@ Item {
         id:startPage
         anchors.fill: parent
         visible: false
+
+        onOkClicked: {
+            //statusList.visible = true;
+            button4.visible = false;
+            button5.visible = true;
+
+            controller.startPlan(index);
+        }
     }
 }

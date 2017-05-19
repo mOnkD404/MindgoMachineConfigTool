@@ -287,3 +287,30 @@ void configFileHandler::SavePlanList(const QString& configFile, const QList<QPai
     loadFile.close();
 }
 
+void configFileHandler::SaveIpAddress(const QString& configFile, const QString &ip, qint16 port)
+{
+    QFile loadFile(configFile);
+    if(!loadFile.open(QIODevice::ReadWrite))
+    {
+        qFatal("configFile error");
+        return;
+    }
+    QByteArray data = loadFile.readAll();
+    loadFile.close();
+
+    QJsonDocument loadDoc(QJsonDocument::fromJson(data));
+    QJsonObject fileObj = loadDoc.object();
+    fileObj.remove("target");
+
+    QJsonObject ipobj;
+    ipobj["IP"] = ip;
+    ipobj["port"] = port;
+
+    fileObj["target"] = ipobj;
+    QJsonDocument writeDoc(fileObj);
+    QFile::resize(configFile, 0);
+    loadFile.open(QIODevice::ReadWrite);
+    loadFile.write(writeDoc.toJson());
+    loadFile.close();
+
+}

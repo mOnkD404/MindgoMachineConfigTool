@@ -4,6 +4,7 @@
 #include <QTcpSocket>
 #include <QAbstractTableModel>
 #include <QElapsedTimer>
+#include <QThread>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(&m_server, &QTcpServer::newConnection, this, &MainWindow::newConnection);
     m_server.listen(QHostAddress::Any, 20000);
+
 }
 
 MainWindow::~MainWindow()
@@ -39,8 +41,10 @@ void MainWindow::newConnection()
                 qDebug()<<array.size()<<"data recv"<<array;
                 recvArray.append(array);
 
+
                 if (handleData(array))
                 {
+                    //QThread::msleep(1000);
                     skt->write(m_ackData);
                     skt->waitForBytesWritten();
                 }

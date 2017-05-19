@@ -323,7 +323,6 @@ signals:
 class PlanSelector: public QObject
 {
     Q_OBJECT
-
 public:
     PlanSelector(QObject* parent = 0);
 
@@ -350,8 +349,6 @@ public:
     Q_INVOKABLE void onSave();
     Q_INVOKABLE void commitParam(int planIndex, int stepIndex);
 
-    Q_INVOKABLE void startPlan(int planIndex);
-
 
 signals:
     void pageNameChanged();
@@ -361,6 +358,79 @@ private:
     QStringList m_operationListModel;
     QList<QObject*> m_paramListModel;
     SingleOperationData m_operationData;
+};
+
+class PlanController: public QObject
+{
+    Q_OBJECT
+public:
+    PlanController(QObject* parent = NULL):QObject(parent){}
+
+    Q_INVOKABLE void startPlan(int planIndex);
+    Q_INVOKABLE void stopPlan();
+};
+
+class StatusViewWatcher: public QObject
+{
+    Q_OBJECT
+public:
+    StatusViewWatcher(QObject* parent = 0);
+    ~StatusViewWatcher();
+
+    virtual bool eventFilter(QObject *watched, QEvent *event);
+
+signals:
+    void statusChanged(const QJsonObject& jsobj);
+};
+
+class IpAddressObject: public QObject
+{
+    Q_OBJECT
+    Q_PROPERTY(QString IpAddress READ getIpAddress WRITE setIpAddress NOTIFY IpAddressChanged)
+    Q_PROPERTY(qint16 port READ getPort WRITE setPort NOTIFY IpAddressChanged)
+public:
+    IpAddressObject(QObject* parent = NULL): QObject(parent), port(0)
+    {
+        connect(this, &IpAddressObject::IpAddressChanged, this ,&IpAddressObject::onIpAddressChanged);
+    }
+
+    void init(const QString& ip, qint16 pt)
+    {
+        IpAddress = ip;
+        port = pt;
+    }
+
+    QString getIpAddress()const {return IpAddress;}
+    void setIpAddress(const QString& ip)
+    {
+        if(IpAddress != ip)
+        {
+            IpAddress = ip;
+            emit IpAddressChanged();
+        }
+    }
+
+    qint16 getPort()const{return port;}
+    void setPort(qint16 pt)
+    {
+        if(port != pt)
+        {
+            port = pt;
+            emit IpAddressChanged();
+        }
+    }
+
+
+signals:
+    void IpAddressChanged();
+
+public slots:
+    void onIpAddressChanged();
+
+
+private:
+    QString IpAddress;
+    qint16 port;
 };
 
 

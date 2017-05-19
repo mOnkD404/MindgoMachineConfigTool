@@ -15,6 +15,8 @@ Item {
         selector.onCompleteSingleOperation();
     }
 
+    width: column.width + 10 + column1.width
+
 
     Row {
         id: row
@@ -157,8 +159,6 @@ Item {
                     height:30
                     anchors.left: parent.left
                     anchors.right: parent.right
-
-
 
                     enabled:getSwitchState()
                     function getSwitchState()

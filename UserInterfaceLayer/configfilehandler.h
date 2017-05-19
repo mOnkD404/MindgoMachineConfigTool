@@ -24,6 +24,8 @@ public:
     void ParsePlanList(QList<QPair<QString, QList<SingleOperationData> > >& planMap, const QMap<QString, OperationParamData> &);
     void SavePlanList(const QString& configFile, const QList<QPair<QString, QList<SingleOperationData> > > & planData, const QMap<QString, QStringList> &);
 
+    void SaveIpAddress(const QString& configFile, const QString &ip, qint16 port);
+
 signals:
 
 public slots:

@@ -25,6 +25,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<OperationParamObject>("Common", 1,0, "OperationParamObject");
     qmlRegisterType<OperationParamSelector>("Common", 1,0,"OperationParamSelector");
     qmlRegisterType<PlanSelector>("Common" ,1,0,"PlanSelector");
+    qmlRegisterType<StatusViewWatcher>("Common", 1,0,"StatusViewWatcher");
+    qmlRegisterType<PlanController>("Common", 1,0,"PlanController");
 
     QQuickView view;
 

@@ -390,7 +390,44 @@ QObject* PlanSelector::getSwitch(const QString &name)
     return NULL;
 }
 
-void PlanSelector::startPlan(int planIndex)
+
+
+void PlanController::startPlan(int planIndex)
 {
     EnvironmentVariant::instance()->StartPlan(planIndex);
+}
+
+void PlanController::stopPlan()
+{
+    EnvironmentVariant::instance()->StopPlan();
+}
+
+StatusViewWatcher::StatusViewWatcher(QObject* parent)
+    :QObject(parent)
+{
+    qApp->installEventFilter(this);
+}
+
+StatusViewWatcher::~StatusViewWatcher()
+{
+    qApp->removeEventFilter(this);
+}
+
+bool StatusViewWatcher::eventFilter(QObject *watched, QEvent *event)
+{
+    if(event->type() == QEvent::User+1)
+    {
+        StatusChangeEvent* evt = dynamic_cast<StatusChangeEvent*>(event);
+        if(evt)
+        {
+            emit statusChanged(evt->jsObject);
+            return true;
+        }
+    }
+    return false;
+}
+
+void IpAddressObject::onIpAddressChanged()
+{
+    EnvironmentVariant::instance()->SaveIpAddress(IpAddress, port);
 }

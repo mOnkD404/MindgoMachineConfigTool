@@ -42,6 +42,9 @@ public:
     void SavePlan();
 
     void StartPlan(int planIndex);
+    void StopPlan();
+
+    void SaveIpAddress(const QString& , qint16);
 
 
     QJsonObject formatSingleOperationParam(const SingleOperationData & obj);
@@ -74,9 +77,8 @@ private:
     WorkflowController m_workFlow;
 
     QString m_userConfigFile;
-    QString m_targetIp;
-    qint16 m_targetPort;
 
+    IpAddressObject m_targetIp;
 };
 
 #endif // ENVIRONMENTVARIANT_H

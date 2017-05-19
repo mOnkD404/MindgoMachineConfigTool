@@ -41,7 +41,7 @@ void EnvironmentVariant::parseConfigFile(const QString& str)
 void EnvironmentVariant::initProtocol(const QString &protoconConfig)
 {
      m_workFlow.init(protoconConfig);
-     m_workFlow.sethost(m_targetIp, m_targetPort);
+     m_workFlow.sethost(m_targetIp.getIpAddress(), m_targetIp.getPort());
 }
 
 void EnvironmentVariant::initUserConfig(const QString &str)
@@ -49,8 +49,7 @@ void EnvironmentVariant::initUserConfig(const QString &str)
     m_userConfigFile = str;
     configFileHandler handler(NULL);
     handler.loadConfigFile(str);
-    m_targetIp = handler.ParseHostIP();
-    m_targetPort = handler.ParseHostPort();
+    m_targetIp.init(handler.ParseHostIP(), handler.ParseHostPort());
 
     handler.ParsePlanList(m_planList, m_paramDefaultValueMap);
 }
@@ -58,6 +57,7 @@ void EnvironmentVariant::initUserConfig(const QString &str)
 void EnvironmentVariant::initModels(QQmlContext* context)
 {
     m_context = context;
+    context->setContextProperty("IPAddressObject", &m_targetIp);
     //m_singleStepPageModel.init(context, m_operationList, m_operationNameDispMap);
 }
 
@@ -214,7 +214,7 @@ QJsonObject EnvironmentVariant::formatSingleOperationParam(const SingleOperation
     QJsonObject opObj;
     QJsonObject singleOperationObj;
     singleOperationObj["operation"] = m_operationDispNameMap[obj.operationName];
-    singleOperationObj["sequence number"] = QJsonValue(obj.sequenceNumber);
+    singleOperationObj["sequence"] = QJsonValue(obj.sequenceNumber);
     QJsonObject paramobj;
     foreach(const OperationParamData& data, obj.params)
     {
@@ -254,7 +254,7 @@ QJsonObject EnvironmentVariant::formatSingleOperationParam(const SingleOperation
 
 void EnvironmentVariant::runTask(const QJsonObject &task)
 {
-     m_workFlow.sethost(m_targetIp, m_targetPort);
+     m_workFlow.sethost(m_targetIp.getIpAddress(), m_targetIp.getPort());
      m_workFlow.runTask(task);
 }
 
@@ -365,6 +365,12 @@ void EnvironmentVariant::SavePlan()
     handler.SavePlanList(m_userConfigFile, m_planList, m_operationParamMap);
 }
 
+void EnvironmentVariant::SaveIpAddress(const QString &ip, qint16 port)
+{
+    configFileHandler handler(NULL);
+    handler.SaveIpAddress(m_userConfigFile, ip, port);
+}
+
 void EnvironmentVariant::StartPlan(int planIndex)
 {
     if(planIndex < 0 || planIndex >= m_planList.size())
@@ -375,11 +381,12 @@ void EnvironmentVariant::StartPlan(int planIndex)
 
     QJsonObject planObj;
     QJsonArray oparray;
+    int seq = 1;
     foreach(const SingleOperationData& opData, stepList)
     {
         QJsonObject singleOperationObj;
         singleOperationObj["operation"] = opData.operationName;
-        singleOperationObj["sequence number"] = opData.sequenceNumber;
+        singleOperationObj["sequence"] = seq++;
         QJsonObject paramobj;
         foreach(const OperationParamData& data, opData.params)
         {
@@ -411,7 +418,12 @@ void EnvironmentVariant::StartPlan(int planIndex)
     }
     planObj["operations"] = oparray;
 
-    EnvironmentVariant::instance()->runTask(planObj);
+    runTask(planObj);
+}
+
+void EnvironmentVariant::StopPlan()
+{
+    m_workFlow.stopCurrentTask();
 }
 
 SingleOperationData EnvironmentVariant::defaultValue(const QString& Operationname)

@@ -7,7 +7,10 @@ Item {
     Rectangle{
         anchors.fill: parent
         anchors.margins: 10
-        color:"#58595a"
+        color:"#58595b"
+        MouseArea{
+            anchors.fill: parent
+        }
 
         Item{
             id: row
@@ -46,10 +49,19 @@ Item {
 
             anchors.top: row.bottom
             anchors.left: parent.left
-            anchors.right: parent.right
+            anchors.leftMargin: 10
             anchors.bottom: parent.bottom
 
             operationGroupType: "NormalOperation"
+        }
+
+        StatusListView{
+            anchors.top: row.bottom
+            anchors.topMargin: 10
+            anchors.left: singleStepOperation.right
+            anchors.leftMargin: 10
+
+            height: 400
         }
     }
 

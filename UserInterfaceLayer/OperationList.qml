@@ -134,7 +134,6 @@ Item {
                     horizontalAlignment: Text.AlignHCenter
                     font.pixelSize: 17
                     font.bold: true
-
                     color:"#d9d9d9"
                 }
             }

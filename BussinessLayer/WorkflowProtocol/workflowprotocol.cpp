@@ -6,6 +6,7 @@
 #include <QThread>
 #include <QElapsedTimer>
 #include <QFile>
+#include <QCoreApplication>
 
 WorkflowProtocol::WorkflowProtocol()
 {
@@ -40,7 +41,7 @@ bool WorkflowProtocol::parseJsonObjectToSendFrame(const QJsonObject & jsObj, QJs
 
     ushort code = 0;
     QString codeStr = sendConfig["operation"].toObject()["data"].toObject()[operationName].toString();
-    if(codeStr.at(0) == '0' && codeStr.at(1) == 'x')
+    if(codeStr.size() > 2 && codeStr.at(0) == '0' && codeStr.at(1) == 'x')
     {
         code = codeStr.right(codeStr.length()-2).toInt(NULL,16);
     }
@@ -54,12 +55,12 @@ bool WorkflowProtocol::parseJsonObjectToSendFrame(const QJsonObject & jsObj, QJs
         paramList.append(paramArray[index].toString());
     }
 
-    ushort seq = jsObj["sequence number"].toInt();
+    ushort seq = jsObj["sequence"].toInt();
     QJsonObject userParams = jsObj["params"].toObject();
 
 
     retObj["operation"] = operationName;
-    retObj["sequence number"] = seq;
+    retObj["sequence"] = seq;
 
 
     //1.head
@@ -98,16 +99,16 @@ bool WorkflowProtocol::formatRecvFrameToJsonObject(QJsonObject & retObject)
     //2.length
 
     //3.operation
-    char tempstring[25];
-    sprintf(tempstring, "0x%2x", m_recvFrame.opcode);
-    retObject["ack operation"] = QString(tempstring);
+    //char tempstring[25];
+    //sprintf(tempstring, "0x%2x", m_recvFrame.opcode);
+    //retObject["ackOperation"] = QString(tempstring);
 
 
     //4.sequence number
-    retObject["ack sequence number"] = QString::number(m_recvFrame.seq);
+    //retObject["ackSequence"] = QString::number(m_recvFrame.seq);
 
     //5.result
-    retObject["ack result"] = QString::number(m_recvFrame.result);
+    retObject["ackResult"] = m_recvFrame.result;
 
     return true;
 }
@@ -170,11 +171,11 @@ bool WorkflowProtocol::parseAckFrame(const QByteArray& buff, QJsonObject& ret)
             unserializeRecvFrame(recvarray);
 
 
+            formatRecvFrameToJsonObject(ret);
             if (m_sendFrame.opcode != m_recvFrame.opcode || \
                 m_sendFrame.seq != m_recvFrame.seq || \
                 m_recvFrame.result != 0)
             {
-                formatRecvFrameToJsonObject(ret);
                 return false;
             }
             else
@@ -219,7 +220,7 @@ void WorkflowProtocol::unserializeRecvFrame(const QByteArray& buff)
 
 
 SubThreadWorker::SubThreadWorker(WorkflowProtocol* protocol, QObject*parent)
-    :QObject(parent), m_protocol(protocol)
+    :QObject(parent), m_protocol(protocol), m_LoopStartIndex(0), m_LoopCount(0), m_forceStop(false), m_maxReceiveTime(0)
 {
 
 }
@@ -241,74 +242,180 @@ void SubThreadWorker::doWork(const QJsonObject &jsObj)
         return;
     }
 
+    m_maxReceiveTime = jsObj["maxReceiveTime"].toInt();
     QJsonArray opList = jsObj["operations"].toArray();
+    int currentIndex = jsObj["startIndex"].toInt();
 
-    for (int index = 0; index < opList.size(); index++)
+    emit taskStateChanged(true, currentIndex);
+
+    while (1)
     {
-        QJsonObject retObj;
-        QJsonObject sendobj = opList[index].toObject();
-        m_protocol->parseJsonObjectToSendFrame(sendobj, retObj);
-        QByteArray btarray = m_protocol->serializeSendFrame();
+        QJsonObject sendobj = opList[currentIndex].toObject();
+        bool retVal = false;
 
-        int sendlen = btarray.size();
-
-        QElapsedTimer timer;
-        timer.start();
-        bool sendret = false;
-        while(com.connected() && timer.elapsed() < 1000)
+        if(isLogicalCommand(sendobj["operation"].toString()))
         {
-            int send = com.write(btarray);
-            qDebug()<<"client write "<<send<<" bytes"<<hex<<btarray.left(send);
-            if(send < 0)
-            {
-                break;
-            }
-            sendlen -= send;
-            if(sendlen == 0)
-            {
-                sendret = true;
-                break;
-            }
-            else
-            {
-                btarray = btarray.right(sendlen);
-            }
+            retVal = handleLogicalCommand(sendobj, currentIndex);
         }
-
-
-        retObj["send"] = sendret;
-        emit statusChanged(retObj);
-
-        if (!sendret)
+        else
         {
-            return;
+            retVal = handleControlCommand(com, sendobj);
         }
+        if(!retVal)
+            break;
 
-        timer.restart();
-        bool recvret = false;
-        QByteArray recvArray;
-        while(com.connected() && timer.elapsed() < 1000)
+        currentIndex++;
+        if(currentIndex >= opList.size())
+            break;
+
+        if(m_forceStop)
         {
-            const QByteArray &array = com.readData();
-            if(array.size() > 0)
-            {
-                qDebug()<<"recv ack"<<hex<<array;
-                recvArray.append(array);
-                if (m_protocol->parseAckFrame(recvArray, retObj))
-                {
-                    recvret = true;
-                    break;
-                }
-            }
+            break;
         }
-
-        retObj["ack"] = recvret;
-
-        emit statusChanged(retObj);
-        if(!recvret)
-            return;
     }
     com.disconnect();
+
+    emit taskStateChanged(false, currentIndex);
+    m_forceStop = false;
+}
+
+bool SubThreadWorker::isLogicalCommand(const QString& name)
+{
+    QList<QString> logicalList;
+    logicalList.append("WaitArray");
+    logicalList.append("Loop");
+    logicalList.append("EndLoop");
+
+    foreach (const QString& str, logicalList)
+    {
+        if(name == str)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentIndex)
+{
+    QJsonObject retObj;
+
+    retObj["operation"] = cmdObj["operation"];
+    retObj["sequence"] = cmdObj["sequence"];
+    retObj["send"] = false;
+    retObj["ack"] = false;
+    retObj["ackResult"] = 0;
+    retObj["newOperationItem"] = true;
+
+
+    QString opname = cmdObj["operation"].toString();
+    QJsonObject param = cmdObj["params"].toObject();
+
+    if(opname == "WaitArray")
+    {
+        int time = param["waitTime"].toInt();
+        if (time > 0)
+        {
+             QThread::usleep(time*1000);
+        }
+    }
+    else if(opname == "Loop")
+    {
+        m_LoopCount = param["cycleCount"].toInt();
+        m_LoopStartIndex = currentIndex;
+    }
+    else if(opname == "EndLoop")
+    {
+        if(m_LoopCount <= 0)
+        {
+            m_LoopStartIndex = currentIndex;
+        }
+        else
+        {
+            m_LoopCount--;
+            currentIndex = m_LoopStartIndex;
+        }
+    }
+
+    emit statusChanged(retObj);
+
+    return true;
+}
+
+bool SubThreadWorker::handleControlCommand(Communication& com, QJsonObject& cmdObj)
+{
+    QJsonObject retObj;
+    retObj["operation"] = "";
+    retObj["sequence"] = 0;
+    retObj["send"] = false;
+    retObj["ack"] = false;
+    retObj["ackResult"] = 0;
+    retObj["newOperationItem"] = true;
+
+    m_protocol->parseJsonObjectToSendFrame(cmdObj, retObj);
+    QByteArray btarray = m_protocol->serializeSendFrame();
+
+    emit statusChanged(retObj);
+
+    int sendlen = btarray.size();
+    QElapsedTimer timer;
+    timer.start();
+    bool sendret = false;
+    while(com.connected() && timer.elapsed() < 1000)
+    {
+        int send = com.write(btarray);
+        qDebug()<<"client write "<<send<<" bytes"<<hex<<btarray.left(send);
+        if(send < 0)
+        {
+            break;
+        }
+        sendlen -= send;
+        if(sendlen == 0)
+        {
+            sendret = true;
+            break;
+        }
+        else
+        {
+            btarray = btarray.right(sendlen);
+        }
+    }
+
+    retObj["newOperationItem"] = false;
+    retObj["send"] = sendret;
+
+    emit statusChanged(retObj);
+    if (!sendret)
+    {
+        return false;
+    }
+
+    timer.restart();
+    bool recvret = false;
+    QByteArray recvArray;
+    while(com.connected() && timer.elapsed() < m_maxReceiveTime)
+    {
+        const QByteArray &array = com.readData();
+        if(array.size() > 0)
+        {
+            qDebug()<<"recv ack"<<hex<<array;
+            recvArray.append(array);
+            if (m_protocol->parseAckFrame(recvArray, retObj))
+            {
+                recvret = true;
+                break;
+            }
+        }
+    }
+
+    retObj["newOperationItem"] = false;
+    retObj["ack"] = recvret;
+
+    emit statusChanged(retObj);
+    if(!recvret)
+        return false;
+
+    return true;
 }
 
 void SubThreadWorker::changeHost(const QString& host, quint16 port)
@@ -323,6 +430,11 @@ void SubThreadWorker::configProtocol(const QString &filename)
         m_protocol->initProtocol(filename);
 }
 
+void SubThreadWorker::stopTask()
+{
+    m_forceStop = true;
+}
+
 WorkflowController::WorkflowController(QObject *parent)
     :QObject(parent)
 {
@@ -334,6 +446,8 @@ WorkflowController::WorkflowController(QObject *parent)
     connect(worker, &SubThreadWorker::statusChanged, this, &WorkflowController::statusChanged);
     connect(this, &WorkflowController::changeHost, worker, &SubThreadWorker::changeHost);
     connect(this, &WorkflowController::configProtocol, worker, &SubThreadWorker::configProtocol);
+    connect(this, &WorkflowController::stopTask, worker, &SubThreadWorker::stopTask, Qt::DirectConnection);
+    connect(worker, &SubThreadWorker::taskStateChanged, this, &WorkflowController::taskStateChanged);
     m_thread.start();
 }
 
@@ -345,6 +459,7 @@ WorkflowController::~WorkflowController()
         m_thread.wait();
     }
 }
+
 
 void WorkflowController::init(const QString &protoconConfig)
 {
@@ -363,11 +478,31 @@ void WorkflowController::runTask(const QJsonObject &jsObj)
     }
 }
 
+void WorkflowController::stopCurrentTask()
+{
+    if(m_thread.isRunning())
+    {
+        emit stopTask();
+    }
+}
+
 
 void WorkflowController::sethost(const QString& host, quint16 port)
 {
     emit changeHost(host, port);
 }
 
+void WorkflowController::statusChanged(const QJsonObject &obj)
+{
+    StatusChangeEvent* userEvent = new StatusChangeEvent();
+    userEvent->jsObject = obj;
+    qApp->postEvent(qApp, userEvent);
+}
+
+void WorkflowController::taskStateChanged(bool running, int index)
+{
+    RunningStateChangeEvent* userEvent = new RunningStateChangeEvent(running, index);
+    qApp->postEvent(qApp, userEvent);
+}
 
 

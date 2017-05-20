@@ -41,7 +41,10 @@ public:
     void RemovePlan(int planIndex);
     void SavePlan();
 
-    void StartPlan(int planIndex);
+    void StartPlan(int planIndex, int stepIndex);
+    void StopPlan();
+
+    void SaveMachineConfig(const MachineConfigData& data);
 
 
     QJsonObject formatSingleOperationParam(const SingleOperationData & obj);
@@ -74,9 +77,8 @@ private:
     WorkflowController m_workFlow;
 
     QString m_userConfigFile;
-    QString m_targetIp;
-    qint16 m_targetPort;
 
+    TargetMachineObject m_machineConfig;
 };
 
 #endif // ENVIRONMENTVARIANT_H

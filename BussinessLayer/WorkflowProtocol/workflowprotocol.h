@@ -5,6 +5,7 @@
 #include <QJsonObject>
 #include <QThread>
 #include "communication.h"
+#include <QEvent>
 
 class WORKFLOWPROTOCOLSHARED_EXPORT WorkflowProtocol
 {
@@ -69,16 +70,26 @@ public slots:
     void doWork(const QJsonObject&);
     void changeHost(const QString& host, quint16 port);
     void configProtocol(const QString& );
+    void stopTask();
 
 signals:
     void statusChanged(const QJsonObject&);
+    void taskStateChanged(bool running, int index);
+
+protected:
+    bool handleControlCommand(Communication& com, QJsonObject& cmdObj);
+    bool handleLogicalCommand(QJsonObject& cmdObj, int& currentIndex);
+    bool isLogicalCommand(const QString& name);
 
 private:
-
     WorkflowProtocol * m_protocol;
-
     QString m_ip;
     qint16 m_port;
+    int m_LoopStartIndex;
+    int m_LoopCount;
+    volatile bool m_forceStop;
+    int m_maxReceiveTime;
+    int m_startIndex;
 };
 
 class WORKFLOWPROTOCOLSHARED_EXPORT WorkflowController:public QObject
@@ -90,16 +101,42 @@ public:
     void init(const QString& protoconConfig);
 
     void runTask(const QJsonObject & jsObj);
+    void stopCurrentTask();
     void sethost(const QString& host, quint16 port);
 
 signals:
-    void statusChanged(const QJsonObject&);
     void runNewTask(const QJsonObject&);
+    void stopTask();
     void changeHost(const QString& host, quint16 port);
     void configProtocol(const QString&);
 
+public slots:
+    void statusChanged(const QJsonObject&);
+    void taskStateChanged(bool running, int index);
+
 protected:
     QThread m_thread;
+};
+
+class StatusChangeEvent:public QEvent
+{
+public:
+    StatusChangeEvent():QEvent(static_cast<QEvent::Type>(QEvent::User+1)) {}
+
+    QJsonObject jsObject;
+};
+
+class RunningStateChangeEvent: public QEvent
+{
+public:
+    RunningStateChangeEvent(bool bRun, int index)
+        :QEvent(static_cast<QEvent::Type>(QEvent::User+2)), running(bRun), stepIndex(index)
+    {
+
+    }
+
+    bool running;
+    int stepIndex;
 };
 
 #endif // WORKFLOWPROTOCOL_H

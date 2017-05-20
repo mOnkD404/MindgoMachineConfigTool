@@ -323,7 +323,6 @@ signals:
 class PlanSelector: public QObject
 {
     Q_OBJECT
-
 public:
     PlanSelector(QObject* parent = 0);
 
@@ -350,8 +349,6 @@ public:
     Q_INVOKABLE void onSave();
     Q_INVOKABLE void commitParam(int planIndex, int stepIndex);
 
-    Q_INVOKABLE void startPlan(int planIndex);
-
 
 signals:
     void pageNameChanged();
@@ -361,6 +358,112 @@ private:
     QStringList m_operationListModel;
     QList<QObject*> m_paramListModel;
     SingleOperationData m_operationData;
+};
+
+class PlanController: public QObject
+{
+    Q_OBJECT
+public:
+    PlanController(QObject* parent = NULL);
+    ~PlanController();
+
+    Q_INVOKABLE void startPlan(int planIndex, int startStepIndex);
+    Q_INVOKABLE void stopPlan();
+    Q_INVOKABLE void resumePlan();
+
+
+    virtual bool eventFilter(QObject *watched, QEvent *event);
+
+ signals:
+    void taskStateChanged(bool isRunning);
+
+protected:
+    int m_planIndex;
+    int m_pauseIndex;
+};
+
+class StatusViewWatcher: public QObject
+{
+    Q_OBJECT
+public:
+    StatusViewWatcher(QObject* parent = 0);
+    ~StatusViewWatcher();
+
+    virtual bool eventFilter(QObject *watched, QEvent *event);
+
+signals:
+    void statusChanged(const QJsonObject& jsobj);
+};
+
+class MachineConfigData
+{
+public:
+    MachineConfigData():port(0), maxReceiveTime(0) {}
+    MachineConfigData(const QString& ip, qint16 pt, qint32 time):IpAddress(ip), port(pt), maxReceiveTime(time){}
+
+    QString IpAddress;
+    qint16 port;
+    qint32 maxReceiveTime;
+};
+
+class TargetMachineObject: public QObject, public MachineConfigData
+{
+    Q_OBJECT
+    Q_PROPERTY(QString IpAddress READ getIpAddress WRITE setIpAddress NOTIFY MachineConfigChanged)
+    Q_PROPERTY(qint16 port READ getPort WRITE setPort NOTIFY MachineConfigChanged)
+    Q_PROPERTY(qint32 maxReceiveTime READ getMaxReceiveTime WRITE setMaxReceiveTime NOTIFY MachineConfigChanged)
+public:
+    TargetMachineObject(QObject* parent = NULL): QObject(parent)
+    {
+        //connect(this, &TargetMachineObject::MachineConfigChanged, this ,&TargetMachineObject::onMachineConfigChanged);
+    }
+
+    void init(const QString& ip, qint16 pt, qint32 time)
+    {
+        IpAddress = ip;
+        port = pt;
+        maxReceiveTime = time;
+    }
+
+    QString getIpAddress()const {return IpAddress;}
+    void setIpAddress(const QString& ip)
+    {
+        if(IpAddress != ip)
+        {
+            IpAddress = ip;
+            emit MachineConfigChanged();
+        }
+    }
+
+    qint16 getPort()const{return port;}
+    void setPort(qint16 pt)
+    {
+        if(port != pt)
+        {
+            port = pt;
+            emit MachineConfigChanged();
+        }
+    }
+
+    qint32 getMaxReceiveTime()const{return maxReceiveTime;}
+    void setMaxReceiveTime(qint32 time)
+    {
+        if(maxReceiveTime != time)
+        {
+            maxReceiveTime = time;
+            emit MachineConfigChanged();
+        }
+    }
+
+
+signals:
+    void MachineConfigChanged();
+
+public slots:
+    void onMachineConfigChanged();
+
+
+private:
 };
 
 

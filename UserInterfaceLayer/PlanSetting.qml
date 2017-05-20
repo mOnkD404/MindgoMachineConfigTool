@@ -8,6 +8,9 @@ Item {
         anchors.fill: parent
         anchors.margins: 10
         color:"#58595a"
+        MouseArea{
+            anchors.fill: parent
+        }
 
         Item{
             id: row
@@ -49,5 +52,4 @@ Item {
             anchors.bottom: parent.bottom
         }
     }
-
 }

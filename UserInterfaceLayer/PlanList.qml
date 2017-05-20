@@ -146,8 +146,9 @@ Item {
                         }
                         onVisibleChanged: {
                             if(visible){
+                                focus = true;
                                 selectAll();
-                                forceActiveFocus();
+                                //forceActiveFocus();
                             }
                         }
 
@@ -157,7 +158,7 @@ Item {
                                 selector.setPlanName(index, text);
                                 parent.inEdit = false;
                             }
-                        }
+                        }                        
                     }
 
                     TextButton {

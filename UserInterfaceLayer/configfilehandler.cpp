@@ -164,6 +164,13 @@ qint16 configFileHandler::ParseHostPort()
     return  targetObj["port"].toInt();
 }
 
+qint32 configFileHandler::ParseHostSingleOperationThreshold()
+{
+    QJsonObject targetObj = m_configFileObj["target"].toObject();
+
+    return  targetObj["maxReceiveTime"].toInt();
+}
+
 void configFileHandler::ParsePlanList(QList<QPair<QString, QList<SingleOperationData> > >& planMap, const QMap<QString, OperationParamData> & defaultParamMap)
 {
     planMap.clear();
@@ -287,3 +294,31 @@ void configFileHandler::SavePlanList(const QString& configFile, const QList<QPai
     loadFile.close();
 }
 
+void configFileHandler::SaveMachineConfig(const QString& configFile, const MachineConfigData& cfgData)
+{
+    QFile loadFile(configFile);
+    if(!loadFile.open(QIODevice::ReadWrite))
+    {
+        qFatal("configFile error");
+        return;
+    }
+    QByteArray data = loadFile.readAll();
+    loadFile.close();
+
+    QJsonDocument loadDoc(QJsonDocument::fromJson(data));
+    QJsonObject fileObj = loadDoc.object();
+    fileObj.remove("target");
+
+    QJsonObject ipobj;
+    ipobj["IP"] = cfgData.IpAddress;
+    ipobj["port"] = cfgData.port;
+    ipobj["maxReceiveTime"] = cfgData.maxReceiveTime;
+
+    fileObj["target"] = ipobj;
+    QJsonDocument writeDoc(fileObj);
+    QFile::resize(configFile, 0);
+    loadFile.open(QIODevice::ReadWrite);
+    loadFile.write(writeDoc.toJson());
+    loadFile.close();
+
+}

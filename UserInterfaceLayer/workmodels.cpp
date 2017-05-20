@@ -390,7 +390,78 @@ QObject* PlanSelector::getSwitch(const QString &name)
     return NULL;
 }
 
-void PlanSelector::startPlan(int planIndex)
+PlanController::PlanController(QObject *parent)
+    :QObject(parent), m_planIndex(-1),m_pauseIndex(-1)
 {
-    EnvironmentVariant::instance()->StartPlan(planIndex);
+    qApp->installEventFilter(this);
+}
+
+PlanController::~PlanController()
+{
+    qApp->removeEventFilter(this);
+}
+
+void PlanController::startPlan(int planIndex, int startStepIndex)
+{
+    m_planIndex = planIndex;
+    m_pauseIndex = 0;
+    EnvironmentVariant::instance()->StartPlan(planIndex, startStepIndex);
+}
+
+void PlanController::stopPlan()
+{
+    EnvironmentVariant::instance()->StopPlan();
+}
+
+void PlanController::resumePlan()
+{
+    if(m_planIndex >= 0 && m_pauseIndex >= 0)
+    {
+        startPlan(m_planIndex, m_pauseIndex);
+    }
+}
+
+bool PlanController::eventFilter(QObject *watched, QEvent *event)
+{
+    if(event->type() == QEvent::User+2)
+    {
+        RunningStateChangeEvent* evt = dynamic_cast<RunningStateChangeEvent*>(event);
+        if(evt)
+        {
+            emit taskStateChanged(evt->running);
+            m_pauseIndex = evt->stepIndex;
+            return true;
+        }
+    }
+    return false;
+}
+
+StatusViewWatcher::StatusViewWatcher(QObject* parent)
+    :QObject(parent)
+{
+    qApp->installEventFilter(this);
+}
+
+StatusViewWatcher::~StatusViewWatcher()
+{
+    qApp->removeEventFilter(this);
+}
+
+bool StatusViewWatcher::eventFilter(QObject *watched, QEvent *event)
+{
+    if(event->type() == QEvent::User+1)
+    {
+        StatusChangeEvent* evt = dynamic_cast<StatusChangeEvent*>(event);
+        if(evt)
+        {
+            emit statusChanged(evt->jsObject);
+            return true;
+        }
+    }
+    return false;
+}
+
+void TargetMachineObject::onMachineConfigChanged()
+{
+    EnvironmentVariant::instance()->SaveMachineConfig(MachineConfigData(IpAddress, port, maxReceiveTime));
 }

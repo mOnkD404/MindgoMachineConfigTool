@@ -1,7 +1,17 @@
 import QtQuick 2.4
+import Common 1.0
 
 Item {
     anchors.fill: parent
+
+    PlanController{
+        id:controller
+
+        onTaskStateChanged: {
+            actionBarID.state = actionBarID.newState;
+        }
+    }
+
     Rectangle{
 
         height: 70
@@ -86,9 +96,25 @@ Item {
             radius: 8
             anchors.rightMargin: 10
             anchors.leftMargin: 10
+
+
+            StatusListView{
+                id:statusList
+                visible: true
+                anchors.top:mainVDewID.top
+                anchors.right: mainVDewID.right
+                anchors.bottom: mainVDewID.bottom
+
+                onStopped: {
+                    button4.visible = true;
+                    visible = false;
+                }
+            }
         }
 
         Column {
+            property string newState: ""
+
             id: actionBarID
             width: 150
             height: 620
@@ -132,7 +158,7 @@ Item {
             }
 
             TextButton{
-                id:button4
+                id:startButton
                 textValue: qsTr("Start test")
                 height: 80
                 startColor:"#cffe9e"
@@ -141,9 +167,99 @@ Item {
 
                 onClicked: {
                     startPage.visible = true;
+                    actionBarID.newState = "start";
+
+                    statusList.clearModel();
+                }
+            }
+            TextButton{
+                id:stopButton
+                textValue: qsTr("Stop test")
+                height: 80
+                startColor:"#cffe9e"
+                stopColor:"#92d456"
+                borderColor:"#99da73"
+                visible:false
+
+                onClicked: {
+                    controller.stopPlan();
+                    actionBarID.newState = "";
+                }
+            }
+            TextButton{
+                id:pauseButton
+                textValue: qsTr("Pause test")
+                height: 80
+                startColor:"#cffe9e"
+                stopColor:"#92d456"
+                borderColor:"#99da73"
+                visible:false
+
+                onClicked: {
+                    controller.stopPlan();
+                    actionBarID.newState = "pause";
+                }
+            }
+            TextButton{
+                id:resumeButton
+                textValue: qsTr("Resume test")
+                height: 80
+                startColor:"#cffe9e"
+                stopColor:"#92d456"
+                borderColor:"#99da73"
+                visible:false
+
+                onClicked: {
+                    controller.resumePlan();
+                    actionBarID.newState = "start";
                 }
             }
 
+
+            states:[
+                State{
+                    name:"start"
+                    PropertyChanges {
+                        target: actionBarID
+                        newState: ""
+                    }
+                    PropertyChanges {
+                        target: startButton
+                        visible: false
+                    }
+                    PropertyChanges {
+                        target: stopButton
+                        visible: true
+                    }
+                    PropertyChanges {
+                        target: pauseButton
+                        visible: true
+                    }
+                    PropertyChanges {
+                        target: resumeButton
+                        visible: false
+                    }
+                },
+                State{
+                    name:"pause"
+                    PropertyChanges {
+                        target: startButton
+                        visible: false
+                    }
+                    PropertyChanges {
+                        target: stopButton
+                        visible: true
+                    }
+                    PropertyChanges {
+                        target: pauseButton
+                        visible: false
+                    }
+                    PropertyChanges {
+                        target: resumeButton
+                        visible: true
+                    }
+                }
+            ]
 
         }
     }
@@ -213,5 +329,10 @@ Item {
         id:startPage
         anchors.fill: parent
         visible: false
+
+        onOkClicked: {
+            //statusList.visible = true;
+            controller.startPlan(index, 0);
+        }
     }
 }

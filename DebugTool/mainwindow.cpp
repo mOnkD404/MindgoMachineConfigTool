@@ -12,8 +12,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    connect(&m_server, &QTcpServer::newConnection, this, &MainWindow::newConnection);
-    m_server.listen(QHostAddress::Any, 20000);
+    WorkerThread *workerThread = new WorkerThread(this);
+          connect(workerThread, &WorkerThread::logInfo, this, &MainWindow::addLog);
+          connect(workerThread, &WorkerThread::finished, workerThread, &QObject::deleteLater);
+          workerThread->start();
 
 }
 
@@ -22,13 +24,30 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::newConnection()
+void MainWindow::addLog(const QString &log)
 {
-    QTcpSocket *skt = m_server.nextPendingConnection();
-    if(!skt->isOpen())
+    ui->listWidget->addItem(log);
+}
+
+
+void WorkerThread::run()
+{
+    m_server = new QTcpServer();
+    connect(m_server, &QTcpServer::newConnection, this, &WorkerThread::newConnection);
+    m_server->listen(QHostAddress::Any, 20000);
+}
+
+void WorkerThread::newConnection()
+{
+    QTcpSocket *skt = m_server->nextPendingConnection();
+    if(!skt->isOpen() || !skt->isValid())
         return;
 
-    qDebug()<<"client connectting ip:"<<skt->peerAddress()<<" port:"<<skt->peerPort();
+    QDataStream stream;
+    stream<<"client connectting ip:"<<skt->peerAddress()<<" port:"<<skt->peerPort();
+    QString info;
+    stream>>info;
+    emit logInfo(info);
 
     QByteArray recvArray;
     while(skt->isOpen() && skt->isValid())
@@ -44,7 +63,7 @@ void MainWindow::newConnection()
 
                 if (handleData(array))
                 {
-                    //QThread::msleep(1000);
+                    QThread::msleep(100);
                     skt->write(m_ackData);
                     skt->waitForBytesWritten();
                 }
@@ -57,9 +76,10 @@ void MainWindow::newConnection()
         }
     }
     skt->close();
+    delete skt;
 }
 
-bool MainWindow::handleData(const QByteArray& array)
+bool WorkerThread::handleData(const QByteArray& array)
 {
     const char* command[5] = {
         "\x02\x00\x08\x80\x01",//load tip
@@ -71,41 +91,39 @@ bool MainWindow::handleData(const QByteArray& array)
     };
     char ack[10] = "\x02\x00\x06\x00\x00\x00\x00\x00\x00";
 
+    QString recvStr;
+    QDataStream stream;
     if(memcmp(array.data(), command[0], 5) == 0)
     {
-        qDebug()<<"load tip command recv"<<array;
+        stream<<"load tip command recv"<<array;
 
         memcpy(ack+3, array.data()+3, 4);
         m_ackData = QByteArray(ack,9);
     }
     else if(memcmp(array.data(), command[1], 5) == 0)
     {
-
-        qDebug()<<"dump tip command recv"<<array;
+        stream<<"dump tip command recv"<<array;
 
         memcpy(ack+3, array.data()+3, 4);
         m_ackData = QByteArray(ack,9);
     }
     else if(memcmp(array.data(), command[2], 5) == 0)
     {
-
-        qDebug()<<"suction command recv"<<array;
+        stream<<"suction command recv"<<array;
 
         memcpy(ack+3, array.data()+3, 4);
         m_ackData = QByteArray(ack,9);
     }
     else if(memcmp(array.data(), command[3], 5) == 0)
     {
-
-        qDebug()<<"despense command recv"<<array;
+        stream<<"despense command recv"<<array;
 
         memcpy(ack+3, array.data()+3, 4);
         m_ackData = QByteArray(ack,9);
     }
     else if(memcmp(array.data(), command[4], 5) == 0)
     {
-
-        qDebug()<<"mix command recv"<<array;
+        stream<<"mix command recv"<<array;
 
         memcpy(ack+3, array.data()+3, 4);
         m_ackData = QByteArray(ack,9);
@@ -115,38 +133,7 @@ bool MainWindow::handleData(const QByteArray& array)
     {
         return false;
     }
+    stream>>recvStr;
+    emit logInfo(recvStr);
     return true;
-}
-
-
-int TableModel::rowCount(const QModelIndex &parent) const
-{
-    return m_data.size();
-}
-int TableModel::columnCount(const QModelIndex &parent) const
-{
-    return 2;
-}
-QVariant TableModel::data(const QModelIndex &index, int role) const
-{
-    if(role == Qt::DisplayRole)
-    {
-        if(index.column() == 0)
-        {
-            return QVariant::fromValue(m_data.at(index.row()).first);
-        }
-        if(index.column() == 1)
-        {
-            return QVariant::fromValue(m_data.at(index.row()).second);
-        }
-    }
-    return QVariant();
-}
-void TableModel::addRow(int index, char dat)
-{
-    m_data.append(qMakePair(index, dat));
-    while(m_data.size() > 100)
-    {
-        m_data.pop_front();
-    }
 }

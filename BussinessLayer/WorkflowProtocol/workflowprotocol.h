@@ -74,6 +74,7 @@ public slots:
 
 signals:
     void statusChanged(const QJsonObject&);
+    void taskStateChanged(bool running, int index);
 
 protected:
     bool handleControlCommand(Communication& com, QJsonObject& cmdObj);
@@ -87,6 +88,8 @@ private:
     int m_LoopStartIndex;
     int m_LoopCount;
     volatile bool m_forceStop;
+    int m_maxReceiveTime;
+    int m_startIndex;
 };
 
 class WORKFLOWPROTOCOLSHARED_EXPORT WorkflowController:public QObject
@@ -109,6 +112,7 @@ signals:
 
 public slots:
     void statusChanged(const QJsonObject&);
+    void taskStateChanged(bool running, int index);
 
 protected:
     QThread m_thread;
@@ -120,6 +124,19 @@ public:
     StatusChangeEvent():QEvent(static_cast<QEvent::Type>(QEvent::User+1)) {}
 
     QJsonObject jsObject;
+};
+
+class RunningStateChangeEvent: public QEvent
+{
+public:
+    RunningStateChangeEvent(bool bRun, int index)
+        :QEvent(static_cast<QEvent::Type>(QEvent::User+2)), running(bRun), stepIndex(index)
+    {
+
+    }
+
+    bool running;
+    int stepIndex;
 };
 
 #endif // WORKFLOWPROTOCOL_H

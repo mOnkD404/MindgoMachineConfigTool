@@ -1,7 +1,8 @@
 {
     "target":{
         "IP":"127.0.0.1",
-        "port":20000
+        "port":20000,
+        "maxReceiveTime":30
     },
     "plan":{
         "planA":[

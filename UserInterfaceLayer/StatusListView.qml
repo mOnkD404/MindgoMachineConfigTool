@@ -8,7 +8,17 @@ Item {
     StatusViewWatcher{
         id:watcher
         onStatusChanged: {
-            displayModel.append(jsobj);
+            if(displayModel.count > 0 &&
+                    (jsobj["operation"] == displayModel.get(displayModel.count-1).operation ) &&
+                    (jsobj["sequence"] == displayModel.get(displayModel.count-1).sequence))
+            {
+                displayModel.set(displayModel.count-1, jsobj);
+            }
+            else
+            {
+                displayModel.append(jsobj);
+            }
+
             statusList.currentIndex = displayModel.count - 1;
         }
     }

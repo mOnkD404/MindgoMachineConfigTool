@@ -41,10 +41,10 @@ public:
     void RemovePlan(int planIndex);
     void SavePlan();
 
-    void StartPlan(int planIndex);
+    void StartPlan(int planIndex, int stepIndex);
     void StopPlan();
 
-    void SaveIpAddress(const QString& , qint16);
+    void SaveMachineConfig(const MachineConfigData& data);
 
 
     QJsonObject formatSingleOperationParam(const SingleOperationData & obj);
@@ -78,7 +78,7 @@ private:
 
     QString m_userConfigFile;
 
-    IpAddressObject m_targetIp;
+    TargetMachineObject m_machineConfig;
 };
 
 #endif // ENVIRONMENTVARIANT_H

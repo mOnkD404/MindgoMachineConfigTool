@@ -21,10 +21,11 @@ public:
 
     QString ParseHostIP();
     qint16 ParseHostPort();
+    qint32 ParseHostSingleOperationThreshold();
     void ParsePlanList(QList<QPair<QString, QList<SingleOperationData> > >& planMap, const QMap<QString, OperationParamData> &);
     void SavePlanList(const QString& configFile, const QList<QPair<QString, QList<SingleOperationData> > > & planData, const QMap<QString, QStringList> &);
 
-    void SaveIpAddress(const QString& configFile, const QString &ip, qint16 port);
+    void SaveMachineConfig(const QString& configFile, const MachineConfigData&);
 
 signals:
 

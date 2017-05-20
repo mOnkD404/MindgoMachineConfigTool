@@ -4,12 +4,32 @@
 #include <QMainWindow>
 #include <QTcpServer>
 #include <QAbstractTableModel>
+#include <QThread>
 
 namespace Ui {
 class MainWindow;
 }
 
-class TableModel;
+class WorkerThread : public QThread
+{
+    Q_OBJECT
+public:
+    WorkerThread(QObject* parent = NULL):QThread(parent) {}
+    virtual void run() ;
+
+signals:
+    void logInfo(const QString& str);
+
+public slots:
+    void newConnection();
+
+protected:
+    bool handleData(const QByteArray& array);
+
+private:
+    QTcpServer *m_server;
+    QByteArray m_ackData;
+};
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -18,29 +38,13 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    bool handleData(const QByteArray& array);
-
 public slots:
-    void newConnection();
+    void addLog(const QString& );
 
 private:
     Ui::MainWindow *ui;
 
-    QTcpServer m_server;
-    TableModel* m_model;
-    QByteArray m_ackData;
 };
 
-class TableModel: public QAbstractTableModel
-{
-public:
-
-    void addRow(int index, char dat);
-    Q_INVOKABLE virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
-    Q_INVOKABLE virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
-    Q_INVOKABLE virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-
-    QList<QPair<int,qint8> > m_data;
-};
 
 #endif // MAINWINDOW_H

@@ -6,6 +6,10 @@ Item {
 
     PlanController{
         id:controller
+
+        onTaskStateChanged: {
+            actionBarID.state = actionBarID.newState;
+        }
     }
 
     Rectangle{
@@ -109,6 +113,8 @@ Item {
         }
 
         Column {
+            property string newState: ""
+
             id: actionBarID
             width: 150
             height: 620
@@ -152,7 +158,7 @@ Item {
             }
 
             TextButton{
-                id:button4
+                id:startButton
                 textValue: qsTr("Start test")
                 height: 80
                 startColor:"#cffe9e"
@@ -161,10 +167,11 @@ Item {
 
                 onClicked: {
                     startPage.visible = true;
+                    actionBarID.newState = "start";
                 }
             }
             TextButton{
-                id:button5
+                id:stopButton
                 textValue: qsTr("Stop test")
                 height: 80
                 startColor:"#cffe9e"
@@ -174,10 +181,11 @@ Item {
 
                 onClicked: {
                     controller.stopPlan();
+                    actionBarID.newState = "";
                 }
             }
             TextButton{
-                id:button6
+                id:pauseButton
                 textValue: qsTr("Pause test")
                 height: 80
                 startColor:"#cffe9e"
@@ -187,8 +195,69 @@ Item {
 
                 onClicked: {
                     controller.stopPlan();
+                    actionBarID.newState = "pause";
                 }
             }
+            TextButton{
+                id:resumeButton
+                textValue: qsTr("Resume test")
+                height: 80
+                startColor:"#cffe9e"
+                stopColor:"#92d456"
+                borderColor:"#99da73"
+                visible:false
+
+                onClicked: {
+                    controller.resumePlan();
+                    actionBarID.newState = "start";
+                }
+            }
+
+
+            states:[
+                State{
+                    name:"start"
+                    PropertyChanges {
+                        target: actionBarID
+                        newState: ""
+                    }
+                    PropertyChanges {
+                        target: startButton
+                        visible: false
+                    }
+                    PropertyChanges {
+                        target: stopButton
+                        visible: true
+                    }
+                    PropertyChanges {
+                        target: pauseButton
+                        visible: true
+                    }
+                    PropertyChanges {
+                        target: resumeButton
+                        visible: false
+                    }
+                },
+                State{
+                    name:"pause"
+                    PropertyChanges {
+                        target: startButton
+                        visible: false
+                    }
+                    PropertyChanges {
+                        target: stopButton
+                        visible: true
+                    }
+                    PropertyChanges {
+                        target: pauseButton
+                        visible: false
+                    }
+                    PropertyChanges {
+                        target: resumeButton
+                        visible: true
+                    }
+                }
+            ]
 
         }
     }
@@ -261,10 +330,7 @@ Item {
 
         onOkClicked: {
             //statusList.visible = true;
-            button4.visible = false;
-            button5.visible = true;
-
-            controller.startPlan(index);
+            controller.startPlan(index, 0);
         }
     }
 }

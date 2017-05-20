@@ -220,7 +220,7 @@ void WorkflowProtocol::unserializeRecvFrame(const QByteArray& buff)
 
 
 SubThreadWorker::SubThreadWorker(WorkflowProtocol* protocol, QObject*parent)
-    :QObject(parent), m_protocol(protocol), m_LoopStartIndex(0), m_LoopCount(0), m_forceStop(false)
+    :QObject(parent), m_protocol(protocol), m_LoopStartIndex(0), m_LoopCount(0), m_forceStop(false), m_maxReceiveTime(0)
 {
 
 }
@@ -242,8 +242,11 @@ void SubThreadWorker::doWork(const QJsonObject &jsObj)
         return;
     }
 
+    m_maxReceiveTime = jsObj["maxReceiveTime"].toInt();
     QJsonArray opList = jsObj["operations"].toArray();
-    int currentIndex = 0;
+    int currentIndex = jsObj["startIndex"].toInt();
+
+    emit taskStateChanged(true, currentIndex);
 
     while (1)
     {
@@ -272,6 +275,7 @@ void SubThreadWorker::doWork(const QJsonObject &jsObj)
     }
     com.disconnect();
 
+    emit taskStateChanged(false, currentIndex);
     m_forceStop = false;
 }
 
@@ -339,7 +343,6 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
 
 bool SubThreadWorker::handleControlCommand(Communication& com, QJsonObject& cmdObj)
 {
-    const int MaxReceiveTime = 30000;
     QJsonObject retObj;
     retObj["operation"] = "";
     retObj["sequence"] = 0;
@@ -350,8 +353,9 @@ bool SubThreadWorker::handleControlCommand(Communication& com, QJsonObject& cmdO
     m_protocol->parseJsonObjectToSendFrame(cmdObj, retObj);
     QByteArray btarray = m_protocol->serializeSendFrame();
 
-    int sendlen = btarray.size();
+    emit statusChanged(retObj);
 
+    int sendlen = btarray.size();
     QElapsedTimer timer;
     timer.start();
     bool sendret = false;
@@ -378,16 +382,16 @@ bool SubThreadWorker::handleControlCommand(Communication& com, QJsonObject& cmdO
 
     retObj["send"] = sendret;
 
+    emit statusChanged(retObj);
     if (!sendret)
     {
-        emit statusChanged(retObj);
         return false;
     }
 
     timer.restart();
     bool recvret = false;
     QByteArray recvArray;
-    while(com.connected() && timer.elapsed() < MaxReceiveTime)
+    while(com.connected() && timer.elapsed() < m_maxReceiveTime)
     {
         const QByteArray &array = com.readData();
         if(array.size() > 0)
@@ -440,6 +444,7 @@ WorkflowController::WorkflowController(QObject *parent)
     connect(this, &WorkflowController::changeHost, worker, &SubThreadWorker::changeHost);
     connect(this, &WorkflowController::configProtocol, worker, &SubThreadWorker::configProtocol);
     connect(this, &WorkflowController::stopTask, worker, &SubThreadWorker::stopTask, Qt::DirectConnection);
+    connect(worker, &SubThreadWorker::taskStateChanged, this, &WorkflowController::taskStateChanged);
     m_thread.start();
 }
 
@@ -474,7 +479,7 @@ void WorkflowController::stopCurrentTask()
 {
     if(m_thread.isRunning())
     {
-        emit
+        emit stopTask();
     }
 }
 
@@ -488,6 +493,12 @@ void WorkflowController::statusChanged(const QJsonObject &obj)
 {
     StatusChangeEvent* userEvent = new StatusChangeEvent();
     userEvent->jsObject = obj;
+    qApp->postEvent(qApp, userEvent);
+}
+
+void WorkflowController::taskStateChanged(bool running, int index)
+{
+    RunningStateChangeEvent* userEvent = new RunningStateChangeEvent(running, index);
     qApp->postEvent(qApp, userEvent);
 }
 

@@ -81,7 +81,7 @@ Item {
                 height: 30
                 text: qsTr("Max ack waiting time")
                 verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
+                horizontalAlignment: Text.AlignLeft
                 font.pixelSize: 20
                 color: "#d9d9d9"
                 font.bold: true

@@ -8,6 +8,7 @@ Item {
     height: 768
     //title: qsTr("Mindgo automatic tool")
 
+
     MainScreen{
         anchors.fill: parent
     }

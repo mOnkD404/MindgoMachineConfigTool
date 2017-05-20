@@ -18,5 +18,6 @@
         <file>image/add.png</file>
         <file>StartPage.qml</file>
         <file>StatusListView.qml</file>
+        <file>FZHTJW.TTF</file>
     </qresource>
 </RCC>

@@ -326,13 +326,13 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
     }
     else if(opname == "EndLoop")
     {
+        m_LoopCount--;
         if(m_LoopCount <= 0)
         {
             m_LoopStartIndex = currentIndex;
         }
         else
         {
-            m_LoopCount--;
             currentIndex = m_LoopStartIndex;
         }
     }

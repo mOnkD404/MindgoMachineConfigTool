@@ -41,7 +41,7 @@ bool WorkflowProtocol::parseJsonObjectToSendFrame(const QJsonObject & jsObj, QJs
 
     ushort code = 0;
     QString codeStr = sendConfig["operation"].toObject()["data"].toObject()[operationName].toString();
-    if(codeStr.at(0) == '0' && codeStr.at(1) == 'x')
+    if(codeStr.size() > 2 && codeStr.at(0) == '0' && codeStr.at(1) == 'x')
     {
         code = codeStr.right(codeStr.length()-2).toInt(NULL,16);
     }
@@ -305,6 +305,7 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
     retObj["send"] = false;
     retObj["ack"] = false;
     retObj["ackResult"] = 0;
+    retObj["newOperationItem"] = true;
 
 
     QString opname = cmdObj["operation"].toString();
@@ -349,6 +350,7 @@ bool SubThreadWorker::handleControlCommand(Communication& com, QJsonObject& cmdO
     retObj["send"] = false;
     retObj["ack"] = false;
     retObj["ackResult"] = 0;
+    retObj["newOperationItem"] = true;
 
     m_protocol->parseJsonObjectToSendFrame(cmdObj, retObj);
     QByteArray btarray = m_protocol->serializeSendFrame();
@@ -379,7 +381,7 @@ bool SubThreadWorker::handleControlCommand(Communication& com, QJsonObject& cmdO
         }
     }
 
-
+    retObj["newOperationItem"] = false;
     retObj["send"] = sendret;
 
     emit statusChanged(retObj);
@@ -406,6 +408,7 @@ bool SubThreadWorker::handleControlCommand(Communication& com, QJsonObject& cmdO
         }
     }
 
+    retObj["newOperationItem"] = false;
     retObj["ack"] = recvret;
 
     emit statusChanged(retObj);

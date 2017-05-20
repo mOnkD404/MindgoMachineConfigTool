@@ -5,10 +5,15 @@ import Common 1.0
 Item {
     signal stopped;
 
+    function clearModel(){
+        displayModel.clear();
+        statusList.currentIndex = -1;
+    }
+
     StatusViewWatcher{
         id:watcher
         onStatusChanged: {
-            if(displayModel.count > 0 &&
+            if(displayModel.count > 0 && (jsobj["newOperationItem"] == false) &&
                     (jsobj["operation"] == displayModel.get(displayModel.count-1).operation ) &&
                     (jsobj["sequence"] == displayModel.get(displayModel.count-1).sequence))
             {
@@ -65,9 +70,9 @@ Item {
 
                     Text { text: 'Operation: ' + operation; color:"#d9d9d9" }
                     Text { text: 'Sequence number: ' + sequence; color:"#d9d9d9" }
-                    Text { text: 'Send: ' + send.toString(); color:"#d9d9d9" }
-                    Text { text: 'Ack: ' + ack.toString(); color:"#d9d9d9" }
-                    Text { text: 'Ack result: ' + ackResult; color:"#d9d9d9" }
+                    Text { text: 'Send: ' + send.toString(); color:"#d9d9d9"; font.bold: true }
+                    Text { text: 'Ack: ' + ack.toString(); color:"#d9d9d9"; font.bold: true }
+                    Text { text: 'Ack result: ' + ackResult; color:"#d9d9d9"; font.bold: true }
                 }
             }
         }

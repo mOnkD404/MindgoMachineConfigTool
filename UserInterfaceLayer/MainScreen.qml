@@ -168,6 +168,8 @@ Item {
                 onClicked: {
                     startPage.visible = true;
                     actionBarID.newState = "start";
+
+                    statusList.clearModel();
                 }
             }
             TextButton{

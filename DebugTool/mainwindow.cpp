@@ -12,41 +12,47 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    WorkerThread *workerThread = new WorkerThread(this);
-          connect(workerThread, &WorkerThread::logInfo, this, &MainWindow::addLog);
-          connect(workerThread, &WorkerThread::finished, workerThread, &QObject::deleteLater);
-          workerThread->start();
+    WorkerObject *workerObj = new WorkerObject(NULL);
+    workerObj->moveToThread(&m_worker);
+    connect(workerObj, &WorkerObject::logInfo, this, &MainWindow::addLog);
+    connect(&m_worker, &QThread::finished, workerObj, &QObject::deleteLater);
+    connect(&m_worker, &QThread::started, workerObj, &WorkerObject::startServer);
+    m_worker.start();
 
 }
 
 MainWindow::~MainWindow()
 {
+    m_worker.quit();
+    m_worker.wait();
     delete ui;
 }
 
 void MainWindow::addLog(const QString &log)
 {
     ui->listWidget->addItem(log);
+    ui->listWidget->setCurrentRow(ui->listWidget->count() - 1);
 }
 
 
-void WorkerThread::run()
+void WorkerObject::startServer()
 {
     m_server = new QTcpServer();
-    connect(m_server, &QTcpServer::newConnection, this, &WorkerThread::newConnection);
+    connect(m_server, &QTcpServer::newConnection, this, &WorkerObject::newConnection);
     m_server->listen(QHostAddress::Any, 20000);
 }
 
-void WorkerThread::newConnection()
+void WorkerObject::newConnection()
 {
     QTcpSocket *skt = m_server->nextPendingConnection();
     if(!skt->isOpen() || !skt->isValid())
         return;
 
-    QDataStream stream;
-    stream<<"client connectting ip:"<<skt->peerAddress()<<" port:"<<skt->peerPort();
     QString info;
-    stream>>info;
+    info += "client connectting ip:";
+    info += skt->peerAddress().toString();
+    info += " port:";
+    info += QString::number(skt->peerPort());
     emit logInfo(info);
 
     QByteArray recvArray;
@@ -63,7 +69,7 @@ void WorkerThread::newConnection()
 
                 if (handleData(array))
                 {
-                    QThread::msleep(100);
+                    QThread::msleep(500);
                     skt->write(m_ackData);
                     skt->waitForBytesWritten();
                 }
@@ -79,7 +85,7 @@ void WorkerThread::newConnection()
     delete skt;
 }
 
-bool WorkerThread::handleData(const QByteArray& array)
+bool WorkerObject::handleData(const QByteArray& array)
 {
     const char* command[5] = {
         "\x02\x00\x08\x80\x01",//load tip
@@ -92,38 +98,37 @@ bool WorkerThread::handleData(const QByteArray& array)
     char ack[10] = "\x02\x00\x06\x00\x00\x00\x00\x00\x00";
 
     QString recvStr;
-    QDataStream stream;
     if(memcmp(array.data(), command[0], 5) == 0)
     {
-        stream<<"load tip command recv"<<array;
+        recvStr.append("load tip command recv").append(array);
 
         memcpy(ack+3, array.data()+3, 4);
         m_ackData = QByteArray(ack,9);
     }
     else if(memcmp(array.data(), command[1], 5) == 0)
     {
-        stream<<"dump tip command recv"<<array;
+        recvStr.append("dump tip command recv").append(array);
 
         memcpy(ack+3, array.data()+3, 4);
         m_ackData = QByteArray(ack,9);
     }
     else if(memcmp(array.data(), command[2], 5) == 0)
     {
-        stream<<"suction command recv"<<array;
+        recvStr.append("suction command recv").append(array);
 
         memcpy(ack+3, array.data()+3, 4);
         m_ackData = QByteArray(ack,9);
     }
     else if(memcmp(array.data(), command[3], 5) == 0)
     {
-        stream<<"despense command recv"<<array;
+        recvStr.append("despense command recv").append(array);
 
         memcpy(ack+3, array.data()+3, 4);
         m_ackData = QByteArray(ack,9);
     }
     else if(memcmp(array.data(), command[4], 5) == 0)
     {
-        stream<<"mix command recv"<<array;
+        recvStr.append("mix command recv").append(array);
 
         memcpy(ack+3, array.data()+3, 4);
         m_ackData = QByteArray(ack,9);
@@ -133,7 +138,6 @@ bool WorkerThread::handleData(const QByteArray& array)
     {
         return false;
     }
-    stream>>recvStr;
     emit logInfo(recvStr);
     return true;
 }

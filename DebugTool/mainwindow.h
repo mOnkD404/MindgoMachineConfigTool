@@ -10,17 +10,17 @@ namespace Ui {
 class MainWindow;
 }
 
-class WorkerThread : public QThread
+class WorkerObject : public QObject
 {
     Q_OBJECT
 public:
-    WorkerThread(QObject* parent = NULL):QThread(parent) {}
-    virtual void run() ;
+    WorkerObject(QObject* parent = NULL):QObject(parent) {}
 
 signals:
     void logInfo(const QString& str);
 
 public slots:
+    void startServer();
     void newConnection();
 
 protected:
@@ -43,6 +43,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
+    QThread m_worker;
 
 };
 

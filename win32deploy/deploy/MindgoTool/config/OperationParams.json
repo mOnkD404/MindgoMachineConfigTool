@@ -1,0 +1,110 @@
+{
+    "OperationEnum":["Load Tip", "Dump Tip", "Suction", "Dispense", "Mix"],
+    "LogicalControlEnum":["WaitArray","Loop", "EndLoop"],
+    "NormalOperation":{
+        "Load Tip":[         "boardType", "position"],
+        "Suction": ["speed", "boardType", "position", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume",                        "suctionHeight"],
+        "Dispense":["speed", "boardType", "position",                                                                                 "drain", "drainVolume",                 "drainHeight"],
+        "Mix":["speed", "boardType", "position", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume",                         "suctionHeight","drainHeight"],
+        "Dump Tip":[         "boardType", "position"]
+    },
+    "logicalControl":{
+        "WaitArray":["waitTime"],
+        "Loop":["position", "cycleCount"],
+        "EndLoop":["position"]
+    },
+    "Operation Display Name":{
+        "Load Tip":"装载针头",
+        "Suction":"吸液",
+        "Dispense":"排液",
+        "Mix":"混合",
+        "Dump Tip":"卸载针头",
+        "WaitArray":"等待时间",
+        "Loop":"循环",
+        "EndLoop":"循环结束"
+    },
+
+    "params":{
+        "speed":{
+            "type":"enum",
+            "enum":["慢速","中速","快速"],
+            "valueEnum":[0,1,2],
+            "default":1,
+            "display":"注射器速度"
+        },
+        "boardType":{
+            "type":"enum",
+            "enum":["PCR板","Nunc深口板"],
+            "valueEnum":[10,50],
+            "default":1,
+            "display":"耗材类型"
+
+        },
+        "position":{
+            "type":"enum",
+            "enum":["1","2","3","4","5","6","7","8","9","10","11","12"],
+            "valueEnum":[0,1,2,3,4,5,6,7,8,9,10,11],
+            "default":0,
+            "display":"位置"
+        },
+        "preSuction":{
+            "type":"bool",
+            "default":false,
+            "display":"前吸"
+        },
+        "preSuctionVolume":{
+            "type":"integer",
+            "default":0,
+            "display":"前吸体积",
+            "switch":"preSuction"
+        },
+        "postSuction":{
+            "type":"bool",
+            "default":false,
+            "display":"后吸"
+        },
+        "postSuctionVolume":{
+            "type":"integer",
+            "default":0,
+            "display":"后吸体积",
+            "switch":"postSuction"
+        },
+        "volume":{
+            "type":"integer",
+            "default":0,
+            "display":"吸液体积"
+        },
+
+        "drain":{
+            "type":"bool",
+            "default":false,
+            "display":"排空"
+        },
+        "drainVolume":{
+            "type":"integer",
+            "default":0,
+            "display":"排液体积"
+        },
+        "cycleCount":{
+            "type":"integer",
+            "default":0,
+            "display":"循环次数"
+        },
+        "suctionHeight":{
+            "type":"float",
+            "default":"",
+            "display":"吸液离底高度"
+        },
+        "drainHeight":{
+            "type":"float",
+            "default":0,
+            "display":"排液离底高度"
+        },
+
+        "waitTime":{
+            "type":"integer",
+            "default":0,
+            "display":"等待时间"
+        }
+    }
+}

@@ -1,4 +1,4 @@
-#include <QGuiApplication>
+﻿#include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QStringList>
 
@@ -68,8 +68,8 @@ int main(int argc, char *argv[])
 
     QFontDatabase::addApplicationFont("./config/FZHTJW.TTF");
     QFont font;
-    font.setPointSize(16);
-    font.setFamily("FZHTJW");
+    font.setFamily(QString::fromWCharArray(L"方正黑体简体"));
+    app.setFont(font);
 
 
     QQuickView view;

@@ -1,4 +1,4 @@
-#include "workflowprotocol.h"
+﻿#include "workflowprotocol.h"
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QStringList>
@@ -248,7 +248,7 @@ void SubThreadWorker::doWork(const QJsonObject &jsObj)
 
     emit taskStateChanged(true, currentIndex);
 
-    while (1)
+    while (currentIndex >=0 && currentIndex < opList.size())
     {
         QJsonObject sendobj = opList[currentIndex].toObject();
         bool retVal = false;

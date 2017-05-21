@@ -1,4 +1,4 @@
-{
+﻿{
     "Protocol":{
         "version":"1.0",
 
@@ -42,8 +42,8 @@
                     "data":["boardType","position","speed","drainVolume","drain","drainHeight"]
                 },
                 "Mix":{
-                    "byte size":20,
-                    "data":["boardType","position","speed","preSuctionVolume","postSuctionVolume","volume","suctionHeight","drainHeight"]
+                    "byte size":22,
+                    "data":["boardType","position","speed","preSuctionVolume","postSuctionVolume","volume","suctionHeight","drainHeight","cycleCount"]
                 }
             }
         },

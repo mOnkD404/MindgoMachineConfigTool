@@ -1,4 +1,4 @@
-import QtQuick 2.7
+﻿import QtQuick 2.7
 import Common 1.0
 
 Item {
@@ -104,11 +104,6 @@ Item {
                 anchors.top:mainVDewID.top
                 anchors.right: mainVDewID.right
                 anchors.bottom: mainVDewID.bottom
-
-                onStopped: {
-                    button4.visible = true;
-                    visible = false;
-                }
             }
         }
 
@@ -183,7 +178,12 @@ Item {
 
                 onClicked: {
                     controller.stopPlan();
-                    actionBarID.newState = "";
+                    if(actionBarID.state == "start"){
+                        actionBarID.newState = "";
+                    }else if(actionBarID.state == "pause"){
+                        //already stopped
+                        actionBarID.state = "";
+                    }
                 }
             }
             TextButton{
@@ -329,6 +329,12 @@ Item {
         id:startPage
         anchors.fill: parent
         visible: false
+
+        onVisibleChanged: {
+            if(visible == true){
+                updatePlanList();
+            }
+        }
 
         onOkClicked: {
             //statusList.visible = true;

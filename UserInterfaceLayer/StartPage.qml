@@ -1,9 +1,19 @@
-import QtQuick 2.7
+﻿import QtQuick 2.7
 import Common 1.0
 import QtQuick.Controls 2.1
 
 Item {
     signal okClicked(int index);
+
+    function updatePlanList(){
+        plancomboBox.model = selector.planListModel()
+
+    }
+
+    PlanSelector{
+        id:selector
+    }
+
 
     id:root
     anchors.fill: parent
@@ -60,11 +70,6 @@ Item {
             font.pixelSize: 16
             color: "#b5b7b6"
         }
-
-        PlanSelector{
-            id:selector
-        }
-
 
         ComboBox {
             id: plancomboBox

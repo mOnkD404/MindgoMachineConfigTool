@@ -11,6 +11,8 @@
 #include "environmentvariant.h"
 #include <QTranslator>
 #include <QDir>
+#include <QFont>
+#include <QFontDatabase>
 
 void customMessageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
@@ -63,6 +65,12 @@ int main(int argc, char *argv[])
     qmlRegisterType<PlanSelector>("Common" ,1,0,"PlanSelector");
     qmlRegisterType<StatusViewWatcher>("Common", 1,0,"StatusViewWatcher");
     qmlRegisterType<PlanController>("Common", 1,0,"PlanController");
+
+    QFontDatabase::addApplicationFont("./config/FZHTJW.TTF");
+    QFont font;
+    font.setPointSize(16);
+    font.setFamily("方正黑体简体");
+
 
     QQuickView view;
 

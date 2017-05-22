@@ -1,4 +1,4 @@
-import QtQuick 2.6
+import QtQuick 2.7
 import QtQuick.Window 2.2
 
 Item {
@@ -7,6 +7,7 @@ Item {
 
     height: 768
     //title: qsTr("Mindgo automatic tool")
+
 
     MainScreen{
         anchors.fill: parent

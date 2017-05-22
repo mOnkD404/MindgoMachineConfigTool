@@ -1,4 +1,4 @@
-#include "workflowprotocol.h"
+﻿#include "workflowprotocol.h"
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QStringList>
@@ -136,12 +136,18 @@ QByteArray WorkflowProtocol::serializeSendFrame()
     QByteArray buffer;
 
     buffer.append(formatWord<uchar>(m_sendFrame.head));
-    buffer.append(formatWord<ushort>(m_sendFrame.length));
+    buffer.append(formatWord<ushort>(m_sendFrame.length));//words behind
     buffer.append(formatWord<ushort>(m_sendFrame.opcode));
     buffer.append(formatWord<ushort>(m_sendFrame.seq));
-    for(int index = 0; index < m_sendFrame.length; index++)
+
+    qint32 paramByteCount = m_sendFrame.length - sizeof(m_sendFrame.opcode) - sizeof(m_sendFrame.seq);
+    if(paramByteCount > 0)
     {
-        buffer.append(formatWord<ushort>(m_sendFrame.params[index]));
+        qint32 paramCount = paramByteCount/2;
+        for(int index = 0; index < paramCount; index++)
+        {
+            buffer.append(formatWord<ushort>(m_sendFrame.params[index]));
+        }
     }
 
     return buffer;
@@ -248,7 +254,7 @@ void SubThreadWorker::doWork(const QJsonObject &jsObj)
 
     emit taskStateChanged(true, currentIndex);
 
-    while (1)
+    while (currentIndex >=0 && currentIndex < opList.size())
     {
         QJsonObject sendobj = opList[currentIndex].toObject();
         bool retVal = false;

@@ -1,4 +1,4 @@
-import QtQuick 2.7
+﻿import QtQuick 2.7
 import QtQuick.Controls 2.1
 import Common 1.0
 import QtQml.Models 2.2
@@ -148,7 +148,7 @@ Item {
                             if(visible){
                                 focus = true;
                                 selectAll();
-                                //forceActiveFocus();
+                                forceActiveFocus();
                             }
                         }
 
@@ -258,7 +258,14 @@ Item {
                     }else if(str == "delete"){
                         selector.removeStep(planListView.currentIndex, stepListView.currentIndex);
                         stepListModel.remove(stepListView.currentIndex);
-                        stepListView.currentIndex = -1;
+                        if(stepListView.count > 0){
+                            if(stepListView.currentIndex > 0){
+                                stepListView.currentIndex = stepListView.currentIndex -1;
+                            }else {
+                                selector.setSelectedStep(planListView.currentIndex, stepListView.currentIndex);
+                                paramList.model = selector.paramListModel();
+                            }
+                        }
                     }
                 }
             }
@@ -485,12 +492,16 @@ Item {
                         if(operationColumn.changeOperation == "add"){
                             selector.addStep(planListView.currentIndex, stepListView.count, index);
                             stepListModel.append({"name":textValue});
+
+                            selector.setSelectedOperation(planListView.currentIndex, stepListView.count - 1, index);
+                            paramList.model = selector.paramListModel();
+
                             stepListView.currentIndex = stepListView.count - 1;
                         }else if (operationColumn.changeOperation == "edit"){
                             selector.setSelectedOperation(planListView.currentIndex, stepListView.currentIndex, index);
                             stepListModel.setProperty(stepListView.currentIndex, "name", textValue);
+                            paramList.model = selector.paramListModel();
                         }
-                        paramList.model = selector.paramListModel();
                     }
                 }
 

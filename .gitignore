@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # This file is used to ignore files which are generated
 # ----------------------------------------------------------------------------
 
@@ -72,12 +72,10 @@ Thumbs.db
 *.dll
 *.exe
 
-=======
+
 *.user
->>>>>>> origin/master
 
 MindgoMachineConfigTool.pro.user.e001f0f
 
 MindgoMachineConfigTool.pro.user
 
-MindgoMachineConfigTool.pro.user.e001f0f

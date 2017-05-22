@@ -1,4 +1,4 @@
-#include "environmentvariant.h"
+﻿#include "environmentvariant.h"
 #include <QObject>
 #include "configfilehandler.h"
 #include "workmodels.h"
@@ -370,6 +370,11 @@ void EnvironmentVariant::SaveMachineConfig(const MachineConfigData& data)
 {
     configFileHandler handler(NULL);
     handler.SaveMachineConfig(m_userConfigFile, data);
+
+    //todo
+    m_machineConfig.setIpAddress(data.IpAddress);
+    m_machineConfig.setPort(data.port);
+    m_machineConfig.setMaxReceiveTime(data.maxReceiveTime);
 }
 
 void EnvironmentVariant::StartPlan(int planIndex, int stepIndex)

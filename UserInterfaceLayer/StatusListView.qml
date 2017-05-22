@@ -1,10 +1,8 @@
-import QtQuick 2.7
+﻿import QtQuick 2.7
 import QtQuick.Controls 1.4
 import Common 1.0
 
 Item {
-    signal stopped;
-
     function clearModel(){
         displayModel.clear();
         statusList.currentIndex = -1;

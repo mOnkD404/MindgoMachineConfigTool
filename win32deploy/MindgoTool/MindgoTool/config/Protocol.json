@@ -1,0 +1,81 @@
+﻿{
+    "Protocol":{
+        "version":"1.0",
+
+        "send command":["head", "length", "operation", "sequence number", "params"],
+        "send buffer":{
+            "head":{
+                "data":"0x02",
+                "byte size":1
+            },
+            "length":{
+                "byte size":2
+            },
+            "operation":{
+                "data":{
+                    "Load Tip":"0x8001",
+                    "Dump Tip":"0x8002",
+                    "Suction":"0x8003",
+                    "Dispense":"0x8004",
+                    "Mix":"0x8005"
+                },
+                "byte size":2
+            },
+            "sequence number":{
+                "byte size":2
+            },
+            "params":{
+                "Load Tip":{
+                    "byte size":8,
+                    "data":["boardType","position"]
+                },
+                "Dump Tip":{
+                    "byte size":8,
+                    "data":["boardType","position"]
+                },
+                "Suction":{
+                    "byte size":18,
+                    "data":["boardType","position","speed","preSuctionVolume","postSuctionVolume","volume","suctionHeight"]
+                },
+                "Dispense":{
+                    "byte size":16,
+                    "data":["boardType","position","speed","drainVolume","drain","drainHeight"]
+                },
+                "Mix":{
+                    "byte size":22,
+                    "data":["boardType","position","speed","preSuctionVolume","postSuctionVolume","volume","suctionHeight","drainHeight","cycleCount"]
+                }
+            }
+        },
+
+        "receive command":["head","length","operation code","sequence number","result"],
+        "receive buffer":{
+            "head":{
+                "data":"0x02",
+                "byte size":2
+            },
+            "length":{
+                "data":"0x0006",
+                "byte size":2
+            },
+            "operation":{
+                "data":{
+                    "Load Tip":"0x8001",
+                    "Dump Tip":"0x8002",
+                    "Suction":"0x8003",
+                    "Dispense":"0x8004",
+                    "Mix":"0x8005"
+                },
+                "byte size":2
+            },
+            "sequence number":{
+                "data":"0xff",
+                "byte size":2
+            },
+            "result":{
+                "data":"0xff",
+                "byte size":2
+            }
+        }
+    }
+}

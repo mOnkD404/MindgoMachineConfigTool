@@ -1,0 +1,24 @@
+{
+    "target":{
+        "IP":"127.0.0.1",
+        "port":20000,
+        "maxReceiveTime":30
+    },
+    "plan":{
+        "planA":[
+            {
+                "operation":"Load Tip",
+                "params":{"boardType":1,"position":6}
+            },
+            {
+                "operation":"Dump Tip",
+                "params":{"boardType":1,"position":6}
+            }],
+        "planB":[
+            {
+                "operation":"Load Tip",
+                "params":{"boardType":1,"position":6}
+            }
+        ]
+    }
+}

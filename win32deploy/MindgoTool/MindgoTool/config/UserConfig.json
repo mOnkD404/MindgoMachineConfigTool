@@ -1,151 +1,24 @@
 {
-    "plan": {
-        "333": [
+    "target":{
+        "IP":"127.0.0.1",
+        "port":20000,
+        "maxReceiveTime":30
+    },
+    "plan":{
+        "planA":[
             {
-                "operation": "Dump Tip",
-                "params": {
-                    "boardType": 1,
-                    "position": 0
-                },
-                "sequenceNumber": 1
+                "operation":"Load Tip",
+                "params":{"boardType":1,"position":6}
             },
             {
-                "operation": "Suction",
-                "params": {
-                    "boardType": 1,
-                    "position": 0,
-                    "postSuction": false,
-                    "postSuctionVolume": 0,
-                    "preSuction": false,
-                    "preSuctionVolume": 0,
-                    "speed": 1,
-                    "suctionHeight": 0,
-                    "volume": 0
-                },
-                "sequenceNumber": 2
-            },
+                "operation":"Dump Tip",
+                "params":{"boardType":1,"position":6}
+            }],
+        "planB":[
             {
-                "operation": "Loop",
-                "params": {
-                    "cycleCount": 3,
-                    "position": 4
-                },
-                "sequenceNumber": 3
-            },
-            {
-                "operation": "Suction",
-                "params": {
-                    "boardType": 1,
-                    "position": 0,
-                    "postSuction": false,
-                    "postSuctionVolume": 0,
-                    "preSuction": false,
-                    "preSuctionVolume": 0,
-                    "speed": 1,
-                    "suctionHeight": 6.1462005826e-313,
-                    "volume": 0
-                },
-                "sequenceNumber": 4
-            },
-            {
-                "operation": "Suction",
-                "params": {
-                    "boardType": 1,
-                    "position": 0,
-                    "postSuction": false,
-                    "postSuctionVolume": 0,
-                    "preSuction": false,
-                    "preSuctionVolume": 0,
-                    "speed": 1,
-                    "suctionHeight": 6.14620054625e-313,
-                    "volume": 0
-                },
-                "sequenceNumber": 5
-            },
-            {
-                "operation": "Dispense",
-                "params": {
-                    "boardType": 1,
-                    "drain": false,
-                    "drainHeight": 0,
-                    "drainVolume": 0,
-                    "position": 0,
-                    "speed": 1
-                },
-                "sequenceNumber": 6
-            },
-            {
-                "operation": "EndLoop",
-                "params": {
-                    "position": 0
-                },
-                "sequenceNumber": 7
-            },
-            {
-                "operation": "WaitArray",
-                "params": {
-                    "waitTime": 9
-                },
-                "sequenceNumber": 8
-            },
-            {
-                "operation": "Suction",
-                "params": {
-                    "boardType": 1,
-                    "position": 0,
-                    "postSuction": false,
-                    "postSuctionVolume": 0,
-                    "preSuction": false,
-                    "preSuctionVolume": 0,
-                    "speed": 1,
-                    "suctionHeight": 9.81646018112e-312,
-                    "volume": 0
-                },
-                "sequenceNumber": 9
-            },
-            {
-                "operation": "Dump Tip",
-                "params": {
-                    "boardType": 1,
-                    "position": 0
-                },
-                "sequenceNumber": 10
-            }
-        ],
-        "NewPlan": [
-        ],
-        "planA": [
-            {
-                "operation": "Load Tip",
-                "params": {
-                    "boardType": 1,
-                    "position": 6
-                },
-                "sequenceNumber": 11
-            },
-            {
-                "operation": "Dump Tip",
-                "params": {
-                    "boardType": 1,
-                    "position": 6
-                },
-                "sequenceNumber": 12
-            }
-        ],
-        "planB": [
-            {
-                "operation": "Load Tip",
-                "params": {
-                    "boardType": 1,
-                    "position": 6
-                },
-                "sequenceNumber": 13
+                "operation":"Load Tip",
+                "params":{"boardType":1,"position":6}
             }
         ]
-    },
-    "target": {
-        "IP": "127.0.0.1",
-        "maxReceiveTime": 30,
-        "port": 20000
     }
 }

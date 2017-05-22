@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<StatusViewWatcher>("Common", 1,0,"StatusViewWatcher");
     qmlRegisterType<PlanController>("Common", 1,0,"PlanController");
 
-    QFontDatabase::addApplicationFont("./config/FZHTJW.TTF");
+    QFontDatabase::addApplicationFont("qrc:/FZHTJW.TTF");
     QFont font;
     font.setFamily(QString::fromWCharArray(L"方正黑体简体"));
     app.setFont(font);

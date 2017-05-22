@@ -42,7 +42,9 @@ DEPENDPATH += $$PWD/../BussinessLayer/WorkflowProtocol
 DISTFILES += \
     OperationParams.json \
     Protocol.json \
-    UserConfig.json
+    config/OperationParams.json \
+    config/Protocol.json \
+    config/UserConfig.json
 
 HEADERS += \
     workmodels.h \

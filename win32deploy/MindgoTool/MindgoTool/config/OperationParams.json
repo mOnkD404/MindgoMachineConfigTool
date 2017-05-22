@@ -1,11 +1,11 @@
-{
+﻿{
     "OperationEnum":["Load Tip", "Dump Tip", "Suction", "Dispense", "Mix"],
     "LogicalControlEnum":["WaitArray","Loop", "EndLoop"],
     "NormalOperation":{
         "Load Tip":[         "boardType", "position"],
         "Suction": ["speed", "boardType", "position", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume",                        "suctionHeight"],
         "Dispense":["speed", "boardType", "position",                                                                                 "drain", "drainVolume",                 "drainHeight"],
-        "Mix":["speed", "boardType", "position", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume",                         "suctionHeight","drainHeight"],
+        "Mix":["speed", "boardType", "position", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume",                         "suctionHeight","drainHeight","cycleCount"],
         "Dump Tip":[         "boardType", "position"]
     },
     "logicalControl":{

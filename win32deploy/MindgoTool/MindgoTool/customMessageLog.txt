@@ -167,3 +167,5 @@ Debug: getswitch: "preSuction"  value: false
 Debug: getswitch: "postSuction"  value: false
 Debug: getswitch: "preSuction"  value: false
 Debug: getswitch: "postSuction"  value: false
+Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/win32deploy/MindgoTool/MindgoTool"
+Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/win32deploy/MindgoTool/MindgoTool"

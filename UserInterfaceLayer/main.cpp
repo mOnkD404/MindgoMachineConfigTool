@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
     QFontDatabase::addApplicationFont("./config/FZHTJW.TTF");
     QFont font;
     font.setPointSize(16);
-    font.setFamily("FZHTJW");
+    font.setFamily("方正黑体简体");
 
 
     QQuickView view;

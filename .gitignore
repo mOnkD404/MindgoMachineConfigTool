@@ -1,4 +1,4 @@
-
+<<<<<<< HEAD
 # This file is used to ignore files which are generated
 # ----------------------------------------------------------------------------
 
@@ -72,10 +72,8 @@ Thumbs.db
 *.dll
 *.exe
 
-
+=======
 *.user
-
-MindgoMachineConfigTool.pro.user.e001f0f
-
+>>>>>>> origin/master
 MindgoMachineConfigTool.pro.user
-
+UserInterfaceLayer/customMessageLog.txt

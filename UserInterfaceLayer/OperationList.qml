@@ -113,7 +113,7 @@ Item {
 
         Item {
             id: column1
-            width: column.width*2
+            width: column.width*2.5
             anchors.bottom: parent.bottom
             anchors.top: parent.top
 
@@ -278,11 +278,12 @@ Item {
                     }
 
                     Loader{
-
+                        id:paramInput
                         anchors.left: paramName.right
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
-                        anchors.right: parent.right
+                        anchors.right: paramUnit.left
+                        anchors.rightMargin: 3
 
                         height: 30
 
@@ -305,6 +306,21 @@ Item {
                         }
                     }
 
+                    Text {
+                        id: paramUnit
+                        height:30
+                        width:(modelData.Unit.length > 0 )? modelData.Unit.width: 0
+                        text: modelData.Unit
+                        horizontalAlignment: Text.AlignLeft
+                        verticalAlignment: Text.AlignVCenter
+                        color:"#d9d9d9"
+                        font.pixelSize: 17
+                        font.bold: true
+                        style: Text.Raised
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        anchors.right: parent.right
+                    }
 
                 }
             }

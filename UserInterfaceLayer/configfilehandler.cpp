@@ -106,6 +106,7 @@ QMap<QString, OperationParamData> configFileHandler::ParseParamValue(const QStri
         double floatVal = 0.0;
         QList<int> valueEnum;
         QString switchVal;
+        QString unit;
 
         QJsonObject subObj = iter.value().toObject();
         for (QJsonObject::Iterator iter2 = subObj.begin(); iter2 != subObj.end(); iter2++)
@@ -147,8 +148,12 @@ QMap<QString, OperationParamData> configFileHandler::ParseParamValue(const QStri
             {
                 switchVal = iter2.value().toString();
             }
+            else if(iter2.key() == "unit")
+            {
+                unit = iter2.value().toString();
+            }
         }
-        retmap[iter.key()] = OperationParamData(iter.key(), type, strVal, enums, boolVal, intVal, floatVal, display, valueEnum, switchVal);
+        retmap[iter.key()] = OperationParamData(iter.key(), type, strVal, enums, boolVal, intVal, floatVal, display, valueEnum, switchVal, unit);
     }
     return retmap;
 }

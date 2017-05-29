@@ -14,7 +14,7 @@ class OperationParamData
 public:
     OperationParamData():BoolValue(false), IntegerValue(0), FloatValue(0.0) {}
     OperationParamData(const QString& oname, const QString& otype, const QString& ostringValue, const QStringList& ostringlistValue,
-                       bool oboolvalue, int ointegerValue, int ofloatValue, const QString& display, const QList<int> intlist, const QString& switchVal)
+                       bool oboolvalue, int ointegerValue, int ofloatValue, const QString& display, const QList<int> intlist, const QString& switchVal, const QString& unit)
     {
         Name = oname;
         Type = otype;
@@ -26,6 +26,7 @@ public:
         Display = display;
         IntListValue = intlist;
         SwitchValue = switchVal;
+        Unit = unit;
     }
     OperationParamData(const OperationParamData& opd)
     {
@@ -39,6 +40,7 @@ public:
         Display = opd.Display;
         IntListValue = opd.IntListValue;
         SwitchValue = opd.SwitchValue;
+        Unit = opd.Unit;
     }
 
 public:
@@ -52,6 +54,7 @@ public:
     QString Display;
     QList<int> IntListValue;
     QString SwitchValue;
+    QString Unit;
 };
 
 class OperationParamObject: public QObject, public OperationParamData
@@ -67,6 +70,7 @@ class OperationParamObject: public QObject, public OperationParamData
     Q_PROPERTY(QString Display READ display WRITE setDisplay NOTIFY displayChanged)
     Q_PROPERTY(QList<int> IntListValue READ intListValue WRITE setIntListValue NOTIFY intListValueChanged)
     Q_PROPERTY(QString SwitchValue READ switchValue WRITE setSwitchValue NOTIFY switchValueChanged)
+    Q_PROPERTY(QString Unit READ unit WRITE setUnit NOTIFY UnitChanged)
 
 public:
     OperationParamObject(QObject* parent = NULL):QObject(parent){}
@@ -166,13 +170,23 @@ public:
         }
     }
 
-    QString switchValue() {return SwitchValue;}
-    void setSwitchValue(QString sval)
+    QString switchValue() const {return SwitchValue;}
+    void setSwitchValue(const QString &sval)
     {
         if (sval != SwitchValue)
         {
             SwitchValue = sval;
             emit switchValueChanged();
+        }
+    }
+
+    QString unit()const {return Unit;}
+    void setUnit(const QString& unit)
+    {
+        if(unit != Unit)
+        {
+            Unit = unit;
+            emit UnitChanged();
         }
     }
 
@@ -189,6 +203,7 @@ signals:
     void displayChanged();
     void intListValueChanged();
     void switchValueChanged();
+    void UnitChanged();
 
 //private:
 //    QString Name;

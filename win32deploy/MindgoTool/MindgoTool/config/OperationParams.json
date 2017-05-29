@@ -57,7 +57,7 @@
             "default":0,
             "display":"前吸体积",
             "switch":"preSuction",
-            "unit":""
+            "unit":"μL"
         },
         "postSuction":{
             "type":"bool",
@@ -68,12 +68,14 @@
             "type":"integer",
             "default":0,
             "display":"后吸体积",
-            "switch":"postSuction"
+            "switch":"postSuction",
+            "unit":"μL"
         },
         "volume":{
             "type":"integer",
             "default":0,
-            "display":"吸液体积"
+            "display":"吸液体积",
+            "unit":"μL"
         },
 
         "drain":{
@@ -84,7 +86,8 @@
         "drainVolume":{
             "type":"integer",
             "default":0,
-            "display":"排液体积"
+            "display":"排液体积",
+            "unit":"μL"
         },
         "cycleCount":{
             "type":"integer",
@@ -94,18 +97,21 @@
         "suctionHeight":{
             "type":"integer",
             "default":"",
-            "display":"吸液离底高度"
+            "display":"吸液离底高度",
+            "unit":"×0.1mm"
         },
         "drainHeight":{
             "type":"integer",
             "default":0,
-            "display":"排液离底高度"
+            "display":"排液离底高度",
+            "unit":"×0.1mm"
         },
 
         "waitTime":{
             "type":"integer",
             "default":0,
-            "display":"等待时间"
+            "display":"等待时间",
+            "unit":"s"
         }
     }
 }

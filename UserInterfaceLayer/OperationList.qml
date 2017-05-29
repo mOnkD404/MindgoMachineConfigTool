@@ -1,4 +1,4 @@
-import QtQuick 2.7
+﻿import QtQuick 2.7
 import QtQuick.Controls 2.1
 import Common 1.0
 
@@ -100,7 +100,7 @@ Item {
                 }
                 onCurrentIndexChanged: {
                     selector.setSelectedOperation(currentIndex);
-                    paramList.model = selector.paramModel();
+                    //paramList.model = selector.paramModel();
                 }
 
                 Component.onCompleted:
@@ -150,9 +150,8 @@ Item {
                 anchors.bottom: parent.bottom
                 interactive: false
 
-                Component.onCompleted: {
-                    model = selector.paramModel();
-                }
+                model : selector.paramModel
+
 
                 delegate: Item {
                     height:30

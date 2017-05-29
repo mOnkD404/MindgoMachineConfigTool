@@ -1,10 +1,95 @@
 Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/UserInterfaceLayer"
+Debug: Œ¸“∫clicked
+Debug: getswitch: "preSuction"  value: false
+Debug: getswitch: "postSuction"  value: false
+Debug: getswitch: "preSuction"  value: false
+Debug: getswitch: "postSuction"  value: false
+Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/UserInterfaceLayer"
+Debug: getswitch: "preSuction"  value: false
+Debug: getswitch: "postSuction"  value: false
+Debug: ªÏ∫œclicked
+Debug: getswitch: "preSuction"  value: false
+Debug: getswitch: "postSuction"  value: false
+Debug: getswitch: "preSuction"  value: false
+Debug: getswitch: "postSuction"  value: false
+Debug: getswitch: "postSuction"  value: true
+Debug: getswitch: "preSuction"  value: true
+Debug: getswitch: "preSuction"  value: true
+Debug: getswitch: "postSuction"  value: true
+Debug: getswitch: "preSuction"  value: true
+Debug: getswitch: "postSuction"  value: false
+Debug: getswitch: "preSuction"  value: true
+Debug: getswitch: "postSuction"  value: true
+Debug: client write  11  bytes "\x02\x00\b\x80\x01\x00\x01\x00""2\x00\x00"
+Debug: recv ack "\x02\x00\x06\x80\x01\x00\x01\x00\x00"
+Debug: client write  21  bytes "\x02\x00\x12\x80\x03\x00\x02\x00""2\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00"
+Debug: recv ack "\x02\x00\x06\x80\x03\x00\x02\x00\x00"
+Debug: client write  19  bytes "\x02\x00\x10\x80\x04\x00\x03\x00""2\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00"
+Debug: recv ack "\x02\x00\x06\x80\x04\x00\x03\x00\x00"
+Debug: client write  25  bytes "\x02\x00\x16\x80\x05\x00\x04\x00""2\x00\b\x00\x02\x00}\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+Warning: socket read error!
+Debug: getswitch: "preSuction"  value: false
+Debug: getswitch: "postSuction"  value: false
+Debug: getswitch: "preSuction"  value: true
+Debug: getswitch: "postSuction"  value: false
+Debug: getswitch: "preSuction"  value: false
+Debug: getswitch: "postSuction"  value: false
+Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/UserInterfaceLayer"
+Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/UserInterfaceLayer"
+Debug: getswitch: "preSuction"  value: true
+Debug: getswitch: "postSuction"  value: true
+Debug: getswitch: "preSuction"  value: true
+Debug: getswitch: "postSuction"  value: false
+Debug: getswitch: "preSuction"  value: true
+Debug: getswitch: "postSuction"  value: true
+Debug: getswitch: "preSuction"  value: true
+Debug: getswitch: "postSuction"  value: false
+Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/UserInterfaceLayer"
+Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/UserInterfaceLayer"
+Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/UserInterfaceLayer"
+Debug: ªÏ∫œclicked
+Debug: getswitch: "preSuction"  value: false
+Debug: getswitch: "postSuction"  value: false
+Debug: Execute single step operation.
+Debug: Execute single step operation.
+Debug: Execute single step operation.
+Debug: client write  11  bytes "\x02\x00\b\x80\x01\x00\x00\x01\xF4\x00\x00"
+Debug: recv ack "\x02\x00\x06\x80\x01\x00\x00\x00\x00"
+Debug: –∂‘ÿ’ÎÕ∑clicked
+Debug: Execute single step operation.
+Debug: client write  11  bytes "\x02\x00\b\x80\x02\x00\x00\x01\xF4\x00\x00"
+Debug: recv ack "\x02\x00\x06\x80\x02\x00\x00\x00\x00"
+Debug: Œ¸“∫clicked
+Debug: getswitch: "preSuction"  value: false
+Debug: getswitch: "postSuction"  value: false
+Debug: Execute single step operation.
+Debug: client write  21  bytes "\x02\x00\x12\x80\x03\x00\x00\x01\xF4\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00"
+Debug: recv ack "\x02\x00\x06\x80\x03\x00\x00\x00\x00"
+Debug: ≈≈“∫clicked
+Debug: Execute single step operation.
+Debug: client write  19  bytes "\x02\x00\x10\x80\x04\x00\x00\x01\xF4\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00"
+Debug: recv ack "\x02\x00\x06\x80\x04\x00\x00\x00\x00"
+Debug: ªÏ∫œclicked
+Debug: getswitch: "preSuction"  value: false
+Debug: getswitch: "postSuction"  value: false
+Debug: Execute single step operation.
+Debug: client write  25  bytes "\x02\x00\x16\x80\x05\x00\x00\x01\xF4\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+Debug: Execute single step operation.
+Debug: Execute single step operation.
+Debug: Execute single step operation.
+Debug: Execute single step operation.
+Warning: socket read error!
+Debug: client write  25  bytes "\x02\x00\x16\x80\x05\x00\x00\x01\xF4\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+Debug: Execute single step operation.
+Debug: Execute single step operation.
+Warning: socket read error!
+Debug: client write  25  bytes "\x02\x00\x16\x80\x05\x00\x00\x01\xF4\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+Warning: socket read error!
+Debug: client write  25  bytes "\x02\x00\x16\x80\x05\x00\x00\x01\xF4\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
 Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/UserInterfaceLayer"
 Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/UserInterfaceLayer"
 Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/UserInterfaceLayer"
 Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/UserInterfaceLayer"
-Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/UserInterfaceLayer"
-Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/UserInterfaceLayer"
-Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/UserInterfaceLayer"
+Debug: ≈≈“∫clicked
 Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/UserInterfaceLayer"
 Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/UserInterfaceLayer"

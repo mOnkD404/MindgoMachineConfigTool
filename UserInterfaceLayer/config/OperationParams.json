@@ -34,8 +34,8 @@
         },
         "boardType":{
             "type":"enum",
-            "enum":["PCR板","Nunc深口板"],
-            "valueEnum":[10,50],
+            "enum":["PCR板","Nunc深孔板"],
+            "valueEnum":[600,500],
             "default":1,
             "display":"耗材类型"
 
@@ -56,7 +56,8 @@
             "type":"integer",
             "default":0,
             "display":"前吸体积",
-            "switch":"preSuction"
+            "switch":"preSuction",
+            "unit":""
         },
         "postSuction":{
             "type":"bool",
@@ -91,12 +92,12 @@
             "display":"循环次数"
         },
         "suctionHeight":{
-            "type":"float",
+            "type":"integer",
             "default":"",
             "display":"吸液离底高度"
         },
         "drainHeight":{
-            "type":"float",
+            "type":"integer",
             "default":0,
             "display":"排液离底高度"
         },

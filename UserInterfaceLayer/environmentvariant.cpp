@@ -183,27 +183,22 @@ SingleOperationData EnvironmentVariant::planStepParam(int planIndex, int stepInd
     retData = defaultValue(plan.second[stepIndex].operationName);
 
     const QList<OperationParamData> & paramData = plan.second[stepIndex].params;
-    foreach(const OperationParamData& realData, paramData)
+
+    for(int index = 0; index < retData.params.size(); index++)
     {
-        for(int index = 0; index < retData.params.size(); index++)
+        OperationParamData defaultData = retData.params.at(index);
+        foreach(const OperationParamData& realData, paramData)
         {
-            OperationParamData defaultData = retData.params.at(index);
             if (defaultData.Name == realData.Name)
             {
-                if(defaultData.Type == "integer" || defaultData.Type == "enum")
-                {
-                    defaultData.IntegerValue = realData.IntegerValue;
-                }
-                else if(defaultData.Type == "float")
-                {
-                    defaultData.FloatValue = realData.FloatValue;
-                }
-                else if (defaultData.Type == "bool")
-                {
-                    defaultData.BoolValue = realData.BoolValue;
-                }
+                defaultData.IntegerValue = realData.IntegerValue;
+                defaultData.FloatValue = realData.FloatValue;
+                defaultData.BoolValue = realData.BoolValue;
+                defaultData.StringValue = realData.StringValue;
+
+                retData.params[index] = defaultData;
+                break;
             }
-            retData.params[index] = defaultData;
         }
     }
     return retData;

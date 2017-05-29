@@ -1,4 +1,4 @@
-#include "workmodels.h"
+﻿#include "workmodels.h"
 #include "configfilehandler.h"
 #include "environmentvariant.h"
 #include <QJsonDocument>
@@ -209,15 +209,16 @@ void OperationParamSelector::setSelectedOperation(int index)
         m_currentIndex = index;
         m_paramData = EnvironmentVariant::instance()->getOperationParams(index);
 
-        foreach (QObject* obj, m_paramModel) {
+        foreach (QObject* obj, paramModel) {
             if(obj)
                 delete obj;
         }
-        m_paramModel.clear();
+        paramModel.clear();
         foreach(const OperationParamData& data, m_paramData)
         {
-            m_paramModel.append(new OperationParamObject(data));
+            paramModel.append(new OperationParamObject(data));
         }
+        emit paramModelChanged();
     }
 }
 
@@ -232,12 +233,11 @@ void OperationParamSelector::setPageName(const QString& name)
 
 QObject* OperationParamSelector::getSwitch(const QString &name)
 {
-    foreach(QObject* pObj, m_paramModel)
+    foreach(QObject* pObj, paramModel)
     {
         OperationParamObject* pParam = dynamic_cast<OperationParamObject*>(pObj);
         if (pParam && name == pParam->name())
         {
-            qDebug()<<"getswitch:"<<pParam->name()<<" value:"<<pParam->boolValue();
             return pParam;
         }
     }
@@ -249,7 +249,7 @@ void OperationParamSelector::onCompleteSingleOperation()
     SingleOperationData opobj;
     opobj.operationName = EnvironmentVariant::instance()->OperationNameList().at(m_currentIndex);
     opobj.sequenceNumber = 0;
-    foreach(QObject* pObj, m_paramModel)
+    foreach(QObject* pObj, paramModel)
     {
         OperationParamObject* pParam = qobject_cast<OperationParamObject*>(pObj);
         if (pParam)
@@ -285,15 +285,16 @@ void PlanSelector::setSelectedStep(int planIndex, int stepIndex)
 {
     m_operationData = EnvironmentVariant::instance()->planStepParam(planIndex, stepIndex);
 
-    foreach (QObject* obj, m_paramListModel) {
+    foreach (QObject* obj, paramListModel) {
         if(obj)
             delete obj;
     }
-    m_paramListModel.clear();
+    paramListModel.clear();
     foreach(const OperationParamData& data, m_operationData.params)
     {
-        m_paramListModel.append(new OperationParamObject(data));
+        paramListModel.append(new OperationParamObject(data));
     }
+    emit paramListModelChanged();
 }
 
 void PlanSelector::setSelectedOperation(int planIndex, int stepIndex, int opIndex)
@@ -304,15 +305,16 @@ void PlanSelector::setSelectedOperation(int planIndex, int stepIndex, int opInde
 
         QList<OperationParamData> paramData = EnvironmentVariant::instance()->getOperationParams(opIndex);
 
-        foreach (QObject* obj, m_paramListModel) {
+        foreach (QObject* obj, paramListModel) {
             if(obj)
                 delete obj;
         }
-        m_paramListModel.clear();
+        paramListModel.clear();
         foreach(const OperationParamData& data, paramData)
         {
-            m_paramListModel.append(new OperationParamObject(data));
+            paramListModel.append(new OperationParamObject(data));
         }
+        emit paramListModelChanged();
     }
 }
 
@@ -363,9 +365,9 @@ void PlanSelector::onSave()
 void PlanSelector::commitParam(int planIndex, int stepIndex)
 {
     QList<OperationParamData> data;
-    foreach(QObject* obj, m_paramListModel)
+    foreach(QObject* obj, paramListModel)
     {
-        OperationParamObject* parmObj = qobject_cast<OperationParamObject*>(obj);
+        OperationParamObject* parmObj = dynamic_cast<OperationParamObject*>(obj);
         if(parmObj)
         {
             OperationParamData* pda = static_cast<OperationParamData*>(parmObj);
@@ -378,12 +380,11 @@ void PlanSelector::commitParam(int planIndex, int stepIndex)
 
 QObject* PlanSelector::getSwitch(const QString &name)
 {
-    foreach(QObject* pObj, m_paramListModel)
+    foreach(QObject* pObj, paramListModel)
     {
         OperationParamObject* pParam = dynamic_cast<OperationParamObject*>(pObj);
         if (pParam && name == pParam->name())
         {
-            qDebug()<<"getswitch:"<<pParam->name()<<" value:"<<pParam->boolValue();
             return pParam;
         }
     }

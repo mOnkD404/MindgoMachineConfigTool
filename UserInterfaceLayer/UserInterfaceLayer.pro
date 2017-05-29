@@ -64,3 +64,5 @@ else:unix: LIBS += -L$$OUT_PWD/../BussinessLayer/WorkflowProtocol/ -lWorkflowPro
 
 INCLUDEPATH += $$PWD/../../build-MindgoMachineConfigTool-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/BussinessLayer/WorkflowProtocol
 DEPENDPATH += $$PWD/../../build-MindgoMachineConfigTool-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/BussinessLayer/WorkflowProtocol
+
+win32: LIBS += -lDbgHelp

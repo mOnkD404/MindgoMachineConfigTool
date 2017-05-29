@@ -1,4 +1,4 @@
-#include "configfilehandler.h"
+﻿#include "configfilehandler.h"
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -103,6 +103,7 @@ QMap<QString, OperationParamData> configFileHandler::ParseParamValue(const QStri
         QStringList enums;
         int intVal = 0;
         bool boolVal = false;
+        double floatVal = 0.0;
         QList<int> valueEnum;
         QString switchVal;
 
@@ -118,6 +119,7 @@ QMap<QString, OperationParamData> configFileHandler::ParseParamValue(const QStri
                 strVal = iter2.value().toString();
                 boolVal = iter2.value().toBool();
                 intVal = iter2.value().toInt();
+                floatVal = iter2.value().toDouble();
             }
             else if (iter2.key() == "enum")
             {
@@ -146,7 +148,7 @@ QMap<QString, OperationParamData> configFileHandler::ParseParamValue(const QStri
                 switchVal = iter2.value().toString();
             }
         }
-        retmap[iter.key()] = OperationParamData(iter.key(), type, strVal, enums, boolVal, intVal, display, valueEnum, switchVal);
+        retmap[iter.key()] = OperationParamData(iter.key(), type, strVal, enums, boolVal, intVal, floatVal, display, valueEnum, switchVal);
     }
     return retmap;
 }
@@ -200,13 +202,19 @@ void configFileHandler::ParsePlanList(QList<QPair<QString, QList<SingleOperation
                 {
                     const OperationParamData& data = defaultParamMap[paramData.Name];
                     paramData.Type = data.Type;
-                    if(data.Type == "enum" || data.Type == "integer")
+                    if(data.Type == "enum")
                     {
                         paramData.IntegerValue = iter2->toInt();
+                    }
+                    else if(data.Type == "integer")
+                    {
+                        paramData.IntegerValue = iter2->toInt();
+                        paramData.StringValue = QString::number(paramData.IntegerValue);
                     }
                     else if(data.Type == "float")
                     {
                         paramData.FloatValue = iter2->toDouble();
+                        paramData.StringValue = QString::number(paramData.FloatValue, 'f', 2);
                     }
                     else if(data.Type == "bool")
                     {

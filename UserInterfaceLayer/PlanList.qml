@@ -158,7 +158,7 @@ Item {
                                 selector.setPlanName(index, text);
                                 parent.inEdit = false;
                             }
-                        }                        
+                        }
                     }
 
                     TextButton {
@@ -263,7 +263,7 @@ Item {
                                 stepListView.currentIndex = stepListView.currentIndex -1;
                             }else {
                                 selector.setSelectedStep(planListView.currentIndex, stepListView.currentIndex);
-                                paramList.model = selector.paramListModel();
+                                //paramList.model = selector.paramListModel();
                             }
                         }
                     }
@@ -293,7 +293,7 @@ Item {
                     currentIndex = 0;
 
                     selector.setSelectedStep(planListView.currentIndex, 0);
-                    paramList.model = selector.paramListModel();
+                    //paramList.model = selector.paramListModel();
                 }
 
                 spacing: 4
@@ -329,7 +329,7 @@ Item {
                     selector.setSelectedStep(planListView.currentIndex, currentIndex);
 
                     //operationList.currentIndex = selector.operationCurrentIndex();
-                    paramList.model = selector.paramListModel();
+                   // paramList.model = selector.paramListModel();
                     if(operationColumn.visible) operationColumn.visible = false;
                 }
             }
@@ -494,13 +494,13 @@ Item {
                             stepListModel.append({"name":textValue});
 
                             selector.setSelectedOperation(planListView.currentIndex, stepListView.count - 1, index);
-                            paramList.model = selector.paramListModel();
+                            //paramList.model = selector.paramListModel();
 
                             stepListView.currentIndex = stepListView.count - 1;
                         }else if (operationColumn.changeOperation == "edit"){
                             selector.setSelectedOperation(planListView.currentIndex, stepListView.currentIndex, index);
                             stepListModel.setProperty(stepListView.currentIndex, "name", textValue);
-                            paramList.model = selector.paramListModel();
+                            //paramList.model = selector.paramListModel();
                         }
                     }
                 }
@@ -559,6 +559,7 @@ Item {
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
                 interactive: false
+                model: selector.paramListModel
 
                 delegate: Item {
                     height:30
@@ -605,10 +606,20 @@ Item {
                                 anchors.fill: parent
                                 anchors.leftMargin: 2
                                 verticalAlignment: TextEdit.AlignVCenter
-                                text:modelData.StringValue
                                 validator: getValidator()
                                 focus:true
                                 activeFocusOnTab: true
+                                text: getText()
+
+                                function getText() {
+                                    if(modelData.Type == "integer"){
+                                        return modelData.IntegerValue.toString();
+                                    }else if(modelData.Type == "float"){
+                                        return modelData.FloatValue.toFixed(2);
+                                    }else{
+                                        return modelData.StringValue;
+                                    }
+                                }
 
                                 function getValidator(){
                                     if(modelData.Type == "integer"){
@@ -650,14 +661,14 @@ Item {
                                     if(enabled == false)
                                         text = "";
                                 }
+
                             }
                         }
                     }
                     Component{
                         id:comboboxComponent
 
-                        ComboBox
-                        {
+                        ComboBox{
                             id: combox
                             anchors.fill: parent
                             anchors.verticalCenter: parent.verticalCenter
@@ -671,7 +682,6 @@ Item {
 
                                 selector.commitParam(planListView.currentIndex, stepListView.currentIndex);
                             }
-
                         }
                     }
                     Component{
@@ -680,9 +690,9 @@ Item {
                             id: checkbox
                             anchors.fill: parent
                             anchors.verticalCenter: parent.verticalCenter
-                            checked: modelData.BoolValue
                             focus:true
                             activeFocusOnTab: true
+                            checked: modelData.BoolValue
 
                             onCheckedChanged: {
                                 modelData.BoolValue = checked;

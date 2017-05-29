@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QTcpServer>
 #include <QTcpSocket>
@@ -92,52 +92,61 @@ bool WorkerObject::handleData(const QByteArray& array)
         "\x02\x00\x08\x80\x02",//dump tip
         "\x02\x00\x12\x80\x03",//suction
         "\x02\x00\x10\x80\x04",//dispense
-        "\x02\x00\x14\x80\x05"//mix
+        "\x02\x00\x16\x80\x05"//mix
 
     };
     char ack[10] = "\x02\x00\x06\x00\x00\x00\x00\x00\x00";
 
     QString recvStr;
+    QTextStream dataStream(&recvStr, QIODevice::ReadWrite);
     if(memcmp(array.data(), command[0], 5) == 0)
     {
-        recvStr.append("load tip command recv").append(array);
+        dataStream<<"load tip command recv";
 
         memcpy(ack+3, array.data()+3, 4);
         m_ackData = QByteArray(ack,9);
     }
     else if(memcmp(array.data(), command[1], 5) == 0)
     {
-        recvStr.append("dump tip command recv").append(array);
+        dataStream<<"dump tip command recv";
 
         memcpy(ack+3, array.data()+3, 4);
         m_ackData = QByteArray(ack,9);
     }
     else if(memcmp(array.data(), command[2], 5) == 0)
     {
-        recvStr.append("suction command recv").append(array);
+        dataStream<<"suction command recv";
 
         memcpy(ack+3, array.data()+3, 4);
         m_ackData = QByteArray(ack,9);
     }
     else if(memcmp(array.data(), command[3], 5) == 0)
     {
-        recvStr.append("despense command recv").append(array);
+        dataStream<<"despense command recv";
 
         memcpy(ack+3, array.data()+3, 4);
         m_ackData = QByteArray(ack,9);
     }
     else if(memcmp(array.data(), command[4], 5) == 0)
     {
-        recvStr.append("mix command recv").append(array);
+        dataStream<<"mix command recv";
 
         memcpy(ack+3, array.data()+3, 4);
         m_ackData = QByteArray(ack,9);
-
     }
     else
     {
         return false;
     }
+    foreach(const char ch, array)
+    {
+        dataStream<<" 0x";
+        dataStream.setFieldWidth(2);
+        dataStream.setPadChar('0');
+        dataStream<<hex<<(quint8)ch;
+    }
+    dataStream.flush();
+
     emit logInfo(recvStr);
     return true;
 }

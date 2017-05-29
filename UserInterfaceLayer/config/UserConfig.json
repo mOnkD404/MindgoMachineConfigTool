@@ -1,24 +1,92 @@
 {
-    "target":{
-        "IP":"127.0.0.1",
-        "port":20000,
-        "maxReceiveTime":30
-    },
-    "plan":{
-        "planA":[
+    "plan": {
+        "planA": [
             {
-                "operation":"Load Tip",
-                "params":{"boardType":1,"position":6}
+                "operation": "Load Tip",
+                "params": {
+                    "boardType": 0,
+                    "position": 7
+                },
+                "sequenceNumber": 1
             },
             {
-                "operation":"Dump Tip",
-                "params":{"boardType":1,"position":6}
-            }],
-        "planB":[
+                "operation": "Suction",
+                "params": {
+                    "boardType": 1,
+                    "position": 0,
+                    "postSuction": false,
+                    "postSuctionVolume": 0,
+                    "preSuction": false,
+                    "preSuctionVolume": 0,
+                    "speed": 0,
+                    "suctionHeight": 0,
+                    "volume": 0
+                },
+                "sequenceNumber": 2
+            },
             {
-                "operation":"Load Tip",
-                "params":{"boardType":1,"position":6}
+                "operation": "Dispense",
+                "params": {
+                    "boardType": 1,
+                    "drain": false,
+                    "drainHeight": 0,
+                    "drainVolume": 0,
+                    "position": 2,
+                    "speed": 1
+                },
+                "sequenceNumber": 3
+            },
+            {
+                "operation": "Mix",
+                "params": {
+                    "boardType": 0,
+                    "cycleCount": 66,
+                    "drainHeight": 6,
+                    "position": 5,
+                    "postSuction": false,
+                    "postSuctionVolume": 0,
+                    "preSuction": false,
+                    "preSuctionVolume": 0,
+                    "speed": 2,
+                    "suctionHeight": 66,
+                    "volume": 6
+                },
+                "sequenceNumber": 4
+            },
+            {
+                "operation": "Mix",
+                "params": {
+                    "boardType": 1,
+                    "cycleCount": 0,
+                    "drainHeight": 0,
+                    "position": 0,
+                    "postSuction": false,
+                    "postSuctionVolume": 0,
+                    "preSuction": false,
+                    "preSuctionVolume": 0,
+                    "speed": 1,
+                    "suctionHeight": 0,
+                    "volume": 0
+                },
+                "sequenceNumber": 5
+            },
+            {
+                "operation": "Dispense",
+                "params": {
+                    "boardType": 1,
+                    "drain": false,
+                    "drainHeight": 8,
+                    "drainVolume": 9,
+                    "position": 0,
+                    "speed": 1
+                },
+                "sequenceNumber": 6
             }
         ]
+    },
+    "target": {
+        "IP": "127.0.0.1",
+        "maxReceiveTime": 30,
+        "port": 20000
     }
 }

@@ -1,4 +1,4 @@
-#ifndef WORKMODELS_H
+﻿#ifndef WORKMODELS_H
 #define WORKMODELS_H
 #include <QObject>
 #include <qqmlcontext.h>
@@ -12,9 +12,9 @@
 class OperationParamData
 {
 public:
-    OperationParamData() {}
+    OperationParamData():BoolValue(false), IntegerValue(0), FloatValue(0.0) {}
     OperationParamData(const QString& oname, const QString& otype, const QString& ostringValue, const QStringList& ostringlistValue,
-                       bool oboolvalue, int ointegerValue, const QString& display, const QList<int> intlist, const QString& switchVal)
+                       bool oboolvalue, int ointegerValue, int ofloatValue, const QString& display, const QList<int> intlist, const QString& switchVal)
     {
         Name = oname;
         Type = otype;
@@ -22,6 +22,7 @@ public:
         StringListValue = ostringlistValue;
         BoolValue = oboolvalue;
         IntegerValue = ointegerValue;
+        FloatValue = ofloatValue;
         Display = display;
         IntListValue = intlist;
         SwitchValue = switchVal;
@@ -34,6 +35,7 @@ public:
         StringListValue = opd.StringListValue;
         BoolValue = opd.BoolValue;
         IntegerValue = opd.IntegerValue;
+        FloatValue = opd.FloatValue;
         Display = opd.Display;
         IntListValue = opd.IntListValue;
         SwitchValue = opd.SwitchValue;
@@ -251,7 +253,7 @@ signals:
 class OperationParamSelector: public QObject
 {
     Q_OBJECT
-
+    Q_PROPERTY(QList<QObject*> paramModel READ getParamModel WRITE setParamModel NOTIFY paramModelChanged)
 public:
     OperationParamSelector(QObject* parent = 0);
 
@@ -271,7 +273,15 @@ public:
 
     Q_INVOKABLE QStringList operationModel() {return m_operationModel;}
 
-    Q_INVOKABLE QList<QObject*> paramModel() {return m_paramModel;}
+    QList<QObject*> getParamModel() {return paramModel;}
+    void setParamModel(const QList<QObject*> & params)
+    {
+        if(paramModel != params)
+        {
+            paramModel = params;
+            emit paramModelChanged();
+        }
+    }
 
     //for qml
     Q_INVOKABLE void setSelectedOperation(int index);
@@ -282,13 +292,14 @@ public:
 signals:
     void pageNameChanged();
     void currentIndexChanged();
+    void paramModelChanged();
 
 private:
     QString m_pagename;
     int m_currentIndex;
     //SingleStepPageModel m_model;
     QStringList m_operationModel;
-    QList<QObject*> m_paramModel;
+    QList<QObject*> paramModel;
     QList<OperationParamData> m_paramData;
 };
 
@@ -323,13 +334,23 @@ signals:
 class PlanSelector: public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QList<QObject*> paramListModel READ getParamListModel WRITE setParamListModel NOTIFY paramListModelChanged)
 public:
     PlanSelector(QObject* parent = 0);
 
     Q_INVOKABLE QStringList planListModel();
     Q_INVOKABLE QStringList stepListModel(int planIndex);
     Q_INVOKABLE QStringList operationListModel() {return m_operationListModel;}
-    Q_INVOKABLE QList<QObject*> paramListModel() {return m_paramListModel;}
+
+    QList<QObject*> getParamListModel() {return paramListModel;}
+    void setParamListModel(const QList<QObject*> &paramlist)
+    {
+        if(paramListModel != paramlist)
+        {
+            paramListModel = paramlist;
+            emit paramListModelChanged();
+        }
+    }
 
     Q_INVOKABLE void setSelectedStep(int planIndex, int stepIndex);
     Q_INVOKABLE void setSelectedOperation(int planIndex, int stepIndex, int index);
@@ -351,12 +372,11 @@ public:
 
 
 signals:
-    void pageNameChanged();
-    void currentIndexChanged();
+    void paramListModelChanged();
 
 private:
     QStringList m_operationListModel;
-    QList<QObject*> m_paramListModel;
+    QList<QObject*> paramListModel;
     SingleOperationData m_operationData;
 };
 

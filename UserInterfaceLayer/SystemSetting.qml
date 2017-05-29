@@ -1,8 +1,10 @@
-import QtQuick 2.7
+﻿import QtQuick 2.7
 import QtQuick.Controls 1.4
 
 Item {
     id:systemSettingPage
+    property string versionVal: "1.0"
+
     MouseArea{
         anchors.fill: parent
     }
@@ -15,6 +17,19 @@ Item {
         anchors.topMargin: 20
         anchors.leftMargin: 20
         anchors.rightMargin: 20
+
+        Text {
+            id: text3
+            text: qsTr("Version "+versionVal)
+
+            width: 220
+            height: 30
+            color: "#d9d9d9"
+            font.bold: true
+            verticalAlignment: Text.AlignVCenter
+            elide: Text.ElideNone
+            font.pixelSize: 20
+        }
 
         Row{
             spacing: 5
@@ -129,6 +144,7 @@ Item {
                 textInput2.focus = false;
             }
         }
+
     }
 
 

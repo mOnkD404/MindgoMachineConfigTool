@@ -66,3 +66,8 @@ INCLUDEPATH += $$PWD/../../build-MindgoMachineConfigTool-Desktop_Qt_5_8_0_MSVC20
 DEPENDPATH += $$PWD/../../build-MindgoMachineConfigTool-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/BussinessLayer/WorkflowProtocol
 
 win32: LIBS += -lDbgHelp
+
+
+QMAKE_LFLAGS_RELEASE += /MAP
+QMAKE_CFLAGS_RELEASE += /Zi
+QMAKE_LFLAGS_RELEASE += /debug /opt:ref

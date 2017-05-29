@@ -3,7 +3,7 @@ import QtQuick.Controls 1.4
 
 Item {
     id:systemSettingPage
-    property string versionVal: "1.0"
+    property string versionVal: "1.1"
 
     MouseArea{
         anchors.fill: parent

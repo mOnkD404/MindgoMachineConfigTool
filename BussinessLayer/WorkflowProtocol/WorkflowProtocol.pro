@@ -43,3 +43,8 @@ else:unix: LIBS += -L$$OUT_PWD/../../InfrastructureLayer/Communication/ -lCommun
 
 INCLUDEPATH += $$PWD/../../../build-MindgoMachineConfigTool-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/InfrastructureLayer/Communication/debug
 DEPENDPATH += $$PWD/../../../build-MindgoMachineConfigTool-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/InfrastructureLayer/Communication/debug
+
+
+QMAKE_LFLAGS_RELEASE += /MAP
+QMAKE_CFLAGS_RELEASE += /Zi
+QMAKE_LFLAGS_RELEASE += /debug /opt:ref

@@ -603,6 +603,7 @@ Item {
 
                             TextInput{
                                 id: textedit
+                                property bool init: false
                                 anchors.fill: parent
                                 anchors.leftMargin: 2
                                 verticalAlignment: TextEdit.AlignVCenter
@@ -613,6 +614,7 @@ Item {
 
                                 Component.onCompleted: {
                                     text = getText();
+                                    init = true;
                                 }
 
                                 function getText() {
@@ -649,17 +651,19 @@ Item {
                                 }
 
                                 onTextChanged: {
-                                    if(modelData.Type == "integer"){
-                                        modelData.IntegerValue = Number(text);
-                                    }
-                                    else if(modelData.Type == "float"){
-                                        modelData.FloatValue = Number(text);
-                                    }
-                                    else{
-                                        modelData.StringValue = text;
-                                    }
+                                    if(init == true){
+                                        if(modelData.Type == "integer"){
+                                            modelData.IntegerValue = Number(text);
+                                        }
+                                        else if(modelData.Type == "float"){
+                                            modelData.FloatValue = Number(text);
+                                        }
+                                        else{
+                                            modelData.StringValue = text;
+                                        }
 
-                                    selector.commitParam(planListView.currentIndex, stepListView.currentIndex, modelData.Name, text);
+                                        selector.commitParam(planListView.currentIndex, stepListView.currentIndex, modelData.Name, text);
+                                    }
                                 }
                                 onEnabledChanged: {
                                     if(enabled == false)

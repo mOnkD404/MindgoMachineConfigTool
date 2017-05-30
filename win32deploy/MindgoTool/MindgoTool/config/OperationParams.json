@@ -99,9 +99,9 @@
         },
         "cycleCount":{
             "type":"integer",
-            "default":0,
+            "default":1,
             "display":"循环次数",
-            "bottomValue":0,
+            "bottomValue":1,
             "topValue":1000
         },
         "suctionHeight":{
@@ -123,10 +123,10 @@
 
         "waitTime":{
             "type":"integer",
-            "default":0,
+            "default":1,
             "display":"等待时间",
             "unit":"s",
-            "bottomValue":0,
+            "bottomValue":1,
             "topValue":10000
         }
     }

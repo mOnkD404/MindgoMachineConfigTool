@@ -312,7 +312,7 @@ void PlanSelector::setSelectedOperation(int planIndex, int stepIndex, int opInde
         paramListModel.clear();
         foreach(const OperationParamData& data, paramData)
         {
-            paramListModel.append(new OperationParamObject(data));
+            paramListModel.append(new OperationParamObject(data, this));
         }
         emit paramListModelChanged();
     }

@@ -84,6 +84,7 @@ int main(int argc, char *argv[])
     translator.load("./config/cn.qm");
     app.installTranslator(&translator);
 
+    qmlRegisterType<TextFieldDoubleValidator>("Common", 1,0, "TextFieldDoubleValidator");
     qmlRegisterType<OperationParamObject>("Common", 1,0, "OperationParamObject");
     qmlRegisterType<OperationParamSelector>("Common", 1,0,"OperationParamSelector");
     qmlRegisterType<PlanSelector>("Common" ,1,0,"PlanSelector");

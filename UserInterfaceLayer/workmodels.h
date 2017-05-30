@@ -8,13 +8,15 @@
 #include <QAbstractItemModel>
 #include <QStringListModel>
 #include <QtMath>
+#include <QDoubleValidator>
 
 class OperationParamData
 {
 public:
     OperationParamData():BoolValue(false), IntegerValue(0), FloatValue(0.0) {}
     OperationParamData(const QString& oname, const QString& otype, const QString& ostringValue, const QStringList& ostringlistValue,
-                       bool oboolvalue, int ointegerValue, int ofloatValue, const QString& display, const QList<int> intlist, const QString& switchVal, const QString& unit)
+                       bool oboolvalue, int ointegerValue, int ofloatValue, const QString& display, const QList<int> intlist, const QString& switchVal,
+                       const QString& unit, int bottomVal, int topVal)
     {
         Name = oname;
         Type = otype;
@@ -27,6 +29,8 @@ public:
         IntListValue = intlist;
         SwitchValue = switchVal;
         Unit = unit;
+        BottomValue = bottomVal;
+        TopValue = topVal;
     }
     OperationParamData(const OperationParamData& opd)
     {
@@ -41,6 +45,8 @@ public:
         IntListValue = opd.IntListValue;
         SwitchValue = opd.SwitchValue;
         Unit = opd.Unit;
+        BottomValue = opd.BottomValue;
+        TopValue = opd.TopValue;
     }
 
 public:
@@ -55,6 +61,8 @@ public:
     QList<int> IntListValue;
     QString SwitchValue;
     QString Unit;
+    int BottomValue;
+    int TopValue;
 };
 
 class OperationParamObject: public QObject, public OperationParamData
@@ -71,6 +79,8 @@ class OperationParamObject: public QObject, public OperationParamData
     Q_PROPERTY(QList<int> IntListValue READ intListValue WRITE setIntListValue NOTIFY intListValueChanged)
     Q_PROPERTY(QString SwitchValue READ switchValue WRITE setSwitchValue NOTIFY switchValueChanged)
     Q_PROPERTY(QString Unit READ unit WRITE setUnit NOTIFY UnitChanged)
+    Q_PROPERTY(int BottomValue READ bottomValue WRITE setBottomValue NOTIFY bottomValueChanged)
+    Q_PROPERTY(int TopValue READ topValue WRITE setTopValue NOTIFY topValueChanged)
 
 public:
     OperationParamObject(QObject* parent = NULL):QObject(parent){}
@@ -150,7 +160,7 @@ public:
         }
     }
 
-    int floatValue()const {return FloatValue;}
+    double floatValue()const {return FloatValue;}
     void setFloatValue(double val)
     {
         if ( qFabs(val - FloatValue) > 0.0001)
@@ -190,6 +200,25 @@ public:
         }
     }
 
+    int bottomValue() const {return BottomValue;}
+    void setBottomValue(int bottomval)
+    {
+        if(bottomval != BottomValue)
+        {
+            BottomValue = bottomval;
+            emit bottomValueChanged();
+        }
+    }
+
+    int topValue() const {return TopValue;}
+    void setTopValue(int topval)
+    {
+        if(topval != TopValue)
+        {
+            TopValue = topval;
+            emit topValueChanged();
+        }
+    }
 
 
 signals:
@@ -204,6 +233,8 @@ signals:
     void intListValueChanged();
     void switchValueChanged();
     void UnitChanged();
+    void bottomValueChanged();
+    void topValueChanged();
 
 //private:
 //    QString Name;
@@ -383,7 +414,7 @@ public:
 
     Q_INVOKABLE void onComplete();
     Q_INVOKABLE void onSave();
-    Q_INVOKABLE void commitParam(int planIndex, int stepIndex);
+    Q_INVOKABLE void commitParam(int planIndex, int stepIndex, const QString& paramName, const QVariant& value);
 
 
 signals:
@@ -499,6 +530,39 @@ public slots:
 
 
 private:
+};
+
+class TextFieldDoubleValidator: public QDoubleValidator
+{
+public:
+    TextFieldDoubleValidator(QObject* parent = 0): QDoubleValidator(parent){}
+    TextFieldDoubleValidator(double bottom, double top, int decimals, QObject* parent)
+        :QDoubleValidator(bottom, top, decimals, parent){}
+
+    QValidator::State validate(QString &s, int &pos) const
+    {
+        if (s.isEmpty() || s.startsWith("-"))
+        {
+            return QValidator::Intermediate;
+        }
+
+        QChar point = locale().decimalPoint();
+        if(s.indexOf(point) != -1)
+        {
+            int lengthDecimals = s.length() - s.indexOf(point) - 1;
+            if(lengthDecimals > decimals())
+            {
+                return QValidator::Invalid;
+            }
+        }
+        bool isNumber;
+        double value = locale().toDouble(s, &isNumber);
+        if(isNumber && bottom() <= value && value <= top())
+        {
+            return QValidator::Acceptable;
+        }
+        return QValidator::Invalid;
+    }
 };
 
 

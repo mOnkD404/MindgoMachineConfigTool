@@ -226,7 +226,7 @@ void WorkflowProtocol::unserializeRecvFrame(const QByteArray& buff)
 
 
 SubThreadWorker::SubThreadWorker(WorkflowProtocol* protocol, QObject*parent)
-    :QObject(parent), m_protocol(protocol), m_LoopStartIndex(0), m_LoopCount(0), m_forceStop(false), m_maxReceiveTime(0)
+    :QObject(parent), m_protocol(protocol), m_LoopStartIndex(0), m_LoopCount(0), m_forceStop(false), m_maxReceiveTime(0), m_inFakeLoop(false)
 {
 
 }
@@ -259,13 +259,21 @@ void SubThreadWorker::doWork(const QJsonObject &jsObj)
         QJsonObject sendobj = opList[currentIndex].toObject();
         bool retVal = false;
 
+
         if(isLogicalCommand(sendobj["operation"].toString()))
         {
             retVal = handleLogicalCommand(sendobj, currentIndex);
         }
         else
         {
-            retVal = handleControlCommand(com, sendobj);
+            if(!m_inFakeLoop)
+            {
+                retVal = handleControlCommand(com, sendobj);
+            }
+            else
+            {
+                retVal = true;
+            }
         }
         if(!retVal)
             break;
@@ -304,6 +312,7 @@ bool SubThreadWorker::isLogicalCommand(const QString& name)
 
 bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentIndex)
 {
+    bool retVal = true;
     QJsonObject retObj;
 
     retObj["operation"] = cmdObj["operation"];
@@ -322,13 +331,25 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
         int time = param["waitTime"].toInt();
         if (time > 0)
         {
-             QThread::usleep(time*1000);
+            for(int index = 0; index < time; index++)
+            {
+                if(m_forceStop)
+                {
+                    retVal = false;
+                    break;
+                }
+                QThread::usleep(1000);
+            }
         }
     }
     else if(opname == "Loop")
     {
         m_LoopCount = param["cycleCount"].toInt();
         m_LoopStartIndex = currentIndex;
+        if(m_LoopCount == 0)
+        {
+            m_inFakeLoop = true;
+        }
     }
     else if(opname == "EndLoop")
     {
@@ -336,6 +357,7 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
         if(m_LoopCount <= 0)
         {
             m_LoopStartIndex = currentIndex;
+            m_inFakeLoop = false;
         }
         else
         {
@@ -345,7 +367,7 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
 
     emit statusChanged(retObj);
 
-    return true;
+    return retVal;
 }
 
 bool SubThreadWorker::handleControlCommand(Communication& com, QJsonObject& cmdObj)
@@ -399,9 +421,9 @@ bool SubThreadWorker::handleControlCommand(Communication& com, QJsonObject& cmdO
     timer.restart();
     bool recvret = false;
     QByteArray recvArray;
-    while(com.connected() && timer.elapsed() < m_maxReceiveTime)
+    while(com.connected() && timer.elapsed() < m_maxReceiveTime*1000 && !m_forceStop)
     {
-        const QByteArray &array = com.readData();
+        const QByteArray &array = com.readData(1000);
         if(array.size() > 0)
         {
             qDebug()<<"recv ack"<<hex<<array;

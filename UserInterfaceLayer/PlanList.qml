@@ -609,13 +609,17 @@ Item {
                                 validator: getValidator()
                                 focus:true
                                 activeFocusOnTab: true
-                                text: getText()
+                                //text: getText()
+
+                                Component.onCompleted: {
+                                    text = getText();
+                                }
 
                                 function getText() {
                                     if(modelData.Type == "integer"){
                                         return modelData.IntegerValue.toString();
-                                    }else if(modelData.Type == "float"){
-                                        return modelData.FloatValue.toFixed(2);
+                                    }else if(modelData.Type == "float"){                                        
+                                        return modelData.FloatValue.toFixed(1);
                                     }else{
                                         return modelData.StringValue;
                                     }
@@ -625,7 +629,7 @@ Item {
                                     if(modelData.Type == "integer"){
                                         return intValidator;
                                     }
-                                    else if(modelData.Type == "float"){
+                                    else if(modelData.Type == "float"){                                        
                                         return floatValidator;
                                     }
                                     return validator;
@@ -634,14 +638,14 @@ Item {
 
                                 IntValidator{
                                     id:intValidator
-                                    bottom: 0
-                                    top:1000000000
+                                    bottom: modelData.BottomValue
+                                    top:modelData.TopValue
                                 }
 
-                                DoubleValidator{
+                                TextFieldDoubleValidator{
                                     id:floatValidator
-                                    bottom:0.0
-                                    top:1000000000.0
+                                    bottom:modelData.BottomValue
+                                    top:modelData.TopValue
                                 }
 
                                 onTextChanged: {
@@ -655,7 +659,7 @@ Item {
                                         modelData.StringValue = text;
                                     }
 
-                                    selector.commitParam(planListView.currentIndex, stepListView.currentIndex);
+                                    selector.commitParam(planListView.currentIndex, stepListView.currentIndex, modelData.Name, text);
                                 }
                                 onEnabledChanged: {
                                     if(enabled == false)
@@ -680,7 +684,7 @@ Item {
                             onCurrentIndexChanged: {
                                 modelData.IntegerValue = currentIndex;
 
-                                selector.commitParam(planListView.currentIndex, stepListView.currentIndex);
+                                selector.commitParam(planListView.currentIndex, stepListView.currentIndex, modelData.Name, currentIndex);
                             }
                         }
                     }
@@ -697,7 +701,7 @@ Item {
                             onCheckedChanged: {
                                 modelData.BoolValue = checked;
 
-                                selector.commitParam(planListView.currentIndex, stepListView.currentIndex);
+                                selector.commitParam(planListView.currentIndex, stepListView.currentIndex, modelData.Name, checked);
                             }
                         }
                     }

@@ -1,4 +1,4 @@
-#ifndef COMMUNICATION_H
+﻿#ifndef COMMUNICATION_H
 #define COMMUNICATION_H
 
 #include "communication_global.h"
@@ -16,7 +16,7 @@ public:
     void disconnect();
 
     qint64 write(const QByteArray &byteArray);
-    QByteArray readData();
+    QByteArray readData(int msecs);
 
     bool connected(){ return m_socket.isOpen();}
 

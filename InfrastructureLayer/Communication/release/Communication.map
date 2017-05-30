@@ -1,6 +1,6 @@
  Communication
 
- Timestamp is 592c6d31 (Tue May 30 02:49:21 2017)
+ Timestamp is 592d2a33 (Tue May 30 16:15:47 2017)
 
  Preferred load address is 0000000180000000
 
@@ -55,7 +55,7 @@
  0001:00000030       ?connectToServer@Communication@@QEAA_NAEBVQString@@G@Z 0000000180001030 f   communication.obj
  0001:00000170       ?connected@Communication@@QEAA_NXZ 0000000180001170 f i communication.obj
  0001:00000180       ?disconnect@Communication@@QEAAXXZ 0000000180001180 f   communication.obj
- 0001:000001b0       ?readData@Communication@@QEAA?AVQByteArray@@XZ 00000001800011b0 f   communication.obj
+ 0001:000001b0       ?readData@Communication@@QEAA?AVQByteArray@@H@Z 00000001800011b0 f   communication.obj
  0001:00000250       ?write@Communication@@QEAA_JAEBVQByteArray@@@Z 0000000180001250 f   communication.obj
  0001:00000600       _DllMainCRTStartup         0000000180001600 f   MSVCRT:dll_dllmain.obj
  0001:00000640       __scrt_acquire_startup_lock 0000000180001640 f   MSVCRT:utility.obj
@@ -104,23 +104,23 @@
  0001:00000f58       _execute_onexit_table      0000000180001f58 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
  0001:00000f5e       _crt_atexit                0000000180001f5e f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
  0001:00000f64       _cexit                     0000000180001f64 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0001:00000f6c       __acrt_uninitialize        0000000180001f6c f   MSVCRT:ucrt_stubs.obj
- 0001:00000f6c       __acrt_thread_detach       0000000180001f6c f   MSVCRT:ucrt_stubs.obj
- 0001:00000f6c       __vcrt_uninitialize        0000000180001f6c f   MSVCRT:ucrt_stubs.obj
- 0001:00000f6c       __vcrt_uninitialize_critical 0000000180001f6c f   MSVCRT:ucrt_stubs.obj
- 0001:00000f6c       __scrt_stub_for_acrt_uninitialize_critical 0000000180001f6c f   MSVCRT:ucrt_stubs.obj
- 0001:00000f6c       __scrt_stub_for_acrt_thread_attach 0000000180001f6c f   MSVCRT:ucrt_stubs.obj
- 0001:00000f6c       __acrt_thread_attach       0000000180001f6c f   MSVCRT:ucrt_stubs.obj
- 0001:00000f6c       __scrt_stub_for_acrt_thread_detach 0000000180001f6c f   MSVCRT:ucrt_stubs.obj
  0001:00000f6c       __scrt_stub_for_acrt_uninitialize 0000000180001f6c f   MSVCRT:ucrt_stubs.obj
+ 0001:00000f6c       __acrt_uninitialize        0000000180001f6c f   MSVCRT:ucrt_stubs.obj
+ 0001:00000f6c       __scrt_stub_for_acrt_uninitialize_critical 0000000180001f6c f   MSVCRT:ucrt_stubs.obj
+ 0001:00000f6c       __vcrt_initialize          0000000180001f6c f   MSVCRT:ucrt_stubs.obj
  0001:00000f6c       __vcrt_thread_detach       0000000180001f6c f   MSVCRT:ucrt_stubs.obj
+ 0001:00000f6c       __scrt_stub_for_acrt_thread_attach 0000000180001f6c f   MSVCRT:ucrt_stubs.obj
+ 0001:00000f6c       __vcrt_uninitialize_critical 0000000180001f6c f   MSVCRT:ucrt_stubs.obj
+ 0001:00000f6c       __vcrt_uninitialize        0000000180001f6c f   MSVCRT:ucrt_stubs.obj
+ 0001:00000f6c       __acrt_thread_detach       0000000180001f6c f   MSVCRT:ucrt_stubs.obj
+ 0001:00000f6c       __acrt_thread_attach       0000000180001f6c f   MSVCRT:ucrt_stubs.obj
  0001:00000f6c       __acrt_uninitialize_critical 0000000180001f6c f   MSVCRT:ucrt_stubs.obj
  0001:00000f6c       __acrt_initialize          0000000180001f6c f   MSVCRT:ucrt_stubs.obj
- 0001:00000f6c       __scrt_stub_for_acrt_initialize 0000000180001f6c f   MSVCRT:ucrt_stubs.obj
  0001:00000f6c       __vcrt_thread_attach       0000000180001f6c f   MSVCRT:ucrt_stubs.obj
- 0001:00000f6c       __vcrt_initialize          0000000180001f6c f   MSVCRT:ucrt_stubs.obj
- 0001:00000f70       _is_c_termination_complete 0000000180001f70 f   MSVCRT:ucrt_stubs.obj
+ 0001:00000f6c       __scrt_stub_for_acrt_initialize 0000000180001f6c f   MSVCRT:ucrt_stubs.obj
+ 0001:00000f6c       __scrt_stub_for_acrt_thread_detach 0000000180001f6c f   MSVCRT:ucrt_stubs.obj
  0001:00000f70       __scrt_stub_for_is_c_termination_complete 0000000180001f70 f   MSVCRT:ucrt_stubs.obj
+ 0001:00000f70       _is_c_termination_complete 0000000180001f70 f   MSVCRT:ucrt_stubs.obj
  0001:00000f90       _guard_dispatch_icall_nop  0000000180001f90 f   MSVCRT:_guard_dispatch_.obj
  0002:00000000       __imp_RtlVirtualUnwind     0000000180003000     kernel32:KERNEL32.dll
  0002:00000008       __imp_IsProcessorFeaturePresent 0000000180003008     kernel32:KERNEL32.dll
@@ -283,7 +283,7 @@
  0002:0000065c       $stateUnwindMap$?connectToServer@Communication@@QEAA_NAEBVQString@@G@Z 000000018000365c     communication.obj
  0002:00000690       $ip2state$?connectToServer@Communication@@QEAA_NAEBVQString@@G@Z 0000000180003690     communication.obj
  0002:000006e8       $unwind$?write@Communication@@QEAA_JAEBVQByteArray@@@Z 00000001800036e8     communication.obj
- 0002:000006f4       $unwind$?readData@Communication@@QEAA?AVQByteArray@@XZ 00000001800036f4     communication.obj
+ 0002:000006f4       $unwind$?readData@Communication@@QEAA?AVQByteArray@@H@Z 00000001800036f4     communication.obj
  0002:00000700       $unwind$?dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z 0000000180003700     MSVCRT:dll_dllmain.obj
  0002:0000072c       $unwind$?fin$0@?0??dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z@4HA 000000018000372c     MSVCRT:dll_dllmain.obj
  0002:0000072c       $unwind$?fin$0@?0??dllmain_crt_process_detach@@YAH_N@Z@4HA 000000018000372c     MSVCRT:dll_dllmain.obj
@@ -330,7 +330,7 @@
  0002:0000091b       $N00004                    000000018000391b     Communication.exp
  0002:0000093e       $N00005                    000000018000393e     Communication.exp
  0002:00000961       $N00006                    0000000180003961     Communication.exp
- 0002:00000990       $N00007                    0000000180003990     Communication.exp
+ 0002:00000991       $N00007                    0000000180003991     Communication.exp
  0002:00000cca       .idata$6                   0000000180003cca     Qt5Network:Qt5Network.dll
  0002:00000e0a       .idata$6                   0000000180003e0a     Qt5Core:Qt5Core.dll
  0002:00000f54       .idata$6                   0000000180003f54     kernel32:KERNEL32.dll
@@ -343,7 +343,7 @@
  0004:00000000       $pdata$??0Communication@@QEAA@XZ 0000000180006000     communication.obj
  0004:0000000c       $pdata$?connectToServer@Communication@@QEAA_NAEBVQString@@G@Z 000000018000600c     communication.obj
  0004:00000018       $pdata$?disconnect@Communication@@QEAAXXZ 0000000180006018     communication.obj
- 0004:00000024       $pdata$?readData@Communication@@QEAA?AVQByteArray@@XZ 0000000180006024     communication.obj
+ 0004:00000024       $pdata$?readData@Communication@@QEAA?AVQByteArray@@H@Z 0000000180006024     communication.obj
  0004:00000030       $pdata$?write@Communication@@QEAA_JAEBVQByteArray@@@Z 0000000180006030     communication.obj
  0004:0000003c       $pdata$?dllmain_crt_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z 000000018000603c     MSVCRT:dll_dllmain.obj
  0004:00000048       $pdata$?dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z 0000000180006048     MSVCRT:dll_dllmain.obj

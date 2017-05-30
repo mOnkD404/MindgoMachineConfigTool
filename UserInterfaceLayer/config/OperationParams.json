@@ -10,8 +10,8 @@
     },
     "logicalControl":{
         "WaitArray":["waitTime"],
-        "Loop":["position", "cycleCount"],
-        "EndLoop":["position"]
+        "Loop":[ "cycleCount"],
+        "EndLoop":[]
     },
     "Operation Display Name":{
         "Load Tip":"装载针头",
@@ -57,7 +57,9 @@
             "default":0,
             "display":"前吸体积",
             "switch":"preSuction",
-            "unit":"μL"
+            "unit":"μL",
+            "bottomValue":0,
+            "topValue":250
         },
         "postSuction":{
             "type":"bool",
@@ -69,13 +71,17 @@
             "default":0,
             "display":"后吸体积",
             "switch":"postSuction",
-            "unit":"μL"
+            "unit":"μL",
+            "bottomValue":0,
+            "topValue":250
         },
         "volume":{
             "type":"integer",
             "default":0,
             "display":"吸液体积",
-            "unit":"μL"
+            "unit":"μL",
+            "bottomValue":0,
+            "topValue":250
         },
 
         "drain":{
@@ -87,31 +93,41 @@
             "type":"integer",
             "default":0,
             "display":"排液体积",
-            "unit":"μL"
+            "unit":"μL",
+            "bottomValue":0,
+            "topValue":250
         },
         "cycleCount":{
             "type":"integer",
-            "default":0,
-            "display":"循环次数"
+            "default":1,
+            "display":"循环次数",
+            "bottomValue":1,
+            "topValue":1000
         },
         "suctionHeight":{
-            "type":"integer",
+            "type":"float",
             "default":"",
             "display":"吸液离底高度",
-            "unit":"×0.1mm"
+            "unit":"mm",
+            "bottomValue":0,
+            "topValue":100
         },
         "drainHeight":{
-            "type":"integer",
+            "type":"float",
             "default":0,
             "display":"排液离底高度",
-            "unit":"×0.1mm"
+            "unit":"mm",
+            "bottomValue":0,
+            "topValue":100
         },
 
         "waitTime":{
             "type":"integer",
-            "default":0,
+            "default":1,
             "display":"等待时间",
-            "unit":"s"
+            "unit":"s",
+            "bottomValue":1,
+            "topValue":10000
         }
     }
 }

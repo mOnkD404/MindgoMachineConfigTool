@@ -1,4 +1,4 @@
-#ifndef ENVIRONMENTVARIANT_H
+﻿#ifndef ENVIRONMENTVARIANT_H
 #define ENVIRONMENTVARIANT_H
 
 #include <QQmlContext>
@@ -34,6 +34,7 @@ public:
     void AddPlanStep(int planIndex, int before, int operationIndex);
     void SetPlanStepToDefault(int planIndex, int stepIndex, int operationIndex);
     void SetPlanStepParam(int planIndex, int stepIndex, const QList<OperationParamData>& data);
+    void SetPlanStepSingleParam(int planIndex, int stepIndex, const QString& paramName, const QVariant& value);
     void RemovePlanStep(int planIndex, int stepIndex);
     void MovePlanStep(int planIndex, int stepIndex, int newIndex);
     void SetPlanName(int planIndex, const QString& name);

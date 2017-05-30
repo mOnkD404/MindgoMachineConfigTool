@@ -214,14 +214,15 @@ Item {
 
                                 IntValidator{
                                     id:intValidator
-                                    bottom: 0
-                                    top:1000000000
+                                    bottom: modelData.BottomValue
+                                    top:modelData.TopValue
                                 }
 
-                                DoubleValidator{
+                                TextFieldDoubleValidator{
                                     id:floatValidator
-                                    bottom:0.0
-                                    top:1000000000.0
+                                    bottom:modelData.BottomValue
+                                    top:modelData.TopValue
+                                    decimals: 1
                                 }
 
                                 onTextChanged: {

@@ -216,7 +216,7 @@ void OperationParamSelector::setSelectedOperation(int index)
         paramModel.clear();
         foreach(const OperationParamData& data, m_paramData)
         {
-            paramModel.append(new OperationParamObject(data));
+            paramModel.append(new OperationParamObject(data, this));
         }
         emit paramModelChanged();
     }
@@ -292,7 +292,7 @@ void PlanSelector::setSelectedStep(int planIndex, int stepIndex)
     paramListModel.clear();
     foreach(const OperationParamData& data, m_operationData.params)
     {
-        paramListModel.append(new OperationParamObject(data));
+        paramListModel.append(new OperationParamObject(data, this));
     }
     emit paramListModelChanged();
 }
@@ -362,20 +362,9 @@ void PlanSelector::onSave()
     EnvironmentVariant::instance()->SavePlan();
 }
 
-void PlanSelector::commitParam(int planIndex, int stepIndex)
+void PlanSelector::commitParam(int planIndex, int stepIndex, const QString& paramName, const QVariant& value)
 {
-    QList<OperationParamData> data;
-    foreach(QObject* obj, paramListModel)
-    {
-        OperationParamObject* parmObj = dynamic_cast<OperationParamObject*>(obj);
-        if(parmObj)
-        {
-            OperationParamData* pda = static_cast<OperationParamData*>(parmObj);
-            if(pda)
-                data.append(*pda);
-        }
-    }
-    EnvironmentVariant::instance()->SetPlanStepParam(planIndex, stepIndex, data);
+    EnvironmentVariant::instance()->SetPlanStepSingleParam(planIndex, stepIndex, paramName, value);
 }
 
 QObject* PlanSelector::getSwitch(const QString &name)

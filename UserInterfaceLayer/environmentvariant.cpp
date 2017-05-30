@@ -224,7 +224,7 @@ QJsonObject EnvironmentVariant::formatSingleOperationParam(const SingleOperation
             }
             else if(data.Type == "float")
             {
-                paramobj[data.Name] = static_cast<int>(data.FloatValue*10.0);
+                paramobj[data.Name] = qRound(data.FloatValue*10.0);
             }
             else if(data.Type == "string")
             {
@@ -332,6 +332,41 @@ void EnvironmentVariant::SetPlanStepParam(int planIndex, int stepIndex, const QL
     }
 }
 
+
+void EnvironmentVariant::SetPlanStepSingleParam(int planIndex, int stepIndex, const QString& paramName, const QVariant& value)
+{
+    if(planIndex < 0 || planIndex >= m_planList.size())
+        return;
+
+    QPair<QString, QList<SingleOperationData> > &plan = m_planList[planIndex];
+
+    if(stepIndex < 0 || stepIndex >= plan.second.size())
+        return;
+
+    QList<OperationParamData> & params = plan.second[stepIndex].params;
+
+    for(QList<OperationParamData>::Iterator iterdata = params.begin(); iterdata != params.end(); iterdata++)
+    {
+        if(iterdata->Name == paramName)
+        {
+            if(iterdata->Type == "integer" || iterdata->Type == "enum")
+            {
+                iterdata->IntegerValue = value.toInt();
+            }
+            else if(iterdata->Type == "float")
+            {
+                iterdata->FloatValue = value.toDouble();
+            }
+            else if(iterdata->Type == "bool")
+            {
+                iterdata->BoolValue = value.toBool();
+            }
+
+            break;
+        }
+    }
+}
+
 void EnvironmentVariant::SetPlanName(int planIndex, const QString &name)
 {
     if(planIndex < 0 || planIndex >= m_planList.size())
@@ -401,7 +436,7 @@ void EnvironmentVariant::StartPlan(int planIndex, int stepIndex)
             }
             else if(data.Type == "float")
             {
-                paramobj[data.Name] = static_cast<int>(data.FloatValue*10.0);
+                paramobj[data.Name] = qRound(data.FloatValue*10.0);
             }
             else if(data.Type == "string")
             {

@@ -1,4 +1,4 @@
-#include "communication.h"
+﻿#include "communication.h"
 #include <QHostAddress>
 #include <QNetworkProxy>
 
@@ -31,9 +31,9 @@ qint64 Communication::write(const QByteArray &byteArray)
     }
 }
 
-QByteArray Communication::readData()
+QByteArray Communication::readData(int msecs)
 {
-    if (m_socket.waitForReadyRead())
+    if (m_socket.waitForReadyRead(msecs))
     {
         return m_socket.read(m_socket.bytesAvailable());
     }

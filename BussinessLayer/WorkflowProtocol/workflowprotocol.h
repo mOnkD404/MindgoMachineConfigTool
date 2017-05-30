@@ -1,4 +1,4 @@
-#ifndef WORKFLOWPROTOCOL_H
+﻿#ifndef WORKFLOWPROTOCOL_H
 #define WORKFLOWPROTOCOL_H
 
 #include "workflowprotocol_global.h"
@@ -87,6 +87,7 @@ private:
     qint16 m_port;
     int m_LoopStartIndex;
     int m_LoopCount;
+    bool m_inFakeLoop;
     volatile bool m_forceStop;
     int m_maxReceiveTime;
     int m_startIndex;

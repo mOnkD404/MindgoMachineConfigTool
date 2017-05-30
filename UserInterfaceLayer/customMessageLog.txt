@@ -93,3 +93,4 @@ Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/UserInterfaceLay
 Debug: ≈≈“∫clicked
 Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/UserInterfaceLayer"
 Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/UserInterfaceLayer"
+Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/UserInterfaceLayer"

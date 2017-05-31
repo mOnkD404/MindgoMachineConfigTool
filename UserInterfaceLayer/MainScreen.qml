@@ -204,8 +204,8 @@ Item {
                 id:resumeButton
                 textValue: qsTr("Resume test")
                 height: 80
-                startColor:"#cffe9e"
-                stopColor:"#92d456"
+                startColor:"#a9aaac"
+                stopColor:"#6e6d71"
                 borderColor:"#99da73"
                 visible:false
 

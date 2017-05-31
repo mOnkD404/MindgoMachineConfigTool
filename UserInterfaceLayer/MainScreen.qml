@@ -97,6 +97,15 @@ Item {
             anchors.rightMargin: 10
             anchors.leftMargin: 10
 
+            StepGallery{
+                id:stepGallery
+                visible: true
+                anchors.top:mainVDewID.top
+                anchors.left: mainVDewID.left
+                anchors.bottom: mainVDewID.bottom
+                anchors.right: statusList.left
+            }
+
 
             StatusListView{
                 id:statusList
@@ -165,6 +174,7 @@ Item {
                     actionBarID.newState = "start";
 
                     statusList.clearModel();
+                    stepGallery.refreshModel();
                 }
             }
             TextButton{

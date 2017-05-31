@@ -42,8 +42,6 @@ Item {
             model:displayModel
             highlight: Rectangle{
                 height: 85
-                anchors.left: parent.left
-                anchors.right: parent.right
                 color: "#995cc5ff"
                 radius: 5
             }

@@ -1,4 +1,4 @@
-#ifndef CONFIGFILEHANDLER_H
+﻿#ifndef CONFIGFILEHANDLER_H
 #define CONFIGFILEHANDLER_H
 
 #include <QObject>
@@ -26,6 +26,8 @@ public:
     void SavePlanList(const QString& configFile, const QList<QPair<QString, QList<SingleOperationData> > > & planData, const QMap<QString, QStringList> &);
 
     void SaveMachineConfig(const QString& configFile, const MachineConfigData&);
+
+    void ParseWorkLocationTypeList(QStringList& typelist);
 
 signals:
 

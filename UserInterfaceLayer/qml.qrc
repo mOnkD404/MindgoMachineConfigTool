@@ -20,5 +20,9 @@
         <file>StatusListView.qml</file>
         <file>FZHTJW.TTF</file>
         <file>StepGallery.qml</file>
+        <file>image/4-4.png</file>
+        <file>image/2-1.png</file>
+        <file>image/2-4.png</file>
+        <file>image/4-1.png</file>
     </qresource>
 </RCC>

@@ -445,10 +445,14 @@ bool StatusViewWatcher::eventFilter(QObject *watched, QEvent *event)
         if(evt)
         {
             emit statusChanged(evt->jsObject);
-            return true;
         }
     }
     return false;
+}
+
+QStringList StatusViewWatcher::getWorkLocationTypeList()
+{
+    return EnvironmentVariant::instance()->getWorkLocationTypeList();
 }
 
 void TargetMachineObject::onMachineConfigChanged()

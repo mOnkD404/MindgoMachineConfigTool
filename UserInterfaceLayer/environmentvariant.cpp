@@ -52,6 +52,7 @@ void EnvironmentVariant::initUserConfig(const QString &str)
     m_machineConfig.init(handler.ParseHostIP(), handler.ParseHostPort(), handler.ParseHostSingleOperationThreshold());
 
     handler.ParsePlanList(m_planList, m_paramDefaultValueMap);
+    handler.ParseWorkLocationTypeList(m_workLocationTypeList);
 }
 
 void EnvironmentVariant::initModels(QQmlContext* context)
@@ -482,4 +483,9 @@ SingleOperationData EnvironmentVariant::defaultValue(const QString& Operationnam
     }
 
     return SingleOperationData();
+}
+
+QStringList EnvironmentVariant::getWorkLocationTypeList()
+{
+    return m_workLocationTypeList;
 }

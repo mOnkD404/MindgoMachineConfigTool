@@ -56,6 +56,8 @@ public:
 
     SingleOperationData defaultValue(const QString& Operationname);
 
+    QStringList getWorkLocationTypeList();
+
 private:
     EnvironmentVariant():m_context(0) {}
     ~EnvironmentVariant() {}
@@ -80,6 +82,7 @@ private:
     QString m_userConfigFile;
 
     TargetMachineObject m_machineConfig;
+    QStringList m_workLocationTypeList;
 };
 
 #endif // ENVIRONMENTVARIANT_H

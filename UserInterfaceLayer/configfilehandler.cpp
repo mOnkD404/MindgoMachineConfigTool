@@ -345,3 +345,20 @@ void configFileHandler::SaveMachineConfig(const QString& configFile, const Machi
     loadFile.close();
 
 }
+
+void configFileHandler::ParseWorkLocationTypeList(QStringList& typelist)
+{
+    typelist.clear();
+    QJsonObject workerObj = m_configFileObj["workers"].toObject();
+    int count = workerObj["count"].toInt();
+    QJsonArray types = workerObj["type"].toArray();
+    if(types.size() < count)
+    {
+        qDebug()<<"ParseWorkLocationTypeList config file error.";
+        return;
+    }
+    for(int index = 0; index < count; index++)
+    {
+        typelist.append(types.at(index).toString());
+    }
+}

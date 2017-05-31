@@ -457,6 +457,8 @@ public:
 
     virtual bool eventFilter(QObject *watched, QEvent *event);
 
+    Q_INVOKABLE QStringList getWorkLocationTypeList();
+
 signals:
     void statusChanged(const QJsonObject& jsobj);
 };

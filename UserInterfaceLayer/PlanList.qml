@@ -610,11 +610,19 @@ Item {
                                 validator: getValidator()
                                 focus:true
                                 activeFocusOnTab: true
+                                selectByMouse: true
                                 //text: getText()
 
                                 Component.onCompleted: {
                                     text = getText();
                                     init = true;
+                                }
+                                onActiveFocusChanged: {
+                                    if(activeFocus){
+                                        selectAll();
+                                    }else{
+                                        deselect();
+                                    }
                                 }
 
                                 function getText() {
@@ -648,6 +656,7 @@ Item {
                                     id:floatValidator
                                     bottom:modelData.BottomValue
                                     top:modelData.TopValue
+                                    decimals: 1
                                 }
 
                                 onTextChanged: {

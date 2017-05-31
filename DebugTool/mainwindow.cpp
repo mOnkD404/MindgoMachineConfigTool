@@ -11,12 +11,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->lineEdit->setText("200");
 
     WorkerObject *workerObj = new WorkerObject(NULL);
     workerObj->moveToThread(&m_worker);
     connect(workerObj, &WorkerObject::logInfo, this, &MainWindow::addLog);
+    connect(this, &MainWindow::setSleepTime, workerObj, &WorkerObject::sleepTimeChanged, Qt::DirectConnection);
     connect(&m_worker, &QThread::finished, workerObj, &QObject::deleteLater);
     connect(&m_worker, &QThread::started, workerObj, &WorkerObject::startServer);
+
     m_worker.start();
 
 }
@@ -69,7 +72,7 @@ void WorkerObject::newConnection()
 
                 if (handleData(array))
                 {
-                    QThread::msleep(500);
+                    QThread::msleep(m_sleepTime);
                     skt->write(m_ackData);
                     skt->waitForBytesWritten();
                 }
@@ -149,4 +152,20 @@ bool WorkerObject::handleData(const QByteArray& array)
 
     emit logInfo(recvStr);
     return true;
+}
+
+void WorkerObject::sleepTimeChanged(int time)
+{
+    m_sleepTime = time;
+}
+
+void MainWindow::on_lineEdit_editingFinished()
+{
+    int sleepTime = ui->lineEdit->text().toInt();
+    emit setSleepTime(sleepTime);
+}
+
+void MainWindow::on_lineEdit_returnPressed()
+{
+
 }

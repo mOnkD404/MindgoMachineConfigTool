@@ -57,7 +57,7 @@ Item {
                 border.width: 2
                 border.color:"#747474"
                 color:"transparent"
-                height: 85
+                height: 100
                 Column {
                     id: column
                     anchors.fill: parent
@@ -67,6 +67,7 @@ Item {
                     //anchors { fill: parent; margins: 2 }
 
                     Text { text: 'Operation: ' + operation; color:"#d9d9d9" }
+                    Text { text: 'position: ' + position; color: "#d9d9d9"}
                     Text { text: 'Sequence number: ' + sequence; color:"#d9d9d9" }
                     Text { text: 'Send: ' + send.toString(); color:"#d9d9d9"; font.bold: true }
                     Text { text: 'Ack: ' + ack.toString(); color:"#d9d9d9"; font.bold: true }

@@ -30,9 +30,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
+      <y>39</y>
       <width>1280</width>
-      <height>720</height>
+      <height>681</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -40,6 +40,29 @@
       <horstretch>1</horstretch>
       <verstretch>1</verstretch>
      </sizepolicy>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>10</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Ack time</string>
     </property>
    </widget>
   </widget>

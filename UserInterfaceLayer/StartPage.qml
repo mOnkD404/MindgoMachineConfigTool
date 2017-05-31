@@ -20,6 +20,10 @@ Item {
     Rectangle{
         anchors.fill: parent
         color:"#99000000"
+
+        MouseArea{
+            anchors.fill: parent
+        }
     }
 
     Rectangle{

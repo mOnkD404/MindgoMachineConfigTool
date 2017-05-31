@@ -316,6 +316,7 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
     QJsonObject retObj;
 
     retObj["operation"] = cmdObj["operation"];
+    retObj["position"] = "null";
     retObj["sequence"] = cmdObj["sequence"];
     retObj["send"] = false;
     retObj["ack"] = false;
@@ -374,6 +375,7 @@ bool SubThreadWorker::handleControlCommand(Communication& com, QJsonObject& cmdO
 {
     QJsonObject retObj;
     retObj["operation"] = "";
+    retObj["position"] = cmdObj["params"].toObject()["position"].toInt()+1;
     retObj["sequence"] = 0;
     retObj["send"] = false;
     retObj["ack"] = false;
@@ -421,7 +423,7 @@ bool SubThreadWorker::handleControlCommand(Communication& com, QJsonObject& cmdO
     timer.restart();
     bool recvret = false;
     QByteArray recvArray;
-    while(com.connected() && timer.elapsed() < m_maxReceiveTime*1000 && !m_forceStop)
+    while(com.connected() && timer.elapsed() < m_maxReceiveTime*1000)// && !m_forceStop)
     {
         const QByteArray &array = com.readData(1000);
         if(array.size() > 0)

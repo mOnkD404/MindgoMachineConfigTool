@@ -1,14 +1,14 @@
  WorkflowProtocol
 
- Timestamp is 592da301 (Wed May 31 00:51:13 2017)
+ Timestamp is 592ecf7c (Wed May 31 22:13:16 2017)
 
  Preferred load address is 0000000180000000
 
  Start         Length     Name                   Class
  0001:00000000 00000020H .text$di                CODE
- 0001:00000020 00004cc0H .text$mn                CODE
- 0001:00004ce0 00000020H .text$mn$00             CODE
- 0001:00004d00 0000093cH .text$x                 CODE
+ 0001:00000020 00004e40H .text$mn                CODE
+ 0001:00004e60 00000020H .text$mn$00             CODE
+ 0001:00004e80 000009acH .text$x                 CODE
  0002:00000000 00000530H .idata$5                DATA
  0002:00000530 00000010H .00cfg                  DATA
  0002:00000540 00000008H .CRT$XCA                DATA
@@ -23,21 +23,21 @@
  0002:00000590 00000008H .CRT$XPZ                DATA
  0002:00000598 00000008H .CRT$XTA                DATA
  0002:000005a0 00000010H .CRT$XTZ                DATA
- 0002:000005b0 00000d48H .rdata                  DATA
- 0002:000012f8 00000028H .rdata$T                DATA
- 0002:00001320 00000494H .rdata$r                DATA
- 0002:000017b4 000003dcH .rdata$zzzdbg           DATA
- 0002:00001b90 00000008H .rtc$IAA                DATA
- 0002:00001b98 00000008H .rtc$IZZ                DATA
- 0002:00001ba0 00000008H .rtc$TAA                DATA
- 0002:00001ba8 00000008H .rtc$TZZ                DATA
- 0002:00001bb0 000012f8H .xdata                  DATA
- 0002:00002ea8 000000f8H .xdata$x                DATA
- 0002:00002fa0 00000814H .edata                  DATA
- 0002:000037b4 00000078H .idata$2                DATA
- 0002:0000382c 00000014H .idata$3                DATA
- 0002:00003840 00000530H .idata$4                DATA
- 0002:00003d70 00001584H .idata$6                DATA
+ 0002:000005b0 00000d58H .rdata                  DATA
+ 0002:00001308 00000028H .rdata$T                DATA
+ 0002:00001330 00000494H .rdata$r                DATA
+ 0002:000017c4 000003dcH .rdata$zzzdbg           DATA
+ 0002:00001ba0 00000008H .rtc$IAA                DATA
+ 0002:00001ba8 00000008H .rtc$IZZ                DATA
+ 0002:00001bb0 00000008H .rtc$TAA                DATA
+ 0002:00001bb8 00000008H .rtc$TZZ                DATA
+ 0002:00001bc0 000013b8H .xdata                  DATA
+ 0002:00002f78 000000f8H .xdata$x                DATA
+ 0002:00003070 00000814H .edata                  DATA
+ 0002:00003884 00000078H .idata$2                DATA
+ 0002:000038fc 00000014H .idata$3                DATA
+ 0002:00003910 00000530H .idata$4                DATA
+ 0002:00003e40 00001584H .idata$6                DATA
  0003:00000000 000000a8H .data                   DATA
  0003:000000a8 00000198H .data$r                 DATA
  0003:00000240 00000680H .bss                    DATA
@@ -76,8 +76,8 @@
  0001:000009f0       ??0WorkflowProtocol@@QEAA@$$QEAV0@@Z 00000001800019f0 f i workflowprotocol.obj
  0001:000009f0       ??0WorkflowProtocol@@QEAA@AEBV0@@Z 00000001800019f0 f i workflowprotocol.obj
  0001:00000a40       ??0WorkflowProtocol@@QEAA@XZ 0000000180001a40 f   workflowprotocol.obj
- 0001:00000a60       ??1QStringList@@QEAA@XZ    0000000180001a60 f i workflowprotocol.obj
  0001:00000a60       ??1?$QForeachContainer@VQStringList@@@@QEAA@XZ 0000000180001a60 f i workflowprotocol.obj
+ 0001:00000a60       ??1QStringList@@QEAA@XZ    0000000180001a60 f i workflowprotocol.obj
  0001:00000a70       ??1?$QList@VQString@@@@QEAA@XZ 0000000180001a70 f i workflowprotocol.obj
  0001:00000af0       ??1WorkflowController@@UEAA@XZ 0000000180001af0 f   workflowprotocol.obj
  0001:00000b60       ??1WorkflowProtocol@@QEAA@XZ 0000000180001b60 f i workflowprotocol.obj
@@ -85,8 +85,8 @@
  0001:00000b70       ??4WorkflowProtocol@@QEAAAEAV0@$$QEAV0@@Z 0000000180001b70 f i workflowprotocol.obj
  0001:00000bc0       ??_EWorkflowController@@UEAAPEAXI@Z 0000000180001bc0 f i workflowprotocol.obj
  0001:00000c50       ??_FWorkflowController@@QEAAXXZ 0000000180001c50 f i workflowprotocol.obj
- 0001:00000c60       ??_ERunningStateChangeEvent@@UEAAPEAXI@Z 0000000180001c60 f i workflowprotocol.obj
  0001:00000c60       ??_GRunningStateChangeEvent@@UEAAPEAXI@Z 0000000180001c60 f i workflowprotocol.obj
+ 0001:00000c60       ??_ERunningStateChangeEvent@@UEAAPEAXI@Z 0000000180001c60 f i workflowprotocol.obj
  0001:00000ca0       ??_EStatusChangeEvent@@UEAAPEAXI@Z 0000000180001ca0 f i workflowprotocol.obj
  0001:00000ca0       ??_GStatusChangeEvent@@UEAAPEAXI@Z 0000000180001ca0 f i workflowprotocol.obj
  0001:00000cf0       ??_ESubThreadWorker@@UEAAPEAXI@Z 0000000180001cf0 f i workflowprotocol.obj
@@ -98,162 +98,162 @@
  0001:00000f50       ?doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z 0000000180001f50 f   workflowprotocol.obj
  0001:000011f0       ?formatRecvFrameToJsonObject@WorkflowProtocol@@QEAA_NAEAVQJsonObject@@@Z 00000001800021f0 f   workflowprotocol.obj
  0001:00001270       ?handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z 0000000180002270 f   workflowprotocol.obj
- 0001:00001980       ?handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z 0000000180002980 f   workflowprotocol.obj
- 0001:00001e90       ?impl@?$QSlotObject@P8SubThreadWorker@@EAAXXZU?$List@$$V@QtPrivate@@X@QtPrivate@@CAXHPEAVQSlotObjectBase@2@PEAVQObject@@PEAPEAXPEA_N@Z 0000000180002e90 f i workflowprotocol.obj
- 0001:00001e90       ?impl@?$QSlotObject@P8QObject@@EAAXXZU?$List@$$V@QtPrivate@@X@QtPrivate@@CAXHPEAVQSlotObjectBase@2@PEAVQObject@@PEAPEAXPEA_N@Z 0000000180002e90 f i workflowprotocol.obj
- 0001:00001ed0       ?impl@?$QSlotObject@P8SubThreadWorker@@EAAXAEBVQJsonObject@@@ZU?$List@AEBVQJsonObject@@@QtPrivate@@X@QtPrivate@@CAXHPEAVQSlotObjectBase@2@PEAVQObject@@PEAPEAXPEA_N@Z 0000000180002ed0 f i workflowprotocol.obj
- 0001:00001ed0       ?impl@?$QSlotObject@P8SubThreadWorker@@EAAXAEBVQString@@@ZU?$List@AEBVQString@@@QtPrivate@@X@QtPrivate@@CAXHPEAVQSlotObjectBase@2@PEAVQObject@@PEAPEAXPEA_N@Z 0000000180002ed0 f i workflowprotocol.obj
- 0001:00001ed0       ?impl@?$QSlotObject@P8WorkflowController@@EAAXAEBVQJsonObject@@@ZU?$List@AEBVQJsonObject@@@QtPrivate@@X@QtPrivate@@CAXHPEAVQSlotObjectBase@2@PEAVQObject@@PEAPEAXPEA_N@Z 0000000180002ed0 f i workflowprotocol.obj
- 0001:00001f20       ?impl@?$QSlotObject@P8SubThreadWorker@@EAAXAEBVQString@@G@ZU?$List@AEBVQString@@G@QtPrivate@@X@QtPrivate@@CAXHPEAVQSlotObjectBase@2@PEAVQObject@@PEAPEAXPEA_N@Z 0000000180002f20 f i workflowprotocol.obj
- 0001:00001f70       ?impl@?$QSlotObject@P8WorkflowController@@EAAX_NH@ZU?$List@_NH@QtPrivate@@X@QtPrivate@@CAXHPEAVQSlotObjectBase@2@PEAVQObject@@PEAPEAXPEA_N@Z 0000000180002f70 f i workflowprotocol.obj
- 0001:00001fc0       ?init@WorkflowController@@QEAAXAEBVQString@@@Z 0000000180002fc0 f   workflowprotocol.obj
- 0001:00001fd0       ?initProtocol@WorkflowProtocol@@QEAA_NAEBVQString@@@Z 0000000180002fd0 f   workflowprotocol.obj
- 0001:00002120       ?isLogicalCommand@SubThreadWorker@@IEAA_NAEBVQString@@@Z 0000000180003120 f   workflowprotocol.obj
- 0001:00002390       ?node_copy@?$QList@VQString@@@@AEAAXPEAUNode@1@00@Z 0000000180003390 f i workflowprotocol.obj
- 0001:00002400       ?node_destruct@?$QList@VQString@@@@AEAAXPEAUNode@1@0@Z 0000000180003400 f i workflowprotocol.obj
- 0001:00002440       ?parseAckFrame@WorkflowProtocol@@QEAA_NAEBVQByteArray@@AEAVQJsonObject@@@Z 0000000180003440 f   workflowprotocol.obj
- 0001:00002550       ?parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z 0000000180003550 f   workflowprotocol.obj
- 0001:00002c60       ?runTask@WorkflowController@@QEAAXAEBVQJsonObject@@@Z 0000000180003c60 f   workflowprotocol.obj
- 0001:00002cd0       ?serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ 0000000180003cd0 f   workflowprotocol.obj
- 0001:00002e20       ?sethost@WorkflowController@@QEAAXAEBVQString@@G@Z 0000000180003e20 f   workflowprotocol.obj
- 0001:00002e30       ?statusChanged@WorkflowController@@QEAAXAEBVQJsonObject@@@Z 0000000180003e30 f   workflowprotocol.obj
- 0001:00002ec0       ?stopCurrentTask@WorkflowController@@QEAAXXZ 0000000180003ec0 f   workflowprotocol.obj
- 0001:00002ef0       ?stopTask@SubThreadWorker@@QEAAXXZ 0000000180003ef0 f   workflowprotocol.obj
- 0001:00002f00       ?taskStateChanged@WorkflowController@@QEAAX_NH@Z 0000000180003f00 f   workflowprotocol.obj
- 0001:00002f80       ?tr@WorkflowController@@SA?AVQString@@PEBD0H@Z 0000000180003f80 f i workflowprotocol.obj
- 0001:00002f80       ?trUtf8@WorkflowController@@SA?AVQString@@PEBD0H@Z 0000000180003f80 f i workflowprotocol.obj
- 0001:00002fc0       ?types@?$ConnectionTypes@U?$List@AEBVQString@@G@QtPrivate@@$00@QtPrivate@@SAPEBHXZ 0000000180003fc0 f i workflowprotocol.obj
- 0001:00003030       ?types@?$ConnectionTypes@U?$List@_NH@QtPrivate@@$00@QtPrivate@@SAPEBHXZ 0000000180004030 f i workflowprotocol.obj
- 0001:000030a0       ?unserializeRecvFrame@WorkflowProtocol@@QEAAXAEBVQByteArray@@@Z 00000001800040a0 f   workflowprotocol.obj
- 0001:00003200       ?changeHost@WorkflowController@@QEAAXAEBVQString@@G@Z 0000000180004200 f   moc_workflowprotocol.obj
- 0001:00003260       ?configProtocol@WorkflowController@@QEAAXAEBVQString@@@Z 0000000180004260 f   moc_workflowprotocol.obj
- 0001:00003290       ?metaObject@SubThreadWorker@@UEBAPEBUQMetaObject@@XZ 0000000180004290 f   moc_workflowprotocol.obj
- 0001:000032b0       ?metaObject@WorkflowController@@UEBAPEBUQMetaObject@@XZ 00000001800042b0 f   moc_workflowprotocol.obj
- 0001:000032d0       ?qt_metacall@SubThreadWorker@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z 00000001800042d0 f   moc_workflowprotocol.obj
- 0001:00003340       ?qt_metacall@WorkflowController@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z 0000000180004340 f   moc_workflowprotocol.obj
- 0001:000033b0       ?qt_metacast@SubThreadWorker@@UEAAPEAXPEBD@Z 00000001800043b0 f   moc_workflowprotocol.obj
- 0001:00003400       ?qt_metacast@WorkflowController@@UEAAPEAXPEBD@Z 0000000180004400 f   moc_workflowprotocol.obj
- 0001:00003450       ?qt_static_metacall@SubThreadWorker@@CAXPEAVQObject@@W4Call@QMetaObject@@HPEAPEAX@Z 0000000180004450 f   moc_workflowprotocol.obj
- 0001:00003570       ?qt_static_metacall@WorkflowController@@CAXPEAVQObject@@W4Call@QMetaObject@@HPEAPEAX@Z 0000000180004570 f   moc_workflowprotocol.obj
- 0001:000036b0       ?runNewTask@WorkflowController@@QEAAXAEBVQJsonObject@@@Z 00000001800046b0 f   moc_workflowprotocol.obj
- 0001:000036e0       ?statusChanged@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z 00000001800046e0 f   moc_workflowprotocol.obj
- 0001:00003710       ?stopTask@WorkflowController@@QEAAXXZ 0000000180004710 f   moc_workflowprotocol.obj
- 0001:00003730       ?taskStateChanged@SubThreadWorker@@QEAAX_NH@Z 0000000180004730 f   moc_workflowprotocol.obj
- 0001:00003790       ?childEvent@QObject@@MEAAXPEAVQChildEvent@@@Z 0000000180004790 f   Qt5Core:Qt5Core.dll
- 0001:00003796       ?connectNotify@QObject@@MEAAXAEBVQMetaMethod@@@Z 0000000180004796 f   Qt5Core:Qt5Core.dll
- 0001:0000379c       ?customEvent@QObject@@MEAAXPEAVQEvent@@@Z 000000018000479c f   Qt5Core:Qt5Core.dll
- 0001:000037a2       ?disconnectNotify@QObject@@MEAAXAEBVQMetaMethod@@@Z 00000001800047a2 f   Qt5Core:Qt5Core.dll
- 0001:000037a8       ?event@QObject@@UEAA_NPEAVQEvent@@@Z 00000001800047a8 f   Qt5Core:Qt5Core.dll
- 0001:000037ae       ?eventFilter@QObject@@UEAA_NPEAV1@PEAVQEvent@@@Z 00000001800047ae f   Qt5Core:Qt5Core.dll
- 0001:000037b4       ?timerEvent@QObject@@MEAAXPEAVQTimerEvent@@@Z 00000001800047b4 f   Qt5Core:Qt5Core.dll
- 0001:000037bc       ??_M@YAXPEAX_K1P6AX0@Z@Z   00000001800047bc f   MSVCRT:ehvecdtr.obj
- 0001:00003828       ?__ArrayUnwind@@YAXPEAX_K1P6AX0@Z@Z 0000000180004828 f   MSVCRT:ehvecdtr.obj
- 0001:0000388c       ??2@YAPEAX_K@Z             000000018000488c f   MSVCRT:new_scalar.obj
- 0001:000038c8       ??_V@YAXPEAX_K@Z           00000001800048c8 f   MSVCRT:delete_array_size.obj
- 0001:00003a18       _Init_thread_footer        0000000180004a18 f   MSVCRT:thread_safe_statics.obj
- 0001:00003a78       _Init_thread_header        0000000180004a78 f   MSVCRT:thread_safe_statics.obj
- 0001:00003ae0       _Init_thread_notify        0000000180004ae0 f   MSVCRT:thread_safe_statics.obj
- 0001:00003b3c       _Init_thread_wait          0000000180004b3c f   MSVCRT:thread_safe_statics.obj
- 0001:00003bd4       ??_Gtype_info@@UEAAPEAXI@Z 0000000180004bd4 f i MSVCRT:std_type_info_static.obj
- 0001:00003bd4       ??_Etype_info@@UEAAPEAXI@Z 0000000180004bd4 f i MSVCRT:std_type_info_static.obj
- 0001:00003c00       __GSHandlerCheck           0000000180004c00 f   MSVCRT:_gshandler_.obj
- 0001:00003c20       __GSHandlerCheckCommon     0000000180004c20 f   MSVCRT:_gshandler_.obj
- 0001:00003c90       __security_check_cookie    0000000180004c90 f   MSVCRT:_amdsecgs_.obj
- 0001:00004000       _DllMainCRTStartup         0000000180005000 f   MSVCRT:dll_dllmain.obj
- 0001:00004040       _guard_check_icall         0000000180005040 f i MSVCRT:checkcfg.obj
- 0001:00004048       ??0bad_alloc@std@@QEAA@AEBV01@@Z 0000000180005048 f i MSVCRT:throw_bad_alloc.obj
- 0001:00004088       ??0bad_alloc@std@@QEAA@XZ  0000000180005088 f i MSVCRT:throw_bad_alloc.obj
- 0001:000040a8       ??0bad_array_new_length@std@@QEAA@AEBV01@@Z 00000001800050a8 f i MSVCRT:throw_bad_alloc.obj
- 0001:000040e8       ??0bad_array_new_length@std@@QEAA@XZ 00000001800050e8 f i MSVCRT:throw_bad_alloc.obj
- 0001:00004108       ??0exception@std@@QEAA@AEBV01@@Z 0000000180005108 f i MSVCRT:throw_bad_alloc.obj
- 0001:00004140       ??1bad_array_new_length@std@@UEAA@XZ 0000000180005140 f i MSVCRT:throw_bad_alloc.obj
- 0001:00004140       ??1bad_alloc@std@@UEAA@XZ  0000000180005140 f i MSVCRT:throw_bad_alloc.obj
- 0001:00004154       ??_Gbad_alloc@std@@UEAAPEAXI@Z 0000000180005154 f i MSVCRT:throw_bad_alloc.obj
- 0001:00004154       ??_Eexception@std@@UEAAPEAXI@Z 0000000180005154 f i MSVCRT:throw_bad_alloc.obj
- 0001:00004154       ??_Ebad_alloc@std@@UEAAPEAXI@Z 0000000180005154 f i MSVCRT:throw_bad_alloc.obj
- 0001:00004154       ??_Gbad_array_new_length@std@@UEAAPEAXI@Z 0000000180005154 f i MSVCRT:throw_bad_alloc.obj
- 0001:00004154       ??_Ebad_array_new_length@std@@UEAAPEAXI@Z 0000000180005154 f i MSVCRT:throw_bad_alloc.obj
- 0001:00004154       ??_Gexception@std@@UEAAPEAXI@Z 0000000180005154 f i MSVCRT:throw_bad_alloc.obj
- 0001:00004198       ?__scrt_throw_std_bad_alloc@@YAXXZ 0000000180005198 f   MSVCRT:throw_bad_alloc.obj
- 0001:000041b8       ?__scrt_throw_std_bad_array_new_length@@YAXXZ 00000001800051b8 f   MSVCRT:throw_bad_alloc.obj
- 0001:000041d8       ?what@exception@std@@UEBAPEBDXZ 00000001800051d8 f i MSVCRT:throw_bad_alloc.obj
- 0001:000041ec       ??3@YAXPEAX@Z              00000001800051ec f   MSVCRT:delete_scalar.obj
- 0001:000041f4       ??_V@YAXPEAX@Z             00000001800051f4 f   MSVCRT:delete_array.obj
- 0001:000041f4       ??3@YAXPEAX_K@Z            00000001800051f4 f   MSVCRT:delete_scalar_size.obj
- 0001:000041fc       __scrt_acquire_startup_lock 00000001800051fc f   MSVCRT:utility.obj
- 0001:00004238       __scrt_dllmain_after_initialize_c 0000000180005238 f   MSVCRT:utility.obj
- 0001:0000426c       __scrt_dllmain_before_initialize_c 000000018000526c f   MSVCRT:utility.obj
- 0001:00004284       __scrt_dllmain_crt_thread_attach 0000000180005284 f   MSVCRT:utility.obj
- 0001:000042ac       __scrt_dllmain_crt_thread_detach 00000001800052ac f   MSVCRT:utility.obj
- 0001:000042c4       __scrt_dllmain_exception_filter 00000001800052c4 f   MSVCRT:utility.obj
- 0001:00004328       __scrt_dllmain_uninitialize_c 0000000180005328 f   MSVCRT:utility.obj
- 0001:00004358       __scrt_dllmain_uninitialize_critical 0000000180005358 f   MSVCRT:utility.obj
- 0001:0000436c       __scrt_initialize_crt      000000018000536c f   MSVCRT:utility.obj
- 0001:000043b8       __scrt_initialize_onexit_tables 00000001800053b8 f   MSVCRT:utility.obj
- 0001:00004484       __scrt_is_nonwritable_in_current_image 0000000180005484 f   MSVCRT:utility.obj
- 0001:00004520       __scrt_release_startup_lock 0000000180005520 f   MSVCRT:utility.obj
- 0001:00004544       __scrt_uninitialize_crt    0000000180005544 f   MSVCRT:utility.obj
- 0001:00004570       _onexit                    0000000180005570 f   MSVCRT:utility.obj
- 0001:000045c0       atexit                     00000001800055c0 f   MSVCRT:utility.obj
- 0001:000045d8       __scrt_fastfail            00000001800055d8 f   MSVCRT:utility_desktop.obj
- 0001:00004720       __raise_securityfailure    0000000180005720 f   MSVCRT:gs_report.obj
- 0001:00004754       __report_gsfailure         0000000180005754 f   MSVCRT:gs_report.obj
- 0001:0000489c       __security_init_cookie     000000018000589c f   MSVCRT:gs_support.obj
- 0001:00004948       DllMain                    0000000180005948 f   MSVCRT:dll_dllmain_stub.obj
- 0001:0000496c       ?__scrt_initialize_type_info@@YAXXZ 000000018000596c f   MSVCRT:tncleanup.obj
- 0001:0000497c       ?__scrt_uninitialize_type_info@@YAXXZ 000000018000597c f   MSVCRT:tncleanup.obj
- 0001:00004988       __local_stdio_printf_options 0000000180005988 f i MSVCRT:default_local_stdio_options.obj
- 0001:00004990       __local_stdio_scanf_options 0000000180005990 f i MSVCRT:default_local_stdio_options.obj
- 0001:00004998       __scrt_initialize_default_local_stdio_options 0000000180005998 f   MSVCRT:default_local_stdio_options.obj
- 0001:000049b4       __scrt_get_dyn_tls_init_callback 00000001800059b4 f   MSVCRT:dyn_tls_init.obj
- 0001:000049bc       _RTC_Initialize            00000001800059bc f   MSVCRT:_initsect_.obj
- 0001:00004a08       _RTC_Terminate             0000000180005a08 f   MSVCRT:_initsect_.obj
- 0001:00004a54       _guard_check_icall_nop     0000000180005a54 f i MSVCRT:guard_support.obj
- 0001:00004a58       __isa_available_init       0000000180005a58 f   MSVCRT:_cpu_disp_.obj
- 0001:00004c20       _get_startup_argv_mode     0000000180005c20 f   MSVCRT:argv_mode.obj
- 0001:00004c28       __scrt_is_ucrt_dll_in_use  0000000180005c28 f   MSVCRT:ucrt_detection.obj
- 0001:00004c40       IsProcessorFeaturePresent  0000000180005c40 f   kernel32:KERNEL32.dll
- 0001:00004c46       __std_terminate            0000000180005c46 f   vcruntime:VCRUNTIME140.dll
- 0001:00004c4c       _CxxThrowException         0000000180005c4c f   vcruntime:VCRUNTIME140.dll
- 0001:00004c52       __CxxFrameHandler3         0000000180005c52 f   vcruntime:VCRUNTIME140.dll
- 0001:00004c58       __C_specific_handler       0000000180005c58 f   vcruntime:VCRUNTIME140.dll
- 0001:00004c5e       __vcrt_InitializeCriticalSectionEx 0000000180005c5e f   vcruntime:VCRUNTIME140.dll
- 0001:00004c64       __std_exception_copy       0000000180005c64 f   vcruntime:VCRUNTIME140.dll
- 0001:00004c6a       __std_exception_destroy    0000000180005c6a f   vcruntime:VCRUNTIME140.dll
- 0001:00004c70       memset                     0000000180005c70 f   vcruntime:VCRUNTIME140.dll
- 0001:00004c76       __std_type_info_destroy_list 0000000180005c76 f   vcruntime:VCRUNTIME140.dll
- 0001:00004c7c       terminate                  0000000180005c7c f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0001:00004c82       _callnewh                  0000000180005c82 f   ucrt:api-ms-win-crt-heap-l1-1-0.dll
- 0001:00004c88       malloc                     0000000180005c88 f   ucrt:api-ms-win-crt-heap-l1-1-0.dll
- 0001:00004c8e       _initterm                  0000000180005c8e f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0001:00004c94       _initterm_e                0000000180005c94 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0001:00004c9a       free                       0000000180005c9a f   ucrt:api-ms-win-crt-heap-l1-1-0.dll
- 0001:00004ca0       _seh_filter_dll            0000000180005ca0 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0001:00004ca6       _configure_narrow_argv     0000000180005ca6 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0001:00004cac       _initialize_narrow_environment 0000000180005cac f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0001:00004cb2       _initialize_onexit_table   0000000180005cb2 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0001:00004cb8       _register_onexit_function  0000000180005cb8 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0001:00004cbe       _execute_onexit_table      0000000180005cbe f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0001:00004cc4       _crt_atexit                0000000180005cc4 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0001:00004cca       _cexit                     0000000180005cca f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0001:00004cd0       __acrt_thread_attach       0000000180005cd0 f   MSVCRT:ucrt_stubs.obj
- 0001:00004cd0       __vcrt_thread_detach       0000000180005cd0 f   MSVCRT:ucrt_stubs.obj
- 0001:00004cd0       __acrt_uninitialize        0000000180005cd0 f   MSVCRT:ucrt_stubs.obj
- 0001:00004cd0       __scrt_stub_for_acrt_thread_attach 0000000180005cd0 f   MSVCRT:ucrt_stubs.obj
- 0001:00004cd0       __scrt_stub_for_acrt_initialize 0000000180005cd0 f   MSVCRT:ucrt_stubs.obj
- 0001:00004cd0       __acrt_thread_detach       0000000180005cd0 f   MSVCRT:ucrt_stubs.obj
- 0001:00004cd0       __vcrt_uninitialize        0000000180005cd0 f   MSVCRT:ucrt_stubs.obj
- 0001:00004cd0       __acrt_initialize          0000000180005cd0 f   MSVCRT:ucrt_stubs.obj
- 0001:00004cd0       __acrt_uninitialize_critical 0000000180005cd0 f   MSVCRT:ucrt_stubs.obj
- 0001:00004cd0       __scrt_stub_for_acrt_uninitialize_critical 0000000180005cd0 f   MSVCRT:ucrt_stubs.obj
- 0001:00004cd0       __scrt_stub_for_acrt_uninitialize 0000000180005cd0 f   MSVCRT:ucrt_stubs.obj
- 0001:00004cd0       __scrt_stub_for_acrt_thread_detach 0000000180005cd0 f   MSVCRT:ucrt_stubs.obj
- 0001:00004cd0       __vcrt_uninitialize_critical 0000000180005cd0 f   MSVCRT:ucrt_stubs.obj
- 0001:00004cd0       __vcrt_initialize          0000000180005cd0 f   MSVCRT:ucrt_stubs.obj
- 0001:00004cd0       __vcrt_thread_attach       0000000180005cd0 f   MSVCRT:ucrt_stubs.obj
- 0001:00004cd4       __scrt_stub_for_is_c_termination_complete 0000000180005cd4 f   MSVCRT:ucrt_stubs.obj
- 0001:00004cd4       _is_c_termination_complete 0000000180005cd4 f   MSVCRT:ucrt_stubs.obj
- 0001:00004cf0       _guard_dispatch_icall_nop  0000000180005cf0 f   MSVCRT:_guard_dispatch_.obj
+ 0001:00001aa0       ?handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z 0000000180002aa0 f   workflowprotocol.obj
+ 0001:00002010       ?impl@?$QSlotObject@P8SubThreadWorker@@EAAXXZU?$List@$$V@QtPrivate@@X@QtPrivate@@CAXHPEAVQSlotObjectBase@2@PEAVQObject@@PEAPEAXPEA_N@Z 0000000180003010 f i workflowprotocol.obj
+ 0001:00002010       ?impl@?$QSlotObject@P8QObject@@EAAXXZU?$List@$$V@QtPrivate@@X@QtPrivate@@CAXHPEAVQSlotObjectBase@2@PEAVQObject@@PEAPEAXPEA_N@Z 0000000180003010 f i workflowprotocol.obj
+ 0001:00002050       ?impl@?$QSlotObject@P8SubThreadWorker@@EAAXAEBVQString@@@ZU?$List@AEBVQString@@@QtPrivate@@X@QtPrivate@@CAXHPEAVQSlotObjectBase@2@PEAVQObject@@PEAPEAXPEA_N@Z 0000000180003050 f i workflowprotocol.obj
+ 0001:00002050       ?impl@?$QSlotObject@P8SubThreadWorker@@EAAXAEBVQJsonObject@@@ZU?$List@AEBVQJsonObject@@@QtPrivate@@X@QtPrivate@@CAXHPEAVQSlotObjectBase@2@PEAVQObject@@PEAPEAXPEA_N@Z 0000000180003050 f i workflowprotocol.obj
+ 0001:00002050       ?impl@?$QSlotObject@P8WorkflowController@@EAAXAEBVQJsonObject@@@ZU?$List@AEBVQJsonObject@@@QtPrivate@@X@QtPrivate@@CAXHPEAVQSlotObjectBase@2@PEAVQObject@@PEAPEAXPEA_N@Z 0000000180003050 f i workflowprotocol.obj
+ 0001:000020a0       ?impl@?$QSlotObject@P8SubThreadWorker@@EAAXAEBVQString@@G@ZU?$List@AEBVQString@@G@QtPrivate@@X@QtPrivate@@CAXHPEAVQSlotObjectBase@2@PEAVQObject@@PEAPEAXPEA_N@Z 00000001800030a0 f i workflowprotocol.obj
+ 0001:000020f0       ?impl@?$QSlotObject@P8WorkflowController@@EAAX_NH@ZU?$List@_NH@QtPrivate@@X@QtPrivate@@CAXHPEAVQSlotObjectBase@2@PEAVQObject@@PEAPEAXPEA_N@Z 00000001800030f0 f i workflowprotocol.obj
+ 0001:00002140       ?init@WorkflowController@@QEAAXAEBVQString@@@Z 0000000180003140 f   workflowprotocol.obj
+ 0001:00002150       ?initProtocol@WorkflowProtocol@@QEAA_NAEBVQString@@@Z 0000000180003150 f   workflowprotocol.obj
+ 0001:000022a0       ?isLogicalCommand@SubThreadWorker@@IEAA_NAEBVQString@@@Z 00000001800032a0 f   workflowprotocol.obj
+ 0001:00002510       ?node_copy@?$QList@VQString@@@@AEAAXPEAUNode@1@00@Z 0000000180003510 f i workflowprotocol.obj
+ 0001:00002580       ?node_destruct@?$QList@VQString@@@@AEAAXPEAUNode@1@0@Z 0000000180003580 f i workflowprotocol.obj
+ 0001:000025c0       ?parseAckFrame@WorkflowProtocol@@QEAA_NAEBVQByteArray@@AEAVQJsonObject@@@Z 00000001800035c0 f   workflowprotocol.obj
+ 0001:000026d0       ?parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z 00000001800036d0 f   workflowprotocol.obj
+ 0001:00002de0       ?runTask@WorkflowController@@QEAAXAEBVQJsonObject@@@Z 0000000180003de0 f   workflowprotocol.obj
+ 0001:00002e50       ?serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ 0000000180003e50 f   workflowprotocol.obj
+ 0001:00002fa0       ?sethost@WorkflowController@@QEAAXAEBVQString@@G@Z 0000000180003fa0 f   workflowprotocol.obj
+ 0001:00002fb0       ?statusChanged@WorkflowController@@QEAAXAEBVQJsonObject@@@Z 0000000180003fb0 f   workflowprotocol.obj
+ 0001:00003040       ?stopCurrentTask@WorkflowController@@QEAAXXZ 0000000180004040 f   workflowprotocol.obj
+ 0001:00003070       ?stopTask@SubThreadWorker@@QEAAXXZ 0000000180004070 f   workflowprotocol.obj
+ 0001:00003080       ?taskStateChanged@WorkflowController@@QEAAX_NH@Z 0000000180004080 f   workflowprotocol.obj
+ 0001:00003100       ?tr@WorkflowController@@SA?AVQString@@PEBD0H@Z 0000000180004100 f i workflowprotocol.obj
+ 0001:00003100       ?trUtf8@WorkflowController@@SA?AVQString@@PEBD0H@Z 0000000180004100 f i workflowprotocol.obj
+ 0001:00003140       ?types@?$ConnectionTypes@U?$List@AEBVQString@@G@QtPrivate@@$00@QtPrivate@@SAPEBHXZ 0000000180004140 f i workflowprotocol.obj
+ 0001:000031b0       ?types@?$ConnectionTypes@U?$List@_NH@QtPrivate@@$00@QtPrivate@@SAPEBHXZ 00000001800041b0 f i workflowprotocol.obj
+ 0001:00003220       ?unserializeRecvFrame@WorkflowProtocol@@QEAAXAEBVQByteArray@@@Z 0000000180004220 f   workflowprotocol.obj
+ 0001:00003380       ?changeHost@WorkflowController@@QEAAXAEBVQString@@G@Z 0000000180004380 f   moc_workflowprotocol.obj
+ 0001:000033e0       ?configProtocol@WorkflowController@@QEAAXAEBVQString@@@Z 00000001800043e0 f   moc_workflowprotocol.obj
+ 0001:00003410       ?metaObject@SubThreadWorker@@UEBAPEBUQMetaObject@@XZ 0000000180004410 f   moc_workflowprotocol.obj
+ 0001:00003430       ?metaObject@WorkflowController@@UEBAPEBUQMetaObject@@XZ 0000000180004430 f   moc_workflowprotocol.obj
+ 0001:00003450       ?qt_metacall@SubThreadWorker@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z 0000000180004450 f   moc_workflowprotocol.obj
+ 0001:000034c0       ?qt_metacall@WorkflowController@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z 00000001800044c0 f   moc_workflowprotocol.obj
+ 0001:00003530       ?qt_metacast@SubThreadWorker@@UEAAPEAXPEBD@Z 0000000180004530 f   moc_workflowprotocol.obj
+ 0001:00003580       ?qt_metacast@WorkflowController@@UEAAPEAXPEBD@Z 0000000180004580 f   moc_workflowprotocol.obj
+ 0001:000035d0       ?qt_static_metacall@SubThreadWorker@@CAXPEAVQObject@@W4Call@QMetaObject@@HPEAPEAX@Z 00000001800045d0 f   moc_workflowprotocol.obj
+ 0001:000036f0       ?qt_static_metacall@WorkflowController@@CAXPEAVQObject@@W4Call@QMetaObject@@HPEAPEAX@Z 00000001800046f0 f   moc_workflowprotocol.obj
+ 0001:00003830       ?runNewTask@WorkflowController@@QEAAXAEBVQJsonObject@@@Z 0000000180004830 f   moc_workflowprotocol.obj
+ 0001:00003860       ?statusChanged@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z 0000000180004860 f   moc_workflowprotocol.obj
+ 0001:00003890       ?stopTask@WorkflowController@@QEAAXXZ 0000000180004890 f   moc_workflowprotocol.obj
+ 0001:000038b0       ?taskStateChanged@SubThreadWorker@@QEAAX_NH@Z 00000001800048b0 f   moc_workflowprotocol.obj
+ 0001:00003910       ?childEvent@QObject@@MEAAXPEAVQChildEvent@@@Z 0000000180004910 f   Qt5Core:Qt5Core.dll
+ 0001:00003916       ?connectNotify@QObject@@MEAAXAEBVQMetaMethod@@@Z 0000000180004916 f   Qt5Core:Qt5Core.dll
+ 0001:0000391c       ?customEvent@QObject@@MEAAXPEAVQEvent@@@Z 000000018000491c f   Qt5Core:Qt5Core.dll
+ 0001:00003922       ?disconnectNotify@QObject@@MEAAXAEBVQMetaMethod@@@Z 0000000180004922 f   Qt5Core:Qt5Core.dll
+ 0001:00003928       ?event@QObject@@UEAA_NPEAVQEvent@@@Z 0000000180004928 f   Qt5Core:Qt5Core.dll
+ 0001:0000392e       ?eventFilter@QObject@@UEAA_NPEAV1@PEAVQEvent@@@Z 000000018000492e f   Qt5Core:Qt5Core.dll
+ 0001:00003934       ?timerEvent@QObject@@MEAAXPEAVQTimerEvent@@@Z 0000000180004934 f   Qt5Core:Qt5Core.dll
+ 0001:0000393c       ??_M@YAXPEAX_K1P6AX0@Z@Z   000000018000493c f   MSVCRT:ehvecdtr.obj
+ 0001:000039a8       ?__ArrayUnwind@@YAXPEAX_K1P6AX0@Z@Z 00000001800049a8 f   MSVCRT:ehvecdtr.obj
+ 0001:00003a0c       ??2@YAPEAX_K@Z             0000000180004a0c f   MSVCRT:new_scalar.obj
+ 0001:00003a48       ??_V@YAXPEAX_K@Z           0000000180004a48 f   MSVCRT:delete_array_size.obj
+ 0001:00003b98       _Init_thread_footer        0000000180004b98 f   MSVCRT:thread_safe_statics.obj
+ 0001:00003bf8       _Init_thread_header        0000000180004bf8 f   MSVCRT:thread_safe_statics.obj
+ 0001:00003c60       _Init_thread_notify        0000000180004c60 f   MSVCRT:thread_safe_statics.obj
+ 0001:00003cbc       _Init_thread_wait          0000000180004cbc f   MSVCRT:thread_safe_statics.obj
+ 0001:00003d54       ??_Etype_info@@UEAAPEAXI@Z 0000000180004d54 f i MSVCRT:std_type_info_static.obj
+ 0001:00003d54       ??_Gtype_info@@UEAAPEAXI@Z 0000000180004d54 f i MSVCRT:std_type_info_static.obj
+ 0001:00003d80       __GSHandlerCheck           0000000180004d80 f   MSVCRT:_gshandler_.obj
+ 0001:00003da0       __GSHandlerCheckCommon     0000000180004da0 f   MSVCRT:_gshandler_.obj
+ 0001:00003e10       __security_check_cookie    0000000180004e10 f   MSVCRT:_amdsecgs_.obj
+ 0001:00004180       _DllMainCRTStartup         0000000180005180 f   MSVCRT:dll_dllmain.obj
+ 0001:000041c0       _guard_check_icall         00000001800051c0 f i MSVCRT:checkcfg.obj
+ 0001:000041c8       ??0bad_alloc@std@@QEAA@AEBV01@@Z 00000001800051c8 f i MSVCRT:throw_bad_alloc.obj
+ 0001:00004208       ??0bad_alloc@std@@QEAA@XZ  0000000180005208 f i MSVCRT:throw_bad_alloc.obj
+ 0001:00004228       ??0bad_array_new_length@std@@QEAA@AEBV01@@Z 0000000180005228 f i MSVCRT:throw_bad_alloc.obj
+ 0001:00004268       ??0bad_array_new_length@std@@QEAA@XZ 0000000180005268 f i MSVCRT:throw_bad_alloc.obj
+ 0001:00004288       ??0exception@std@@QEAA@AEBV01@@Z 0000000180005288 f i MSVCRT:throw_bad_alloc.obj
+ 0001:000042c0       ??1bad_array_new_length@std@@UEAA@XZ 00000001800052c0 f i MSVCRT:throw_bad_alloc.obj
+ 0001:000042c0       ??1bad_alloc@std@@UEAA@XZ  00000001800052c0 f i MSVCRT:throw_bad_alloc.obj
+ 0001:000042d4       ??_Eexception@std@@UEAAPEAXI@Z 00000001800052d4 f i MSVCRT:throw_bad_alloc.obj
+ 0001:000042d4       ??_Gbad_array_new_length@std@@UEAAPEAXI@Z 00000001800052d4 f i MSVCRT:throw_bad_alloc.obj
+ 0001:000042d4       ??_Gexception@std@@UEAAPEAXI@Z 00000001800052d4 f i MSVCRT:throw_bad_alloc.obj
+ 0001:000042d4       ??_Ebad_array_new_length@std@@UEAAPEAXI@Z 00000001800052d4 f i MSVCRT:throw_bad_alloc.obj
+ 0001:000042d4       ??_Gbad_alloc@std@@UEAAPEAXI@Z 00000001800052d4 f i MSVCRT:throw_bad_alloc.obj
+ 0001:000042d4       ??_Ebad_alloc@std@@UEAAPEAXI@Z 00000001800052d4 f i MSVCRT:throw_bad_alloc.obj
+ 0001:00004318       ?__scrt_throw_std_bad_alloc@@YAXXZ 0000000180005318 f   MSVCRT:throw_bad_alloc.obj
+ 0001:00004338       ?__scrt_throw_std_bad_array_new_length@@YAXXZ 0000000180005338 f   MSVCRT:throw_bad_alloc.obj
+ 0001:00004358       ?what@exception@std@@UEBAPEBDXZ 0000000180005358 f i MSVCRT:throw_bad_alloc.obj
+ 0001:0000436c       ??3@YAXPEAX@Z              000000018000536c f   MSVCRT:delete_scalar.obj
+ 0001:00004374       ??3@YAXPEAX_K@Z            0000000180005374 f   MSVCRT:delete_scalar_size.obj
+ 0001:00004374       ??_V@YAXPEAX@Z             0000000180005374 f   MSVCRT:delete_array.obj
+ 0001:0000437c       __scrt_acquire_startup_lock 000000018000537c f   MSVCRT:utility.obj
+ 0001:000043b8       __scrt_dllmain_after_initialize_c 00000001800053b8 f   MSVCRT:utility.obj
+ 0001:000043ec       __scrt_dllmain_before_initialize_c 00000001800053ec f   MSVCRT:utility.obj
+ 0001:00004404       __scrt_dllmain_crt_thread_attach 0000000180005404 f   MSVCRT:utility.obj
+ 0001:0000442c       __scrt_dllmain_crt_thread_detach 000000018000542c f   MSVCRT:utility.obj
+ 0001:00004444       __scrt_dllmain_exception_filter 0000000180005444 f   MSVCRT:utility.obj
+ 0001:000044a8       __scrt_dllmain_uninitialize_c 00000001800054a8 f   MSVCRT:utility.obj
+ 0001:000044d8       __scrt_dllmain_uninitialize_critical 00000001800054d8 f   MSVCRT:utility.obj
+ 0001:000044ec       __scrt_initialize_crt      00000001800054ec f   MSVCRT:utility.obj
+ 0001:00004538       __scrt_initialize_onexit_tables 0000000180005538 f   MSVCRT:utility.obj
+ 0001:00004604       __scrt_is_nonwritable_in_current_image 0000000180005604 f   MSVCRT:utility.obj
+ 0001:000046a0       __scrt_release_startup_lock 00000001800056a0 f   MSVCRT:utility.obj
+ 0001:000046c4       __scrt_uninitialize_crt    00000001800056c4 f   MSVCRT:utility.obj
+ 0001:000046f0       _onexit                    00000001800056f0 f   MSVCRT:utility.obj
+ 0001:00004740       atexit                     0000000180005740 f   MSVCRT:utility.obj
+ 0001:00004758       __scrt_fastfail            0000000180005758 f   MSVCRT:utility_desktop.obj
+ 0001:000048a0       __raise_securityfailure    00000001800058a0 f   MSVCRT:gs_report.obj
+ 0001:000048d4       __report_gsfailure         00000001800058d4 f   MSVCRT:gs_report.obj
+ 0001:00004a1c       __security_init_cookie     0000000180005a1c f   MSVCRT:gs_support.obj
+ 0001:00004ac8       DllMain                    0000000180005ac8 f   MSVCRT:dll_dllmain_stub.obj
+ 0001:00004aec       ?__scrt_initialize_type_info@@YAXXZ 0000000180005aec f   MSVCRT:tncleanup.obj
+ 0001:00004afc       ?__scrt_uninitialize_type_info@@YAXXZ 0000000180005afc f   MSVCRT:tncleanup.obj
+ 0001:00004b08       __local_stdio_printf_options 0000000180005b08 f i MSVCRT:default_local_stdio_options.obj
+ 0001:00004b10       __local_stdio_scanf_options 0000000180005b10 f i MSVCRT:default_local_stdio_options.obj
+ 0001:00004b18       __scrt_initialize_default_local_stdio_options 0000000180005b18 f   MSVCRT:default_local_stdio_options.obj
+ 0001:00004b34       __scrt_get_dyn_tls_init_callback 0000000180005b34 f   MSVCRT:dyn_tls_init.obj
+ 0001:00004b3c       _RTC_Initialize            0000000180005b3c f   MSVCRT:_initsect_.obj
+ 0001:00004b88       _RTC_Terminate             0000000180005b88 f   MSVCRT:_initsect_.obj
+ 0001:00004bd4       _guard_check_icall_nop     0000000180005bd4 f i MSVCRT:guard_support.obj
+ 0001:00004bd8       __isa_available_init       0000000180005bd8 f   MSVCRT:_cpu_disp_.obj
+ 0001:00004da0       _get_startup_argv_mode     0000000180005da0 f   MSVCRT:argv_mode.obj
+ 0001:00004da8       __scrt_is_ucrt_dll_in_use  0000000180005da8 f   MSVCRT:ucrt_detection.obj
+ 0001:00004dc0       IsProcessorFeaturePresent  0000000180005dc0 f   kernel32:KERNEL32.dll
+ 0001:00004dc6       __std_terminate            0000000180005dc6 f   vcruntime:VCRUNTIME140.dll
+ 0001:00004dcc       _CxxThrowException         0000000180005dcc f   vcruntime:VCRUNTIME140.dll
+ 0001:00004dd2       __CxxFrameHandler3         0000000180005dd2 f   vcruntime:VCRUNTIME140.dll
+ 0001:00004dd8       __C_specific_handler       0000000180005dd8 f   vcruntime:VCRUNTIME140.dll
+ 0001:00004dde       __vcrt_InitializeCriticalSectionEx 0000000180005dde f   vcruntime:VCRUNTIME140.dll
+ 0001:00004de4       __std_exception_copy       0000000180005de4 f   vcruntime:VCRUNTIME140.dll
+ 0001:00004dea       __std_exception_destroy    0000000180005dea f   vcruntime:VCRUNTIME140.dll
+ 0001:00004df0       memset                     0000000180005df0 f   vcruntime:VCRUNTIME140.dll
+ 0001:00004df6       __std_type_info_destroy_list 0000000180005df6 f   vcruntime:VCRUNTIME140.dll
+ 0001:00004dfc       terminate                  0000000180005dfc f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00004e02       _callnewh                  0000000180005e02 f   ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0001:00004e08       malloc                     0000000180005e08 f   ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0001:00004e0e       _initterm                  0000000180005e0e f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00004e14       _initterm_e                0000000180005e14 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00004e1a       free                       0000000180005e1a f   ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0001:00004e20       _seh_filter_dll            0000000180005e20 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00004e26       _configure_narrow_argv     0000000180005e26 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00004e2c       _initialize_narrow_environment 0000000180005e2c f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00004e32       _initialize_onexit_table   0000000180005e32 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00004e38       _register_onexit_function  0000000180005e38 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00004e3e       _execute_onexit_table      0000000180005e3e f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00004e44       _crt_atexit                0000000180005e44 f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00004e4a       _cexit                     0000000180005e4a f   ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0001:00004e50       __scrt_stub_for_acrt_initialize 0000000180005e50 f   MSVCRT:ucrt_stubs.obj
+ 0001:00004e50       __acrt_uninitialize        0000000180005e50 f   MSVCRT:ucrt_stubs.obj
+ 0001:00004e50       __vcrt_thread_detach       0000000180005e50 f   MSVCRT:ucrt_stubs.obj
+ 0001:00004e50       __scrt_stub_for_acrt_uninitialize_critical 0000000180005e50 f   MSVCRT:ucrt_stubs.obj
+ 0001:00004e50       __vcrt_thread_attach       0000000180005e50 f   MSVCRT:ucrt_stubs.obj
+ 0001:00004e50       __scrt_stub_for_acrt_thread_detach 0000000180005e50 f   MSVCRT:ucrt_stubs.obj
+ 0001:00004e50       __vcrt_initialize          0000000180005e50 f   MSVCRT:ucrt_stubs.obj
+ 0001:00004e50       __vcrt_uninitialize        0000000180005e50 f   MSVCRT:ucrt_stubs.obj
+ 0001:00004e50       __scrt_stub_for_acrt_thread_attach 0000000180005e50 f   MSVCRT:ucrt_stubs.obj
+ 0001:00004e50       __acrt_thread_attach       0000000180005e50 f   MSVCRT:ucrt_stubs.obj
+ 0001:00004e50       __vcrt_uninitialize_critical 0000000180005e50 f   MSVCRT:ucrt_stubs.obj
+ 0001:00004e50       __acrt_initialize          0000000180005e50 f   MSVCRT:ucrt_stubs.obj
+ 0001:00004e50       __acrt_thread_detach       0000000180005e50 f   MSVCRT:ucrt_stubs.obj
+ 0001:00004e50       __scrt_stub_for_acrt_uninitialize 0000000180005e50 f   MSVCRT:ucrt_stubs.obj
+ 0001:00004e50       __acrt_uninitialize_critical 0000000180005e50 f   MSVCRT:ucrt_stubs.obj
+ 0001:00004e54       __scrt_stub_for_is_c_termination_complete 0000000180005e54 f   MSVCRT:ucrt_stubs.obj
+ 0001:00004e54       _is_c_termination_complete 0000000180005e54 f   MSVCRT:ucrt_stubs.obj
+ 0001:00004e70       _guard_dispatch_icall_nop  0000000180005e70 f   MSVCRT:_guard_dispatch_.obj
  0002:00000000       __imp_?connectToServer@Communication@@QEAA_NAEBVQString@@G@Z 0000000180007000     Communication:Communication.dll
  0002:00000008       __imp_?disconnect@Communication@@QEAAXXZ 0000000180007008     Communication:Communication.dll
  0002:00000010       __imp_?write@Communication@@QEAA_JAEBVQByteArray@@@Z 0000000180007010     Communication:Communication.dll
@@ -454,87 +454,89 @@
  0002:00000ab0       ??_C@_09OKOOLBCO@WaitArray?$AA@ 0000000180007ab0     workflowprotocol.obj
  0002:00000abc       ??_C@_04KLCPKPBE@Loop?$AA@ 0000000180007abc     workflowprotocol.obj
  0002:00000ac8       ??_C@_07CBLODBBN@EndLoop?$AA@ 0000000180007ac8     workflowprotocol.obj
- 0002:00000ad0       ??_C@_04MIIPNNEF@send?$AA@ 0000000180007ad0     workflowprotocol.obj
- 0002:00000ad8       ??_C@_03JBLJHHJA@ack?$AA@  0000000180007ad8     workflowprotocol.obj
- 0002:00000ae0       ??_C@_0BB@FNMNOOKH@newOperationItem?$AA@ 0000000180007ae0     workflowprotocol.obj
- 0002:00000af8       ??_C@_08MMNALFJK@waitTime?$AA@ 0000000180007af8     workflowprotocol.obj
- 0002:00000b08       ??_C@_0L@KLGDOJIH@cycleCount?$AA@ 0000000180007b08     workflowprotocol.obj
- 0002:00000b18       ??_C@_0O@IBBMKKDB@client?5write?5?$AA@ 0000000180007b18     workflowprotocol.obj
- 0002:00000b28       ??_C@_06LCIDCBMH@?5bytes?$AA@ 0000000180007b28     workflowprotocol.obj
- 0002:00000b30       ??_C@_08LGEOGOAO@recv?5ack?$AA@ 0000000180007b30     workflowprotocol.obj
- 0002:00000b40       ??_C@_0BH@JPFKMKFK@worker?5thread?5is?5dead?4?$AA@ 0000000180007b40     workflowprotocol.obj
- 0002:00000b60       __xmm@80000000000000008000000000000000 0000000180007b60     workflowprotocol.obj
- 0002:000010c8       ??_C@_1BK@MGMFAEKH@?$AAk?$AAe?$AAr?$AAn?$AAe?$AAl?$AA3?$AA2?$AA?4?$AAd?$AAl?$AAl?$AA?$AA@ 00000001800080c8     MSVCRT:thread_safe_statics.obj
- 0002:000010e8       ??_C@_0BM@HLJJNPAH@InitializeConditionVariable?$AA@ 00000001800080e8     MSVCRT:thread_safe_statics.obj
- 0002:00001108       ??_C@_0BJ@JEBJOJFJ@SleepConditionVariableCS?$AA@ 0000000180008108     MSVCRT:thread_safe_statics.obj
- 0002:00001128       ??_C@_0BJ@PGPPEPCC@WakeAllConditionVariable?$AA@ 0000000180008128     MSVCRT:thread_safe_statics.obj
- 0002:00001150       ??_7type_info@@6B@         0000000180008150     MSVCRT:std_type_info_static.obj
- 0002:00001158       _pDefaultRawDllMain        0000000180008158     MSVCRT:dll_dllmain.obj
- 0002:00001158       _pRawDllMain               0000000180008158     MSVCRT:dll_dllmain.obj
- 0002:00001168       ??_7exception@std@@6B@     0000000180008168     MSVCRT:throw_bad_alloc.obj
- 0002:00001178       ??_C@_0BC@EOODALEL@Unknown?5exception?$AA@ 0000000180008178     MSVCRT:throw_bad_alloc.obj
- 0002:00001198       ??_7bad_alloc@std@@6B@     0000000180008198     MSVCRT:throw_bad_alloc.obj
- 0002:000011a8       ??_C@_0P@GHFPNOJB@bad?5allocation?$AA@ 00000001800081a8     MSVCRT:throw_bad_alloc.obj
- 0002:000011c0       ??_7bad_array_new_length@std@@6B@ 00000001800081c0     MSVCRT:throw_bad_alloc.obj
- 0002:000011d0       ??_C@_0BF@KINCDENJ@bad?5array?5new?5length?$AA@ 00000001800081d0     MSVCRT:throw_bad_alloc.obj
- 0002:00001260       _load_config_used          0000000180008260     MSVCRT:loadcfg.obj
- 0002:000012f8       _tls_used                  00000001800082f8     MSVCRT:tlssup.obj
- 0002:00001320       ??_R4SubThreadWorker@@6B@  0000000180008320     workflowprotocol.obj
- 0002:00001348       ??_R3SubThreadWorker@@8    0000000180008348     workflowprotocol.obj
- 0002:00001360       ??_R2SubThreadWorker@@8    0000000180008360     workflowprotocol.obj
- 0002:00001378       ??_R1A@?0A@EA@SubThreadWorker@@8 0000000180008378     workflowprotocol.obj
- 0002:000013a0       ??_R1A@?0A@EA@QObject@@8   00000001800083a0     workflowprotocol.obj
- 0002:000013c8       ??_R3QObject@@8            00000001800083c8     workflowprotocol.obj
- 0002:000013e0       ??_R2QObject@@8            00000001800083e0     workflowprotocol.obj
- 0002:000013f0       ??_R4WorkflowController@@6B@ 00000001800083f0     workflowprotocol.obj
- 0002:00001418       ??_R3WorkflowController@@8 0000000180008418     workflowprotocol.obj
- 0002:00001430       ??_R2WorkflowController@@8 0000000180008430     workflowprotocol.obj
- 0002:00001448       ??_R1A@?0A@EA@WorkflowController@@8 0000000180008448     workflowprotocol.obj
- 0002:00001470       ??_R4StatusChangeEvent@@6B@ 0000000180008470     workflowprotocol.obj
- 0002:00001498       ??_R3StatusChangeEvent@@8  0000000180008498     workflowprotocol.obj
- 0002:000014b0       ??_R2StatusChangeEvent@@8  00000001800084b0     workflowprotocol.obj
- 0002:000014c8       ??_R1A@?0A@EA@StatusChangeEvent@@8 00000001800084c8     workflowprotocol.obj
- 0002:000014f0       ??_R1A@?0A@EA@QEvent@@8    00000001800084f0     workflowprotocol.obj
- 0002:00001518       ??_R3QEvent@@8             0000000180008518     workflowprotocol.obj
- 0002:00001530       ??_R2QEvent@@8             0000000180008530     workflowprotocol.obj
- 0002:00001540       ??_R4RunningStateChangeEvent@@6B@ 0000000180008540     workflowprotocol.obj
- 0002:00001568       ??_R3RunningStateChangeEvent@@8 0000000180008568     workflowprotocol.obj
- 0002:00001580       ??_R2RunningStateChangeEvent@@8 0000000180008580     workflowprotocol.obj
- 0002:00001598       ??_R1A@?0A@EA@RunningStateChangeEvent@@8 0000000180008598     workflowprotocol.obj
- 0002:000015c0       ??_R4type_info@@6B@        00000001800085c0     MSVCRT:std_type_info_static.obj
- 0002:000015e8       ??_R3type_info@@8          00000001800085e8     MSVCRT:std_type_info_static.obj
- 0002:00001600       ??_R2type_info@@8          0000000180008600     MSVCRT:std_type_info_static.obj
- 0002:00001610       ??_R1A@?0A@EA@type_info@@8 0000000180008610     MSVCRT:std_type_info_static.obj
- 0002:00001638       ??_R4exception@std@@6B@    0000000180008638     MSVCRT:throw_bad_alloc.obj
- 0002:00001660       ??_R3exception@std@@8      0000000180008660     MSVCRT:throw_bad_alloc.obj
- 0002:00001678       ??_R2exception@std@@8      0000000180008678     MSVCRT:throw_bad_alloc.obj
- 0002:00001688       ??_R1A@?0A@EA@exception@std@@8 0000000180008688     MSVCRT:throw_bad_alloc.obj
- 0002:000016b0       ??_R4bad_alloc@std@@6B@    00000001800086b0     MSVCRT:throw_bad_alloc.obj
- 0002:000016d8       ??_R3bad_alloc@std@@8      00000001800086d8     MSVCRT:throw_bad_alloc.obj
- 0002:000016f0       ??_R2bad_alloc@std@@8      00000001800086f0     MSVCRT:throw_bad_alloc.obj
- 0002:00001708       ??_R1A@?0A@EA@bad_alloc@std@@8 0000000180008708     MSVCRT:throw_bad_alloc.obj
- 0002:00001730       ??_R4bad_array_new_length@std@@6B@ 0000000180008730     MSVCRT:throw_bad_alloc.obj
- 0002:00001758       ??_R3bad_array_new_length@std@@8 0000000180008758     MSVCRT:throw_bad_alloc.obj
- 0002:00001770       ??_R2bad_array_new_length@std@@8 0000000180008770     MSVCRT:throw_bad_alloc.obj
- 0002:00001790       ??_R1A@?0A@EA@bad_array_new_length@std@@8 0000000180008790     MSVCRT:throw_bad_alloc.obj
- 0002:00001b90       __rtc_iaa                  0000000180008b90     MSVCRT:_initsect_.obj
- 0002:00001b98       __rtc_izz                  0000000180008b98     MSVCRT:_initsect_.obj
- 0002:00001ba0       __rtc_taa                  0000000180008ba0     MSVCRT:_initsect_.obj
- 0002:00001ba8       __rtc_tzz                  0000000180008ba8     MSVCRT:_initsect_.obj
- 0002:00002ea8       _TI2?AVbad_alloc@std@@     0000000180009ea8     MSVCRT:throw_bad_alloc.obj
- 0002:00002ec8       _CTA2?AVbad_alloc@std@@    0000000180009ec8     MSVCRT:throw_bad_alloc.obj
- 0002:00002ee0       _CT??_R0?AVbad_alloc@std@@@8??0bad_alloc@std@@QEAA@AEBV01@@Z24 0000000180009ee0     MSVCRT:throw_bad_alloc.obj
- 0002:00002f08       _CT??_R0?AVexception@std@@@8??0exception@std@@QEAA@AEBV01@@Z24 0000000180009f08     MSVCRT:throw_bad_alloc.obj
- 0002:00002f30       _TI3?AVbad_array_new_length@std@@ 0000000180009f30     MSVCRT:throw_bad_alloc.obj
- 0002:00002f50       _CTA3?AVbad_array_new_length@std@@ 0000000180009f50     MSVCRT:throw_bad_alloc.obj
- 0002:00002f70       _CT??_R0?AVbad_array_new_length@std@@@8??0bad_array_new_length@std@@QEAA@AEBV01@@Z24 0000000180009f70     MSVCRT:throw_bad_alloc.obj
- 0002:000037b4       __IMPORT_DESCRIPTOR_Communication 000000018000a7b4     Communication:Communication.dll
- 0002:000037c8       __IMPORT_DESCRIPTOR_Qt5Core 000000018000a7c8     Qt5Core:Qt5Core.dll
- 0002:000037dc       __IMPORT_DESCRIPTOR_KERNEL32 000000018000a7dc     kernel32:KERNEL32.dll
- 0002:000037f0       __IMPORT_DESCRIPTOR_VCRUNTIME140 000000018000a7f0     vcruntime:VCRUNTIME140.dll
- 0002:00003804       __IMPORT_DESCRIPTOR_api-ms-win-crt-runtime-l1-1-0 000000018000a804     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0002:00003818       __IMPORT_DESCRIPTOR_api-ms-win-crt-heap-l1-1-0 000000018000a818     ucrt:api-ms-win-crt-heap-l1-1-0.dll
- 0002:0000382c       __NULL_IMPORT_DESCRIPTOR   000000018000a82c     Communication:Communication.dll
+ 0002:00000ad0       ??_C@_08OAGMDKAF@position?$AA@ 0000000180007ad0     workflowprotocol.obj
+ 0002:00000adc       ??_C@_04MLLLIHIP@null?$AA@ 0000000180007adc     workflowprotocol.obj
+ 0002:00000ae4       ??_C@_04MIIPNNEF@send?$AA@ 0000000180007ae4     workflowprotocol.obj
+ 0002:00000aec       ??_C@_03JBLJHHJA@ack?$AA@  0000000180007aec     workflowprotocol.obj
+ 0002:00000af0       ??_C@_0BB@FNMNOOKH@newOperationItem?$AA@ 0000000180007af0     workflowprotocol.obj
+ 0002:00000b08       ??_C@_08MMNALFJK@waitTime?$AA@ 0000000180007b08     workflowprotocol.obj
+ 0002:00000b18       ??_C@_0L@KLGDOJIH@cycleCount?$AA@ 0000000180007b18     workflowprotocol.obj
+ 0002:00000b28       ??_C@_0O@IBBMKKDB@client?5write?5?$AA@ 0000000180007b28     workflowprotocol.obj
+ 0002:00000b38       ??_C@_06LCIDCBMH@?5bytes?$AA@ 0000000180007b38     workflowprotocol.obj
+ 0002:00000b40       ??_C@_08LGEOGOAO@recv?5ack?$AA@ 0000000180007b40     workflowprotocol.obj
+ 0002:00000b50       ??_C@_0BH@JPFKMKFK@worker?5thread?5is?5dead?4?$AA@ 0000000180007b50     workflowprotocol.obj
+ 0002:00000b70       __xmm@80000000000000008000000000000000 0000000180007b70     workflowprotocol.obj
+ 0002:000010d8       ??_C@_1BK@MGMFAEKH@?$AAk?$AAe?$AAr?$AAn?$AAe?$AAl?$AA3?$AA2?$AA?4?$AAd?$AAl?$AAl?$AA?$AA@ 00000001800080d8     MSVCRT:thread_safe_statics.obj
+ 0002:000010f8       ??_C@_0BM@HLJJNPAH@InitializeConditionVariable?$AA@ 00000001800080f8     MSVCRT:thread_safe_statics.obj
+ 0002:00001118       ??_C@_0BJ@JEBJOJFJ@SleepConditionVariableCS?$AA@ 0000000180008118     MSVCRT:thread_safe_statics.obj
+ 0002:00001138       ??_C@_0BJ@PGPPEPCC@WakeAllConditionVariable?$AA@ 0000000180008138     MSVCRT:thread_safe_statics.obj
+ 0002:00001160       ??_7type_info@@6B@         0000000180008160     MSVCRT:std_type_info_static.obj
+ 0002:00001168       _pDefaultRawDllMain        0000000180008168     MSVCRT:dll_dllmain.obj
+ 0002:00001168       _pRawDllMain               0000000180008168     MSVCRT:dll_dllmain.obj
+ 0002:00001178       ??_7exception@std@@6B@     0000000180008178     MSVCRT:throw_bad_alloc.obj
+ 0002:00001188       ??_C@_0BC@EOODALEL@Unknown?5exception?$AA@ 0000000180008188     MSVCRT:throw_bad_alloc.obj
+ 0002:000011a8       ??_7bad_alloc@std@@6B@     00000001800081a8     MSVCRT:throw_bad_alloc.obj
+ 0002:000011b8       ??_C@_0P@GHFPNOJB@bad?5allocation?$AA@ 00000001800081b8     MSVCRT:throw_bad_alloc.obj
+ 0002:000011d0       ??_7bad_array_new_length@std@@6B@ 00000001800081d0     MSVCRT:throw_bad_alloc.obj
+ 0002:000011e0       ??_C@_0BF@KINCDENJ@bad?5array?5new?5length?$AA@ 00000001800081e0     MSVCRT:throw_bad_alloc.obj
+ 0002:00001270       _load_config_used          0000000180008270     MSVCRT:loadcfg.obj
+ 0002:00001308       _tls_used                  0000000180008308     MSVCRT:tlssup.obj
+ 0002:00001330       ??_R4SubThreadWorker@@6B@  0000000180008330     workflowprotocol.obj
+ 0002:00001358       ??_R3SubThreadWorker@@8    0000000180008358     workflowprotocol.obj
+ 0002:00001370       ??_R2SubThreadWorker@@8    0000000180008370     workflowprotocol.obj
+ 0002:00001388       ??_R1A@?0A@EA@SubThreadWorker@@8 0000000180008388     workflowprotocol.obj
+ 0002:000013b0       ??_R1A@?0A@EA@QObject@@8   00000001800083b0     workflowprotocol.obj
+ 0002:000013d8       ??_R3QObject@@8            00000001800083d8     workflowprotocol.obj
+ 0002:000013f0       ??_R2QObject@@8            00000001800083f0     workflowprotocol.obj
+ 0002:00001400       ??_R4WorkflowController@@6B@ 0000000180008400     workflowprotocol.obj
+ 0002:00001428       ??_R3WorkflowController@@8 0000000180008428     workflowprotocol.obj
+ 0002:00001440       ??_R2WorkflowController@@8 0000000180008440     workflowprotocol.obj
+ 0002:00001458       ??_R1A@?0A@EA@WorkflowController@@8 0000000180008458     workflowprotocol.obj
+ 0002:00001480       ??_R4StatusChangeEvent@@6B@ 0000000180008480     workflowprotocol.obj
+ 0002:000014a8       ??_R3StatusChangeEvent@@8  00000001800084a8     workflowprotocol.obj
+ 0002:000014c0       ??_R2StatusChangeEvent@@8  00000001800084c0     workflowprotocol.obj
+ 0002:000014d8       ??_R1A@?0A@EA@StatusChangeEvent@@8 00000001800084d8     workflowprotocol.obj
+ 0002:00001500       ??_R1A@?0A@EA@QEvent@@8    0000000180008500     workflowprotocol.obj
+ 0002:00001528       ??_R3QEvent@@8             0000000180008528     workflowprotocol.obj
+ 0002:00001540       ??_R2QEvent@@8             0000000180008540     workflowprotocol.obj
+ 0002:00001550       ??_R4RunningStateChangeEvent@@6B@ 0000000180008550     workflowprotocol.obj
+ 0002:00001578       ??_R3RunningStateChangeEvent@@8 0000000180008578     workflowprotocol.obj
+ 0002:00001590       ??_R2RunningStateChangeEvent@@8 0000000180008590     workflowprotocol.obj
+ 0002:000015a8       ??_R1A@?0A@EA@RunningStateChangeEvent@@8 00000001800085a8     workflowprotocol.obj
+ 0002:000015d0       ??_R4type_info@@6B@        00000001800085d0     MSVCRT:std_type_info_static.obj
+ 0002:000015f8       ??_R3type_info@@8          00000001800085f8     MSVCRT:std_type_info_static.obj
+ 0002:00001610       ??_R2type_info@@8          0000000180008610     MSVCRT:std_type_info_static.obj
+ 0002:00001620       ??_R1A@?0A@EA@type_info@@8 0000000180008620     MSVCRT:std_type_info_static.obj
+ 0002:00001648       ??_R4exception@std@@6B@    0000000180008648     MSVCRT:throw_bad_alloc.obj
+ 0002:00001670       ??_R3exception@std@@8      0000000180008670     MSVCRT:throw_bad_alloc.obj
+ 0002:00001688       ??_R2exception@std@@8      0000000180008688     MSVCRT:throw_bad_alloc.obj
+ 0002:00001698       ??_R1A@?0A@EA@exception@std@@8 0000000180008698     MSVCRT:throw_bad_alloc.obj
+ 0002:000016c0       ??_R4bad_alloc@std@@6B@    00000001800086c0     MSVCRT:throw_bad_alloc.obj
+ 0002:000016e8       ??_R3bad_alloc@std@@8      00000001800086e8     MSVCRT:throw_bad_alloc.obj
+ 0002:00001700       ??_R2bad_alloc@std@@8      0000000180008700     MSVCRT:throw_bad_alloc.obj
+ 0002:00001718       ??_R1A@?0A@EA@bad_alloc@std@@8 0000000180008718     MSVCRT:throw_bad_alloc.obj
+ 0002:00001740       ??_R4bad_array_new_length@std@@6B@ 0000000180008740     MSVCRT:throw_bad_alloc.obj
+ 0002:00001768       ??_R3bad_array_new_length@std@@8 0000000180008768     MSVCRT:throw_bad_alloc.obj
+ 0002:00001780       ??_R2bad_array_new_length@std@@8 0000000180008780     MSVCRT:throw_bad_alloc.obj
+ 0002:000017a0       ??_R1A@?0A@EA@bad_array_new_length@std@@8 00000001800087a0     MSVCRT:throw_bad_alloc.obj
+ 0002:00001ba0       __rtc_iaa                  0000000180008ba0     MSVCRT:_initsect_.obj
+ 0002:00001ba8       __rtc_izz                  0000000180008ba8     MSVCRT:_initsect_.obj
+ 0002:00001bb0       __rtc_taa                  0000000180008bb0     MSVCRT:_initsect_.obj
+ 0002:00001bb8       __rtc_tzz                  0000000180008bb8     MSVCRT:_initsect_.obj
+ 0002:00002f78       _TI2?AVbad_alloc@std@@     0000000180009f78     MSVCRT:throw_bad_alloc.obj
+ 0002:00002f98       _CTA2?AVbad_alloc@std@@    0000000180009f98     MSVCRT:throw_bad_alloc.obj
+ 0002:00002fb0       _CT??_R0?AVbad_alloc@std@@@8??0bad_alloc@std@@QEAA@AEBV01@@Z24 0000000180009fb0     MSVCRT:throw_bad_alloc.obj
+ 0002:00002fd8       _CT??_R0?AVexception@std@@@8??0exception@std@@QEAA@AEBV01@@Z24 0000000180009fd8     MSVCRT:throw_bad_alloc.obj
+ 0002:00003000       _TI3?AVbad_array_new_length@std@@ 000000018000a000     MSVCRT:throw_bad_alloc.obj
+ 0002:00003020       _CTA3?AVbad_array_new_length@std@@ 000000018000a020     MSVCRT:throw_bad_alloc.obj
+ 0002:00003040       _CT??_R0?AVbad_array_new_length@std@@@8??0bad_array_new_length@std@@QEAA@AEBV01@@Z24 000000018000a040     MSVCRT:throw_bad_alloc.obj
+ 0002:00003884       __IMPORT_DESCRIPTOR_Communication 000000018000a884     Communication:Communication.dll
+ 0002:00003898       __IMPORT_DESCRIPTOR_Qt5Core 000000018000a898     Qt5Core:Qt5Core.dll
+ 0002:000038ac       __IMPORT_DESCRIPTOR_KERNEL32 000000018000a8ac     kernel32:KERNEL32.dll
+ 0002:000038c0       __IMPORT_DESCRIPTOR_VCRUNTIME140 000000018000a8c0     vcruntime:VCRUNTIME140.dll
+ 0002:000038d4       __IMPORT_DESCRIPTOR_api-ms-win-crt-runtime-l1-1-0 000000018000a8d4     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:000038e8       __IMPORT_DESCRIPTOR_api-ms-win-crt-heap-l1-1-0 000000018000a8e8     ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0002:000038fc       __NULL_IMPORT_DESCRIPTOR   000000018000a8fc     Communication:Communication.dll
  0003:00000000       ?staticMetaObject@SubThreadWorker@@2UQMetaObject@@B 000000018000d000     moc_workflowprotocol.obj
  0003:00000030       ?staticMetaObject@WorkflowController@@2UQMetaObject@@B 000000018000d030     moc_workflowprotocol.obj
  0003:00000060       _Init_global_epoch         000000018000d060     MSVCRT:thread_safe_statics.obj
@@ -576,322 +578,330 @@
  0005:00000004       _Init_thread_epoch         000000018000f004     MSVCRT:thread_safe_statics.obj
  0005:00000008       _tls_end                   000000018000f008     MSVCRT:tlssup.obj
 
- entry point at        0001:00004000
+ entry point at        0001:00004180
 
  Static symbols
 
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
  0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffed000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
  0000:fffed000       .debug$S                   0000000180000000     WorkflowProtocol.exp
- 0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Communication:Communication.dll
- 0000:fffed000       .debug$S                   0000000180000000     Communication:Communication.dll
  0000:fffed000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
  0000:fffed000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Communication:Communication.dll
- 0000:fffed000       .debug$S                   0000000180000000     Communication:Communication.dll
- 0000:fffed000       .debug$S                   0000000180000000     Communication:Communication.dll
- 0000:fffed000       .debug$S                   0000000180000000     Communication:Communication.dll
  0000:fffed000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
  0000:fffed000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
  0000:fffed000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffed000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffed000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffed000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Communication:Communication.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Communication:Communication.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Communication:Communication.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Communication:Communication.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Communication:Communication.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Communication:Communication.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
+ 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
  0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
  0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-heap-l1-1-0.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
  0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-heap-l1-1-0.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
  0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-heap-l1-1-0.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
  0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
  0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
  0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
- 0000:fffed000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
- 0000:fffed000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     vcruntime:VCRUNTIME140.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
- 0000:fffed000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
  0000:fffed000       .debug$S                   0000000180000000     Qt5Core:Qt5Core.dll
  0001:00000000       ??__E?staticMetaObject@SubThreadWorker@@2UQMetaObject@@B@@YAXXZ 0000000180001000 f   moc_workflowprotocol.obj
  0001:00000010       ??__E?staticMetaObject@WorkflowController@@2UQMetaObject@@B@@YAXXZ 0000000180001010 f   moc_workflowprotocol.obj
- 0001:0000354c       $LN19                      000000018000454c     moc_workflowprotocol.obj
- 0001:00003694       $LN23                      0000000180004694     moc_workflowprotocol.obj
- 0001:000038d0       ?__scrt_initialize_thread_safe_statics@@YAHXZ 00000001800048d0 f   MSVCRT:thread_safe_statics.obj
- 0001:000039f0       ?__scrt_uninitialize_thread_safe_statics@@YAXXZ 00000001800049f0 f   MSVCRT:thread_safe_statics.obj
- 0001:00003c80       $$000000                   0000000180004c80     MSVCRT:_amdsecgs_.obj
- 0001:00003cb4       ?dllmain_crt_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z 0000000180004cb4 f   MSVCRT:dll_dllmain.obj
- 0001:00003d04       ?dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z 0000000180004d04 f   MSVCRT:dll_dllmain.obj
- 0001:00003e30       ?dllmain_crt_process_detach@@YAH_N@Z 0000000180004e30 f   MSVCRT:dll_dllmain.obj
- 0001:00003eb4       ?dllmain_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z 0000000180004eb4 f   MSVCRT:dll_dllmain.obj
- 0001:00003fac       ?dllmain_raw@@YAHQEAUHINSTANCE__@@KQEAX@Z 0000000180004fac f   MSVCRT:dll_dllmain.obj
- 0001:00004828       capture_previous_context   0000000180005828 f   MSVCRT:gs_report.obj
- 0001:00004ce0       $$000000                   0000000180005ce0     MSVCRT:_guard_dispatch_.obj
- 0001:00004d00       ?catch$5@?0???0?$QList@VQString@@@@QEAA@AEBV0@@Z@4HA 0000000180005d00 f   workflowprotocol.obj
- 0001:00004d0d       __catch$??0?$QList@VQString@@@@QEAA@AEBV0@@Z$0 0000000180005d0d f   workflowprotocol.obj
- 0001:00004d30       ?dtor$0@?0???0WorkflowController@@QEAA@PEAVQObject@@@Z@4HA 0000000180005d30 f   workflowprotocol.obj
- 0001:00004d3e       ?dtor$1@?0???0WorkflowController@@QEAA@PEAVQObject@@@Z@4HA 0000000180005d3e f   workflowprotocol.obj
- 0001:00004d50       ?dtor$2@?0???0WorkflowController@@QEAA@PEAVQObject@@@Z@4HA 0000000180005d50 f   workflowprotocol.obj
- 0001:00004d70       ?dtor$3@?0???0WorkflowController@@QEAA@PEAVQObject@@@Z@4HA 0000000180005d70 f   workflowprotocol.obj
- 0001:00004d90       ?catch$5@?0??append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z@4HA 0000000180005d90 f   workflowprotocol.obj
- 0001:00004d9d       __catch$?append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z$0 0000000180005d9d f   workflowprotocol.obj
- 0001:00004db1       ?catch$6@?0??append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z@4HA 0000000180005db1 f   workflowprotocol.obj
- 0001:00004dbe       __catch$?append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z$4 0000000180005dbe f   workflowprotocol.obj
- 0001:00004de0       ?catch$8@?0??detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z@4HA 0000000180005de0 f   workflowprotocol.obj
- 0001:00004dee       __catch$?detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z$0 0000000180005dee f   workflowprotocol.obj
- 0001:00004e0c       ?catch$7@?0??detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z@4HA 0000000180005e0c f   workflowprotocol.obj
- 0001:00004e1b       __catch$?detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z$2 0000000180005e1b f   workflowprotocol.obj
- 0001:00004e70       ?dtor$0@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 0000000180005e70 f   workflowprotocol.obj
- 0001:00004e7e       ?dtor$1@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 0000000180005e7e f   workflowprotocol.obj
- 0001:00004e8c       ?dtor$2@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 0000000180005e8c f   workflowprotocol.obj
- 0001:00004e9a       ?dtor$3@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 0000000180005e9a f   workflowprotocol.obj
- 0001:00004ea8       ?dtor$4@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 0000000180005ea8 f   workflowprotocol.obj
- 0001:00004eb6       ?dtor$5@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 0000000180005eb6 f   workflowprotocol.obj
- 0001:00004ec4       ?dtor$6@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 0000000180005ec4 f   workflowprotocol.obj
- 0001:00004ed2       ?dtor$7@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 0000000180005ed2 f   workflowprotocol.obj
- 0001:00004ee0       ?dtor$8@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 0000000180005ee0 f   workflowprotocol.obj
- 0001:00004eee       ?dtor$9@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 0000000180005eee f   workflowprotocol.obj
- 0001:00004efc       ?dtor$10@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 0000000180005efc f   workflowprotocol.obj
- 0001:00004f10       ?dtor$0@?0??formatRecvFrameToJsonObject@WorkflowProtocol@@QEAA_NAEAVQJsonObject@@@Z@4HA 0000000180005f10 f   workflowprotocol.obj
- 0001:00004f1e       ?dtor$1@?0??formatRecvFrameToJsonObject@WorkflowProtocol@@QEAA_NAEAVQJsonObject@@@Z@4HA 0000000180005f1e f   workflowprotocol.obj
- 0001:00004f30       ?dtor$0@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180005f30 f   workflowprotocol.obj
- 0001:00004f3e       ?dtor$1@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180005f3e f   workflowprotocol.obj
- 0001:00004f4c       ?dtor$2@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180005f4c f   workflowprotocol.obj
- 0001:00004f5a       ?dtor$3@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180005f5a f   workflowprotocol.obj
- 0001:00004f68       ?dtor$4@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180005f68 f   workflowprotocol.obj
- 0001:00004f76       ?dtor$5@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180005f76 f   workflowprotocol.obj
- 0001:00004f84       ?dtor$6@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180005f84 f   workflowprotocol.obj
- 0001:00004f92       ?dtor$7@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180005f92 f   workflowprotocol.obj
- 0001:00004fa0       ?dtor$8@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180005fa0 f   workflowprotocol.obj
- 0001:00004fae       ?dtor$9@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180005fae f   workflowprotocol.obj
- 0001:00004fbc       ?dtor$10@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180005fbc f   workflowprotocol.obj
- 0001:00004fca       ?dtor$11@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180005fca f   workflowprotocol.obj
- 0001:00004fd8       ?dtor$12@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180005fd8 f   workflowprotocol.obj
- 0001:00004fe6       ?dtor$13@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180005fe6 f   workflowprotocol.obj
- 0001:00004ff4       ?dtor$14@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180005ff4 f   workflowprotocol.obj
- 0001:00005002       ?dtor$15@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006002 f   workflowprotocol.obj
- 0001:00005010       ?dtor$17@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006010 f   workflowprotocol.obj
- 0001:0000501e       ?dtor$18@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 000000018000601e f   workflowprotocol.obj
- 0001:0000502c       ?dtor$19@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 000000018000602c f   workflowprotocol.obj
- 0001:0000503a       ?dtor$20@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 000000018000603a f   workflowprotocol.obj
- 0001:00005048       ?dtor$21@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006048 f   workflowprotocol.obj
- 0001:00005056       ?dtor$22@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006056 f   workflowprotocol.obj
- 0001:00005064       ?dtor$23@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006064 f   workflowprotocol.obj
- 0001:00005072       ?dtor$24@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006072 f   workflowprotocol.obj
- 0001:00005080       ?dtor$25@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006080 f   workflowprotocol.obj
- 0001:0000508e       ?dtor$26@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 000000018000608e f   workflowprotocol.obj
- 0001:0000509c       ?dtor$27@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 000000018000609c f   workflowprotocol.obj
- 0001:000050b0       ?dtor$0@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 00000001800060b0 f   workflowprotocol.obj
- 0001:000050be       ?dtor$1@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 00000001800060be f   workflowprotocol.obj
- 0001:000050cc       ?dtor$2@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 00000001800060cc f   workflowprotocol.obj
- 0001:000050da       ?dtor$3@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 00000001800060da f   workflowprotocol.obj
- 0001:000050e8       ?dtor$4@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 00000001800060e8 f   workflowprotocol.obj
- 0001:000050f6       ?dtor$5@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 00000001800060f6 f   workflowprotocol.obj
- 0001:00005104       ?dtor$6@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 0000000180006104 f   workflowprotocol.obj
- 0001:00005112       ?dtor$7@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 0000000180006112 f   workflowprotocol.obj
- 0001:00005120       ?dtor$8@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 0000000180006120 f   workflowprotocol.obj
- 0001:0000512e       ?dtor$9@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 000000018000612e f   workflowprotocol.obj
- 0001:0000513c       ?dtor$10@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 000000018000613c f   workflowprotocol.obj
- 0001:0000514a       ?dtor$11@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 000000018000614a f   workflowprotocol.obj
- 0001:00005158       ?dtor$12@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 0000000180006158 f   workflowprotocol.obj
- 0001:00005166       ?dtor$13@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 0000000180006166 f   workflowprotocol.obj
- 0001:00005174       ?dtor$14@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 0000000180006174 f   workflowprotocol.obj
- 0001:00005182       ?dtor$15@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 0000000180006182 f   workflowprotocol.obj
- 0001:00005190       ?dtor$16@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 0000000180006190 f   workflowprotocol.obj
- 0001:0000519e       ?dtor$17@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 000000018000619e f   workflowprotocol.obj
- 0001:000051ac       ?dtor$19@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 00000001800061ac f   workflowprotocol.obj
- 0001:000051ba       ?dtor$18@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 00000001800061ba f   workflowprotocol.obj
- 0001:000051c8       ?dtor$20@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 00000001800061c8 f   workflowprotocol.obj
- 0001:000051e0       ?dtor$0@?0??initProtocol@WorkflowProtocol@@QEAA_NAEBVQString@@@Z@4HA 00000001800061e0 f   workflowprotocol.obj
- 0001:000051ee       ?dtor$1@?0??initProtocol@WorkflowProtocol@@QEAA_NAEBVQString@@@Z@4HA 00000001800061ee f   workflowprotocol.obj
- 0001:000051fc       ?dtor$2@?0??initProtocol@WorkflowProtocol@@QEAA_NAEBVQString@@@Z@4HA 00000001800061fc f   workflowprotocol.obj
- 0001:0000520a       ?dtor$3@?0??initProtocol@WorkflowProtocol@@QEAA_NAEBVQString@@@Z@4HA 000000018000620a f   workflowprotocol.obj
- 0001:00005218       ?dtor$4@?0??initProtocol@WorkflowProtocol@@QEAA_NAEBVQString@@@Z@4HA 0000000180006218 f   workflowprotocol.obj
- 0001:00005226       ?dtor$5@?0??initProtocol@WorkflowProtocol@@QEAA_NAEBVQString@@@Z@4HA 0000000180006226 f   workflowprotocol.obj
- 0001:00005240       ?dtor$0@?0??isLogicalCommand@SubThreadWorker@@IEAA_NAEBVQString@@@Z@4HA 0000000180006240 f   workflowprotocol.obj
- 0001:0000524c       ?dtor$1@?0??isLogicalCommand@SubThreadWorker@@IEAA_NAEBVQString@@@Z@4HA 000000018000624c f   workflowprotocol.obj
- 0001:0000525a       ?dtor$2@?0??isLogicalCommand@SubThreadWorker@@IEAA_NAEBVQString@@@Z@4HA 000000018000625a f   workflowprotocol.obj
- 0001:00005268       ?dtor$3@?0??isLogicalCommand@SubThreadWorker@@IEAA_NAEBVQString@@@Z@4HA 0000000180006268 f   workflowprotocol.obj
- 0001:00005280       ?catch$2@?0??node_copy@?$QList@VQString@@@@AEAAXPEAUNode@1@00@Z@4HA 0000000180006280 f   workflowprotocol.obj
- 0001:0000528f       __catch$?node_copy@?$QList@VQString@@@@AEAAXPEAUNode@1@00@Z$2 000000018000628f f   workflowprotocol.obj
- 0001:000052c0       ?dtor$0@?0??parseAckFrame@WorkflowProtocol@@QEAA_NAEBVQByteArray@@AEAVQJsonObject@@@Z@4HA 00000001800062c0 f   workflowprotocol.obj
- 0001:000052d0       ?dtor$0@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800062d0 f   workflowprotocol.obj
- 0001:000052de       ?dtor$1@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800062de f   workflowprotocol.obj
- 0001:000052ec       ?dtor$2@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800062ec f   workflowprotocol.obj
- 0001:000052fa       ?dtor$3@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800062fa f   workflowprotocol.obj
- 0001:00005308       ?dtor$4@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006308 f   workflowprotocol.obj
- 0001:00005316       ?dtor$5@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006316 f   workflowprotocol.obj
- 0001:00005324       ?dtor$6@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006324 f   workflowprotocol.obj
- 0001:00005332       ?dtor$7@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006332 f   workflowprotocol.obj
- 0001:00005340       ?dtor$8@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006340 f   workflowprotocol.obj
- 0001:0000534e       ?dtor$9@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 000000018000634e f   workflowprotocol.obj
- 0001:0000535c       ?dtor$10@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 000000018000635c f   workflowprotocol.obj
- 0001:0000536a       ?dtor$11@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 000000018000636a f   workflowprotocol.obj
- 0001:00005378       ?dtor$12@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006378 f   workflowprotocol.obj
- 0001:00005386       ?dtor$13@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006386 f   workflowprotocol.obj
- 0001:00005394       ?dtor$14@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006394 f   workflowprotocol.obj
- 0001:000053a2       ?dtor$31@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800063a2 f   workflowprotocol.obj
- 0001:000053b0       ?dtor$15@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800063b0 f   workflowprotocol.obj
- 0001:000053be       ?dtor$16@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800063be f   workflowprotocol.obj
- 0001:000053cc       ?dtor$17@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800063cc f   workflowprotocol.obj
- 0001:000053d8       ?dtor$18@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800063d8 f   workflowprotocol.obj
- 0001:000053e6       ?dtor$19@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800063e6 f   workflowprotocol.obj
- 0001:000053f4       ?dtor$20@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800063f4 f   workflowprotocol.obj
- 0001:00005402       ?dtor$21@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006402 f   workflowprotocol.obj
- 0001:00005410       ?dtor$22@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006410 f   workflowprotocol.obj
- 0001:0000541e       ?dtor$23@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 000000018000641e f   workflowprotocol.obj
- 0001:0000542c       ?dtor$24@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 000000018000642c f   workflowprotocol.obj
- 0001:0000543a       ?dtor$25@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 000000018000643a f   workflowprotocol.obj
- 0001:00005448       ?dtor$26@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006448 f   workflowprotocol.obj
- 0001:00005456       ?dtor$27@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006456 f   workflowprotocol.obj
- 0001:00005464       ?dtor$28@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006464 f   workflowprotocol.obj
- 0001:00005470       ?dtor$41@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006470 f   workflowprotocol.obj
- 0001:00005480       ?dtor$0@?0??serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ@4HA 0000000180006480 f   workflowprotocol.obj
- 0001:000054a7       ?dtor$1@?0??serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ@4HA 00000001800064a7 f   workflowprotocol.obj
- 0001:000054b5       ?dtor$2@?0??serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ@4HA 00000001800064b5 f   workflowprotocol.obj
- 0001:000054c3       ?dtor$3@?0??serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ@4HA 00000001800064c3 f   workflowprotocol.obj
- 0001:000054d1       ?dtor$4@?0??serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ@4HA 00000001800064d1 f   workflowprotocol.obj
- 0001:000054df       ?dtor$5@?0??serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ@4HA 00000001800064df f   workflowprotocol.obj
- 0001:000054f0       ?dtor$0@?0??statusChanged@WorkflowController@@QEAAXAEBVQJsonObject@@@Z@4HA 00000001800064f0 f   workflowprotocol.obj
- 0001:0000550d       ?dtor$1@?0??statusChanged@WorkflowController@@QEAAXAEBVQJsonObject@@@Z@4HA 000000018000650d f   workflowprotocol.obj
- 0001:00005520       ?dtor$0@?0??taskStateChanged@WorkflowController@@QEAAX_NH@Z@4HA 0000000180006520 f   workflowprotocol.obj
- 0001:00005540       ?dtor$0@?0??unserializeRecvFrame@WorkflowProtocol@@QEAAXAEBVQByteArray@@@Z@4HA 0000000180006540 f   workflowprotocol.obj
- 0001:0000554e       ?fin$0@?0???_M@YAXPEAX_K1P6AX0@Z@Z@4HA 000000018000654e f   MSVCRT:ehvecdtr.obj
- 0001:0000557a       ?filt$0@?0??__ArrayUnwind@@YAXPEAX_K1P6AX0@Z@Z@4HA 000000018000657a f   MSVCRT:ehvecdtr.obj
- 0001:000055bb       ?fin$0@?0??dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z@4HA 00000001800065bb f   MSVCRT:dll_dllmain.obj
- 0001:000055d2       ?fin$0@?0??dllmain_crt_process_detach@@YAH_N@Z@4HA 00000001800065d2 f   MSVCRT:dll_dllmain.obj
- 0001:000055ee       ?filt$0@?0??dllmain_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z@4HA 00000001800065ee f   MSVCRT:dll_dllmain.obj
- 0001:00005624       __scrt_is_nonwritable_in_current_image$filt$0 0000000180006624 f   MSVCRT:utility.obj
+ 0001:000036cc       $LN19                      00000001800046cc     moc_workflowprotocol.obj
+ 0001:00003814       $LN23                      0000000180004814     moc_workflowprotocol.obj
+ 0001:00003a50       ?__scrt_initialize_thread_safe_statics@@YAHXZ 0000000180004a50 f   MSVCRT:thread_safe_statics.obj
+ 0001:00003b70       ?__scrt_uninitialize_thread_safe_statics@@YAXXZ 0000000180004b70 f   MSVCRT:thread_safe_statics.obj
+ 0001:00003e00       $$000000                   0000000180004e00     MSVCRT:_amdsecgs_.obj
+ 0001:00003e34       ?dllmain_crt_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z 0000000180004e34 f   MSVCRT:dll_dllmain.obj
+ 0001:00003e84       ?dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z 0000000180004e84 f   MSVCRT:dll_dllmain.obj
+ 0001:00003fb0       ?dllmain_crt_process_detach@@YAH_N@Z 0000000180004fb0 f   MSVCRT:dll_dllmain.obj
+ 0001:00004034       ?dllmain_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z 0000000180005034 f   MSVCRT:dll_dllmain.obj
+ 0001:0000412c       ?dllmain_raw@@YAHQEAUHINSTANCE__@@KQEAX@Z 000000018000512c f   MSVCRT:dll_dllmain.obj
+ 0001:000049a8       capture_previous_context   00000001800059a8 f   MSVCRT:gs_report.obj
+ 0001:00004e60       $$000000                   0000000180005e60     MSVCRT:_guard_dispatch_.obj
+ 0001:00004e80       ?catch$5@?0???0?$QList@VQString@@@@QEAA@AEBV0@@Z@4HA 0000000180005e80 f   workflowprotocol.obj
+ 0001:00004e8d       __catch$??0?$QList@VQString@@@@QEAA@AEBV0@@Z$0 0000000180005e8d f   workflowprotocol.obj
+ 0001:00004eb0       ?dtor$0@?0???0WorkflowController@@QEAA@PEAVQObject@@@Z@4HA 0000000180005eb0 f   workflowprotocol.obj
+ 0001:00004ebe       ?dtor$1@?0???0WorkflowController@@QEAA@PEAVQObject@@@Z@4HA 0000000180005ebe f   workflowprotocol.obj
+ 0001:00004ed0       ?dtor$2@?0???0WorkflowController@@QEAA@PEAVQObject@@@Z@4HA 0000000180005ed0 f   workflowprotocol.obj
+ 0001:00004ef0       ?dtor$3@?0???0WorkflowController@@QEAA@PEAVQObject@@@Z@4HA 0000000180005ef0 f   workflowprotocol.obj
+ 0001:00004f10       ?catch$5@?0??append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z@4HA 0000000180005f10 f   workflowprotocol.obj
+ 0001:00004f1d       __catch$?append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z$0 0000000180005f1d f   workflowprotocol.obj
+ 0001:00004f31       ?catch$6@?0??append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z@4HA 0000000180005f31 f   workflowprotocol.obj
+ 0001:00004f3e       __catch$?append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z$4 0000000180005f3e f   workflowprotocol.obj
+ 0001:00004f60       ?catch$8@?0??detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z@4HA 0000000180005f60 f   workflowprotocol.obj
+ 0001:00004f6e       __catch$?detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z$0 0000000180005f6e f   workflowprotocol.obj
+ 0001:00004f8c       ?catch$7@?0??detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z@4HA 0000000180005f8c f   workflowprotocol.obj
+ 0001:00004f9b       __catch$?detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z$2 0000000180005f9b f   workflowprotocol.obj
+ 0001:00004ff0       ?dtor$0@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 0000000180005ff0 f   workflowprotocol.obj
+ 0001:00004ffe       ?dtor$1@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 0000000180005ffe f   workflowprotocol.obj
+ 0001:0000500c       ?dtor$2@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 000000018000600c f   workflowprotocol.obj
+ 0001:0000501a       ?dtor$3@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 000000018000601a f   workflowprotocol.obj
+ 0001:00005028       ?dtor$4@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 0000000180006028 f   workflowprotocol.obj
+ 0001:00005036       ?dtor$5@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 0000000180006036 f   workflowprotocol.obj
+ 0001:00005044       ?dtor$6@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 0000000180006044 f   workflowprotocol.obj
+ 0001:00005052       ?dtor$7@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 0000000180006052 f   workflowprotocol.obj
+ 0001:00005060       ?dtor$8@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 0000000180006060 f   workflowprotocol.obj
+ 0001:0000506e       ?dtor$9@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 000000018000606e f   workflowprotocol.obj
+ 0001:0000507c       ?dtor$10@?0??doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z@4HA 000000018000607c f   workflowprotocol.obj
+ 0001:00005090       ?dtor$0@?0??formatRecvFrameToJsonObject@WorkflowProtocol@@QEAA_NAEAVQJsonObject@@@Z@4HA 0000000180006090 f   workflowprotocol.obj
+ 0001:0000509e       ?dtor$1@?0??formatRecvFrameToJsonObject@WorkflowProtocol@@QEAA_NAEAVQJsonObject@@@Z@4HA 000000018000609e f   workflowprotocol.obj
+ 0001:000050b0       ?dtor$0@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 00000001800060b0 f   workflowprotocol.obj
+ 0001:000050be       ?dtor$1@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 00000001800060be f   workflowprotocol.obj
+ 0001:000050cc       ?dtor$2@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 00000001800060cc f   workflowprotocol.obj
+ 0001:000050da       ?dtor$3@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 00000001800060da f   workflowprotocol.obj
+ 0001:000050e8       ?dtor$4@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 00000001800060e8 f   workflowprotocol.obj
+ 0001:000050f6       ?dtor$5@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 00000001800060f6 f   workflowprotocol.obj
+ 0001:00005104       ?dtor$33@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006104 f   workflowprotocol.obj
+ 0001:00005112       ?dtor$6@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006112 f   workflowprotocol.obj
+ 0001:00005120       ?dtor$7@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006120 f   workflowprotocol.obj
+ 0001:0000512e       ?dtor$8@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 000000018000612e f   workflowprotocol.obj
+ 0001:0000513c       ?dtor$9@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 000000018000613c f   workflowprotocol.obj
+ 0001:0000514a       ?dtor$10@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 000000018000614a f   workflowprotocol.obj
+ 0001:00005158       ?dtor$11@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006158 f   workflowprotocol.obj
+ 0001:00005166       ?dtor$12@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006166 f   workflowprotocol.obj
+ 0001:00005174       ?dtor$13@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006174 f   workflowprotocol.obj
+ 0001:00005182       ?dtor$14@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006182 f   workflowprotocol.obj
+ 0001:00005190       ?dtor$15@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006190 f   workflowprotocol.obj
+ 0001:0000519e       ?dtor$16@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 000000018000619e f   workflowprotocol.obj
+ 0001:000051ac       ?dtor$17@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 00000001800061ac f   workflowprotocol.obj
+ 0001:000051ba       ?dtor$18@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 00000001800061ba f   workflowprotocol.obj
+ 0001:000051c8       ?dtor$19@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 00000001800061c8 f   workflowprotocol.obj
+ 0001:000051d6       ?dtor$20@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 00000001800061d6 f   workflowprotocol.obj
+ 0001:000051e4       ?dtor$22@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 00000001800061e4 f   workflowprotocol.obj
+ 0001:000051f2       ?dtor$23@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 00000001800061f2 f   workflowprotocol.obj
+ 0001:00005200       ?dtor$24@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006200 f   workflowprotocol.obj
+ 0001:0000520e       ?dtor$25@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 000000018000620e f   workflowprotocol.obj
+ 0001:0000521c       ?dtor$26@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 000000018000621c f   workflowprotocol.obj
+ 0001:0000522a       ?dtor$27@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 000000018000622a f   workflowprotocol.obj
+ 0001:00005238       ?dtor$28@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006238 f   workflowprotocol.obj
+ 0001:00005246       ?dtor$29@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006246 f   workflowprotocol.obj
+ 0001:00005254       ?dtor$30@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006254 f   workflowprotocol.obj
+ 0001:00005262       ?dtor$31@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006262 f   workflowprotocol.obj
+ 0001:00005270       ?dtor$32@?0??handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z@4HA 0000000180006270 f   workflowprotocol.obj
+ 0001:00005280       ?dtor$0@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 0000000180006280 f   workflowprotocol.obj
+ 0001:0000528e       ?dtor$1@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 000000018000628e f   workflowprotocol.obj
+ 0001:0000529c       ?dtor$2@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 000000018000629c f   workflowprotocol.obj
+ 0001:000052aa       ?dtor$3@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 00000001800062aa f   workflowprotocol.obj
+ 0001:000052b8       ?dtor$4@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 00000001800062b8 f   workflowprotocol.obj
+ 0001:000052c6       ?dtor$5@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 00000001800062c6 f   workflowprotocol.obj
+ 0001:000052d4       ?dtor$6@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 00000001800062d4 f   workflowprotocol.obj
+ 0001:000052e2       ?dtor$7@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 00000001800062e2 f   workflowprotocol.obj
+ 0001:000052f0       ?dtor$8@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 00000001800062f0 f   workflowprotocol.obj
+ 0001:000052fe       ?dtor$9@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 00000001800062fe f   workflowprotocol.obj
+ 0001:0000530c       ?dtor$10@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 000000018000630c f   workflowprotocol.obj
+ 0001:0000531a       ?dtor$11@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 000000018000631a f   workflowprotocol.obj
+ 0001:00005328       ?dtor$12@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 0000000180006328 f   workflowprotocol.obj
+ 0001:00005336       ?dtor$13@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 0000000180006336 f   workflowprotocol.obj
+ 0001:00005344       ?dtor$14@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 0000000180006344 f   workflowprotocol.obj
+ 0001:00005352       ?dtor$15@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 0000000180006352 f   workflowprotocol.obj
+ 0001:00005360       ?dtor$16@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 0000000180006360 f   workflowprotocol.obj
+ 0001:0000536e       ?dtor$17@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 000000018000636e f   workflowprotocol.obj
+ 0001:0000537c       ?dtor$18@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 000000018000637c f   workflowprotocol.obj
+ 0001:0000538a       ?dtor$19@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 000000018000638a f   workflowprotocol.obj
+ 0001:00005398       ?dtor$21@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 0000000180006398 f   workflowprotocol.obj
+ 0001:000053a6       ?dtor$20@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 00000001800063a6 f   workflowprotocol.obj
+ 0001:000053b4       ?dtor$22@?0??handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z@4HA 00000001800063b4 f   workflowprotocol.obj
+ 0001:000053d0       ?dtor$0@?0??initProtocol@WorkflowProtocol@@QEAA_NAEBVQString@@@Z@4HA 00000001800063d0 f   workflowprotocol.obj
+ 0001:000053de       ?dtor$1@?0??initProtocol@WorkflowProtocol@@QEAA_NAEBVQString@@@Z@4HA 00000001800063de f   workflowprotocol.obj
+ 0001:000053ec       ?dtor$2@?0??initProtocol@WorkflowProtocol@@QEAA_NAEBVQString@@@Z@4HA 00000001800063ec f   workflowprotocol.obj
+ 0001:000053fa       ?dtor$3@?0??initProtocol@WorkflowProtocol@@QEAA_NAEBVQString@@@Z@4HA 00000001800063fa f   workflowprotocol.obj
+ 0001:00005408       ?dtor$4@?0??initProtocol@WorkflowProtocol@@QEAA_NAEBVQString@@@Z@4HA 0000000180006408 f   workflowprotocol.obj
+ 0001:00005416       ?dtor$5@?0??initProtocol@WorkflowProtocol@@QEAA_NAEBVQString@@@Z@4HA 0000000180006416 f   workflowprotocol.obj
+ 0001:00005430       ?dtor$0@?0??isLogicalCommand@SubThreadWorker@@IEAA_NAEBVQString@@@Z@4HA 0000000180006430 f   workflowprotocol.obj
+ 0001:0000543c       ?dtor$1@?0??isLogicalCommand@SubThreadWorker@@IEAA_NAEBVQString@@@Z@4HA 000000018000643c f   workflowprotocol.obj
+ 0001:0000544a       ?dtor$2@?0??isLogicalCommand@SubThreadWorker@@IEAA_NAEBVQString@@@Z@4HA 000000018000644a f   workflowprotocol.obj
+ 0001:00005458       ?dtor$3@?0??isLogicalCommand@SubThreadWorker@@IEAA_NAEBVQString@@@Z@4HA 0000000180006458 f   workflowprotocol.obj
+ 0001:00005470       ?catch$2@?0??node_copy@?$QList@VQString@@@@AEAAXPEAUNode@1@00@Z@4HA 0000000180006470 f   workflowprotocol.obj
+ 0001:0000547f       __catch$?node_copy@?$QList@VQString@@@@AEAAXPEAUNode@1@00@Z$2 000000018000647f f   workflowprotocol.obj
+ 0001:000054b0       ?dtor$0@?0??parseAckFrame@WorkflowProtocol@@QEAA_NAEBVQByteArray@@AEAVQJsonObject@@@Z@4HA 00000001800064b0 f   workflowprotocol.obj
+ 0001:000054c0       ?dtor$0@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800064c0 f   workflowprotocol.obj
+ 0001:000054ce       ?dtor$1@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800064ce f   workflowprotocol.obj
+ 0001:000054dc       ?dtor$2@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800064dc f   workflowprotocol.obj
+ 0001:000054ea       ?dtor$3@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800064ea f   workflowprotocol.obj
+ 0001:000054f8       ?dtor$4@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800064f8 f   workflowprotocol.obj
+ 0001:00005506       ?dtor$5@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006506 f   workflowprotocol.obj
+ 0001:00005514       ?dtor$6@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006514 f   workflowprotocol.obj
+ 0001:00005522       ?dtor$7@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006522 f   workflowprotocol.obj
+ 0001:00005530       ?dtor$8@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006530 f   workflowprotocol.obj
+ 0001:0000553e       ?dtor$9@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 000000018000653e f   workflowprotocol.obj
+ 0001:0000554c       ?dtor$10@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 000000018000654c f   workflowprotocol.obj
+ 0001:0000555a       ?dtor$11@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 000000018000655a f   workflowprotocol.obj
+ 0001:00005568       ?dtor$12@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006568 f   workflowprotocol.obj
+ 0001:00005576       ?dtor$13@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006576 f   workflowprotocol.obj
+ 0001:00005584       ?dtor$14@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006584 f   workflowprotocol.obj
+ 0001:00005592       ?dtor$31@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006592 f   workflowprotocol.obj
+ 0001:000055a0       ?dtor$15@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800065a0 f   workflowprotocol.obj
+ 0001:000055ae       ?dtor$16@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800065ae f   workflowprotocol.obj
+ 0001:000055bc       ?dtor$17@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800065bc f   workflowprotocol.obj
+ 0001:000055c8       ?dtor$18@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800065c8 f   workflowprotocol.obj
+ 0001:000055d6       ?dtor$19@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800065d6 f   workflowprotocol.obj
+ 0001:000055e4       ?dtor$20@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800065e4 f   workflowprotocol.obj
+ 0001:000055f2       ?dtor$21@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 00000001800065f2 f   workflowprotocol.obj
+ 0001:00005600       ?dtor$22@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006600 f   workflowprotocol.obj
+ 0001:0000560e       ?dtor$23@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 000000018000660e f   workflowprotocol.obj
+ 0001:0000561c       ?dtor$24@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 000000018000661c f   workflowprotocol.obj
+ 0001:0000562a       ?dtor$25@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 000000018000662a f   workflowprotocol.obj
+ 0001:00005638       ?dtor$26@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006638 f   workflowprotocol.obj
+ 0001:00005646       ?dtor$27@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006646 f   workflowprotocol.obj
+ 0001:00005654       ?dtor$28@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006654 f   workflowprotocol.obj
+ 0001:00005660       ?dtor$41@?0??parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z@4HA 0000000180006660 f   workflowprotocol.obj
+ 0001:00005670       ?dtor$0@?0??serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ@4HA 0000000180006670 f   workflowprotocol.obj
+ 0001:00005697       ?dtor$1@?0??serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ@4HA 0000000180006697 f   workflowprotocol.obj
+ 0001:000056a5       ?dtor$2@?0??serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ@4HA 00000001800066a5 f   workflowprotocol.obj
+ 0001:000056b3       ?dtor$3@?0??serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ@4HA 00000001800066b3 f   workflowprotocol.obj
+ 0001:000056c1       ?dtor$4@?0??serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ@4HA 00000001800066c1 f   workflowprotocol.obj
+ 0001:000056cf       ?dtor$5@?0??serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ@4HA 00000001800066cf f   workflowprotocol.obj
+ 0001:000056e0       ?dtor$0@?0??statusChanged@WorkflowController@@QEAAXAEBVQJsonObject@@@Z@4HA 00000001800066e0 f   workflowprotocol.obj
+ 0001:000056fd       ?dtor$1@?0??statusChanged@WorkflowController@@QEAAXAEBVQJsonObject@@@Z@4HA 00000001800066fd f   workflowprotocol.obj
+ 0001:00005710       ?dtor$0@?0??taskStateChanged@WorkflowController@@QEAAX_NH@Z@4HA 0000000180006710 f   workflowprotocol.obj
+ 0001:00005730       ?dtor$0@?0??unserializeRecvFrame@WorkflowProtocol@@QEAAXAEBVQByteArray@@@Z@4HA 0000000180006730 f   workflowprotocol.obj
+ 0001:0000573e       ?fin$0@?0???_M@YAXPEAX_K1P6AX0@Z@Z@4HA 000000018000673e f   MSVCRT:ehvecdtr.obj
+ 0001:0000576a       ?filt$0@?0??__ArrayUnwind@@YAXPEAX_K1P6AX0@Z@Z@4HA 000000018000676a f   MSVCRT:ehvecdtr.obj
+ 0001:000057ab       ?fin$0@?0??dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z@4HA 00000001800067ab f   MSVCRT:dll_dllmain.obj
+ 0001:000057c2       ?fin$0@?0??dllmain_crt_process_detach@@YAH_N@Z@4HA 00000001800067c2 f   MSVCRT:dll_dllmain.obj
+ 0001:000057de       ?filt$0@?0??dllmain_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z@4HA 00000001800067de f   MSVCRT:dll_dllmain.obj
+ 0001:00005814       __scrt_is_nonwritable_in_current_image$filt$0 0000000180006814 f   MSVCRT:utility.obj
  0002:00000548       ??staticMetaObject$initializer$@SubThreadWorker@@2P6AXXZEA@@3P6AXXZEA 0000000180007548     moc_workflowprotocol.obj
  0002:00000550       ??staticMetaObject$initializer$@WorkflowController@@2P6AXXZEA@@3P6AXXZEA 0000000180007550     moc_workflowprotocol.obj
  0002:00000568       ?__scrt_initialize_tss_var@@3P6AHXZEA 0000000180007568     MSVCRT:thread_safe_statics.obj
@@ -915,226 +925,226 @@
  0002:00000858       $cppxdata$?statusChanged@WorkflowController@@QEAAXAEBVQJsonObject@@@Z 0000000180007858     workflowprotocol.obj
  0002:00000880       $cppxdata$?taskStateChanged@WorkflowController@@QEAAX_NH@Z 0000000180007880     workflowprotocol.obj
  0002:000008a8       $cppxdata$??_EWorkflowController@@UEAAPEAXI@Z 00000001800078a8     workflowprotocol.obj
- 0002:00000b70       ?qt_meta_stringdata_SubThreadWorker@@3Uqt_meta_stringdata_SubThreadWorker_t@@B 0000000180007b70     moc_workflowprotocol.obj
- 0002:00000d10       ?qt_meta_data_SubThreadWorker@@3QBIB 0000000180007d10     moc_workflowprotocol.obj
- 0002:00000e20       ?qt_meta_stringdata_WorkflowController@@3Uqt_meta_stringdata_WorkflowController_t@@B 0000000180007e20     moc_workflowprotocol.obj
- 0002:00000fc0       ?qt_meta_data_WorkflowController@@3QBIB 0000000180007fc0     moc_workflowprotocol.obj
- 0002:000011e8       GS_ExceptionPointers       00000001800081e8     MSVCRT:gs_report.obj
- 0002:00001bb0       $unwind$??0?$QList@VQString@@@@QEAA@AEBV0@@Z 0000000180008bb0     workflowprotocol.obj
- 0002:00001bc8       $stateUnwindMap$??0?$QList@VQString@@@@QEAA@AEBV0@@Z 0000000180008bc8     workflowprotocol.obj
- 0002:00001bd8       $tryMap$??0?$QList@VQString@@@@QEAA@AEBV0@@Z 0000000180008bd8     workflowprotocol.obj
- 0002:00001bec       $handlerMap$0$??0?$QList@VQString@@@@QEAA@AEBV0@@Z 0000000180008bec     workflowprotocol.obj
- 0002:00001c00       $ip2state$??0?$QList@VQString@@@@QEAA@AEBV0@@Z 0000000180008c00     workflowprotocol.obj
- 0002:00001c28       $unwind$?catch$5@?0???0?$QList@VQString@@@@QEAA@AEBV0@@Z@4HA 0000000180008c28     workflowprotocol.obj
- 0002:00001c38       $unwind$??1?$QList@VQString@@@@QEAA@XZ 0000000180008c38     workflowprotocol.obj
- 0002:00001c50       $ip2state$??1?$QList@VQString@@@@QEAA@XZ 0000000180008c50     workflowprotocol.obj
- 0002:00001c58       $unwind$?append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z 0000000180008c58     workflowprotocol.obj
- 0002:00001c6c       $stateUnwindMap$?append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z 0000000180008c6c     workflowprotocol.obj
- 0002:00001c9c       $tryMap$?append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z 0000000180008c9c     workflowprotocol.obj
- 0002:00001cc4       $handlerMap$0$?append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z 0000000180008cc4     workflowprotocol.obj
- 0002:00001cd8       $handlerMap$1$?append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z 0000000180008cd8     workflowprotocol.obj
- 0002:00001cf0       $ip2state$?append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z 0000000180008cf0     workflowprotocol.obj
- 0002:00001d38       $unwind$?catch$5@?0??append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z@4HA 0000000180008d38     workflowprotocol.obj
- 0002:00001d38       $unwind$?catch$6@?0??append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z@4HA 0000000180008d38     workflowprotocol.obj
- 0002:00001d48       $unwind$?detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z 0000000180008d48     workflowprotocol.obj
- 0002:00001d60       $stateUnwindMap$?detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z 0000000180008d60     workflowprotocol.obj
- 0002:00001d60       $stateUnwindMap$?node_copy@?$QList@VQString@@@@AEAAXPEAUNode@1@00@Z 0000000180008d60     workflowprotocol.obj
- 0002:00001d80       $tryMap$?detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z 0000000180008d80     workflowprotocol.obj
- 0002:00001da8       $handlerMap$0$?detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z 0000000180008da8     workflowprotocol.obj
- 0002:00001dbc       $handlerMap$1$?detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z 0000000180008dbc     workflowprotocol.obj
- 0002:00001dd0       $ip2state$?detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z 0000000180008dd0     workflowprotocol.obj
- 0002:00001e10       $unwind$?catch$8@?0??detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z@4HA 0000000180008e10     workflowprotocol.obj
- 0002:00001e24       $unwind$?catch$7@?0??detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z@4HA 0000000180008e24     workflowprotocol.obj
- 0002:00001e38       $unwind$?node_copy@?$QList@VQString@@@@AEAAXPEAUNode@1@00@Z 0000000180008e38     workflowprotocol.obj
- 0002:00001e50       $tryMap$?node_copy@?$QList@VQString@@@@AEAAXPEAUNode@1@00@Z 0000000180008e50     workflowprotocol.obj
- 0002:00001e64       $handlerMap$0$?node_copy@?$QList@VQString@@@@AEAAXPEAUNode@1@00@Z 0000000180008e64     workflowprotocol.obj
- 0002:00001e78       $ip2state$?node_copy@?$QList@VQString@@@@AEAAXPEAUNode@1@00@Z 0000000180008e78     workflowprotocol.obj
- 0002:00001ea0       $unwind$?catch$2@?0??node_copy@?$QList@VQString@@@@AEAAXPEAUNode@1@00@Z@4HA 0000000180008ea0     workflowprotocol.obj
- 0002:00001eb4       $unwind$?node_destruct@?$QList@VQString@@@@AEAAXPEAUNode@1@0@Z 0000000180008eb4     workflowprotocol.obj
- 0002:00001ec0       $unwind$?initProtocol@WorkflowProtocol@@QEAA_NAEBVQString@@@Z 0000000180008ec0     workflowprotocol.obj
- 0002:00001ed0       $stateUnwindMap$?initProtocol@WorkflowProtocol@@QEAA_NAEBVQString@@@Z 0000000180008ed0     workflowprotocol.obj
- 0002:00001f00       $ip2state$?initProtocol@WorkflowProtocol@@QEAA_NAEBVQString@@@Z 0000000180008f00     workflowprotocol.obj
- 0002:00001f68       $unwind$?parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z 0000000180008f68     workflowprotocol.obj
- 0002:00001f8c       $stateUnwindMap$?parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z 0000000180008f8c     workflowprotocol.obj
- 0002:00002100       $ip2state$?parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z 0000000180009100     workflowprotocol.obj
- 0002:000022c8       $unwind$?formatRecvFrameToJsonObject@WorkflowProtocol@@QEAA_NAEAVQJsonObject@@@Z 00000001800092c8     workflowprotocol.obj
- 0002:000022d8       $stateUnwindMap$?formatRecvFrameToJsonObject@WorkflowProtocol@@QEAA_NAEAVQJsonObject@@@Z 00000001800092d8     workflowprotocol.obj
- 0002:000022e8       $ip2state$?formatRecvFrameToJsonObject@WorkflowProtocol@@QEAA_NAEAVQJsonObject@@@Z 00000001800092e8     workflowprotocol.obj
- 0002:00002310       $unwind$?parseAckFrame@WorkflowProtocol@@QEAA_NAEBVQByteArray@@AEAVQJsonObject@@@Z 0000000180009310     workflowprotocol.obj
- 0002:00002330       $stateUnwindMap$?parseAckFrame@WorkflowProtocol@@QEAA_NAEBVQByteArray@@AEAVQJsonObject@@@Z 0000000180009330     workflowprotocol.obj
- 0002:00002338       $ip2state$?parseAckFrame@WorkflowProtocol@@QEAA_NAEBVQByteArray@@AEAVQJsonObject@@@Z 0000000180009338     workflowprotocol.obj
- 0002:00002350       $unwind$?serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ 0000000180009350     workflowprotocol.obj
- 0002:00002368       $stateUnwindMap$?serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ 0000000180009368     workflowprotocol.obj
- 0002:000023a0       $ip2state$?serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ 00000001800093a0     workflowprotocol.obj
- 0002:00002400       $unwind$?unserializeRecvFrame@WorkflowProtocol@@QEAAXAEBVQByteArray@@@Z 0000000180009400     workflowprotocol.obj
- 0002:00002414       $stateUnwindMap$?unserializeRecvFrame@WorkflowProtocol@@QEAAXAEBVQByteArray@@@Z 0000000180009414     workflowprotocol.obj
- 0002:00002420       $ip2state$?unserializeRecvFrame@WorkflowProtocol@@QEAAXAEBVQByteArray@@@Z 0000000180009420     workflowprotocol.obj
- 0002:00002438       $unwind$??_Gbad_array_new_length@std@@UEAAPEAXI@Z 0000000180009438     MSVCRT:throw_bad_alloc.obj
- 0002:00002438       $unwind$??_Gbad_alloc@std@@UEAAPEAXI@Z 0000000180009438     MSVCRT:throw_bad_alloc.obj
- 0002:00002438       $unwind$??_Gexception@std@@UEAAPEAXI@Z 0000000180009438     MSVCRT:throw_bad_alloc.obj
- 0002:00002438       $unwind$??4WorkflowProtocol@@QEAAAEAV0@AEBV0@@Z 0000000180009438     workflowprotocol.obj
- 0002:00002438       $unwind$??0WorkflowProtocol@@QEAA@$$QEAV0@@Z 0000000180009438     workflowprotocol.obj
- 0002:00002438       $unwind$??_GStatusChangeEvent@@UEAAPEAXI@Z 0000000180009438     workflowprotocol.obj
- 0002:00002438       $unwind$??_GRunningStateChangeEvent@@UEAAPEAXI@Z 0000000180009438     workflowprotocol.obj
- 0002:00002438       $unwind$??0WorkflowProtocol@@QEAA@AEBV0@@Z 0000000180009438     workflowprotocol.obj
- 0002:00002438       $unwind$?changeHost@SubThreadWorker@@QEAAXAEBVQString@@G@Z 0000000180009438     workflowprotocol.obj
- 0002:00002438       $unwind$??4WorkflowProtocol@@QEAAAEAV0@$$QEAV0@@Z 0000000180009438     workflowprotocol.obj
- 0002:00002444       $unwind$?doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z 0000000180009444     workflowprotocol.obj
- 0002:00002460       $stateUnwindMap$?doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z 0000000180009460     workflowprotocol.obj
- 0002:000024d0       $ip2state$?doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z 00000001800094d0     workflowprotocol.obj
- 0002:00002580       $unwind$?handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z 0000000180009580     workflowprotocol.obj
- 0002:000025a0       $stateUnwindMap$?handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z 00000001800095a0     workflowprotocol.obj
- 0002:00002680       $ip2state$?handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z 0000000180009680     workflowprotocol.obj
- 0002:00002848       $unwind$?handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z 0000000180009848     workflowprotocol.obj
- 0002:0000286c       $stateUnwindMap$?handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z 000000018000986c     workflowprotocol.obj
- 0002:00002930       $ip2state$?handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z 0000000180009930     workflowprotocol.obj
- 0002:00002a78       $unwind$?isLogicalCommand@SubThreadWorker@@IEAA_NAEBVQString@@@Z 0000000180009a78     workflowprotocol.obj
- 0002:00002a94       $stateUnwindMap$?isLogicalCommand@SubThreadWorker@@IEAA_NAEBVQString@@@Z 0000000180009a94     workflowprotocol.obj
- 0002:00002ae0       $ip2state$?isLogicalCommand@SubThreadWorker@@IEAA_NAEBVQString@@@Z 0000000180009ae0     workflowprotocol.obj
- 0002:00002b50       $unwind$?trUtf8@WorkflowController@@SA?AVQString@@PEBD0H@Z 0000000180009b50     workflowprotocol.obj
- 0002:00002b50       $unwind$?tr@WorkflowController@@SA?AVQString@@PEBD0H@Z 0000000180009b50     workflowprotocol.obj
- 0002:00002b58       $unwind$??0WorkflowController@@QEAA@PEAVQObject@@@Z 0000000180009b58     workflowprotocol.obj
- 0002:00002b70       $stateUnwindMap$??0WorkflowController@@QEAA@PEAVQObject@@@Z 0000000180009b70     workflowprotocol.obj
- 0002:00002b90       $ip2state$??0WorkflowController@@QEAA@PEAVQObject@@@Z 0000000180009b90     workflowprotocol.obj
- 0002:00002bd0       $unwind$??1WorkflowController@@UEAA@XZ 0000000180009bd0     workflowprotocol.obj
- 0002:00002be8       $ip2state$??1WorkflowController@@UEAA@XZ 0000000180009be8     workflowprotocol.obj
- 0002:00002bf0       $unwind$?runTask@WorkflowController@@QEAAXAEBVQJsonObject@@@Z 0000000180009bf0     workflowprotocol.obj
- 0002:00002bfc       $unwind$?statusChanged@WorkflowController@@QEAAXAEBVQJsonObject@@@Z 0000000180009bfc     workflowprotocol.obj
- 0002:00002c14       $stateUnwindMap$?statusChanged@WorkflowController@@QEAAXAEBVQJsonObject@@@Z 0000000180009c14     workflowprotocol.obj
- 0002:00002c28       $ip2state$?statusChanged@WorkflowController@@QEAAXAEBVQJsonObject@@@Z 0000000180009c28     workflowprotocol.obj
- 0002:00002c48       $unwind$?fin$0@?0??dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z@4HA 0000000180009c48     MSVCRT:dll_dllmain.obj
- 0002:00002c48       $unwind$?filt$0@?0??__ArrayUnwind@@YAXPEAX_K1P6AX0@Z@Z@4HA 0000000180009c48     MSVCRT:ehvecdtr.obj
- 0002:00002c48       $unwind$?fin$0@?0??dllmain_crt_process_detach@@YAH_N@Z@4HA 0000000180009c48     MSVCRT:dll_dllmain.obj
- 0002:00002c48       $unwind$?fin$0@?0???_M@YAXPEAX_K1P6AX0@Z@Z@4HA 0000000180009c48     MSVCRT:ehvecdtr.obj
- 0002:00002c48       $unwind$?dtor$0@?0??serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ@4HA 0000000180009c48     workflowprotocol.obj
- 0002:00002c48       $unwind$?dtor$0@?0??statusChanged@WorkflowController@@QEAAXAEBVQJsonObject@@@Z@4HA 0000000180009c48     workflowprotocol.obj
- 0002:00002c48       $unwind$?dtor$3@?0???0WorkflowController@@QEAA@PEAVQObject@@@Z@4HA 0000000180009c48     workflowprotocol.obj
- 0002:00002c48       $unwind$?dtor$2@?0???0WorkflowController@@QEAA@PEAVQObject@@@Z@4HA 0000000180009c48     workflowprotocol.obj
- 0002:00002c48       $unwind$?dtor$0@?0??taskStateChanged@WorkflowController@@QEAAX_NH@Z@4HA 0000000180009c48     workflowprotocol.obj
- 0002:00002c50       $unwind$?taskStateChanged@WorkflowController@@QEAAX_NH@Z 0000000180009c50     workflowprotocol.obj
- 0002:00002c68       $stateUnwindMap$?taskStateChanged@WorkflowController@@QEAAX_NH@Z 0000000180009c68     workflowprotocol.obj
- 0002:00002c70       $ip2state$?taskStateChanged@WorkflowController@@QEAAX_NH@Z 0000000180009c70     workflowprotocol.obj
- 0002:00002c88       $unwind$??_EWorkflowController@@UEAAPEAXI@Z 0000000180009c88     workflowprotocol.obj
- 0002:00002ca0       $ip2state$??_EWorkflowController@@UEAAPEAXI@Z 0000000180009ca0     workflowprotocol.obj
- 0002:00002ca8       $unwind$??$formatWord@E@WorkflowProtocol@@IEAA?AVQByteArray@@E@Z 0000000180009ca8     workflowprotocol.obj
- 0002:00002cb0       $unwind$??$formatWord@G@WorkflowProtocol@@IEAA?AVQByteArray@@G@Z 0000000180009cb0     workflowprotocol.obj
- 0002:00002cb8       $unwind$??$connect@P8WorkflowController@@EAAXXZP8SubThreadWorker@@EAAXXZ@QObject@@SA?AVConnection@QMetaObject@@PEBVWorkflowController@@P83@EAAXXZPEBVSubThreadWorker@@P84@EAAXXZW4ConnectionType@Qt@@@Z 0000000180009cb8     workflowprotocol.obj
- 0002:00002cb8       $unwind$??$connect@P8QThread@@EAAXUQPrivateSignal@1@@ZP8QObject@@EAAXXZ@QObject@@SA?AVConnection@QMetaObject@@PEBVQThread@@P83@EAAXUQPrivateSignal@3@@ZPEBV0@P80@EAAXXZW4ConnectionType@Qt@@@Z 0000000180009cb8     workflowprotocol.obj
- 0002:00002cc8       $unwind$??$connect@P8WorkflowController@@EAAXAEBVQJsonObject@@@ZP8SubThreadWorker@@EAAX0@Z@QObject@@SA?AVConnection@QMetaObject@@PEBVWorkflowController@@P83@EAAXAEBVQJsonObject@@@ZPEBVSubThreadWorker@@P85@EAAX1@ZW4ConnectionType@Qt@@@Z 0000000180009cc8     workflowprotocol.obj
- 0002:00002cc8       $unwind$??$connect@P8SubThreadWorker@@EAAX_NH@ZP8WorkflowController@@EAAX0H@Z@QObject@@SA?AVConnection@QMetaObject@@PEBVSubThreadWorker@@P83@EAAX_NH@ZPEBVWorkflowController@@P84@EAAX1H@ZW4ConnectionType@Qt@@@Z 0000000180009cc8     workflowprotocol.obj
- 0002:00002cc8       $unwind$??$connect@P8SubThreadWorker@@EAAXAEBVQJsonObject@@@ZP8WorkflowController@@EAAX0@Z@QObject@@SA?AVConnection@QMetaObject@@PEBVSubThreadWorker@@P83@EAAXAEBVQJsonObject@@@ZPEBVWorkflowController@@P85@EAAX1@ZW4ConnectionType@Qt@@@Z 0000000180009cc8     workflowprotocol.obj
- 0002:00002cc8       $unwind$??$connect@P8WorkflowController@@EAAXAEBVQString@@G@ZP8SubThreadWorker@@EAAX0G@Z@QObject@@SA?AVConnection@QMetaObject@@PEBVWorkflowController@@P83@EAAXAEBVQString@@G@ZPEBVSubThreadWorker@@P85@EAAX1G@ZW4ConnectionType@Qt@@@Z 0000000180009cc8     workflowprotocol.obj
- 0002:00002cc8       $unwind$??$connect@P8WorkflowController@@EAAXAEBVQString@@@ZP8SubThreadWorker@@EAAX0@Z@QObject@@SA?AVConnection@QMetaObject@@PEBVWorkflowController@@P83@EAAXAEBVQString@@@ZPEBVSubThreadWorker@@P85@EAAX1@ZW4ConnectionType@Qt@@@Z 0000000180009cc8     workflowprotocol.obj
- 0002:00002cdc       $unwind$?qt_metacall@SubThreadWorker@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z 0000000180009cdc     moc_workflowprotocol.obj
- 0002:00002cdc       $unwind$?qt_metacall@WorkflowController@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z 0000000180009cdc     moc_workflowprotocol.obj
- 0002:00002cdc       $unwind$?dllmain_raw@@YAHQEAUHINSTANCE__@@KQEAX@Z 0000000180009cdc     MSVCRT:dll_dllmain.obj
- 0002:00002cdc       $unwind$__scrt_dllmain_exception_filter 0000000180009cdc     MSVCRT:utility.obj
- 0002:00002cf0       $unwind$?taskStateChanged@SubThreadWorker@@QEAAX_NH@Z 0000000180009cf0     moc_workflowprotocol.obj
- 0002:00002d00       $unwind$?statusChanged@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z 0000000180009d00     moc_workflowprotocol.obj
- 0002:00002d00       $unwind$?qt_static_metacall@SubThreadWorker@@CAXPEAVQObject@@W4Call@QMetaObject@@HPEAPEAX@Z 0000000180009d00     moc_workflowprotocol.obj
- 0002:00002d00       $unwind$?qt_static_metacall@WorkflowController@@CAXPEAVQObject@@W4Call@QMetaObject@@HPEAPEAX@Z 0000000180009d00     moc_workflowprotocol.obj
- 0002:00002d00       $unwind$?runNewTask@WorkflowController@@QEAAXAEBVQJsonObject@@@Z 0000000180009d00     moc_workflowprotocol.obj
- 0002:00002d00       $unwind$?configProtocol@WorkflowController@@QEAAXAEBVQString@@@Z 0000000180009d00     moc_workflowprotocol.obj
- 0002:00002d08       $unwind$?changeHost@WorkflowController@@QEAAXAEBVQString@@G@Z 0000000180009d08     moc_workflowprotocol.obj
- 0002:00002d18       $unwind$??_M@YAXPEAX_K1P6AX0@Z@Z 0000000180009d18     MSVCRT:ehvecdtr.obj
- 0002:00002d40       $unwind$?__ArrayUnwind@@YAXPEAX_K1P6AX0@Z@Z 0000000180009d40     MSVCRT:ehvecdtr.obj
- 0002:00002d6c       $unwind$??0WorkflowProtocol@@QEAA@XZ 0000000180009d6c     workflowprotocol.obj
- 0002:00002d6c       $unwind$_onexit            0000000180009d6c     MSVCRT:utility.obj
- 0002:00002d6c       $unwind$??2@YAPEAX_K@Z     0000000180009d6c     MSVCRT:new_scalar.obj
- 0002:00002d6c       $unwind$??0bad_alloc@std@@QEAA@AEBV01@@Z 0000000180009d6c     MSVCRT:throw_bad_alloc.obj
- 0002:00002d6c       $unwind$__scrt_initialize_crt 0000000180009d6c     MSVCRT:utility.obj
- 0002:00002d6c       $unwind$_Init_thread_footer 0000000180009d6c     MSVCRT:thread_safe_statics.obj
- 0002:00002d6c       $unwind$__raise_securityfailure 0000000180009d6c     MSVCRT:gs_report.obj
- 0002:00002d6c       $unwind$__scrt_release_startup_lock 0000000180009d6c     MSVCRT:utility.obj
- 0002:00002d6c       $unwind$?stopCurrentTask@WorkflowController@@QEAAXXZ 0000000180009d6c     workflowprotocol.obj
- 0002:00002d6c       $unwind$__scrt_uninitialize_crt 0000000180009d6c     MSVCRT:utility.obj
- 0002:00002d6c       $unwind$_Init_thread_header 0000000180009d6c     MSVCRT:thread_safe_statics.obj
- 0002:00002d6c       $unwind$??_Gtype_info@@UEAAPEAXI@Z 0000000180009d6c     MSVCRT:std_type_info_static.obj
- 0002:00002d6c       $unwind$_Init_thread_notify 0000000180009d6c     MSVCRT:thread_safe_statics.obj
- 0002:00002d6c       $unwind$??0bad_array_new_length@std@@QEAA@AEBV01@@Z 0000000180009d6c     MSVCRT:throw_bad_alloc.obj
- 0002:00002d6c       $unwind$??0exception@std@@QEAA@AEBV01@@Z 0000000180009d6c     MSVCRT:throw_bad_alloc.obj
- 0002:00002d74       $unwind$__GSHandlerCheckCommon 0000000180009d74     MSVCRT:_gshandler_.obj
- 0002:00002d80       $xdatasym                  0000000180009d80     MSVCRT:_amdsecgs_.obj
- 0002:00002d84       $unwind$?dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z 0000000180009d84     MSVCRT:dll_dllmain.obj
- 0002:00002db0       $unwind$?dllmain_crt_process_detach@@YAH_N@Z 0000000180009db0     MSVCRT:dll_dllmain.obj
- 0002:00002dd8       $unwind$?dllmain_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z 0000000180009dd8     MSVCRT:dll_dllmain.obj
- 0002:00002e00       $unwind$?filt$0@?0??dllmain_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z@4HA 0000000180009e00     MSVCRT:dll_dllmain.obj
- 0002:00002e08       $unwind$?__scrt_throw_std_bad_alloc@@YAXXZ 0000000180009e08     MSVCRT:throw_bad_alloc.obj
- 0002:00002e08       $unwind$?__scrt_throw_std_bad_array_new_length@@YAXXZ 0000000180009e08     MSVCRT:throw_bad_alloc.obj
- 0002:00002e10       $unwind$__scrt_is_nonwritable_in_current_image 0000000180009e10     MSVCRT:utility.obj
- 0002:00002e30       $unwind$__scrt_is_nonwritable_in_current_image$filt$0 0000000180009e30     MSVCRT:utility.obj
- 0002:00002e38       $unwind$__scrt_initialize_onexit_tables 0000000180009e38     MSVCRT:utility.obj
- 0002:00002e44       $unwind$__scrt_dllmain_uninitialize_critical 0000000180009e44     MSVCRT:utility.obj
- 0002:00002e44       $unwind$__scrt_dllmain_before_initialize_c 0000000180009e44     MSVCRT:utility.obj
- 0002:00002e44       $unwind$atexit             0000000180009e44     MSVCRT:utility.obj
- 0002:00002e44       $unwind$?dllmain_crt_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z 0000000180009e44     MSVCRT:dll_dllmain.obj
- 0002:00002e44       $unwind$__scrt_dllmain_uninitialize_c 0000000180009e44     MSVCRT:utility.obj
- 0002:00002e44       $unwind$?__scrt_uninitialize_thread_safe_statics@@YAXXZ 0000000180009e44     MSVCRT:thread_safe_statics.obj
- 0002:00002e44       $unwind$__GSHandlerCheck   0000000180009e44     MSVCRT:_gshandler_.obj
- 0002:00002e44       $unwind$__scrt_acquire_startup_lock 0000000180009e44     MSVCRT:utility.obj
- 0002:00002e44       $unwind$?types@?$ConnectionTypes@U?$List@AEBVQString@@G@QtPrivate@@$00@QtPrivate@@SAPEBHXZ 0000000180009e44     workflowprotocol.obj
- 0002:00002e44       $unwind$__scrt_dllmain_after_initialize_c 0000000180009e44     MSVCRT:utility.obj
- 0002:00002e44       $unwind$__scrt_dllmain_crt_thread_attach 0000000180009e44     MSVCRT:utility.obj
- 0002:00002e44       $unwind$__scrt_initialize_default_local_stdio_options 0000000180009e44     MSVCRT:default_local_stdio_options.obj
- 0002:00002e44       $unwind$__scrt_dllmain_crt_thread_detach 0000000180009e44     MSVCRT:utility.obj
- 0002:00002e44       $unwind$DllMain            0000000180009e44     MSVCRT:dll_dllmain_stub.obj
- 0002:00002e44       $unwind$?types@?$ConnectionTypes@U?$List@_NH@QtPrivate@@$00@QtPrivate@@SAPEBHXZ 0000000180009e44     workflowprotocol.obj
- 0002:00002e4c       $unwind$__scrt_fastfail    0000000180009e4c     MSVCRT:utility_desktop.obj
- 0002:00002e5c       $unwind$__report_gsfailure 0000000180009e5c     MSVCRT:gs_report.obj
- 0002:00002e64       $unwind$capture_previous_context 0000000180009e64     MSVCRT:gs_report.obj
- 0002:00002e70       $unwind$__security_init_cookie 0000000180009e70     MSVCRT:gs_support.obj
- 0002:00002e7c       $unwind$?__scrt_initialize_thread_safe_statics@@YAHXZ 0000000180009e7c     MSVCRT:thread_safe_statics.obj
- 0002:00002e7c       $unwind$_Init_thread_wait  0000000180009e7c     MSVCRT:thread_safe_statics.obj
- 0002:00002e7c       $unwind$_RTC_Initialize    0000000180009e7c     MSVCRT:_initsect_.obj
- 0002:00002e7c       $unwind$_RTC_Terminate     0000000180009e7c     MSVCRT:_initsect_.obj
- 0002:00002e7c       $unwind$_DllMainCRTStartup 0000000180009e7c     MSVCRT:dll_dllmain.obj
- 0002:00002e7c       $unwind$??_GSubThreadWorker@@UEAAPEAXI@Z 0000000180009e7c     workflowprotocol.obj
- 0002:00002e8c       $unwind$__isa_available_init 0000000180009e8c     MSVCRT:_cpu_disp_.obj
- 0002:00002ea0       $xdatasym                  0000000180009ea0     MSVCRT:_guard_dispatch_.obj
- 0002:00002fa0       .edata                     0000000180009fa0     WorkflowProtocol.exp
- 0002:00002fc8       rgpv                       0000000180009fc8     WorkflowProtocol.exp
- 0002:0000304c       rgszName                   000000018000a04c     WorkflowProtocol.exp
- 0002:000030d0       rgwOrd                     000000018000a0d0     WorkflowProtocol.exp
- 0002:00003112       szName                     000000018000a112     WorkflowProtocol.exp
- 0002:00003127       $N00001                    000000018000a127     WorkflowProtocol.exp
- 0002:00003153       $N00002                    000000018000a153     WorkflowProtocol.exp
- 0002:00003178       $N00003                    000000018000a178     WorkflowProtocol.exp
- 0002:0000319b       $N00004                    000000018000a19b     WorkflowProtocol.exp
- 0002:000031b8       $N00005                    000000018000a1b8     WorkflowProtocol.exp
- 0002:000031d7       $N00006                    000000018000a1d7     WorkflowProtocol.exp
- 0002:000031f4       $N00007                    000000018000a1f4     WorkflowProtocol.exp
- 0002:0000321e       $N00008                    000000018000a21e     WorkflowProtocol.exp
- 0002:00003246       $N00009                    000000018000a246     WorkflowProtocol.exp
- 0002:00003262       $N00010                    000000018000a262     WorkflowProtocol.exp
- 0002:00003282       $N00011                    000000018000a282     WorkflowProtocol.exp
- 0002:000032b8       $N00012                    000000018000a2b8     WorkflowProtocol.exp
- 0002:000032f1       $N00013                    000000018000a2f1     WorkflowProtocol.exp
- 0002:0000333a       $N00014                    000000018000a33a     WorkflowProtocol.exp
- 0002:00003369       $N00015                    000000018000a369     WorkflowProtocol.exp
- 0002:0000339f       $N00016                    000000018000a39f     WorkflowProtocol.exp
- 0002:000033d7       $N00017                    000000018000a3d7     WorkflowProtocol.exp
- 0002:00003422       $N00018                    000000018000a422     WorkflowProtocol.exp
- 0002:00003470       $N00019                    000000018000a470     WorkflowProtocol.exp
- 0002:000034b5       $N00020                    000000018000a4b5     WorkflowProtocol.exp
- 0002:000034e5       $N00021                    000000018000a4e5     WorkflowProtocol.exp
- 0002:0000353c       $N00022                    000000018000a53c     WorkflowProtocol.exp
- 0002:00003575       $N00023                    000000018000a575     WorkflowProtocol.exp
- 0002:000035ab       $N00024                    000000018000a5ab     WorkflowProtocol.exp
- 0002:000035e7       $N00025                    000000018000a5e7     WorkflowProtocol.exp
- 0002:0000361a       $N00026                    000000018000a61a     WorkflowProtocol.exp
- 0002:00003651       $N00027                    000000018000a651     WorkflowProtocol.exp
- 0002:0000368d       $N00028                    000000018000a68d     WorkflowProtocol.exp
- 0002:000036ba       $N00029                    000000018000a6ba     WorkflowProtocol.exp
- 0002:000036e0       $N00030                    000000018000a6e0     WorkflowProtocol.exp
- 0002:00003711       $N00031                    000000018000a711     WorkflowProtocol.exp
- 0002:00003740       $N00032                    000000018000a740     WorkflowProtocol.exp
- 0002:00003773       $N00033                    000000018000a773     WorkflowProtocol.exp
- 0002:00003e6c       .idata$6                   000000018000ae6c     Communication:Communication.dll
- 0002:00004e90       .idata$6                   000000018000be90     Qt5Core:Qt5Core.dll
- 0002:000050c0       .idata$6                   000000018000c0c0     kernel32:KERNEL32.dll
- 0002:000051a6       .idata$6                   000000018000c1a6     vcruntime:VCRUNTIME140.dll
- 0002:000052b2       .idata$6                   000000018000c2b2     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0002:000052d4       .idata$6                   000000018000c2d4     ucrt:api-ms-win-crt-heap-l1-1-0.dll
+ 0002:00000b80       ?qt_meta_stringdata_SubThreadWorker@@3Uqt_meta_stringdata_SubThreadWorker_t@@B 0000000180007b80     moc_workflowprotocol.obj
+ 0002:00000d20       ?qt_meta_data_SubThreadWorker@@3QBIB 0000000180007d20     moc_workflowprotocol.obj
+ 0002:00000e30       ?qt_meta_stringdata_WorkflowController@@3Uqt_meta_stringdata_WorkflowController_t@@B 0000000180007e30     moc_workflowprotocol.obj
+ 0002:00000fd0       ?qt_meta_data_WorkflowController@@3QBIB 0000000180007fd0     moc_workflowprotocol.obj
+ 0002:000011f8       GS_ExceptionPointers       00000001800081f8     MSVCRT:gs_report.obj
+ 0002:00001bc0       $unwind$??0?$QList@VQString@@@@QEAA@AEBV0@@Z 0000000180008bc0     workflowprotocol.obj
+ 0002:00001bd8       $stateUnwindMap$??0?$QList@VQString@@@@QEAA@AEBV0@@Z 0000000180008bd8     workflowprotocol.obj
+ 0002:00001be8       $tryMap$??0?$QList@VQString@@@@QEAA@AEBV0@@Z 0000000180008be8     workflowprotocol.obj
+ 0002:00001bfc       $handlerMap$0$??0?$QList@VQString@@@@QEAA@AEBV0@@Z 0000000180008bfc     workflowprotocol.obj
+ 0002:00001c10       $ip2state$??0?$QList@VQString@@@@QEAA@AEBV0@@Z 0000000180008c10     workflowprotocol.obj
+ 0002:00001c38       $unwind$?catch$5@?0???0?$QList@VQString@@@@QEAA@AEBV0@@Z@4HA 0000000180008c38     workflowprotocol.obj
+ 0002:00001c48       $unwind$??1?$QList@VQString@@@@QEAA@XZ 0000000180008c48     workflowprotocol.obj
+ 0002:00001c60       $ip2state$??1?$QList@VQString@@@@QEAA@XZ 0000000180008c60     workflowprotocol.obj
+ 0002:00001c68       $unwind$?append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z 0000000180008c68     workflowprotocol.obj
+ 0002:00001c7c       $stateUnwindMap$?append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z 0000000180008c7c     workflowprotocol.obj
+ 0002:00001cac       $tryMap$?append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z 0000000180008cac     workflowprotocol.obj
+ 0002:00001cd4       $handlerMap$0$?append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z 0000000180008cd4     workflowprotocol.obj
+ 0002:00001ce8       $handlerMap$1$?append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z 0000000180008ce8     workflowprotocol.obj
+ 0002:00001d00       $ip2state$?append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z 0000000180008d00     workflowprotocol.obj
+ 0002:00001d48       $unwind$?catch$6@?0??append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z@4HA 0000000180008d48     workflowprotocol.obj
+ 0002:00001d48       $unwind$?catch$5@?0??append@?$QList@VQString@@@@QEAAXAEBVQString@@@Z@4HA 0000000180008d48     workflowprotocol.obj
+ 0002:00001d58       $unwind$?detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z 0000000180008d58     workflowprotocol.obj
+ 0002:00001d70       $stateUnwindMap$?detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z 0000000180008d70     workflowprotocol.obj
+ 0002:00001d70       $stateUnwindMap$?node_copy@?$QList@VQString@@@@AEAAXPEAUNode@1@00@Z 0000000180008d70     workflowprotocol.obj
+ 0002:00001d90       $tryMap$?detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z 0000000180008d90     workflowprotocol.obj
+ 0002:00001db8       $handlerMap$0$?detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z 0000000180008db8     workflowprotocol.obj
+ 0002:00001dcc       $handlerMap$1$?detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z 0000000180008dcc     workflowprotocol.obj
+ 0002:00001de0       $ip2state$?detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z 0000000180008de0     workflowprotocol.obj
+ 0002:00001e20       $unwind$?catch$8@?0??detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z@4HA 0000000180008e20     workflowprotocol.obj
+ 0002:00001e34       $unwind$?catch$7@?0??detach_helper_grow@?$QList@VQString@@@@AEAAPEAUNode@1@HH@Z@4HA 0000000180008e34     workflowprotocol.obj
+ 0002:00001e48       $unwind$?node_copy@?$QList@VQString@@@@AEAAXPEAUNode@1@00@Z 0000000180008e48     workflowprotocol.obj
+ 0002:00001e60       $tryMap$?node_copy@?$QList@VQString@@@@AEAAXPEAUNode@1@00@Z 0000000180008e60     workflowprotocol.obj
+ 0002:00001e74       $handlerMap$0$?node_copy@?$QList@VQString@@@@AEAAXPEAUNode@1@00@Z 0000000180008e74     workflowprotocol.obj
+ 0002:00001e88       $ip2state$?node_copy@?$QList@VQString@@@@AEAAXPEAUNode@1@00@Z 0000000180008e88     workflowprotocol.obj
+ 0002:00001eb0       $unwind$?catch$2@?0??node_copy@?$QList@VQString@@@@AEAAXPEAUNode@1@00@Z@4HA 0000000180008eb0     workflowprotocol.obj
+ 0002:00001ec4       $unwind$?node_destruct@?$QList@VQString@@@@AEAAXPEAUNode@1@0@Z 0000000180008ec4     workflowprotocol.obj
+ 0002:00001ed0       $unwind$?initProtocol@WorkflowProtocol@@QEAA_NAEBVQString@@@Z 0000000180008ed0     workflowprotocol.obj
+ 0002:00001ee0       $stateUnwindMap$?initProtocol@WorkflowProtocol@@QEAA_NAEBVQString@@@Z 0000000180008ee0     workflowprotocol.obj
+ 0002:00001f10       $ip2state$?initProtocol@WorkflowProtocol@@QEAA_NAEBVQString@@@Z 0000000180008f10     workflowprotocol.obj
+ 0002:00001f78       $unwind$?parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z 0000000180008f78     workflowprotocol.obj
+ 0002:00001f9c       $stateUnwindMap$?parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z 0000000180008f9c     workflowprotocol.obj
+ 0002:00002110       $ip2state$?parseJsonObjectToSendFrame@WorkflowProtocol@@QEAA_NAEBVQJsonObject@@AEAV2@@Z 0000000180009110     workflowprotocol.obj
+ 0002:000022d8       $unwind$?formatRecvFrameToJsonObject@WorkflowProtocol@@QEAA_NAEAVQJsonObject@@@Z 00000001800092d8     workflowprotocol.obj
+ 0002:000022e8       $stateUnwindMap$?formatRecvFrameToJsonObject@WorkflowProtocol@@QEAA_NAEAVQJsonObject@@@Z 00000001800092e8     workflowprotocol.obj
+ 0002:000022f8       $ip2state$?formatRecvFrameToJsonObject@WorkflowProtocol@@QEAA_NAEAVQJsonObject@@@Z 00000001800092f8     workflowprotocol.obj
+ 0002:00002320       $unwind$?parseAckFrame@WorkflowProtocol@@QEAA_NAEBVQByteArray@@AEAVQJsonObject@@@Z 0000000180009320     workflowprotocol.obj
+ 0002:00002340       $stateUnwindMap$?parseAckFrame@WorkflowProtocol@@QEAA_NAEBVQByteArray@@AEAVQJsonObject@@@Z 0000000180009340     workflowprotocol.obj
+ 0002:00002348       $ip2state$?parseAckFrame@WorkflowProtocol@@QEAA_NAEBVQByteArray@@AEAVQJsonObject@@@Z 0000000180009348     workflowprotocol.obj
+ 0002:00002360       $unwind$?serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ 0000000180009360     workflowprotocol.obj
+ 0002:00002378       $stateUnwindMap$?serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ 0000000180009378     workflowprotocol.obj
+ 0002:000023b0       $ip2state$?serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ 00000001800093b0     workflowprotocol.obj
+ 0002:00002410       $unwind$?unserializeRecvFrame@WorkflowProtocol@@QEAAXAEBVQByteArray@@@Z 0000000180009410     workflowprotocol.obj
+ 0002:00002424       $stateUnwindMap$?unserializeRecvFrame@WorkflowProtocol@@QEAAXAEBVQByteArray@@@Z 0000000180009424     workflowprotocol.obj
+ 0002:00002430       $ip2state$?unserializeRecvFrame@WorkflowProtocol@@QEAAXAEBVQByteArray@@@Z 0000000180009430     workflowprotocol.obj
+ 0002:00002448       $unwind$??4WorkflowProtocol@@QEAAAEAV0@$$QEAV0@@Z 0000000180009448     workflowprotocol.obj
+ 0002:00002448       $unwind$??0WorkflowProtocol@@QEAA@AEBV0@@Z 0000000180009448     workflowprotocol.obj
+ 0002:00002448       $unwind$??_GRunningStateChangeEvent@@UEAAPEAXI@Z 0000000180009448     workflowprotocol.obj
+ 0002:00002448       $unwind$??4WorkflowProtocol@@QEAAAEAV0@AEBV0@@Z 0000000180009448     workflowprotocol.obj
+ 0002:00002448       $unwind$??_Gbad_alloc@std@@UEAAPEAXI@Z 0000000180009448     MSVCRT:throw_bad_alloc.obj
+ 0002:00002448       $unwind$??_Gexception@std@@UEAAPEAXI@Z 0000000180009448     MSVCRT:throw_bad_alloc.obj
+ 0002:00002448       $unwind$??0WorkflowProtocol@@QEAA@$$QEAV0@@Z 0000000180009448     workflowprotocol.obj
+ 0002:00002448       $unwind$?changeHost@SubThreadWorker@@QEAAXAEBVQString@@G@Z 0000000180009448     workflowprotocol.obj
+ 0002:00002448       $unwind$??_Gbad_array_new_length@std@@UEAAPEAXI@Z 0000000180009448     MSVCRT:throw_bad_alloc.obj
+ 0002:00002448       $unwind$??_GStatusChangeEvent@@UEAAPEAXI@Z 0000000180009448     workflowprotocol.obj
+ 0002:00002454       $unwind$?doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z 0000000180009454     workflowprotocol.obj
+ 0002:00002470       $stateUnwindMap$?doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z 0000000180009470     workflowprotocol.obj
+ 0002:000024e0       $ip2state$?doWork@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z 00000001800094e0     workflowprotocol.obj
+ 0002:00002590       $unwind$?handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z 0000000180009590     workflowprotocol.obj
+ 0002:000025b0       $stateUnwindMap$?handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z 00000001800095b0     workflowprotocol.obj
+ 0002:000026c0       $ip2state$?handleControlCommand@SubThreadWorker@@IEAA_NAEAVCommunication@@AEAVQJsonObject@@@Z 00000001800096c0     workflowprotocol.obj
+ 0002:000028e8       $unwind$?handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z 00000001800098e8     workflowprotocol.obj
+ 0002:0000290c       $stateUnwindMap$?handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z 000000018000990c     workflowprotocol.obj
+ 0002:000029e0       $ip2state$?handleLogicalCommand@SubThreadWorker@@IEAA_NAEAVQJsonObject@@AEAH@Z 00000001800099e0     workflowprotocol.obj
+ 0002:00002b48       $unwind$?isLogicalCommand@SubThreadWorker@@IEAA_NAEBVQString@@@Z 0000000180009b48     workflowprotocol.obj
+ 0002:00002b64       $stateUnwindMap$?isLogicalCommand@SubThreadWorker@@IEAA_NAEBVQString@@@Z 0000000180009b64     workflowprotocol.obj
+ 0002:00002bb0       $ip2state$?isLogicalCommand@SubThreadWorker@@IEAA_NAEBVQString@@@Z 0000000180009bb0     workflowprotocol.obj
+ 0002:00002c20       $unwind$?trUtf8@WorkflowController@@SA?AVQString@@PEBD0H@Z 0000000180009c20     workflowprotocol.obj
+ 0002:00002c20       $unwind$?tr@WorkflowController@@SA?AVQString@@PEBD0H@Z 0000000180009c20     workflowprotocol.obj
+ 0002:00002c28       $unwind$??0WorkflowController@@QEAA@PEAVQObject@@@Z 0000000180009c28     workflowprotocol.obj
+ 0002:00002c40       $stateUnwindMap$??0WorkflowController@@QEAA@PEAVQObject@@@Z 0000000180009c40     workflowprotocol.obj
+ 0002:00002c60       $ip2state$??0WorkflowController@@QEAA@PEAVQObject@@@Z 0000000180009c60     workflowprotocol.obj
+ 0002:00002ca0       $unwind$??1WorkflowController@@UEAA@XZ 0000000180009ca0     workflowprotocol.obj
+ 0002:00002cb8       $ip2state$??1WorkflowController@@UEAA@XZ 0000000180009cb8     workflowprotocol.obj
+ 0002:00002cc0       $unwind$?runTask@WorkflowController@@QEAAXAEBVQJsonObject@@@Z 0000000180009cc0     workflowprotocol.obj
+ 0002:00002ccc       $unwind$?statusChanged@WorkflowController@@QEAAXAEBVQJsonObject@@@Z 0000000180009ccc     workflowprotocol.obj
+ 0002:00002ce4       $stateUnwindMap$?statusChanged@WorkflowController@@QEAAXAEBVQJsonObject@@@Z 0000000180009ce4     workflowprotocol.obj
+ 0002:00002cf8       $ip2state$?statusChanged@WorkflowController@@QEAAXAEBVQJsonObject@@@Z 0000000180009cf8     workflowprotocol.obj
+ 0002:00002d18       $unwind$?fin$0@?0??dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z@4HA 0000000180009d18     MSVCRT:dll_dllmain.obj
+ 0002:00002d18       $unwind$?dtor$2@?0???0WorkflowController@@QEAA@PEAVQObject@@@Z@4HA 0000000180009d18     workflowprotocol.obj
+ 0002:00002d18       $unwind$?dtor$3@?0???0WorkflowController@@QEAA@PEAVQObject@@@Z@4HA 0000000180009d18     workflowprotocol.obj
+ 0002:00002d18       $unwind$?fin$0@?0??dllmain_crt_process_detach@@YAH_N@Z@4HA 0000000180009d18     MSVCRT:dll_dllmain.obj
+ 0002:00002d18       $unwind$?dtor$0@?0??statusChanged@WorkflowController@@QEAAXAEBVQJsonObject@@@Z@4HA 0000000180009d18     workflowprotocol.obj
+ 0002:00002d18       $unwind$?dtor$0@?0??serializeSendFrame@WorkflowProtocol@@QEAA?AVQByteArray@@XZ@4HA 0000000180009d18     workflowprotocol.obj
+ 0002:00002d18       $unwind$?fin$0@?0???_M@YAXPEAX_K1P6AX0@Z@Z@4HA 0000000180009d18     MSVCRT:ehvecdtr.obj
+ 0002:00002d18       $unwind$?filt$0@?0??__ArrayUnwind@@YAXPEAX_K1P6AX0@Z@Z@4HA 0000000180009d18     MSVCRT:ehvecdtr.obj
+ 0002:00002d18       $unwind$?dtor$0@?0??taskStateChanged@WorkflowController@@QEAAX_NH@Z@4HA 0000000180009d18     workflowprotocol.obj
+ 0002:00002d20       $unwind$?taskStateChanged@WorkflowController@@QEAAX_NH@Z 0000000180009d20     workflowprotocol.obj
+ 0002:00002d38       $stateUnwindMap$?taskStateChanged@WorkflowController@@QEAAX_NH@Z 0000000180009d38     workflowprotocol.obj
+ 0002:00002d40       $ip2state$?taskStateChanged@WorkflowController@@QEAAX_NH@Z 0000000180009d40     workflowprotocol.obj
+ 0002:00002d58       $unwind$??_EWorkflowController@@UEAAPEAXI@Z 0000000180009d58     workflowprotocol.obj
+ 0002:00002d70       $ip2state$??_EWorkflowController@@UEAAPEAXI@Z 0000000180009d70     workflowprotocol.obj
+ 0002:00002d78       $unwind$??$formatWord@E@WorkflowProtocol@@IEAA?AVQByteArray@@E@Z 0000000180009d78     workflowprotocol.obj
+ 0002:00002d80       $unwind$??$formatWord@G@WorkflowProtocol@@IEAA?AVQByteArray@@G@Z 0000000180009d80     workflowprotocol.obj
+ 0002:00002d88       $unwind$??$connect@P8WorkflowController@@EAAXXZP8SubThreadWorker@@EAAXXZ@QObject@@SA?AVConnection@QMetaObject@@PEBVWorkflowController@@P83@EAAXXZPEBVSubThreadWorker@@P84@EAAXXZW4ConnectionType@Qt@@@Z 0000000180009d88     workflowprotocol.obj
+ 0002:00002d88       $unwind$??$connect@P8QThread@@EAAXUQPrivateSignal@1@@ZP8QObject@@EAAXXZ@QObject@@SA?AVConnection@QMetaObject@@PEBVQThread@@P83@EAAXUQPrivateSignal@3@@ZPEBV0@P80@EAAXXZW4ConnectionType@Qt@@@Z 0000000180009d88     workflowprotocol.obj
+ 0002:00002d98       $unwind$??$connect@P8WorkflowController@@EAAXAEBVQString@@G@ZP8SubThreadWorker@@EAAX0G@Z@QObject@@SA?AVConnection@QMetaObject@@PEBVWorkflowController@@P83@EAAXAEBVQString@@G@ZPEBVSubThreadWorker@@P85@EAAX1G@ZW4ConnectionType@Qt@@@Z 0000000180009d98     workflowprotocol.obj
+ 0002:00002d98       $unwind$??$connect@P8WorkflowController@@EAAXAEBVQString@@@ZP8SubThreadWorker@@EAAX0@Z@QObject@@SA?AVConnection@QMetaObject@@PEBVWorkflowController@@P83@EAAXAEBVQString@@@ZPEBVSubThreadWorker@@P85@EAAX1@ZW4ConnectionType@Qt@@@Z 0000000180009d98     workflowprotocol.obj
+ 0002:00002d98       $unwind$??$connect@P8SubThreadWorker@@EAAX_NH@ZP8WorkflowController@@EAAX0H@Z@QObject@@SA?AVConnection@QMetaObject@@PEBVSubThreadWorker@@P83@EAAX_NH@ZPEBVWorkflowController@@P84@EAAX1H@ZW4ConnectionType@Qt@@@Z 0000000180009d98     workflowprotocol.obj
+ 0002:00002d98       $unwind$??$connect@P8WorkflowController@@EAAXAEBVQJsonObject@@@ZP8SubThreadWorker@@EAAX0@Z@QObject@@SA?AVConnection@QMetaObject@@PEBVWorkflowController@@P83@EAAXAEBVQJsonObject@@@ZPEBVSubThreadWorker@@P85@EAAX1@ZW4ConnectionType@Qt@@@Z 0000000180009d98     workflowprotocol.obj
+ 0002:00002d98       $unwind$??$connect@P8SubThreadWorker@@EAAXAEBVQJsonObject@@@ZP8WorkflowController@@EAAX0@Z@QObject@@SA?AVConnection@QMetaObject@@PEBVSubThreadWorker@@P83@EAAXAEBVQJsonObject@@@ZPEBVWorkflowController@@P85@EAAX1@ZW4ConnectionType@Qt@@@Z 0000000180009d98     workflowprotocol.obj
+ 0002:00002dac       $unwind$__scrt_dllmain_exception_filter 0000000180009dac     MSVCRT:utility.obj
+ 0002:00002dac       $unwind$?qt_metacall@WorkflowController@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z 0000000180009dac     moc_workflowprotocol.obj
+ 0002:00002dac       $unwind$?qt_metacall@SubThreadWorker@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z 0000000180009dac     moc_workflowprotocol.obj
+ 0002:00002dac       $unwind$?dllmain_raw@@YAHQEAUHINSTANCE__@@KQEAX@Z 0000000180009dac     MSVCRT:dll_dllmain.obj
+ 0002:00002dc0       $unwind$?taskStateChanged@SubThreadWorker@@QEAAX_NH@Z 0000000180009dc0     moc_workflowprotocol.obj
+ 0002:00002dd0       $unwind$?statusChanged@SubThreadWorker@@QEAAXAEBVQJsonObject@@@Z 0000000180009dd0     moc_workflowprotocol.obj
+ 0002:00002dd0       $unwind$?configProtocol@WorkflowController@@QEAAXAEBVQString@@@Z 0000000180009dd0     moc_workflowprotocol.obj
+ 0002:00002dd0       $unwind$?qt_static_metacall@SubThreadWorker@@CAXPEAVQObject@@W4Call@QMetaObject@@HPEAPEAX@Z 0000000180009dd0     moc_workflowprotocol.obj
+ 0002:00002dd0       $unwind$?qt_static_metacall@WorkflowController@@CAXPEAVQObject@@W4Call@QMetaObject@@HPEAPEAX@Z 0000000180009dd0     moc_workflowprotocol.obj
+ 0002:00002dd0       $unwind$?runNewTask@WorkflowController@@QEAAXAEBVQJsonObject@@@Z 0000000180009dd0     moc_workflowprotocol.obj
+ 0002:00002dd8       $unwind$?changeHost@WorkflowController@@QEAAXAEBVQString@@G@Z 0000000180009dd8     moc_workflowprotocol.obj
+ 0002:00002de8       $unwind$??_M@YAXPEAX_K1P6AX0@Z@Z 0000000180009de8     MSVCRT:ehvecdtr.obj
+ 0002:00002e10       $unwind$?__ArrayUnwind@@YAXPEAX_K1P6AX0@Z@Z 0000000180009e10     MSVCRT:ehvecdtr.obj
+ 0002:00002e3c       $unwind$_onexit            0000000180009e3c     MSVCRT:utility.obj
+ 0002:00002e3c       $unwind$__raise_securityfailure 0000000180009e3c     MSVCRT:gs_report.obj
+ 0002:00002e3c       $unwind$__scrt_release_startup_lock 0000000180009e3c     MSVCRT:utility.obj
+ 0002:00002e3c       $unwind$__scrt_initialize_crt 0000000180009e3c     MSVCRT:utility.obj
+ 0002:00002e3c       $unwind$??0bad_array_new_length@std@@QEAA@AEBV01@@Z 0000000180009e3c     MSVCRT:throw_bad_alloc.obj
+ 0002:00002e3c       $unwind$_Init_thread_notify 0000000180009e3c     MSVCRT:thread_safe_statics.obj
+ 0002:00002e3c       $unwind$??0exception@std@@QEAA@AEBV01@@Z 0000000180009e3c     MSVCRT:throw_bad_alloc.obj
+ 0002:00002e3c       $unwind$__scrt_uninitialize_crt 0000000180009e3c     MSVCRT:utility.obj
+ 0002:00002e3c       $unwind$??2@YAPEAX_K@Z     0000000180009e3c     MSVCRT:new_scalar.obj
+ 0002:00002e3c       $unwind$?stopCurrentTask@WorkflowController@@QEAAXXZ 0000000180009e3c     workflowprotocol.obj
+ 0002:00002e3c       $unwind$??0WorkflowProtocol@@QEAA@XZ 0000000180009e3c     workflowprotocol.obj
+ 0002:00002e3c       $unwind$??_Gtype_info@@UEAAPEAXI@Z 0000000180009e3c     MSVCRT:std_type_info_static.obj
+ 0002:00002e3c       $unwind$_Init_thread_footer 0000000180009e3c     MSVCRT:thread_safe_statics.obj
+ 0002:00002e3c       $unwind$_Init_thread_header 0000000180009e3c     MSVCRT:thread_safe_statics.obj
+ 0002:00002e3c       $unwind$??0bad_alloc@std@@QEAA@AEBV01@@Z 0000000180009e3c     MSVCRT:throw_bad_alloc.obj
+ 0002:00002e44       $unwind$__GSHandlerCheckCommon 0000000180009e44     MSVCRT:_gshandler_.obj
+ 0002:00002e50       $xdatasym                  0000000180009e50     MSVCRT:_amdsecgs_.obj
+ 0002:00002e54       $unwind$?dllmain_crt_process_attach@@YAHQEAUHINSTANCE__@@QEAX@Z 0000000180009e54     MSVCRT:dll_dllmain.obj
+ 0002:00002e80       $unwind$?dllmain_crt_process_detach@@YAH_N@Z 0000000180009e80     MSVCRT:dll_dllmain.obj
+ 0002:00002ea8       $unwind$?dllmain_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z 0000000180009ea8     MSVCRT:dll_dllmain.obj
+ 0002:00002ed0       $unwind$?filt$0@?0??dllmain_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z@4HA 0000000180009ed0     MSVCRT:dll_dllmain.obj
+ 0002:00002ed8       $unwind$?__scrt_throw_std_bad_array_new_length@@YAXXZ 0000000180009ed8     MSVCRT:throw_bad_alloc.obj
+ 0002:00002ed8       $unwind$?__scrt_throw_std_bad_alloc@@YAXXZ 0000000180009ed8     MSVCRT:throw_bad_alloc.obj
+ 0002:00002ee0       $unwind$__scrt_is_nonwritable_in_current_image 0000000180009ee0     MSVCRT:utility.obj
+ 0002:00002f00       $unwind$__scrt_is_nonwritable_in_current_image$filt$0 0000000180009f00     MSVCRT:utility.obj
+ 0002:00002f08       $unwind$__scrt_initialize_onexit_tables 0000000180009f08     MSVCRT:utility.obj
+ 0002:00002f14       $unwind$DllMain            0000000180009f14     MSVCRT:dll_dllmain_stub.obj
+ 0002:00002f14       $unwind$atexit             0000000180009f14     MSVCRT:utility.obj
+ 0002:00002f14       $unwind$?types@?$ConnectionTypes@U?$List@AEBVQString@@G@QtPrivate@@$00@QtPrivate@@SAPEBHXZ 0000000180009f14     workflowprotocol.obj
+ 0002:00002f14       $unwind$__scrt_dllmain_crt_thread_detach 0000000180009f14     MSVCRT:utility.obj
+ 0002:00002f14       $unwind$?dllmain_crt_dispatch@@YAHQEAUHINSTANCE__@@KQEAX@Z 0000000180009f14     MSVCRT:dll_dllmain.obj
+ 0002:00002f14       $unwind$__scrt_acquire_startup_lock 0000000180009f14     MSVCRT:utility.obj
+ 0002:00002f14       $unwind$__GSHandlerCheck   0000000180009f14     MSVCRT:_gshandler_.obj
+ 0002:00002f14       $unwind$__scrt_dllmain_crt_thread_attach 0000000180009f14     MSVCRT:utility.obj
+ 0002:00002f14       $unwind$?types@?$ConnectionTypes@U?$List@_NH@QtPrivate@@$00@QtPrivate@@SAPEBHXZ 0000000180009f14     workflowprotocol.obj
+ 0002:00002f14       $unwind$__scrt_dllmain_uninitialize_critical 0000000180009f14     MSVCRT:utility.obj
+ 0002:00002f14       $unwind$__scrt_initialize_default_local_stdio_options 0000000180009f14     MSVCRT:default_local_stdio_options.obj
+ 0002:00002f14       $unwind$__scrt_dllmain_uninitialize_c 0000000180009f14     MSVCRT:utility.obj
+ 0002:00002f14       $unwind$?__scrt_uninitialize_thread_safe_statics@@YAXXZ 0000000180009f14     MSVCRT:thread_safe_statics.obj
+ 0002:00002f14       $unwind$__scrt_dllmain_after_initialize_c 0000000180009f14     MSVCRT:utility.obj
+ 0002:00002f14       $unwind$__scrt_dllmain_before_initialize_c 0000000180009f14     MSVCRT:utility.obj
+ 0002:00002f1c       $unwind$__scrt_fastfail    0000000180009f1c     MSVCRT:utility_desktop.obj
+ 0002:00002f2c       $unwind$__report_gsfailure 0000000180009f2c     MSVCRT:gs_report.obj
+ 0002:00002f34       $unwind$capture_previous_context 0000000180009f34     MSVCRT:gs_report.obj
+ 0002:00002f40       $unwind$__security_init_cookie 0000000180009f40     MSVCRT:gs_support.obj
+ 0002:00002f4c       $unwind$_RTC_Terminate     0000000180009f4c     MSVCRT:_initsect_.obj
+ 0002:00002f4c       $unwind$_Init_thread_wait  0000000180009f4c     MSVCRT:thread_safe_statics.obj
+ 0002:00002f4c       $unwind$?__scrt_initialize_thread_safe_statics@@YAHXZ 0000000180009f4c     MSVCRT:thread_safe_statics.obj
+ 0002:00002f4c       $unwind$_RTC_Initialize    0000000180009f4c     MSVCRT:_initsect_.obj
+ 0002:00002f4c       $unwind$_DllMainCRTStartup 0000000180009f4c     MSVCRT:dll_dllmain.obj
+ 0002:00002f4c       $unwind$??_GSubThreadWorker@@UEAAPEAXI@Z 0000000180009f4c     workflowprotocol.obj
+ 0002:00002f5c       $unwind$__isa_available_init 0000000180009f5c     MSVCRT:_cpu_disp_.obj
+ 0002:00002f70       $xdatasym                  0000000180009f70     MSVCRT:_guard_dispatch_.obj
+ 0002:00003070       .edata                     000000018000a070     WorkflowProtocol.exp
+ 0002:00003098       rgpv                       000000018000a098     WorkflowProtocol.exp
+ 0002:0000311c       rgszName                   000000018000a11c     WorkflowProtocol.exp
+ 0002:000031a0       rgwOrd                     000000018000a1a0     WorkflowProtocol.exp
+ 0002:000031e2       szName                     000000018000a1e2     WorkflowProtocol.exp
+ 0002:000031f7       $N00001                    000000018000a1f7     WorkflowProtocol.exp
+ 0002:00003223       $N00002                    000000018000a223     WorkflowProtocol.exp
+ 0002:00003248       $N00003                    000000018000a248     WorkflowProtocol.exp
+ 0002:0000326b       $N00004                    000000018000a26b     WorkflowProtocol.exp
+ 0002:00003288       $N00005                    000000018000a288     WorkflowProtocol.exp
+ 0002:000032a7       $N00006                    000000018000a2a7     WorkflowProtocol.exp
+ 0002:000032c4       $N00007                    000000018000a2c4     WorkflowProtocol.exp
+ 0002:000032ee       $N00008                    000000018000a2ee     WorkflowProtocol.exp
+ 0002:00003316       $N00009                    000000018000a316     WorkflowProtocol.exp
+ 0002:00003332       $N00010                    000000018000a332     WorkflowProtocol.exp
+ 0002:00003352       $N00011                    000000018000a352     WorkflowProtocol.exp
+ 0002:00003388       $N00012                    000000018000a388     WorkflowProtocol.exp
+ 0002:000033c1       $N00013                    000000018000a3c1     WorkflowProtocol.exp
+ 0002:0000340a       $N00014                    000000018000a40a     WorkflowProtocol.exp
+ 0002:00003439       $N00015                    000000018000a439     WorkflowProtocol.exp
+ 0002:0000346f       $N00016                    000000018000a46f     WorkflowProtocol.exp
+ 0002:000034a7       $N00017                    000000018000a4a7     WorkflowProtocol.exp
+ 0002:000034f2       $N00018                    000000018000a4f2     WorkflowProtocol.exp
+ 0002:00003540       $N00019                    000000018000a540     WorkflowProtocol.exp
+ 0002:00003585       $N00020                    000000018000a585     WorkflowProtocol.exp
+ 0002:000035b5       $N00021                    000000018000a5b5     WorkflowProtocol.exp
+ 0002:0000360c       $N00022                    000000018000a60c     WorkflowProtocol.exp
+ 0002:00003645       $N00023                    000000018000a645     WorkflowProtocol.exp
+ 0002:0000367b       $N00024                    000000018000a67b     WorkflowProtocol.exp
+ 0002:000036b7       $N00025                    000000018000a6b7     WorkflowProtocol.exp
+ 0002:000036ea       $N00026                    000000018000a6ea     WorkflowProtocol.exp
+ 0002:00003721       $N00027                    000000018000a721     WorkflowProtocol.exp
+ 0002:0000375d       $N00028                    000000018000a75d     WorkflowProtocol.exp
+ 0002:0000378a       $N00029                    000000018000a78a     WorkflowProtocol.exp
+ 0002:000037b0       $N00030                    000000018000a7b0     WorkflowProtocol.exp
+ 0002:000037e1       $N00031                    000000018000a7e1     WorkflowProtocol.exp
+ 0002:00003810       $N00032                    000000018000a810     WorkflowProtocol.exp
+ 0002:00003843       $N00033                    000000018000a843     WorkflowProtocol.exp
+ 0002:00003f3c       .idata$6                   000000018000af3c     Communication:Communication.dll
+ 0002:00004f60       .idata$6                   000000018000bf60     Qt5Core:Qt5Core.dll
+ 0002:00005190       .idata$6                   000000018000c190     kernel32:KERNEL32.dll
+ 0002:00005276       .idata$6                   000000018000c276     vcruntime:VCRUNTIME140.dll
+ 0002:00005382       .idata$6                   000000018000c382     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:000053a4       .idata$6                   000000018000c3a4     ucrt:api-ms-win-crt-heap-l1-1-0.dll
  0003:00000280       ?_Tss_mutex@@3U_RTL_CRITICAL_SECTION@@A 000000018000d280     MSVCRT:thread_safe_statics.obj
  0003:000002a8       ?_Tss_cv@@3U_RTL_CONDITION_VARIABLE@@A 000000018000d2a8     MSVCRT:thread_safe_statics.obj
  0003:000002b0       ?_Tss_event@@3PEAXEA       000000018000d2b0     MSVCRT:thread_safe_statics.obj
@@ -1186,8 +1196,8 @@
  0004:000001a4       $pdata$?statusChanged@WorkflowController@@QEAAXAEBVQJsonObject@@@Z 000000018000e1a4     workflowprotocol.obj
  0004:000001b0       $pdata$?stopCurrentTask@WorkflowController@@QEAAXXZ 000000018000e1b0     workflowprotocol.obj
  0004:000001bc       $pdata$?taskStateChanged@WorkflowController@@QEAAX_NH@Z 000000018000e1bc     workflowprotocol.obj
- 0004:000001c8       $pdata$?tr@WorkflowController@@SA?AVQString@@PEBD0H@Z 000000018000e1c8     workflowprotocol.obj
  0004:000001c8       $pdata$?trUtf8@WorkflowController@@SA?AVQString@@PEBD0H@Z 000000018000e1c8     workflowprotocol.obj
+ 0004:000001c8       $pdata$?tr@WorkflowController@@SA?AVQString@@PEBD0H@Z 000000018000e1c8     workflowprotocol.obj
  0004:000001d4       $pdata$?types@?$ConnectionTypes@U?$List@AEBVQString@@G@QtPrivate@@$00@QtPrivate@@SAPEBHXZ 000000018000e1d4     workflowprotocol.obj
  0004:000001e0       $pdata$?types@?$ConnectionTypes@U?$List@_NH@QtPrivate@@$00@QtPrivate@@SAPEBHXZ 000000018000e1e0     workflowprotocol.obj
  0004:000001ec       $pdata$?unserializeRecvFrame@WorkflowProtocol@@QEAAXAEBVQByteArray@@@Z 000000018000e1ec     workflowprotocol.obj
@@ -1221,9 +1231,9 @@
  0004:00000348       $pdata$??0bad_alloc@std@@QEAA@AEBV01@@Z 000000018000e348     MSVCRT:throw_bad_alloc.obj
  0004:00000354       $pdata$??0bad_array_new_length@std@@QEAA@AEBV01@@Z 000000018000e354     MSVCRT:throw_bad_alloc.obj
  0004:00000360       $pdata$??0exception@std@@QEAA@AEBV01@@Z 000000018000e360     MSVCRT:throw_bad_alloc.obj
- 0004:0000036c       $pdata$??_Gbad_alloc@std@@UEAAPEAXI@Z 000000018000e36c     MSVCRT:throw_bad_alloc.obj
  0004:0000036c       $pdata$??_Gexception@std@@UEAAPEAXI@Z 000000018000e36c     MSVCRT:throw_bad_alloc.obj
  0004:0000036c       $pdata$??_Gbad_array_new_length@std@@UEAAPEAXI@Z 000000018000e36c     MSVCRT:throw_bad_alloc.obj
+ 0004:0000036c       $pdata$??_Gbad_alloc@std@@UEAAPEAXI@Z 000000018000e36c     MSVCRT:throw_bad_alloc.obj
  0004:00000378       $pdata$?__scrt_throw_std_bad_alloc@@YAXXZ 000000018000e378     MSVCRT:throw_bad_alloc.obj
  0004:00000384       $pdata$?__scrt_throw_std_bad_array_new_length@@YAXXZ 000000018000e384     MSVCRT:throw_bad_alloc.obj
  0004:00000390       $pdata$__scrt_acquire_startup_lock 000000018000e390     MSVCRT:utility.obj

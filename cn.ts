@@ -6,64 +6,64 @@
     <message>
         <location filename="UserInterfaceLayer/MainScreen.qml" line="33"/>
         <source>Automatic moving fluid tool</source>
-        <translation type="unfinished">自动移液机系统</translation>
+        <translation>自动移液机系统</translation>
     </message>
     <message>
         <location filename="UserInterfaceLayer/MainScreen.qml" line="49"/>
         <source>00-00-00</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/MainScreen.qml" line="130"/>
+        <location filename="UserInterfaceLayer/MainScreen.qml" line="137"/>
         <source>Single step</source>
-        <translation type="unfinished">单步操作</translation>
+        <translation>单步操作</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/MainScreen.qml" line="141"/>
+        <location filename="UserInterfaceLayer/MainScreen.qml" line="148"/>
         <source>System settings</source>
-        <translation type="unfinished">系统设置</translation>
+        <translation>系统设置</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/MainScreen.qml" line="152"/>
+        <location filename="UserInterfaceLayer/MainScreen.qml" line="159"/>
         <source>Plan settings</source>
-        <translation type="unfinished">计划设置</translation>
+        <translation>计划设置</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/MainScreen.qml" line="162"/>
+        <location filename="UserInterfaceLayer/MainScreen.qml" line="169"/>
         <source>Start test</source>
-        <translation type="unfinished">开始实验</translation>
+        <translation>开始实验</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/MainScreen.qml" line="175"/>
+        <location filename="UserInterfaceLayer/MainScreen.qml" line="185"/>
         <source>Stop test</source>
-        <translation type="unfinished">停止实验</translation>
+        <translation>停止实验</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/MainScreen.qml" line="189"/>
+        <location filename="UserInterfaceLayer/MainScreen.qml" line="204"/>
         <source>Pause test</source>
-        <translation type="unfinished">暂停实验</translation>
+        <translation>暂停实验</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/MainScreen.qml" line="203"/>
+        <location filename="UserInterfaceLayer/MainScreen.qml" line="218"/>
         <source>Resume test</source>
-        <translation type="unfinished">恢复实验</translation>
+        <translation>恢复实验</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/MainScreen.qml" line="291"/>
+        <location filename="UserInterfaceLayer/MainScreen.qml" line="330"/>
         <source>&lt; Back</source>
-        <translation type="unfinished"> &lt; 返回</translation>
+        <translation> &lt; 返回</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="DebugTool/mainwindow.ui" line="14"/>
+        <location filename="DebugTool/mainwindow.ui" line="20"/>
         <source>MainWindow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DebugTool/mainwindow.ui" line="30"/>
-        <source>TextLabel</source>
+        <location filename="DebugTool/mainwindow.ui" line="65"/>
+        <source>Ack time</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -72,12 +72,12 @@
     <message>
         <location filename="UserInterfaceLayer/OperationList.qml" line="46"/>
         <source>Operation type</source>
-        <translation type="unfinished">操作类型</translation>
+        <translation>操作类型</translation>
     </message>
     <message>
         <location filename="UserInterfaceLayer/OperationList.qml" line="131"/>
         <source>Operation param</source>
-        <translation type="unfinished">操作参数</translation>
+        <translation>操作参数</translation>
     </message>
 </context>
 <context>
@@ -85,22 +85,22 @@
     <message>
         <location filename="UserInterfaceLayer/PlanList.qml" line="46"/>
         <source>Plan list</source>
-        <translation type="unfinished">计划设置</translation>
+        <translation>计划设置</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="223"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="224"/>
         <source>Step list</source>
-        <translation type="unfinished">实验流程</translation>
+        <translation>实验流程</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="421"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="429"/>
         <source>Operation type</source>
-        <translation type="unfinished">操作类型</translation>
+        <translation>操作类型</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="528"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="540"/>
         <source>Operation param</source>
-        <translation type="unfinished">操作参数</translation>
+        <translation>操作参数</translation>
     </message>
 </context>
 <context>
@@ -108,12 +108,12 @@
     <message>
         <location filename="UserInterfaceLayer/PlanSetting.qml" line="23"/>
         <source>Plan setting</source>
-        <translation type="unfinished">计划设置</translation>
+        <translation>计划设置</translation>
     </message>
     <message>
         <location filename="UserInterfaceLayer/PlanSetting.qml" line="36"/>
         <source>Save</source>
-        <translation type="unfinished">保存</translation>
+        <translation>保存</translation>
     </message>
 </context>
 <context>
@@ -121,68 +121,101 @@
     <message>
         <location filename="UserInterfaceLayer/SingleStepPage.qml" line="23"/>
         <source>Single step operation</source>
-        <translation type="unfinished">单步操作</translation>
+        <translation>单步操作</translation>
     </message>
     <message>
         <location filename="UserInterfaceLayer/SingleStepPage.qml" line="36"/>
         <source>Execute</source>
-        <translation type="unfinished">执行</translation>
+        <translation>执行</translation>
     </message>
 </context>
 <context>
     <name>StartPage</name>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="39"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="52"/>
         <source>Confirm</source>
-        <translation type="unfinished">确定信息</translation>
+        <translation>确定信息</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="54"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="67"/>
         <source>Test</source>
-        <translation type="unfinished">实验名称</translation>
+        <translation>实验名称</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="99"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="107"/>
         <source>Cancel</source>
-        <translation type="unfinished">取消</translation>
+        <translation>取消</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="121"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="129"/>
         <source>Start</source>
-        <translation type="unfinished">开始</translation>
+        <translation>开始</translation>
+    </message>
+</context>
+<context>
+    <name>StepGallery</name>
+    <message>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="119"/>
+        <source>Empty</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="119"/>
+        <source>Ready</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="140"/>
+        <source>tips</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="141"/>
+        <source>tubes</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="142"/>
+        <source>null</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="170"/>
+        <source>Used</source>
+        <translation></translation>
     </message>
 </context>
 <context>
     <name>SystemSetting</name>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="27"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="42"/>
         <source>Machine Address</source>
-        <translation type="unfinished">下位机IP</translation>
+        <translation>下位机IP</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="43"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="58"/>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="63"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="78"/>
         <source>port</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="82"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="97"/>
         <source>Max ack waiting time</source>
-        <translation type="unfinished">最大等待时间</translation>
+        <translation>最大等待时间</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="101"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="116"/>
         <source>Wait time</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="119"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="147"/>
         <source>Save</source>
-        <translation type="unfinished">保存</translation>
+        <translation>保存</translation>
     </message>
 </context>
 </TS>

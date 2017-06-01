@@ -430,11 +430,13 @@ StatusViewWatcher::StatusViewWatcher(QObject* parent)
     :QObject(parent)
 {
     qApp->installEventFilter(this);
+    connect(EnvironmentVariant::instance(), &EnvironmentVariant::workLocationTypeChanged, this, &StatusViewWatcher::workLocationTypeChanged);
 }
 
 StatusViewWatcher::~StatusViewWatcher()
 {
     qApp->removeEventFilter(this);
+    disconnect(EnvironmentVariant::instance(), &EnvironmentVariant::workLocationTypeChanged, this, &StatusViewWatcher::workLocationTypeChanged);
 }
 
 bool StatusViewWatcher::eventFilter(QObject *watched, QEvent *event)
@@ -453,6 +455,15 @@ bool StatusViewWatcher::eventFilter(QObject *watched, QEvent *event)
 QStringList StatusViewWatcher::getWorkLocationTypeList()
 {
     return EnvironmentVariant::instance()->getWorkLocationTypeList();
+}
+
+bool StatusViewWatcher::setWorkLocationType(int index, const QString& type)
+{
+    if(EnvironmentVariant::instance()->setWorkLocationType(index, type))
+    {
+        return true;
+    }
+    return false;
 }
 
 void TargetMachineObject::onMachineConfigChanged()

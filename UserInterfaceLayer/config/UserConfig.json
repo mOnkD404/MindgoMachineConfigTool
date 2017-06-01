@@ -1,4 +1,4 @@
-﻿{
+{
     "plan": {
         "123": [
             {
@@ -164,17 +164,17 @@
         "count": 12,
         "type": [
             "tips",
+            "tips",
             "tubes",
-            "tubes",
-            "tubes",
-            "tubes",
-            "tubes",
-            "tubes",
-            "tubes",
-            "tubes",
-            "tubes",
-            "tubes",
-            "tubes"
+            "null",
+            "tips",
+            "tips",
+            "tips",
+            "tips",
+            "tips",
+            "tips",
+            "tips",
+            "tips"
         ]
     }
 }

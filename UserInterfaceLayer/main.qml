@@ -5,6 +5,8 @@ Item {
     visible: true
     width: 1400
     height: 720
+    antialiasing: true
+
     //title: qsTr("Mindgo automatic tool")
 
 

@@ -317,7 +317,7 @@ void configFileHandler::SavePlanList(const QString& configFile, const QList<QPai
     loadFile.close();
 }
 
-void configFileHandler::SaveMachineConfig(const QString& configFile, const MachineConfigData& cfgData)
+void configFileHandler::SaveMachineConfig(const QString& configFile, const MachineConfigData& cfgData, const QStringList& typeConfig)
 {
     QFile loadFile(configFile);
     if(!loadFile.open(QIODevice::ReadWrite))
@@ -338,6 +338,17 @@ void configFileHandler::SaveMachineConfig(const QString& configFile, const Machi
     ipobj["maxReceiveTime"] = cfgData.maxReceiveTime;
 
     fileObj["target"] = ipobj;
+
+    QJsonObject workers = fileObj["workers"].toObject();
+    fileObj.remove("workers");
+    workers.remove("type");
+    QJsonArray newTypeList;
+    foreach (const QString& str, typeConfig) {
+        newTypeList.append(str);
+    }
+    workers["type"] = newTypeList;
+    fileObj["workers"] = workers;
+
     QJsonDocument writeDoc(fileObj);
     QFile::resize(configFile, 0);
     loadFile.open(QIODevice::ReadWrite);
@@ -359,6 +370,7 @@ void configFileHandler::ParseWorkLocationTypeList(QStringList& typelist)
     }
     for(int index = 0; index < count; index++)
     {
-        typelist.append(types.at(index).toString());
+        QString str = types.at(index).toString();
+        typelist.append(str);
     }
 }

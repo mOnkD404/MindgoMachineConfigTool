@@ -1,4 +1,4 @@
-import QtQuick 2.7
+﻿import QtQuick 2.7
 
 Item {
     id:singleStepPage
@@ -31,8 +31,8 @@ Item {
             }
 
             TextButton{
-                width: 100
-                height: 45
+                width: 130
+                height: 60
                 textValue: qsTr("Execute")
                 anchors.right: parent.right
                 anchors.rightMargin: 0

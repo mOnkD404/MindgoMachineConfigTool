@@ -8,8 +8,9 @@
 #include "workmodels.h"
 #include "workflowprotocol.h"
 
-class EnvironmentVariant
+class EnvironmentVariant: public QObject
 {
+    Q_OBJECT
 public:
     static EnvironmentVariant* instance();
 
@@ -57,7 +58,10 @@ public:
     SingleOperationData defaultValue(const QString& Operationname);
 
     QStringList getWorkLocationTypeList();
+    bool setWorkLocationType(int index, const QString& type);
 
+signals:
+    void workLocationTypeChanged();
 private:
     EnvironmentVariant():m_context(0) {}
     ~EnvironmentVariant() {}

@@ -400,7 +400,7 @@ void EnvironmentVariant::SavePlan()
 void EnvironmentVariant::SaveMachineConfig(const MachineConfigData& data)
 {
     configFileHandler handler(NULL);
-    handler.SaveMachineConfig(m_userConfigFile, data);
+    handler.SaveMachineConfig(m_userConfigFile, data, m_workLocationTypeList);
 
     //todo
     m_machineConfig.setIpAddress(data.IpAddress);
@@ -488,4 +488,20 @@ SingleOperationData EnvironmentVariant::defaultValue(const QString& Operationnam
 QStringList EnvironmentVariant::getWorkLocationTypeList()
 {
     return m_workLocationTypeList;
+}
+
+bool EnvironmentVariant::setWorkLocationType(int index, const QString& type)
+{
+    if(index < 0 || index >= m_workLocationTypeList.size())
+        return false;
+    if(m_workLocationTypeList[index] == type)
+    {
+        return false;
+    }
+    else
+    {
+        m_workLocationTypeList[index] = type;
+        emit workLocationTypeChanged();
+        return true;
+    }
 }

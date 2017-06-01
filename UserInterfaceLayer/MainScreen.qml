@@ -104,6 +104,9 @@ Item {
                 anchors.left: mainVDewID.left
                 anchors.bottom: mainVDewID.bottom
                 anchors.right: statusList.left
+                onTypeChanged: {
+                    resetGridView();
+                }
             }
 
 
@@ -129,7 +132,7 @@ Item {
             spacing: 20
 
             TextButton{
-                id:button1
+                id:singleStepButton
                 height: 52.7
                 textValue: qsTr("Single step")
                 startColor:"#a9aaac"
@@ -140,7 +143,7 @@ Item {
             }
 
             TextButton{
-                id:button2
+                id:systemSettingButton
                 height: 55
                 textValue: qsTr("System settings")
                 startColor:"#a9aaac"
@@ -151,7 +154,7 @@ Item {
             }
 
             TextButton{
-                id:button3
+                id:planSettingButton
                 height: 55
                 textValue: qsTr("Plan settings")
                 startColor:"#a9aaac"
@@ -174,7 +177,7 @@ Item {
                     actionBarID.newState = "start";
 
                     statusList.clearModel();
-                    stepGallery.refreshModel();
+                    stepGallery.resetGridView();
                 }
             }
             TextButton{
@@ -249,6 +252,18 @@ Item {
                         target: resumeButton
                         visible: false
                     }
+                    PropertyChanges {
+                        target: singleStepButton
+                        enabled:false
+                    }
+                    PropertyChanges {
+                        target: planSettingButton
+                        enabled:false
+                    }
+                    PropertyChanges {
+                        target: systemSettingButton
+                        enabled:false
+                    }
                 },
                 State{
                     name:"pause"
@@ -267,6 +282,18 @@ Item {
                     PropertyChanges {
                         target: resumeButton
                         visible: true
+                    }
+                    PropertyChanges {
+                        target: singleStepButton
+                        enabled:false
+                    }
+                    PropertyChanges {
+                        target: planSettingButton
+                        enabled:false
+                    }
+                    PropertyChanges {
+                        target: systemSettingButton
+                        enabled:false
                     }
                 }
             ]

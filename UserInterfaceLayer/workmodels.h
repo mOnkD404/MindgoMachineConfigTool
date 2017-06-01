@@ -458,9 +458,11 @@ public:
     virtual bool eventFilter(QObject *watched, QEvent *event);
 
     Q_INVOKABLE QStringList getWorkLocationTypeList();
+    Q_INVOKABLE bool setWorkLocationType(int index, const QString& type);
 
 signals:
     void statusChanged(const QJsonObject& jsobj);
+    void workLocationTypeChanged();
 };
 
 class MachineConfigData

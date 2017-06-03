@@ -248,6 +248,7 @@ void SubThreadWorker::doWork(const QJsonObject &jsObj)
         return;
     }
 
+    m_forceStop = false;
     m_maxReceiveTime = jsObj["maxReceiveTime"].toInt();
     QJsonArray opList = jsObj["operations"].toArray();
     int currentIndex = jsObj["startIndex"].toInt();
@@ -316,7 +317,7 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
     QJsonObject retObj;
 
     retObj["operation"] = cmdObj["operation"];
-    retObj["position"] = "null";
+    retObj["position"] = -1;
     retObj["sequence"] = cmdObj["sequence"];
     retObj["send"] = false;
     retObj["ack"] = false;

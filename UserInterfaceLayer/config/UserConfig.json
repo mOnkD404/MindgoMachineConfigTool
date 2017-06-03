@@ -12,7 +12,7 @@
             {
                 "operation": "Loop",
                 "params": {
-                    "cycleCount": 1
+                    "cycleCount": 3
                 },
                 "sequenceNumber": 2
             },
@@ -61,10 +61,17 @@
                 "sequenceNumber": 5
             },
             {
+                "operation": "WaitArray",
+                "params": {
+                    "waitTime": 2
+                },
+                "sequenceNumber": 6
+            },
+            {
                 "operation": "EndLoop",
                 "params": {
                 },
-                "sequenceNumber": 6
+                "sequenceNumber": 7
             },
             {
                 "operation": "Dump Tip",
@@ -72,76 +79,7 @@
                     "boardType": 1,
                     "position": 10
                 },
-                "sequenceNumber": 7
-            },
-            {
-                "operation": "Suction",
-                "params": {
-                    "boardType": 1,
-                    "position": 8,
-                    "postSuction": false,
-                    "postSuctionVolume": 0,
-                    "preSuction": false,
-                    "preSuctionVolume": 0,
-                    "speed": 1,
-                    "suctionHeight": 0,
-                    "volume": 0
-                },
                 "sequenceNumber": 8
-            },
-            {
-                "operation": "Mix",
-                "params": {
-                    "boardType": 1,
-                    "cycleCount": 12,
-                    "drainHeight": 0,
-                    "position": 2,
-                    "postSuction": false,
-                    "postSuctionVolume": 0,
-                    "preSuction": false,
-                    "preSuctionVolume": 0,
-                    "speed": 1,
-                    "suctionHeight": 0,
-                    "volume": 44
-                },
-                "sequenceNumber": 9
-            },
-            {
-                "operation": "Load Tip",
-                "params": {
-                    "boardType": 1,
-                    "position": 3
-                },
-                "sequenceNumber": 10
-            },
-            {
-                "operation": "Dispense",
-                "params": {
-                    "boardType": 1,
-                    "drain": false,
-                    "drainHeight": 1.1,
-                    "drainVolume": 3,
-                    "position": 5,
-                    "speed": 1
-                },
-                "sequenceNumber": 11
-            },
-            {
-                "operation": "Mix",
-                "params": {
-                    "boardType": 1,
-                    "cycleCount": 13,
-                    "drainHeight": 0.4,
-                    "position": 3,
-                    "postSuction": false,
-                    "postSuctionVolume": 0,
-                    "preSuction": false,
-                    "preSuctionVolume": 0,
-                    "speed": 1,
-                    "suctionHeight": 2,
-                    "volume": 2
-                },
-                "sequenceNumber": 12
             }
         ],
         "NewPlan": [
@@ -151,13 +89,13 @@
                     "boardType": 1,
                     "position": 0
                 },
-                "sequenceNumber": 13
+                "sequenceNumber": 9
             }
         ]
     },
     "target": {
         "IP": "127.0.0.1",
-        "maxReceiveTime": 300,
+        "maxReceiveTime": 30,
         "port": 20000
     },
     "workers": {
@@ -165,16 +103,16 @@
         "type": [
             "tips",
             "tips",
-            "tubes",
             "null",
-            "tips",
-            "tips",
-            "tips",
-            "tips",
-            "tips",
-            "tips",
-            "tips",
-            "tips"
+            "null",
+            "tubes",
+            "tubes",
+            "tubes",
+            "tubes",
+            "tubes",
+            "tubes",
+            "tubes",
+            "tubes"
         ]
     }
 }

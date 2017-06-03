@@ -323,6 +323,11 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
     retObj["ack"] = false;
     retObj["ackResult"] = 0;
     retObj["newOperationItem"] = true;
+    retObj["logicalCommand"] = true;
+    retObj["waitArray"] = 0;
+    retObj["waitting"] = 0;
+    retObj["loopCount"] = 0;
+    retObj["remainLoopCount"] = 0;
 
 
     QString opname = cmdObj["operation"].toString();
@@ -333,6 +338,11 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
         int time = param["waitTime"].toInt();
         if (time > 0)
         {
+            retObj["waitArray"] = time;
+            retObj["waitting"] = 0;
+
+            emit statusChanged(retObj);
+
             for(int index = 0; index < time; index++)
             {
                 if(m_forceStop)
@@ -340,7 +350,14 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
                     retVal = false;
                     break;
                 }
-                QThread::usleep(1000);
+
+                QThread::msleep(1000);
+
+                retObj["newOperationItem"] = false;
+                retObj["waitting"] = index+1;
+
+                emit statusChanged(retObj);
+
             }
         }
     }
@@ -352,6 +369,9 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
         {
             m_inFakeLoop = true;
         }
+
+        retObj["loopCount"] = m_LoopCount;
+        emit statusChanged(retObj);
     }
     else if(opname == "EndLoop")
     {
@@ -365,9 +385,10 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
         {
             currentIndex = m_LoopStartIndex;
         }
-    }
 
-    emit statusChanged(retObj);
+        retObj["remainLoopCount"] = m_LoopCount;
+        emit statusChanged(retObj);
+    }
 
     return retVal;
 }
@@ -382,6 +403,11 @@ bool SubThreadWorker::handleControlCommand(Communication& com, QJsonObject& cmdO
     retObj["ack"] = false;
     retObj["ackResult"] = 0;
     retObj["newOperationItem"] = true;
+    retObj["logicalCommand"] = false;
+    retObj["waitArray"] = 0;
+    retObj["waitting"] = 0;
+    retObj["loopCount"] = 0;
+    retObj["remainLoopCount"] = 0;
 
     m_protocol->parseJsonObjectToSendFrame(cmdObj, retObj);
     QByteArray btarray = m_protocol->serializeSendFrame();

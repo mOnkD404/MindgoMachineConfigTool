@@ -30,6 +30,7 @@ Item {
 
     ListModel{
         id:displayModel
+        dynamicRoles:true
     }
 
     ScrollView{
@@ -56,20 +57,86 @@ Item {
                 border.color:"#747474"
                 color:"transparent"
                 height: 100
-                Column {
-                    id: column
+                Component{
+                    id:controlCmd
+                    Column {
+                        id: column
+                        anchors.fill: parent
+                        anchors.leftMargin: 5
+                        anchors.topMargin: 3
+
+                        //anchors { fill: parent; margins: 2 }
+
+                        Text { text: 'Operation: ' + operation; color:"#d9d9d9" }
+                        Text { text: 'position: ' + position; color: "#d9d9d9"}
+                        Text { text: 'Sequence number: ' + sequence; color:"#d9d9d9" }
+                        Text { text: 'Send: ' + send.toString(); color:"#d9d9d9"; font.bold: true }
+                        Text { text: 'Ack: ' + ack.toString(); color:"#d9d9d9"; font.bold: true }
+                        Text { text: 'Ack result: ' + ackResult; color:"#d9d9d9"; font.bold: true }
+                    }
+                }
+                Component{
+                    id:wattingArrayCmd
+                    Column {
+                        id: column
+                        anchors.fill: parent
+                        anchors.leftMargin: 5
+                        anchors.topMargin: 3
+
+                        //anchors { fill: parent; margins: 2 }
+
+                        Text { text: 'Operation: ' + operation; color:"#d9d9d9" }
+                        Text { text: 'Sequence number: ' + sequence; color:"#d9d9d9" }
+                        Text { text: 'Wait array: ' + waitArray; color:"#d9d9d9"; font.bold: true }
+                        Text { text: 'Waitting: ' + waitting; color:"#d9d9d9"; font.bold: true }
+                    }
+                }
+                Component{
+                    id: loopStartCmd
+                    Column {
+                        id: column
+                        anchors.fill: parent
+                        anchors.leftMargin: 5
+                        anchors.topMargin: 3
+
+                        //anchors { fill: parent; margins: 2 }
+
+                        Text { text: 'Operation: ' + operation; color:"#d9d9d9" }
+                        Text { text: 'Sequence number: ' + sequence; color:"#d9d9d9" }
+                        Text { text: 'Loop Count: ' + loopCount; color:"#d9d9d9"; font.bold: true }
+                    }
+                }
+                Component{
+                    id: loopEndCmd
+                    Column {
+                        id: column
+                        anchors.fill: parent
+                        anchors.leftMargin: 5
+                        anchors.topMargin: 3
+
+                        //anchors { fill: parent; margins: 2 }
+
+                        Text { text: 'Operation: ' + operation; color:"#d9d9d9" }
+                        Text { text: 'Sequence number: ' + sequence; color:"#d9d9d9" }
+                        Text { text: 'Remain loop count: ' + remainLoopCount; color:"#d9d9d9"; font.bold: true }
+                    }
+                }
+                Loader{
                     anchors.fill: parent
-                    anchors.leftMargin: 5
-                    anchors.topMargin: 3
 
-                    //anchors { fill: parent; margins: 2 }
+                    sourceComponent: getSource()
 
-                    Text { text: 'Operation: ' + operation; color:"#d9d9d9" }
-                    Text { text: 'position: ' + position; color: "#d9d9d9"}
-                    Text { text: 'Sequence number: ' + sequence; color:"#d9d9d9" }
-                    Text { text: 'Send: ' + send.toString(); color:"#d9d9d9"; font.bold: true }
-                    Text { text: 'Ack: ' + ack.toString(); color:"#d9d9d9"; font.bold: true }
-                    Text { text: 'Ack result: ' + ackResult; color:"#d9d9d9"; font.bold: true }
+                    function getSource(){
+                        if(!logicalCommand){
+                            return controlCmd;
+                        }else if (operation == "WaitArray"){
+                            return wattingArrayCmd;
+                        }else if (operation == "Loop"){
+                            return loopStartCmd;
+                        }else if (operation == "EndLoop"){
+                            return loopEndCmd;
+                        }
+                    }
                 }
             }
         }

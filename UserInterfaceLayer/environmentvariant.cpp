@@ -233,7 +233,7 @@ QJsonObject EnvironmentVariant::formatSingleOperationParam(const SingleOperation
             }
             else if(data.Type == "bool")
             {
-                paramobj[data.Name] = data.BoolValue;
+                paramobj[data.Name] = (int)data.BoolValue;
             }
 
     }

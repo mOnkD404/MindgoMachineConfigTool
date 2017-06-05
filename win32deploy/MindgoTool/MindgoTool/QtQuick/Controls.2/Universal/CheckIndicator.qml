@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2016 The Qt Company Ltd.
+** Copyright (C) 2017 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
 ** This file is part of the Qt Quick Controls 2 module of the Qt Toolkit.
@@ -34,9 +34,9 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.8
-import QtQuick.Templates 2.1 as T
-import QtQuick.Controls.Universal 2.1
+import QtQuick 2.9
+import QtQuick.Templates 2.2 as T
+import QtQuick.Controls.Universal 2.2
 
 Rectangle {
     implicitWidth: 20
@@ -67,7 +67,7 @@ Rectangle {
         x: (parent.width - width) / 2
         y: (parent.height - height) / 2
         width: partiallyChecked ? parent.width / 2 : parent.width
-        height: partiallyChecked  ? parent.height / 2 : parent.height
+        height: partiallyChecked ? parent.height / 2 : parent.height
 
         visible: !control.pressed && control.hovered || partiallyChecked
         color: !partiallyChecked ? "transparent" :

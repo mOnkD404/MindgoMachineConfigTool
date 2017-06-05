@@ -1,1 +1,0 @@
-Debug: "C:/Users/sunwp/Documents/GitHub/MindgoMachineConfigTool/win32deploy/MindgoTool/MindgoTool"

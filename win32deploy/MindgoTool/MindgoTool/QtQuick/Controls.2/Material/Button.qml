@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2016 The Qt Company Ltd.
+** Copyright (C) 2017 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
 ** This file is part of the Qt Quick Controls 2 module of the Qt Toolkit.
@@ -34,10 +34,10 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.8
-import QtQuick.Templates 2.1 as T
-import QtQuick.Controls.Material 2.1
-import QtQuick.Controls.Material.impl 2.1
+import QtQuick 2.9
+import QtQuick.Templates 2.2 as T
+import QtQuick.Controls.Material 2.2
+import QtQuick.Controls.Material.impl 2.2
 
 T.Button {
     id: control
@@ -90,12 +90,6 @@ T.Button {
             clip: true
             visible: control.checkable && (!control.highlighted || control.flat)
             color: control.checked && control.enabled ? control.Material.accentColor : control.Material.secondaryTextColor
-        }
-
-        Behavior on color {
-            ColorAnimation {
-                duration: 400
-            }
         }
 
         // The layer is disabled when the button color is transparent so you can do

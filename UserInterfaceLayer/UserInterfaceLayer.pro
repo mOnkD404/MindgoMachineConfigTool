@@ -55,15 +55,15 @@ win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../InfrastructureLayer
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../InfrastructureLayer/Communication/debug/ -lCommunication
 else:unix: LIBS += -L$$OUT_PWD/../InfrastructureLayer/Communication/ -lCommunication
 
-INCLUDEPATH += $$PWD/../../build-MindgoMachineConfigTool-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/InfrastructureLayer/Communication/debug
-DEPENDPATH += $$PWD/../../build-MindgoMachineConfigTool-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/InfrastructureLayer/Communication/debug
+#INCLUDEPATH += $$PWD/../../build-MindgoMachineConfigTool-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/InfrastructureLayer/Communication/debug
+#DEPENDPATH += $$PWD/../../build-MindgoMachineConfigTool-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/InfrastructureLayer/Communication/debug
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../BussinessLayer/WorkflowProtocol/release/ -lWorkflowProtocol
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../BussinessLayer/WorkflowProtocol/debug/ -lWorkflowProtocol
 else:unix: LIBS += -L$$OUT_PWD/../BussinessLayer/WorkflowProtocol/ -lWorkflowProtocol
 
-INCLUDEPATH += $$PWD/../../build-MindgoMachineConfigTool-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/BussinessLayer/WorkflowProtocol
-DEPENDPATH += $$PWD/../../build-MindgoMachineConfigTool-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/BussinessLayer/WorkflowProtocol
+#INCLUDEPATH += $$PWD/../../build-MindgoMachineConfigTool-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/BussinessLayer/WorkflowProtocol
+#DEPENDPATH += $$PWD/../../build-MindgoMachineConfigTool-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/BussinessLayer/WorkflowProtocol
 
 win32: LIBS += -lDbgHelp
 

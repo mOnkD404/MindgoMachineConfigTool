@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2016 The Qt Company Ltd.
+** Copyright (C) 2017 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
 ** This file is part of the Qt Quick Controls 2 module of the Qt Toolkit.
@@ -34,9 +34,12 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.8
-import QtQuick.Templates 2.1 as T
-import QtQuick.Controls.Material 2.1
+import QtQuick 2.9
+import QtQuick.Templates 2.2 as T
+import QtQuick.Controls 2.2
+import QtQuick.Controls.impl 2.2
+import QtQuick.Controls.Material 2.2
+import QtQuick.Controls.Material.impl 2.2
 
 T.TextArea {
     id: control
@@ -54,34 +57,10 @@ T.TextArea {
     color: enabled ? Material.foreground : Material.hintTextColor
     selectionColor: Material.accentColor
     selectedTextColor: Material.primaryHighlightedTextColor
-    cursorDelegate: Rectangle {
-        id: cursor
-        clip: true // TODO
-        color: control.Material.accentColor
-        width: 2
-        visible: control.activeFocus && control.selectionStart === control.selectionEnd
 
-        Connections {
-            target: control
-            onCursorPositionChanged: {
-                // keep a moving cursor visible
-                cursor.opacity = 1
-                timer.restart()
-            }
-        }
+    cursorDelegate: CursorDelegate { }
 
-        Timer {
-            id: timer
-            running: control.activeFocus
-            repeat: true
-            interval: Qt.styleHints.cursorFlashTime / 2
-            onTriggered: cursor.opacity = !cursor.opacity ? 1 : 0
-            // force the cursor visible when gaining focus
-            onRunningChanged: cursor.opacity = 1
-        }
-    }
-
-    Text {
+    PlaceholderText {
         id: placeholder
         x: control.leftPadding
         y: control.topPadding
@@ -90,7 +69,6 @@ T.TextArea {
         text: control.placeholderText
         font: control.font
         color: control.Material.hintTextColor
-        horizontalAlignment: control.horizontalAlignment
         verticalAlignment: control.verticalAlignment
         elide: Text.ElideRight
         visible: !control.length && !control.preeditText && (!control.activeFocus || control.horizontalAlignment !== Qt.AlignHCenter)

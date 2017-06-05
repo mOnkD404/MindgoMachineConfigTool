@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2016 The Qt Company Ltd.
+** Copyright (C) 2017 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
 ** This file is part of the Qt Quick Controls 2 module of the Qt Toolkit.
@@ -34,9 +34,9 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.8
-import QtQuick.Templates 2.1 as T
-import QtQuick.Controls.Universal 2.1
+import QtQuick 2.9
+import QtQuick.Templates 2.2 as T
+import QtQuick.Controls.Universal 2.2
 
 T.ToolSeparator {
     id: control
@@ -49,11 +49,9 @@ T.ToolSeparator {
     topPadding: vertical ? 12 : 16
     bottomPadding: vertical ? 12 : 15
 
-    //! [contentItem]
     contentItem: Rectangle {
         implicitWidth: vertical ? 1 : 20
         implicitHeight: vertical ? 20 : 1
         color: control.Universal.baseMediumLowColor
     }
-    //! [contentItem]
 }

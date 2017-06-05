@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2016 The Qt Company Ltd.
+** Copyright (C) 2017 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
 ** This file is part of the Qt Quick Controls 2 module of the Qt Toolkit.
@@ -34,10 +34,10 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.8
-import QtQuick.Controls 2.1
-import QtQuick.Controls.impl 2.1
-import QtQuick.Templates 2.1 as T
+import QtQuick 2.9
+import QtQuick.Controls 2.2
+import QtQuick.Controls.impl 2.2
+import QtQuick.Templates 2.2 as T
 
 T.ScrollBar {
     id: control
@@ -48,21 +48,21 @@ T.ScrollBar {
                              contentItem.implicitHeight + topPadding + bottomPadding)
 
     padding: 2
+    visible: control.policy !== T.ScrollBar.AlwaysOff
 
     contentItem: Rectangle {
         id: handle
 
-        implicitWidth: 6
-        implicitHeight: 6
+        implicitWidth: control.interactive ? 6 : 2
+        implicitHeight: control.interactive ? 6 : 2
 
         radius: width / 2
         color: control.pressed ? Default.scrollBarPressedColor : Default.scrollBarColor
-        visible: control.size < 1.0
         opacity: 0.0
 
         states: State {
             name: "active"
-            when: control.active
+            when: control.policy === T.ScrollBar.AlwaysOn || (control.active && control.size < 1.0)
             PropertyChanges { target: handle; opacity: 0.75 }
         }
 

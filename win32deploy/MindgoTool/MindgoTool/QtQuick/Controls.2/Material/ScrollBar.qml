@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2016 The Qt Company Ltd.
+** Copyright (C) 2017 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
 ** This file is part of the Qt Quick Controls 2 module of the Qt Toolkit.
@@ -34,9 +34,9 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.8
-import QtQuick.Templates 2.1 as T
-import QtQuick.Controls.Material 2.1
+import QtQuick 2.9
+import QtQuick.Templates 2.2 as T
+import QtQuick.Controls.Material 2.2
 
 T.ScrollBar {
     id: control
@@ -46,30 +46,31 @@ T.ScrollBar {
     implicitHeight: Math.max(background ? background.implicitHeight : 0,
                              contentItem.implicitHeight + topPadding + bottomPadding)
 
-    padding: 1
+    padding: control.interactive ? 1 : 2
+    visible: control.policy !== T.ScrollBar.AlwaysOff
 
     contentItem: Rectangle {
         id: handle
 
-        implicitWidth: 13
-        implicitHeight: 13
+        implicitWidth: control.interactive ? 13 : 4
+        implicitHeight: control.interactive ? 13 : 4
 
         color: control.pressed ? control.Material.scrollBarPressedColor :
-               control.hovered ? control.Material.scrollBarHoveredColor : control.Material.scrollBarColor
-        visible: control.size < 1.0
+               control.interactive && control.hovered ? control.Material.scrollBarHoveredColor : control.Material.scrollBarColor
         opacity: 0.0
     }
 
     background: Rectangle {
-        implicitWidth: 16
-        implicitHeight: 16
+        implicitWidth: control.interactive ? 16 : 4
+        implicitHeight: control.interactive ? 16 : 4
         color: "#0e000000"
         opacity: 0.0
+        visible: control.interactive
     }
 
     states: State {
         name: "active"
-        when: control.active
+        when: control.policy === T.ScrollBar.AlwaysOn || (control.active && control.size < 1.0)
     }
 
     transitions: [

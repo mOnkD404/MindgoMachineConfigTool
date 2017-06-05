@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2016 The Qt Company Ltd.
+** Copyright (C) 2017 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
 ** This file is part of the Qt Quick Controls 2 module of the Qt Toolkit.
@@ -34,10 +34,10 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.8
-import QtQuick.Controls 2.1
-import QtQuick.Controls.impl 2.1
-import QtQuick.Templates 2.1 as T
+import QtQuick 2.9
+import QtQuick.Controls 2.2
+import QtQuick.Controls.impl 2.2
+import QtQuick.Templates 2.2 as T
 
 T.RangeSlider {
     id: control
@@ -97,5 +97,14 @@ T.RangeSlider {
         scale: horizontal && control.mirrored ? -1 : 1
 
         readonly property bool horizontal: control.orientation === Qt.Horizontal
+
+        Rectangle {
+            x: parent.horizontal ? control.first.position * parent.width + 3 : 0
+            y: parent.horizontal ? 0 : control.second.visualPosition * parent.height + 3
+            width: parent.horizontal ? control.second.position * parent.width - control.first.position * parent.width - 6 : 6
+            height: parent.horizontal ? 6 : control.second.position * parent.height - control.first.position * parent.height - 6
+
+            color: Default.textColor
+        }
     }
 }

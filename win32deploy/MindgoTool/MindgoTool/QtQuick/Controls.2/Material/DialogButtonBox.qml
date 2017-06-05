@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2016 The Qt Company Ltd.
+** Copyright (C) 2017 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
 ** This file is part of the Qt Quick Controls 2 module of the Qt Toolkit.
@@ -34,11 +34,11 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.8
-import QtQuick.Templates 2.1 as T
-import QtQuick.Controls 2.1
-import QtQuick.Controls.Material 2.1
-import QtQuick.Controls.Material.impl 2.1
+import QtQuick 2.9
+import QtQuick.Templates 2.2 as T
+import QtQuick.Controls 2.2
+import QtQuick.Controls.Material 2.2
+import QtQuick.Controls.Material.impl 2.2
 
 T.DialogButtonBox {
     id: control
@@ -50,8 +50,8 @@ T.DialogButtonBox {
 
     spacing: 8
     padding: 8
-    topPadding: padding - 4
-    bottomPadding: padding - 4
+    topPadding: 2
+    bottomPadding: 2
     alignment: Qt.AlignRight
 
     Material.foreground: Material.accent
@@ -73,6 +73,7 @@ T.DialogButtonBox {
         implicitHeight: 52
         radius: 2
         color: control.Material.dialogColor
+        // Rounded corners should be only at the top or at the bottom
         topPadding: control.position === T.DialogButtonBox.Footer ? -2 : 0
         bottomPadding: control.position === T.DialogButtonBox.Header ? -2 : 0
         clip: true

@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2016 The Qt Company Ltd.
+** Copyright (C) 2017 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
 ** This file is part of the Qt Quick Controls 2 module of the Qt Toolkit.
@@ -34,10 +34,10 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.8
-import QtQuick.Templates 2.1 as T
-import QtQuick.Controls.Material 2.1
-import QtQuick.Controls.Material.impl 2.1
+import QtQuick 2.9
+import QtQuick.Templates 2.2 as T
+import QtQuick.Controls.Material 2.2
+import QtQuick.Controls.Material.impl 2.2
 
 T.RoundButton {
     id: control
@@ -52,7 +52,7 @@ T.RoundButton {
     padding: 12
 
     Material.elevation: flat ? control.down || control.hovered ? 2 : 0
-                             : control.down ? 8 : 2
+                             : control.down ? 12 : 6
     Material.background: flat ? "transparent" : undefined
 
     contentItem: Text {
@@ -94,12 +94,6 @@ T.RoundButton {
             radius: control.radius
             visible: control.down
             color: control.Material.rippleColor
-        }
-
-        Behavior on color {
-            ColorAnimation {
-                duration: 400
-            }
         }
 
         // The layer is disabled when the button color is transparent so that you can do

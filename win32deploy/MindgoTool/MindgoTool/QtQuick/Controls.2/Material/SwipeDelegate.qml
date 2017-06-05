@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2016 The Qt Company Ltd.
+** Copyright (C) 2017 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
 ** This file is part of the Qt Quick Controls 2 module of the Qt Toolkit.
@@ -34,10 +34,10 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.8
-import QtQuick.Templates 2.1 as T
-import QtQuick.Controls.Material 2.1
-import QtQuick.Controls.Material.impl 2.1
+import QtQuick 2.9
+import QtQuick.Templates 2.2 as T
+import QtQuick.Controls.Material 2.2
+import QtQuick.Controls.Material.impl 2.2
 
 T.SwipeDelegate {
     id: control
@@ -54,6 +54,8 @@ T.SwipeDelegate {
     bottomPadding: 8
     spacing: 16
 
+    swipe.transition: Transition { SmoothedAnimation { velocity: 3; easing.type: Easing.InOutCubic } }
+
     contentItem: Text {
         leftPadding: !control.mirrored ? (control.indicator ? control.indicator.width + control.spacing : 0) : 0
         rightPadding: control.mirrored ? (control.indicator ? control.indicator.width + control.spacing : 0) : 0
@@ -65,14 +67,6 @@ T.SwipeDelegate {
         visible: control.text
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
-
-        Behavior on x {
-            enabled: !control.down
-            NumberAnimation {
-                easing.type: Easing.InOutCubic
-                duration: 400
-            }
-        }
     }
 
     background: Rectangle {
@@ -97,14 +91,6 @@ T.SwipeDelegate {
             active: control.down || control.visualFocus || control.hovered
             color: control.Material.rippleColor
             enabled: control.swipe.position === 0
-        }
-
-        Behavior on x {
-            enabled: !control.down
-            NumberAnimation {
-                easing.type: Easing.InOutCubic
-                duration: 400
-            }
         }
     }
 }

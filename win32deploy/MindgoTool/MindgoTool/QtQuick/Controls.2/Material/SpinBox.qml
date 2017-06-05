@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2016 The Qt Company Ltd.
+** Copyright (C) 2017 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
 ** This file is part of the Qt Quick Controls 2 module of the Qt Toolkit.
@@ -34,10 +34,10 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.8
-import QtQuick.Templates 2.1 as T
-import QtQuick.Controls.Material 2.1
-import QtQuick.Controls.Material.impl 2.1
+import QtQuick 2.9
+import QtQuick.Templates 2.2 as T
+import QtQuick.Controls.Material 2.2
+import QtQuick.Controls.Material.impl 2.2
 
 T.SpinBox {
     id: control
@@ -73,35 +73,12 @@ T.SpinBox {
         selectedTextColor: control.Material.foreground
         horizontalAlignment: Qt.AlignHCenter
         verticalAlignment: Qt.AlignVCenter
-        cursorDelegate: Rectangle {
-            id: cursor
-            color: control.Material.accentColor
-            width: 2
-            visible: control.activeFocus && contentItem.selectionStart === contentItem.selectionEnd
 
-            Connections {
-                target: contentItem
-                onCursorPositionChanged: {
-                    // keep a moving cursor visible
-                    cursor.opacity = 1
-                    timer.restart()
-                }
-            }
-
-            Timer {
-                id: timer
-                running: control.activeFocus
-                repeat: true
-                interval: Qt.styleHints.cursorFlashTime / 2
-                onTriggered: cursor.opacity = !cursor.opacity ? 1 : 0
-                // force the cursor visible when gaining focus
-                onRunningChanged: cursor.opacity = 1
-            }
-        }
+        cursorDelegate: CursorDelegate { }
 
         readOnly: !control.editable
         validator: control.validator
-        inputMethodHints: Qt.ImhFormattedNumbersOnly
+        inputMethodHints: control.inputMethodHints
     }
 
     up.indicator: Item {
@@ -125,7 +102,7 @@ T.SpinBox {
         Rectangle {
             x: (parent.width - width) / 2
             y: (parent.height - height) / 2
-            width: Math.min(parent.width / 3, parent.width / 3)
+            width: Math.min(parent.width / 3, parent.height / 3)
             height: 2
             color: enabled ? control.Material.foreground : control.Material.spinBoxDisabledIconColor
         }
@@ -133,7 +110,7 @@ T.SpinBox {
             x: (parent.width - width) / 2
             y: (parent.height - height) / 2
             width: 2
-            height: Math.min(parent.width / 3, parent.width / 3)
+            height: Math.min(parent.width / 3, parent.height / 3)
             color: enabled ? control.Material.foreground : control.Material.spinBoxDisabledIconColor
         }
     }

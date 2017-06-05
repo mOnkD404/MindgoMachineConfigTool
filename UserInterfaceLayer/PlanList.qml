@@ -290,10 +290,13 @@ Item {
                     for(var ind = 0; ind < list.length; ind++){
                         stepListModel.append({"name":list[ind]});
                     }
-                    currentIndex = 0;
-
-                    selector.setSelectedStep(planListView.currentIndex, 0);
-                    //paramList.model = selector.paramListModel();
+                    if(stepListModel.count > 0){
+                        currentIndex = 0;
+                        selector.setSelectedStep(planListView.currentIndex, 0);
+                        //paramList.model = selector.paramListModel();
+                    }else{
+                        currentIndex = -1;
+                    }
                 }
 
                 spacing: 4
@@ -493,7 +496,6 @@ Item {
                             selector.addStep(planListView.currentIndex, stepListView.count, index);
                             stepListModel.append({"name":textValue});
 
-                            selector.setSelectedOperation(planListView.currentIndex, stepListView.count - 1, index);
                             //paramList.model = selector.paramListModel();
 
                             stepListView.currentIndex = stepListView.count - 1;

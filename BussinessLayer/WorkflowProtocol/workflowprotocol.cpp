@@ -226,7 +226,7 @@ void WorkflowProtocol::unserializeRecvFrame(const QByteArray& buff)
 
 
 SubThreadWorker::SubThreadWorker(WorkflowProtocol* protocol, QObject*parent)
-    :QObject(parent), m_protocol(protocol), m_LoopStartIndex(0), m_LoopCount(0), m_forceStop(false), m_maxReceiveTime(0), m_inFakeLoop(false)
+    :QObject(parent), m_protocol(protocol), m_forceStop(false), m_maxReceiveTime(0), m_inFakeLoop(false)
 {
 
 }
@@ -363,31 +363,40 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
     }
     else if(opname == "Loop")
     {
-        m_LoopCount = param["cycleCount"].toInt();
-        m_LoopStartIndex = currentIndex;
-        if(m_LoopCount == 0)
+        loopControl ctrl;
+        ctrl.loopCount = param["cycleCount"].toInt();
+        ctrl.loopStartIndex = currentIndex;
+        if(ctrl.loopCount == 0)
         {
             m_inFakeLoop = true;
         }
+        m_loopControl.push_back(ctrl);
 
-        retObj["loopCount"] = m_LoopCount;
+        retObj["loopCount"] = ctrl.loopCount;
         emit statusChanged(retObj);
     }
     else if(opname == "EndLoop")
     {
-        m_LoopCount--;
-        if(m_LoopCount <= 0)
+        if(!m_loopControl.isEmpty())
         {
-            m_LoopStartIndex = currentIndex;
-            m_inFakeLoop = false;
-        }
-        else
-        {
-            currentIndex = m_LoopStartIndex;
-        }
+            loopControl &ctrl = m_loopControl.back();
 
-        retObj["remainLoopCount"] = m_LoopCount;
-        emit statusChanged(retObj);
+            ctrl.loopCount--;
+
+            retObj["remainLoopCount"] = ctrl.loopCount;
+            emit statusChanged(retObj);
+
+            if(ctrl.loopCount <= 0)
+            {
+                //ctrl.loopStartIndex = currentIndex;
+                m_inFakeLoop = false;
+                m_loopControl.pop_back();
+            }
+            else
+            {
+                currentIndex = ctrl.loopStartIndex;
+            }
+        }
     }
 
     return retVal;

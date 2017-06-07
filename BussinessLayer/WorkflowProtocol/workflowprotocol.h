@@ -85,8 +85,15 @@ private:
     WorkflowProtocol * m_protocol;
     QString m_ip;
     qint16 m_port;
-    int m_LoopStartIndex;
-    int m_LoopCount;
+    struct loopControl{
+        int loopStartIndex;
+        int loopCount;
+
+        loopControl():loopStartIndex(0), loopCount(0){}
+        loopControl(int index, int count): loopStartIndex(index), loopCount(count){}
+    };
+    QList<loopControl> m_loopControl;
+
     bool m_inFakeLoop;
     volatile bool m_forceStop;
     int m_maxReceiveTime;

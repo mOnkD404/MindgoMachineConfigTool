@@ -226,7 +226,7 @@ void WorkflowProtocol::unserializeRecvFrame(const QByteArray& buff)
 
 
 SubThreadWorker::SubThreadWorker(WorkflowProtocol* protocol, QObject*parent)
-    :QObject(parent), m_protocol(protocol), m_forceStop(false), m_maxReceiveTime(0), m_inFakeLoop(false)
+    :QObject(parent), m_protocol(protocol), m_forceStop(false), m_maxReceiveTime(0)
 {
 
 }
@@ -259,23 +259,31 @@ void SubThreadWorker::doWork(const QJsonObject &jsObj)
     {
         QJsonObject sendobj = opList[currentIndex].toObject();
         bool retVal = false;
+        const QString opName = sendobj["operation"].toString();
 
-
-        if(isLogicalCommand(sendobj["operation"].toString()))
+        if(isLoopCommand(opName))
         {
-            retVal = handleLogicalCommand(sendobj, currentIndex);
+            retVal = handleLoopCommand(sendobj, currentIndex);
         }
         else
         {
-            if(!m_inFakeLoop)
+            if(m_loopControl.empty()  || (!m_loopControl.empty() && !m_loopControl.back().fakeLoop))
             {
-                retVal = handleControlCommand(com, sendobj);
+                if(isLogicalCommand(opName))
+                {
+                    retVal = handleLogicalCommand(sendobj, currentIndex);
+                }
+                else
+                {
+                    retVal = handleControlCommand(com, sendobj);
+                }
             }
             else
             {
                 retVal = true;
             }
         }
+
         if(!retVal)
             break;
 
@@ -291,13 +299,34 @@ void SubThreadWorker::doWork(const QJsonObject &jsObj)
     com.disconnect();
 
     emit taskStateChanged(false, currentIndex);
-    m_forceStop = false;
+    if(m_forceStop)
+    {
+        m_forceStop = false;
+    }
+    else
+    {
+        m_loopControl.clear();
+    }
 }
 
 bool SubThreadWorker::isLogicalCommand(const QString& name)
 {
     QList<QString> logicalList;
     logicalList.append("WaitArray");
+
+    foreach (const QString& str, logicalList)
+    {
+        if(name == str)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool SubThreadWorker::isLoopCommand(const QString& name)
+{
+    QList<QString> logicalList;
     logicalList.append("Loop");
     logicalList.append("EndLoop");
 
@@ -361,19 +390,48 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
             }
         }
     }
-    else if(opname == "Loop")
+
+    return retVal;
+}
+
+
+bool SubThreadWorker::handleLoopCommand(QJsonObject& cmdObj, int& currentIndex)
+{
+    bool retVal = false;
+    QJsonObject retObj;
+
+    retObj["operation"] = cmdObj["operation"];
+    retObj["position"] = -1;
+    retObj["sequence"] = cmdObj["sequence"];
+    retObj["send"] = false;
+    retObj["ack"] = false;
+    retObj["ackResult"] = 0;
+    retObj["newOperationItem"] = true;
+    retObj["logicalCommand"] = true;
+    retObj["waitArray"] = 0;
+    retObj["waitting"] = 0;
+    retObj["loopCount"] = 0;
+    retObj["remainLoopCount"] = 0;
+
+
+    QString opname = cmdObj["operation"].toString();
+    QJsonObject param = cmdObj["params"].toObject();
+
+    if(opname == "Loop")
     {
         loopControl ctrl;
         ctrl.loopCount = param["cycleCount"].toInt();
         ctrl.loopStartIndex = currentIndex;
-        if(ctrl.loopCount == 0)
+        if(ctrl.loopCount == 0 || (!m_loopControl.isEmpty() && m_loopControl.back().fakeLoop))
         {
-            m_inFakeLoop = true;
+            ctrl.fakeLoop = true;
         }
         m_loopControl.push_back(ctrl);
 
         retObj["loopCount"] = ctrl.loopCount;
         emit statusChanged(retObj);
+
+        retVal = true;
     }
     else if(opname == "EndLoop")
     {
@@ -381,22 +439,34 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
         {
             loopControl &ctrl = m_loopControl.back();
 
-            ctrl.loopCount--;
-
-            retObj["remainLoopCount"] = ctrl.loopCount;
-            emit statusChanged(retObj);
-
-            if(ctrl.loopCount <= 0)
+            if(ctrl.fakeLoop)
             {
-                //ctrl.loopStartIndex = currentIndex;
-                m_inFakeLoop = false;
+                retObj["remainLoopCount"] = 0;
+                emit statusChanged(retObj);
                 m_loopControl.pop_back();
             }
             else
             {
-                currentIndex = ctrl.loopStartIndex;
+                if(ctrl.loopCount > 0)
+                {
+                    ctrl.loopCount--;
+                }
+                retObj["remainLoopCount"] = ctrl.loopCount;
+                emit statusChanged(retObj);
+
+                if(ctrl.loopCount <= 0)
+                {
+                    //ctrl.loopStartIndex = currentIndex;
+                    //m_inFakeLoop = false;
+                    m_loopControl.pop_back();
+                }
+                else
+                {
+                    currentIndex = ctrl.loopStartIndex;
+                }
             }
         }
+        retVal = true;
     }
 
     return retVal;

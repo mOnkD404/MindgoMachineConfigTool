@@ -34,7 +34,7 @@
             {
                 "operation": "Loop",
                 "params": {
-                    "cycleCount": 2
+                    "cycleCount": 3
                 },
                 "sequenceNumber": 4
             },

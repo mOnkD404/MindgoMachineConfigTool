@@ -80,6 +80,8 @@ protected:
     bool handleControlCommand(Communication& com, QJsonObject& cmdObj);
     bool handleLogicalCommand(QJsonObject& cmdObj, int& currentIndex);
     bool isLogicalCommand(const QString& name);
+    bool isLoopCommand(const QString& name);
+    bool handleLoopCommand(QJsonObject& cmdObj, int& currentIndex);
 
 private:
     WorkflowProtocol * m_protocol;
@@ -88,13 +90,13 @@ private:
     struct loopControl{
         int loopStartIndex;
         int loopCount;
+        bool fakeLoop;
 
-        loopControl():loopStartIndex(0), loopCount(0){}
-        loopControl(int index, int count): loopStartIndex(index), loopCount(count){}
+        loopControl():loopStartIndex(0), loopCount(0), fakeLoop(false){}
+        loopControl(int index, int count): loopStartIndex(index), loopCount(count), fakeLoop((count == 0)?true:false){}
     };
     QList<loopControl> m_loopControl;
 
-    bool m_inFakeLoop;
     volatile bool m_forceStop;
     int m_maxReceiveTime;
     int m_startIndex;

@@ -1,12 +1,16 @@
 ﻿{
-    "OperationEnum":["Load Tip", "Dump Tip", "Suction", "Dispense", "Mix"],
+    "OperationEnum":["Load Tip", "Dump Tip", "Suction", "Dispense", "Mix", "Magnetic Separation", "Relative Motion", "Absolute Motion", "Reset"],
     "LogicalControlEnum":["WaitArray","Loop", "EndLoop"],
     "NormalOperation":{
         "Load Tip":[         "boardType", "position"],
         "Suction": ["speed", "boardType", "position", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume",                        "suctionHeight"],
         "Dispense":["speed", "boardType", "position",                                                                                 "drain", "drainVolume",                 "drainHeight"],
         "Mix":["speed", "boardType", "position", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume",                         "suctionHeight","drainHeight","cycleCount"],
-        "Dump Tip":[         "boardType", "position"]
+        "Dump Tip":[         "boardType", "position"],
+        "Magnetic Separation":["position", "boardMotion"],
+        "Relative Motion":["spindleIndex","motionDistance", "motionSpeed"],
+        "Absolute Motion":["spindleIndex","motionDistance", "motionSpeed"],
+        "Reset":["spindleIndex"]
     },
     "logicalControl":{
         "WaitArray":["waitTime"],
@@ -21,7 +25,11 @@
         "Dump Tip":"卸载针头",
         "WaitArray":"等待时间",
         "Loop":"循环",
-        "EndLoop":"循环结束"
+        "EndLoop":"循环结束",
+        "Magnetic Separation":"磁分离位置",
+        "Relative Motion":"单轴相对运动",
+        "Absolute Motion":"单轴绝对运动",
+        "Reset":"单轴复位"
     },
 
     "params":{
@@ -128,6 +136,36 @@
             "unit":"s",
             "bottomValue":1,
             "topValue":10000
+        },
+        "boardMotion":{
+            "type":"enum",
+            "enum":["下降", "抬高"],
+            "valueEnum":[0,1],
+            "default":0,
+            "display":"深孔板运动"
+        },
+        "spindleIndex":{
+            "type":"enum",
+            "enum":["0","1","2","3"],
+            "valueEnum":[0,1,2,3],
+            "default":0,
+            "display":"轴编号"
+        },
+        "motionDistance":{
+            "type":"float",
+            "default":0,
+            "display":"运动距离",
+            "unit":"mm",
+            "bottomValue":-1000,
+            "topValue":1000
+        },
+        "motionSpeed":{
+            "type":"float",
+            "default":0,
+            "display":"运动速度",
+            "unit":"mm",
+            "bottomValue":-1000,
+            "topValue":1000
         }
     }
 }

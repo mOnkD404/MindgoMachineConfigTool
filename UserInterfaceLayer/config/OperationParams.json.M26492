@@ -26,7 +26,7 @@
         "WaitArray":"等待时间",
         "Loop":"循环",
         "EndLoop":"循环结束",
-        "Magnetic Separation":"磁分离位置",
+        "Magnetic Separation":"磁分离位置控制",
         "Relative Motion":"单轴相对运动",
         "Absolute Motion":"单轴绝对运动",
         "Reset":"单轴复位"
@@ -137,13 +137,6 @@
             "bottomValue":1,
             "topValue":10000
         },
-        "boardMotion":{
-            "type":"enum",
-            "enum":["下降", "抬高"],
-            "valueEnum":[0,1],
-            "default":0,
-            "display":"深孔板运动"
-        },
         "spindleIndex":{
             "type":"enum",
             "enum":["0","1","2","3"],
@@ -151,6 +144,14 @@
             "default":0,
             "display":"轴编号"
         },
+        "boardMotion":{
+            "type":"enum",
+            "enum":["下降","抬高"],
+            "valueEnum":[0,1],
+            "default":0,
+            "display":"深孔板运动",
+        },
+
         "motionDistance":{
             "type":"float",
             "default":0,

@@ -123,7 +123,8 @@ Item {
                         anchors.fill: parent
                         id:textlabel
                         color: "#e6eae9"
-                        text:{
+                        text:getText()
+                        function getText(){
                             if(showLabel){
                                 return (gridType == "null")?qsTr("Empty"):qsTr("Ready");
                             }else if(showIndex && gridIndex>=0){

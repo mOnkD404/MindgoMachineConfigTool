@@ -2,7 +2,7 @@
 
 ; 安装程序初始定义常量
 !define PRODUCT_NAME "Mindgo"
-!define PRODUCT_VERSION "1.4"
+!define PRODUCT_VERSION "1.5"
 !define PRODUCT_PUBLISHER "Mindgo"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"

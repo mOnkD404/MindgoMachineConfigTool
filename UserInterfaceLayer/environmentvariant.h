@@ -51,7 +51,9 @@ public:
 
     QJsonObject formatSingleOperationParam(const SingleOperationData & obj);
 
+    void StartTunning(const SingleOperationData& data);
     void runTask(const QJsonObject& task);
+    void runTunning(const QJsonObject& tunning);
 
     WorkflowController& workFlow(){ return m_workFlow; }
 
@@ -60,10 +62,12 @@ public:
     QStringList getWorkLocationTypeList();
     bool setWorkLocationType(int index, const QString& type);
 
+    bool isAdministrator(){return m_bAdministratorAccount;}
+
 signals:
     void workLocationTypeChanged();
 private:
-    EnvironmentVariant():m_context(0) {}
+    EnvironmentVariant():m_context(0), m_bAdministratorAccount(false), m_machineConfig(this), m_workFlow(this) {}
     ~EnvironmentVariant() {}
 
     static EnvironmentVariant* m_instance;
@@ -87,6 +91,7 @@ private:
 
     TargetMachineObject m_machineConfig;
     QStringList m_workLocationTypeList;
+    bool m_bAdministratorAccount;
 };
 
 #endif // ENVIRONMENTVARIANT_H

@@ -240,6 +240,27 @@ SubThreadWorker::~SubThreadWorker()
     }
 }
 
+void SubThreadWorker::doTunning(const QJsonObject& jsObj)
+{
+    Communication com;
+    if(!com.connectToServer(m_ip, m_port))
+    {
+        return;
+    }
+
+    m_forceStop = false;
+    m_maxReceiveTime = jsObj["maxReceiveTime"].toInt();
+    QJsonObject sendobj = jsObj["operation"].toObject();
+
+    //emit taskStateChanged(true, currentIndex);
+
+    handleControlCommand(com, sendobj);
+
+    com.disconnect();
+
+    //emit taskStateChanged(false, currentIndex);
+}
+
 void SubThreadWorker::doWork(const QJsonObject &jsObj)
 {
     Communication com;
@@ -376,7 +397,7 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
             {
                 if(m_forceStop)
                 {
-                    retVal = false;
+                    //retVal = false;
                     break;
                 }
 
@@ -579,6 +600,7 @@ WorkflowController::WorkflowController(QObject *parent)
     worker->moveToThread(&m_thread);
     connect(&m_thread, &QThread::finished, worker, &QObject::deleteLater);
     connect(this, &WorkflowController::runNewTask, worker, &SubThreadWorker::doWork);
+    connect(this, &WorkflowController::runNewTunning, worker, &SubThreadWorker::doTunning);
     connect(worker, &SubThreadWorker::statusChanged, this, &WorkflowController::statusChanged);
     connect(this, &WorkflowController::changeHost, worker, &SubThreadWorker::changeHost);
     connect(this, &WorkflowController::configProtocol, worker, &SubThreadWorker::configProtocol);
@@ -607,6 +629,18 @@ void WorkflowController::runTask(const QJsonObject &jsObj)
     if(m_thread.isRunning())
     {
         emit runNewTask(jsObj);
+    }
+    else
+    {
+        qWarning("worker thread is dead.");
+    }
+}
+
+void WorkflowController::runTunning(const QJsonObject &jsObj)
+{
+    if(m_thread.isRunning())
+    {
+        emit runNewTunning(jsObj);
     }
     else
     {

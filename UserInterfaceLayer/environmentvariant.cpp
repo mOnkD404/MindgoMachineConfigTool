@@ -53,12 +53,29 @@ void EnvironmentVariant::initUserConfig(const QString &str)
 
     handler.ParsePlanList(m_planList, m_paramDefaultValueMap);
     handler.ParseWorkLocationTypeList(m_workLocationTypeList);
+
+    //2328-1768-0720-4852
+    const char preCalculatedSha1[20] = {
+        0x9d,0x1d,0xa4,0x38,0x9a,0x40,0xd1,0xd0,0x9e,0xc5,
+        0x44,0xa1,0xb2,0xdd,0x1e,0xa0,0xba,0xb5,0xc2,0x79
+    };
+    QByteArray Sha1;
+    handler.ParseLicense(Sha1);
+    if( 0 == memcmp(Sha1.data(), preCalculatedSha1, 20))
+    {
+        m_bAdministratorAccount = true;
+    }
+    else
+    {
+        m_bAdministratorAccount = false;
+    }
 }
 
 void EnvironmentVariant::initModels(QQmlContext* context)
 {
     m_context = context;
     context->setContextProperty("IPAddressObject", &m_machineConfig);
+    context->setContextProperty("isAdministratorAccount", m_bAdministratorAccount);
     //m_singleStepPageModel.init(context, m_operationList, m_operationNameDispMap);
 }
 
@@ -210,7 +227,7 @@ QJsonObject EnvironmentVariant::formatSingleOperationParam(const SingleOperation
     QJsonObject opObj;
     QJsonObject singleOperationObj;
     singleOperationObj["operation"] = m_operationDispNameMap[obj.operationName];
-    singleOperationObj["sequence"] = QJsonValue(obj.sequenceNumber);
+    singleOperationObj["sequence"] = QJsonValue(0xffff);//QJsonValue(obj.sequenceNumber);
     QJsonObject paramobj;
     foreach(const OperationParamData& data, obj.params)
     {
@@ -240,19 +257,33 @@ QJsonObject EnvironmentVariant::formatSingleOperationParam(const SingleOperation
     singleOperationObj["params"] = paramobj;
 
 
-    QJsonArray oparray;
-    oparray.append(singleOperationObj);
-    opObj["operations"] = oparray;
+//    QJsonArray oparray;
+//    oparray.append(singleOperationObj);
+    opObj["operation"] = singleOperationObj;
     opObj["maxReceiveTime"] = m_machineConfig.maxReceiveTime;
-    opObj["startIndex"] = 0;
+//    opObj["startIndex"] = 0;
 
     return opObj;
+}
+
+
+void EnvironmentVariant::StartTunning(const SingleOperationData& data)
+{
+    QJsonObject operationObj = EnvironmentVariant::instance()->formatSingleOperationParam(data);
+
+    EnvironmentVariant::instance()->runTunning(operationObj);
 }
 
 void EnvironmentVariant::runTask(const QJsonObject &task)
 {
      m_workFlow.sethost(m_machineConfig.getIpAddress(), m_machineConfig.getPort());
      m_workFlow.runTask(task);
+}
+
+void EnvironmentVariant::runTunning(const QJsonObject& tunning)
+{
+    m_workFlow.sethost(m_machineConfig.getIpAddress(), m_machineConfig.getPort());
+    m_workFlow.runTunning(tunning);
 }
 
 void EnvironmentVariant::AddPlanStep(int planIndex, int before, int operationIndex)

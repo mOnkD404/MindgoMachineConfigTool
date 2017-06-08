@@ -67,6 +67,7 @@ public:
 
 
 public slots:
+    void doTunning(const QJsonObject&);
     void doWork(const QJsonObject&);
     void changeHost(const QString& host, quint16 port);
     void configProtocol(const QString& );
@@ -111,10 +112,12 @@ public:
     void init(const QString& protoconConfig);
 
     void runTask(const QJsonObject & jsObj);
+    void runTunning(const QJsonObject& jsObj);
     void stopCurrentTask();
     void sethost(const QString& host, quint16 port);
 
 signals:
+    void runNewTunning(const QJsonObject&);
     void runNewTask(const QJsonObject&);
     void stopTask();
     void changeHost(const QString& host, quint16 port);

@@ -4,6 +4,16 @@ import Common 1.0
 
 Item {
     property string operationGroupType
+    signal positionSelected(int index);
+
+    function setPosition(index){
+        for(var ind = 0; ind < paramList.model.length; ind++){
+            if(paramList.model[ind].Name == "position"){
+                paramList.model[ind].IntegerValue = index;
+                break;
+            }
+        }
+    }
 
     Component.onCompleted: {
         selector.init(operationGroupType);
@@ -258,6 +268,9 @@ Item {
 
                             onCurrentIndexChanged: {
                                 modelData.IntegerValue = currentIndex;
+                                if (modelData.Name == "position"){
+                                    positionSelected(currentIndex);
+                                }
                             }
 
                         }

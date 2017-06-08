@@ -28,6 +28,7 @@ public:
     void SaveMachineConfig(const QString& configFile, const MachineConfigData&, const QStringList& );
 
     void ParseWorkLocationTypeList(QStringList& typelist);
+    void ParseLicense(QByteArray& encodedString);
 
 signals:
 

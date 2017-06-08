@@ -1,11 +1,12 @@
-{
+﻿{
+    "license": "2328-1768-0720-4852",
     "plan": {
         "123": [
             {
                 "operation": "Load Tip",
                 "params": {
                     "boardType": 1,
-                    "position": 0
+                    "position": 8
                 },
                 "sequenceNumber": 1
             },
@@ -45,7 +46,7 @@
                     "drain": true,
                     "drainHeight": 77,
                     "drainVolume": 7,
-                    "position": 5,
+                    "position": 9,
                     "speed": 1
                 },
                 "sequenceNumber": 5
@@ -90,7 +91,7 @@
                 "operation": "Dump Tip",
                 "params": {
                     "boardType": 1,
-                    "position": 0
+                    "position": 1
                 },
                 "sequenceNumber": 10
             }

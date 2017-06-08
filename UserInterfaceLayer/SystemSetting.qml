@@ -72,6 +72,18 @@ Item {
                     }
                 }
 
+
+                Text {
+                    id: text4
+                    text: ":"
+                    width: 5
+                    height: 30
+                    color: "#d9d9d9"
+                    font.bold: true
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideNone
+                    font.pixelSize: 20
+                }
                 Rectangle{
                     width: 82
                     height: 30
@@ -133,10 +145,13 @@ Item {
             }
 
             StepGallery{
+                visible: isAdministratorAccount
                 height: 480
                 width: 1000
 
                 activeOnClick: true
+                showLabel: false
+                showCombo: true
             }
 
 

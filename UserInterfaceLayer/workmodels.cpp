@@ -259,9 +259,8 @@ void OperationParamSelector::onCompleteSingleOperation()
                 opobj.params.append(*data);
         }
     }
-    QJsonObject operationObj = EnvironmentVariant::instance()->formatSingleOperationParam(opobj);
 
-    EnvironmentVariant::instance()->runTask(operationObj);
+    EnvironmentVariant::instance()->StartTunning(opobj);
 }
 
 

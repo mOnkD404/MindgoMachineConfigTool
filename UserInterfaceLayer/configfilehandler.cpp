@@ -5,6 +5,8 @@
 #include <QJsonArray>
 #include <QMap>
 #include <QDebug>
+#include <QCryptographicHash>
+
 configFileHandler::configFileHandler(QObject *parent)
     : QObject(parent)
 {
@@ -373,4 +375,13 @@ void configFileHandler::ParseWorkLocationTypeList(QStringList& typelist)
         QString str = types.at(index).toString();
         typelist.append(str);
     }
+}
+
+void configFileHandler::ParseLicense(QByteArray& encodedString)
+{
+    encodedString.clear();
+    QByteArray licenseStr(m_configFileObj["license"].toString().toLocal8Bit());
+
+    QCryptographicHash hash(QCryptographicHash::Sha1);
+    encodedString = hash.hash(licenseStr, QCryptographicHash::Sha1);
 }

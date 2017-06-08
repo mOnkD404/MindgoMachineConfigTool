@@ -4,10 +4,20 @@ import Common 1.0
 import QtQml.Models 2.2
 
 Item {
-    id: root
+    signal positionSelected(int index);
+    id: root    
 
     function savePlan(){
         selector.onSave();
+    }
+
+    function setPosition(index){
+        for(var ind = 0; ind < paramList.model.length; ind++){
+            if(paramList.model[ind].Name == "position"){
+                paramList.model[ind].IntegerValue = index;
+                break;
+            }
+        }
     }
 
     PlanSelector{
@@ -700,6 +710,10 @@ Item {
                                 modelData.IntegerValue = currentIndex;
 
                                 selector.commitParam(planListView.currentIndex, stepListView.currentIndex, modelData.Name, currentIndex);
+
+                                if (modelData.Name == "position"){
+                                    positionSelected(currentIndex);
+                                }
                             }
                         }
                     }

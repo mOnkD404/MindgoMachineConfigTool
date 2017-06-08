@@ -48,8 +48,34 @@ Item {
 
             anchors.top: row.bottom
             anchors.left: parent.left
-            anchors.right: parent.right
+            //anchors.right: parent.right
             anchors.bottom: parent.bottom
+
+            width: 700
+
+            onPositionSelected: {
+                planStepGallery.currentIndex = index;
+            }
+        }
+
+        StepGallery{
+            //height: 480
+            //width: 1000
+            id:planStepGallery
+            anchors.top: row.bottom
+            anchors.left: planList.right
+            anchors.right: parent.right
+            //anchors.bottom: parent.bottom
+
+            anchors.margins: 20
+
+            activeOnClick: true
+            showLabel: false
+            showIndex: true
+
+            onItemSelected: {
+                planList.setPosition(index);
+            }
         }
     }
 }

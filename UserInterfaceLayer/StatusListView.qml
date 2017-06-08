@@ -67,9 +67,10 @@ Item {
 
                         //anchors { fill: parent; margins: 2 }
 
+                        Text { text: 'Tunning'; color:"#d9d9d9"; font.bold: true; visible: (sequence==0xffff)?true:false}
                         Text { text: 'Operation: ' + operation; color:"#d9d9d9" }
                         Text { text: 'position: ' + position; color: "#d9d9d9"}
-                        Text { text: 'Sequence number: ' + sequence; color:"#d9d9d9" }
+                        Text { text: 'Sequence number: ' + sequence; color:"#d9d9d9"; visible: (sequence == 0xffff)?false:true }
                         Text { text: 'Send: ' + send.toString(); color:"#d9d9d9"; font.bold: true }
                         Text { text: 'Ack: ' + ack.toString(); color:"#d9d9d9"; font.bold: true }
                         Text { text: 'Ack result: ' + ackResult; color:"#d9d9d9"; font.bold: true }

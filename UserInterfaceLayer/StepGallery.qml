@@ -4,7 +4,14 @@ import QtQuick.Controls 2.1
 
 Item {
     property bool activeOnClick: false
+    property bool showLabel: true
+    property bool showIndex: false
+    property bool showCombo: false
+    property alias currentIndex: gridView.currentIndex
     signal typeChanged();
+    signal itemSelected(int index);
+
+    height: width*3/4
 
     MouseArea{
         anchors.fill: parent
@@ -14,7 +21,7 @@ Item {
         onStatusChanged: {
             if(displayModel.count > 0 && jsobj["position"] > 0){
                 if (gridView.currentIndex == jsobj["position"] - 1 ){
-                    if( jsobj["ack"] == true && gridView.currentItem.gridType != "null"){
+                    if( jsobj["ack"] == true && gridView.currentItem.gridType != "null" && showLabel){
                         gridView.currentItem.state = "used";
                     }
                 }else{
@@ -83,8 +90,8 @@ Item {
         delegate: Rectangle {
             property int gridIndex:index
             property string gridType: type
-            height:  155
-            width:220
+            height: gridView.cellHeight * 4/5
+            width: gridView.cellWidth * 7/8
 
             color:"#4c000000"
             radius: 8
@@ -104,7 +111,7 @@ Item {
                 visible: true
 
                 Rectangle{
-                    visible: !activeOnClick
+                    visible: showLabel||showIndex
                     id:textBack
                     color:"#92d456"
                     //width:parent.width - 10
@@ -116,7 +123,13 @@ Item {
                         anchors.fill: parent
                         id:textlabel
                         color: "#e6eae9"
-                        text:(gridType == "null")?qsTr("Empty"):qsTr("Ready")
+                        text:{
+                            if(showLabel){
+                                return (gridType == "null")?qsTr("Empty"):qsTr("Ready");
+                            }else if(showIndex && gridIndex>=0){
+                                return gridIndex+1;
+                            }
+                        }
                         font.bold: true
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignHCenter
@@ -128,10 +141,13 @@ Item {
             MouseArea{
                 anchors.fill: parent
                 enabled: activeOnClick
+                onClicked: {
+                    itemSelected(gridIndex);
+                }
             }
             ComboBox
             {
-                visible: activeOnClick
+                visible: showCombo
                 id: combox
                 anchors.centerIn: parent
                 textRole: "name"

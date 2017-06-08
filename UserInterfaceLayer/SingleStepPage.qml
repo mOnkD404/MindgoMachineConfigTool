@@ -53,15 +53,40 @@ Item {
             anchors.bottom: parent.bottom
 
             operationGroupType: "NormalOperation"
+
+            onPositionSelected: {
+                stepGallery.currentIndex = index;
+            }
         }
 
         StatusListView{
+            id: singleStepStatus
             anchors.top: row.bottom
             anchors.topMargin: 10
             anchors.left: singleStepOperation.right
             anchors.leftMargin: 10
 
             height: 400
+        }
+        StepGallery{
+            //height: 480
+            //width: 1000
+            id:stepGallery
+
+            anchors.top: row.bottom
+            anchors.left: singleStepStatus.right
+            anchors.right: parent.right
+            //anchors.bottom: parent.bottom
+
+            anchors.margins: 20
+
+            activeOnClick: true
+            showLabel: false
+            showIndex: true
+
+            onItemSelected: {
+                singleStepOperation.setPosition(index);
+            }
         }
     }
 

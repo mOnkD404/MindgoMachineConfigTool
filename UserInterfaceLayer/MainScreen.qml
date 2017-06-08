@@ -160,6 +160,7 @@ Item {
                 startColor:"#a9aaac"
                 stopColor:"#6e6d71"
                 borderColor:"#cecece"
+                enabled: isAdministratorAccount
 
                 onClicked: subPage.subPageUrl = Qt.resolvedUrl("PlanSetting.qml")
             }
@@ -285,7 +286,7 @@ Item {
                     }
                     PropertyChanges {
                         target: singleStepButton
-                        enabled:false
+                        enabled:true
                     }
                     PropertyChanges {
                         target: planSettingButton

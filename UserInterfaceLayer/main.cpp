@@ -68,6 +68,17 @@ void customMessageHandler(QtMsgType type, const QMessageLogContext &context, con
     textStream << txtMessage << endl;
 }
 
+#ifdef MINDGO_ALL_IN_ONE
+#define CONFIG_PREFIX "./UserInterfaceLayer/config/"
+#else
+#define CONFIG_PREFIX "./config/"
+#endif
+
+QString getConfigFullName(const char* name)
+{
+    return QString(CONFIG_PREFIX)+name;
+}
+
 int main(int argc, char *argv[])
 {
 #ifdef WIN32
@@ -82,7 +93,7 @@ int main(int argc, char *argv[])
 #endif
     qDebug()<<QDir::currentPath();
     QTranslator translator;
-    translator.load("./config/cn.qm");
+    translator.load(getConfigFullName("cn.qm"));
     app.installTranslator(&translator);
 
     qmlRegisterType<TextFieldDoubleValidator>("Common", 1,0, "TextFieldDoubleValidator");
@@ -99,9 +110,9 @@ int main(int argc, char *argv[])
 
     QQuickView view;
 
-    EnvironmentVariant::instance()->parseConfigFile("./config/OperationParams.json");
-    EnvironmentVariant::instance()->initUserConfig("./config/UserConfig.json");
-    EnvironmentVariant::instance()->initProtocol("./config/Protocol.json");
+    EnvironmentVariant::instance()->parseConfigFile(getConfigFullName("OperationParams.json"));
+    EnvironmentVariant::instance()->initUserConfig(getConfigFullName("UserConfig.json"));
+    EnvironmentVariant::instance()->initProtocol(getConfigFullName("Protocol.json"));
     EnvironmentVariant::instance()->initModels(view.rootContext());
 
 

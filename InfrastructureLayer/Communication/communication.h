@@ -6,7 +6,11 @@
 #include <QTcpSocket>
 #include <QByteArray>
 
+#ifdef MINDGO_ALL_IN_ONE
+class Communication
+#else
 class COMMUNICATIONSHARED_EXPORT Communication
+#endif
 {
 
 public:

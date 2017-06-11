@@ -12,7 +12,11 @@
 
 #include <QEvent>
 
+#ifdef MINDGO_ALL_IN_ONE
+class WorkflowProtocol
+#else
 class WORKFLOWPROTOCOLSHARED_EXPORT WorkflowProtocol
+#endif
 {
 public:
     class sendFrame
@@ -108,7 +112,11 @@ private:
     int m_startIndex;
 };
 
+#ifdef MINDGO_ALL_IN_ONE
+class WorkflowController: public QObject
+#else
 class WORKFLOWPROTOCOLSHARED_EXPORT WorkflowController:public QObject
+#endif
 {
     Q_OBJECT
 public:

@@ -54,8 +54,8 @@ Section "MainSection" SEC01
   SetOverwrite ifnewer
   File /r "C:\Users\sunwp\Documents\GitHub\MindgoMachineConfigTool\win32deploy\MindgoTool\MindgoTool\*.*"
 
-  CreateShortCut "$DESKTOP\Mindgo.lnk" "$INSTDIR\UserInterfaceLayer.exe"
-  CreateShortCut "$STARTMENU\Mindgo.lnk" "$INSTDIR\UserInterfaceLayer.exe"
+  CreateShortCut "$DESKTOP\Mindgo.lnk" "$INSTDIR\MindGoTool_AllInOne.exe"
+  CreateShortCut "$STARTMENU\Mindgo.lnk" "$INSTDIR\MindGoTool_AllInOne.exe"
 SectionEnd
 
 Section -AdditionalIcons
@@ -110,7 +110,7 @@ Section Uninstall
   RMDir /r "$INSTDIR\Material"
   RMDir /r "$INSTDIR\imageformats"
   RMDir /r "$INSTDIR\iconengines"
-  RMDir /r "$INSTDIR\config"
+  RMDir /r "$INSTDIR\UserInterfaceLayer"
   RMDir /r "$INSTDIR\bearer"
   RMDir /r "$INSTDIR\audio"
 

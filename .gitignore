@@ -80,3 +80,9 @@ UserInterfaceLayer/customMessageLog.txt
 UserInterfaceLayer/customMessageLog.txt
 win32deploy/MindgoTool/MindgoTool/customMessageLog.txt
 win32deploy/MindgoTool/MindgoTool.zip
+
+*.dylib
+
+BussinessLayer/WorkflowProtocol/moc_predefs.h
+
+DebugTool/moc_predefs.h

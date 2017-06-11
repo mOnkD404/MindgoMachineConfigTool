@@ -6,8 +6,11 @@
 #include <QString>
 #include <QStringList>
 #include "workmodels.h"
+#ifdef MINDGO_ALL_IN_ONE
+#include "BussinessLayer/WorkflowProtocol/workflowprotocol.h"
+#else
 #include "workflowprotocol.h"
-
+#endif
 class EnvironmentVariant: public QObject
 {
     Q_OBJECT

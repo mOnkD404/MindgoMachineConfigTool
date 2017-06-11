@@ -4,7 +4,12 @@
 #include "workflowprotocol_global.h"
 #include <QJsonObject>
 #include <QThread>
+#ifdef MINDGO_ALL_IN_ONE
+#include "InfrastructureLayer/Communication/communication.h"
+#else
 #include "communication.h"
+#endif
+
 #include <QEvent>
 
 class WORKFLOWPROTOCOLSHARED_EXPORT WorkflowProtocol

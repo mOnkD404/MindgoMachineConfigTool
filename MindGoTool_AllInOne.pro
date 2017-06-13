@@ -48,11 +48,10 @@ DISTFILES += \
     UserInterfaceLayer/config/UserConfig.json \
     UserInterfaceLayer/config/cn.qm
 
-win32: LIBS += -lDbgHelp
-
-
+win32: {LIBS += -lDbgHelp
 QMAKE_LFLAGS_RELEASE += /MAP
 QMAKE_CFLAGS_RELEASE += /Zi
 QMAKE_LFLAGS_RELEASE += /debug /opt:ref
+}
 
 win32:CONFIG(release, debug|release): QMAKE_LFLAGS += /MANIFESTUAC:\"level=\'requireAdministrator\' uiAccess=\'false\'\"

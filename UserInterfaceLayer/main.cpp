@@ -119,8 +119,8 @@ int main(int argc, char *argv[])
     view.connect(view.engine(), &QQmlEngine::quit, &app, &QCoreApplication::quit);
     view.setResizeMode(QQuickView::SizeRootObjectToView);
     view.setSource(QUrl("qrc:/main.qml"));
-    view.setMinimumSize(QSize(1400,720));
-    view.show();
+    //view.setMinimumSize(QSize(1400,720));
+    view.showFullScreen();
 
     return app.exec();
 }

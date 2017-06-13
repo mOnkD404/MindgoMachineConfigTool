@@ -72,6 +72,7 @@ Item {
         //highlightRangeMode: GridView.StrictlyEnforceRange
         interactive: false
         clip: true
+        flow: GridView.FlowTopToBottom
         anchors.fill: parent
         anchors.topMargin: 5
         anchors.leftMargin: 5

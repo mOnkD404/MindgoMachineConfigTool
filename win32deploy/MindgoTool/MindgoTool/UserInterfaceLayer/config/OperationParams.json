@@ -164,7 +164,7 @@
             "default":0,
             "display":"运动速度",
             "unit":"mm",
-            "bottomValue":-1000,
+            "bottomValue":0,
             "topValue":1000
         }
     }

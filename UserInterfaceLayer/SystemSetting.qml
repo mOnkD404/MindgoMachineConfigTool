@@ -20,7 +20,9 @@ Item {
             id: column
             spacing: 5
 
-            anchors.fill:parent
+            anchors.left:parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
             anchors.topMargin: 20
             anchors.leftMargin: 20
             anchors.rightMargin: 20
@@ -143,19 +145,17 @@ Item {
                     }
                 }
             }
+        }
+        StepGallery{
+            visible: isAdministratorAccount
+            anchors.right: parent.right
+            anchors.left: parent.left
+            anchors.top: column.bottom
+            anchors.bottom: parent.bottom
 
-            StepGallery{
-                visible: isAdministratorAccount
-                height: 480
-                width: 1000
-
-                activeOnClick: true
-                showLabel: false
-                showCombo: true
-            }
-
-
-
+            activeOnClick: true
+            showLabel: false
+            showCombo: true
         }
         TextButton {
             id: textButton

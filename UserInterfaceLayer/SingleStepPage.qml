@@ -17,7 +17,7 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top
-            height: 50
+            height: parent.height/8
 
             Text{
                 text:qsTr("Single step operation")
@@ -31,8 +31,8 @@ Item {
             }
 
             TextButton{
-                width: 130
-                height: 60
+                width: height*2
+                height: parent.height
                 textValue: qsTr("Execute")
                 anchors.right: parent.right
                 anchors.rightMargin: 0
@@ -47,6 +47,7 @@ Item {
         OperationList{
             id:singleStepOperation
 
+            columnWidth: 140
             anchors.top: row.bottom
             anchors.left: parent.left
             anchors.leftMargin: 10
@@ -65,20 +66,22 @@ Item {
             anchors.topMargin: 10
             anchors.left: singleStepOperation.right
             anchors.leftMargin: 10
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+            height:82
 
-            height: 400
         }
         StepGallery{
             //height: 480
             //width: 1000
             id:stepGallery
 
-            anchors.top: row.bottom
-            anchors.left: singleStepStatus.right
+            anchors.top: singleStepStatus.bottom
+            anchors.left: singleStepOperation.right
             anchors.right: parent.right
             //anchors.bottom: parent.bottom
 
-            anchors.margins: 20
+            anchors.margins: 10
 
             activeOnClick: true
             showLabel: false

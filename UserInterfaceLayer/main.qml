@@ -3,8 +3,8 @@ import QtQuick.Window 2.2
 
 Item {
     visible: true
-    width: 1400
-    height: 720
+    width: 800
+    height: 480
     antialiasing: true
 
     //title: qsTr("Mindgo automatic tool")

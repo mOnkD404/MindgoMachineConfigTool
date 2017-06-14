@@ -14,6 +14,7 @@
 #include <QFont>
 #include <QFontDatabase>
 #include <QTime>
+#include <QScreen>
 
 #ifdef WIN32
 #include <Windows.h>
@@ -85,6 +86,9 @@ int main(int argc, char *argv[])
     SetUnhandledExceptionFilter(TopLevelExceptionFilter);
 #endif
 
+//#ifdef QT_WS_QWS
+    qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
+//#endif
     QGuiApplication app(argc, argv);
     app.setApplicationName("Mindgo");
 
@@ -119,8 +123,13 @@ int main(int argc, char *argv[])
     view.connect(view.engine(), &QQmlEngine::quit, &app, &QCoreApplication::quit);
     view.setResizeMode(QQuickView::SizeRootObjectToView);
     view.setSource(QUrl("qrc:/main.qml"));
-    //view.setMinimumSize(QSize(1400,720));
+    view.setMinimumSize(QSize(800,480));
+    QScreen* scn = view.screen();
+    qDebug()<<scn->physicalSize();
+#ifdef QT_WS_QWS
     view.showFullScreen();
-
+#else
+    view.show();
+#endif
     return app.exec();
 }

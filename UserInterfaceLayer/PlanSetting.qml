@@ -17,7 +17,7 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top
-            height: 50
+            height: parent.height/8
 
             Text{
                 text:qsTr("Plan setting")
@@ -31,8 +31,8 @@ Item {
             }
 
             TextButton{
-                width: 130
-                height: 60
+                width: height*2
+                height: parent.height
                 textValue: qsTr("Save")
                 anchors.right: parent.right
                 anchors.rightMargin: 0
@@ -51,7 +51,7 @@ Item {
             //anchors.right: parent.right
             anchors.bottom: parent.bottom
 
-            width: 700
+            width: parent.width/3*2
 
             onPositionSelected: {
                 planStepGallery.currentIndex = index;

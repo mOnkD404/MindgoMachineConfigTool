@@ -115,8 +115,8 @@ Item {
                     visible: showLabel||showIndex
                     id:textBack
                     color:"#92d456"
-                    //width:parent.width - 10
-                    height:40
+                    width:parent.width
+                    height:parent.height/3
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.right: parent.right
@@ -135,7 +135,7 @@ Item {
                         font.bold: true
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignHCenter
-                        font.pointSize: 16
+                        //font.pointSize: 16
                     }
                 }
             }
@@ -151,6 +151,8 @@ Item {
             {
                 visible: showCombo
                 id: combox
+                width: parent.width-4
+                height:parent.height/3
                 anchors.centerIn: parent
                 textRole: "name"
                 model: ListModel{

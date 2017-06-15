@@ -38,19 +38,20 @@ Item {
             textFormat: Text.PlainText
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: 28
+            font.pixelSize: 30
             font.bold: true
+            antialiasing: true
         }
 
         Text {
             id: timeBar
-            width: 200
+            width: 250
             color: "#fdfdfd"
             text: qsTr("00-00-00")
             anchors.right: parent.right
             anchors.rightMargin: 20
             anchors.verticalCenter: parent.verticalCenter
-            font.pixelSize: 18
+            font.pixelSize: 20
             font.bold: true
         }
 
@@ -134,11 +135,12 @@ Item {
             anchors.right: parent.right
             anchors.rightMargin: 20
             anchors.bottom: parent.bottom
-            spacing: 10
+            spacing: 20
 
             TextButton{
                 id:singleStepButton
-                height: 52.7
+                height: 50
+                fontPixelSize: 25
                 textValue: qsTr("Single step")
                 startColor:"#a9aaac"
                 stopColor:"#6e6d71"
@@ -149,7 +151,8 @@ Item {
 
             TextButton{
                 id:systemSettingButton
-                height: 55
+                height: 50
+                fontPixelSize: 25
                 textValue: qsTr("System settings")
                 startColor:"#a9aaac"
                 stopColor:"#6e6d71"
@@ -160,7 +163,8 @@ Item {
 
             TextButton{
                 id:planSettingButton
-                height: 55
+                height: 50
+                fontPixelSize: 25
                 textValue: qsTr("Plan settings")
                 startColor:"#a9aaac"
                 stopColor:"#6e6d71"
@@ -173,7 +177,8 @@ Item {
             TextButton{
                 id:startButton
                 textValue: qsTr("Start test")
-                height: 80
+                height: 65
+                fontPixelSize: 25
                 startColor:"#cffe9e"
                 stopColor:"#92d456"
                 borderColor:"#99da73"
@@ -189,7 +194,8 @@ Item {
             TextButton{
                 id:stopButton
                 textValue: qsTr("Stop test")
-                height: 80
+                height: 65
+                fontPixelSize: 25
                 startColor:"#cffe9e"
                 stopColor:"#92d456"
                 borderColor:"#99da73"
@@ -208,7 +214,8 @@ Item {
             TextButton{
                 id:pauseButton
                 textValue: qsTr("Pause test")
-                height: 80
+                height: 65
+                fontPixelSize: 25
                 startColor:"#cffe9e"
                 stopColor:"#92d456"
                 borderColor:"#99da73"
@@ -222,7 +229,8 @@ Item {
             TextButton{
                 id:resumeButton
                 textValue: qsTr("Resume test")
-                height: 80
+                height: 65
+                fontPixelSize: 25
                 startColor:"#a9aaac"
                 stopColor:"#6e6d71"
                 borderColor:"#99da73"
@@ -334,8 +342,9 @@ Item {
             TextButton{
                 id: backButton
                 textValue:qsTr("< Back")
-                height:45
+                height:parent.height - 20
                 width:100
+                fontPixelSize: 20
                 anchors.left: parent.left
                 anchors.leftMargin: 10
                 anchors.top: parent.top

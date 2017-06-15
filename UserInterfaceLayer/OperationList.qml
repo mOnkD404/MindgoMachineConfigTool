@@ -27,7 +27,7 @@ Item {
     }
 
     columnWidth: 150
-    width: columnWidth *3+10
+    width: columnWidth *2.7+10
 
 
     Row {
@@ -125,7 +125,7 @@ Item {
 
         Item {
             id: column1
-            width: columnWidth*2
+            width: columnWidth*1.7
             anchors.bottom: parent.bottom
             anchors.top: parent.top
 

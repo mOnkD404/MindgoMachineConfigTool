@@ -1,5 +1,8 @@
 ﻿import QtQuick 2.7
 import QtQuick.Controls 1.4
+import QtQuick.VirtualKeyboard 2.2
+import QtQuick.VirtualKeyboard.Styles 2.2
+import QtQuick.VirtualKeyboard.Settings 2.2
 
 Item {
     id:systemSettingPage

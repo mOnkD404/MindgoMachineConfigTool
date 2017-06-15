@@ -17,13 +17,13 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top
-            height: parent.height/8
+            height: 40
 
             Text{
                 text:qsTr("Single step operation")
                 verticalAlignment: Text.AlignVCenter
                 font.bold: true
-                font.pointSize: 19
+                font.pixelSize: 20
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 30
@@ -31,12 +31,14 @@ Item {
             }
 
             TextButton{
+                id: execButton
                 width: height*2
                 height: parent.height
                 textValue: qsTr("Execute")
                 anchors.right: parent.right
                 anchors.rightMargin: 0
                 buttonradius: 0
+                fontPixelSize: 20
                 onClicked: {
                     singleStepOperation.commitData();
                     console.debug("Execute single step operation.");
@@ -47,7 +49,7 @@ Item {
         OperationList{
             id:singleStepOperation
 
-            columnWidth: 140
+            columnWidth: 160
             anchors.top: row.bottom
             anchors.left: parent.left
             anchors.leftMargin: 10
@@ -63,12 +65,12 @@ Item {
         StatusListView{
             id: singleStepStatus
             anchors.top: row.bottom
-            anchors.topMargin: 10
+            anchors.topMargin: 5
             anchors.left: singleStepOperation.right
-            anchors.leftMargin: 10
-            anchors.right: parent.right
-            anchors.rightMargin: 10
-            height:82
+            anchors.leftMargin: 5
+            anchors.right: execButton.left
+            anchors.rightMargin: 5
+            height:85
 
         }
         StepGallery{
@@ -79,7 +81,7 @@ Item {
             anchors.top: singleStepStatus.bottom
             anchors.left: singleStepOperation.right
             anchors.right: parent.right
-            //anchors.bottom: parent.bottom
+            anchors.bottom: parent.bottom
 
             anchors.margins: 10
 

@@ -60,6 +60,7 @@ Item {
                 border.color:"#747474"
                 color:"transparent"
                 height: 80
+
                 Component{
                     id:controlCmd
                     Column {
@@ -70,10 +71,10 @@ Item {
 
                         //anchors { fill: parent; margins: 2 }
 
-                        Text { text: 'Step: ' + sequence; color:"#d9d9d9"; visible: (sequence == 0xffff)?false:true; wrapMode:Text.Wrap }
-                        Text { text: 'Tunning'; color:"#d9d9d9"; font.bold: true; visible: (sequence==0xffff)?true:false; wrapMode:Text.Wrap }
-                        Text { text: operation; color:"#d9d9d9"; wrapMode:Text.Wrap }
-                        Text { text: 'position: ' + position; color: "#d9d9d9"; wrapMode:Text.Wrap}
+                        Text { text: 'Step: ' + sequence; color:"#d9d9d9"; visible: (sequence == 0xffff)?false:true; font.pixelSize: 15 }
+                        Text { text: 'Tunning'; color:"#d9d9d9"; font.bold: true; visible: (sequence==0xffff)?true:false; font.pixelSize: 15 }
+                        Text { text: operation; color:"#d9d9d9"; font.pixelSize: 15 }
+                        Text { text: 'position: ' + position; color: "#d9d9d9"; font.pixelSize: 15}
 //                        Text {
 //                            text: {
 //                                if(send==true){
@@ -84,7 +85,7 @@ Item {
 //                            }
 //                            color:"#d9d9d9";
 //                            font.bold: true;
-//                            wrapMode:Text.Wrap
+//                            font.pixelSize: 15
 //                        }
 //                        Text {
 //                            text: {
@@ -96,27 +97,27 @@ Item {
 //                            }
 //                            color:"#d9d9d9";
 //                            font.bold: true;
-//                            wrapMode:Text.Wrap
+//                            font.pixelSize: 15
 //                        }
                         Text {
                             text: {
                                 if(send==true){
                                     if(ack==false){
-                                        return 'Result: watting';
+                                        return 'Watting';
                                     }else{
                                         if(ackResult==0){
-                                            return 'Result: success';
+                                            return 'Success';
                                         }else{
-                                            return 'Result: fail code'+ackResult.toString();
+                                            return 'Fail code'+ackResult.toString();
                                         }
                                     }
                                 }else{
-                                    return 'Result: send fail';
+                                    return 'Send fail';
                                 }
                             }
                             color:"#d9d9d9";
                             font.bold: true;
-                            wrapMode:Text.Wrap
+                            font.pixelSize: 15
                         }
                     }
                 }
@@ -130,10 +131,10 @@ Item {
 
                         //anchors { fill: parent; margins: 2 }
 
-                        Text { text: 'Step: ' + sequence; color:"#d9d9d9"; wrapMode:Text.Wrap }
-                        Text { text: operation; color:"#d9d9d9"; wrapMode:Text.Wrap }
-                        Text { text: 'Wait: ' + waitArray; color:"#d9d9d9"; font.bold: true; wrapMode:Text.Wrap }
-                        Text { text: 'Waitting: ' + waitting; color:"#d9d9d9"; font.bold: true; wrapMode:Text.Wrap }
+                        Text { text: 'Step: ' + sequence; color:"#d9d9d9"; font.pixelSize: 15 }
+                        Text { text: operation; color:"#d9d9d9"; font.pixelSize: 15 }
+                        Text { text: 'Wait: ' + waitArray; color:"#d9d9d9"; font.bold: true; font.pixelSize: 15 }
+                        Text { text: 'Waitting: ' + waitting; color:"#d9d9d9"; font.bold: true; font.pixelSize: 15 }
                     }
                 }
                 Component{
@@ -146,9 +147,9 @@ Item {
 
                         //anchors { fill: parent; margins: 2 }
 
-                        Text { text: 'Step: ' + sequence; color:"#d9d9d9"; wrapMode:Text.Wrap }
-                        Text { text: operation; color:"#d9d9d9"; wrapMode:Text.Wrap }
-                        Text { text: 'Count: ' + loopCount; color:"#d9d9d9"; font.bold: true; wrapMode:Text.Wrap }
+                        Text { text: 'Step: ' + sequence; color:"#d9d9d9"; font.pixelSize: 15 }
+                        Text { text: operation; color:"#d9d9d9"; font.pixelSize: 15 }
+                        Text { text: 'Count: ' + loopCount; color:"#d9d9d9"; font.bold: true; font.pixelSize: 15 }
                     }
                 }
                 Component{
@@ -161,9 +162,9 @@ Item {
 
                         //anchors { fill: parent; margins: 2 }
 
-                        Text { text: 'Step: ' + sequence; color:"#d9d9d9"; wrapMode:Text.Wrap }
-                        Text { text: operation; color:"#d9d9d9"; wrapMode:Text.Wrap }
-                        Text { text: 'Remain: ' + remainLoopCount; color:"#d9d9d9"; font.bold: true; wrapMode:Text.Wrap }
+                        Text { text: 'Step: ' + sequence; color:"#d9d9d9"; font.pixelSize: 15 }
+                        Text { text: operation; color:"#d9d9d9"; font.pixelSize: 15 }
+                        Text { text: 'Remain: ' + remainLoopCount; color:"#d9d9d9"; font.bold: true; font.pixelSize: 15 }
                     }
                 }
                 Loader{

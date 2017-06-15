@@ -2,6 +2,9 @@
 import QtQuick.Controls 2.1
 import Common 1.0
 import QtQml.Models 2.2
+import QtQuick.VirtualKeyboard 2.2
+import QtQuick.VirtualKeyboard.Styles 2.2
+import QtQuick.VirtualKeyboard.Settings 2.2
 
 Item {
     signal positionSelected(int index);

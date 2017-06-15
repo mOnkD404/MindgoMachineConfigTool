@@ -55,7 +55,7 @@ Item {
                 horizontalAlignment: Text.AlignHCenter
                 anchors.bottomMargin: 0
                 anchors.fill: parent
-                font.pixelSize: 30
+                font.pixelSize: 35
                 color:"#b5b7b6"
             }
         }
@@ -71,18 +71,19 @@ Item {
             anchors.leftMargin: 21
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: 16
+            font.pixelSize: 25
             color: "#b5b7b6"
         }
 
         ComboBox {
             id: plancomboBox
-            width: 150
-            height: 30
+            width: 200
+            height: 35
             anchors.left: text4.right
             anchors.leftMargin: 10
             anchors.top:parent.top
             anchors.topMargin: 75
+            font.pixelSize: 25
 
             model: selector.planListModel()
             currentIndex: 0
@@ -103,6 +104,7 @@ Item {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
             buttonradius: 0
+            fontPixelSize: 30
 
             textValue: qsTr("Cancel")
 
@@ -125,6 +127,7 @@ Item {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
             buttonradius: 0
+            fontPixelSize: 30
 
             textValue: qsTr("Start")
             onClicked: {

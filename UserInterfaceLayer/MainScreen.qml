@@ -14,7 +14,7 @@ Item {
 
     Rectangle{
 
-        height: parent.height/8
+        height: 70
         color: "#1f1f1f"
         anchors.right: parent.right
         anchors.rightMargin: 0
@@ -114,12 +114,8 @@ Item {
                 id:statusList
                 visible: true
                 anchors.top:mainVDewID.top
-                anchors.topMargin: 3
                 anchors.right: mainVDewID.right
-                anchors.rightMargin: 3
                 anchors.bottom: mainVDewID.bottom
-                anchors.bottomMargin: 3
-                width:parent.width/5
             }
         }
 
@@ -127,14 +123,13 @@ Item {
             property string newState: ""
 
             id: actionBarID
-            width: parent.width/5
-            height: parent.height
+            width: 150
+            height: 620
             anchors.top: parent.top
             anchors.topMargin: 14
             anchors.right: parent.right
             anchors.rightMargin: 20
-            anchors.bottom: parent.bottom
-            spacing: 10
+            spacing: 20
 
             TextButton{
                 id:singleStepButton
@@ -319,7 +314,7 @@ Item {
 
         Rectangle{
             id:subPageheader
-            height: parent.height/8
+            height: 70
             width: 400
             color: "#1f1f1f"
             anchors.rightMargin: 0

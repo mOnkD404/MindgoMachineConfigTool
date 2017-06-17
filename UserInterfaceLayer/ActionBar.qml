@@ -1,4 +1,4 @@
-﻿import QtQuick 2.7
+import QtQuick 2.7
 import QtGraphicalEffects 1.0
 
 Item {
@@ -60,8 +60,8 @@ Item {
 
         Rectangle{
 
-            width: 20
-            height: 20
+            width: 25
+            height: 25
 
             color:mouse.pressed?"lightblue":colorVal
 
@@ -99,8 +99,8 @@ Item {
         spacing: 4
         interactive: false
         clip: false
-        contentWidth: 20
-        contentHeight: 20
+        contentWidth: 25
+        contentHeight: 25
         orientation: Qt.Horizontal
         layoutDirection: Qt.LeftToRight
         delegate: iconArea

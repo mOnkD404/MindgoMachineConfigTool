@@ -1,4 +1,4 @@
-﻿import QtQuick 2.7
+import QtQuick 2.7
 import QtQuick.Controls 2.1
 
 Item{
@@ -9,8 +9,6 @@ Item{
     property color textColor;
     property var buttonradius;
     property var textHorizontalAlignment : textItem.horizontalAlignment;
-    property int fontPixelSize;
-
     signal clicked;
     signal pressed;
     signal released;
@@ -21,8 +19,6 @@ Item{
     id:textbutton
     width: parent.width
     height: 100
-
-    fontPixelSize: 20
 
     textColor:"#e1e8e2"
     startColor: "#5cc5ff"
@@ -70,7 +66,7 @@ Item{
             text:textValue
             color:textColor
 
-            font.pixelSize: fontPixelSize
+            font.pixelSize: 20
             font.bold: true
             verticalAlignment: Text.AlignVCenter
             styleColor: "#3a3a3a"

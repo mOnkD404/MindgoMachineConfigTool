@@ -26,7 +26,7 @@ Item {
 
     property var columnWidth;
 
-    columnWidth: width/4-10
+    columnWidth: 150
 
     Row {
         id: row
@@ -179,7 +179,6 @@ Item {
                         anchors.leftMargin: 0
                         anchors.right: parent.right
                         anchors.rightMargin: 0
-                        fontPixelSize: 15
 
                         buttonradius: 0
 
@@ -383,7 +382,6 @@ Item {
                         textValue: (index+1) + ". " + name
                         startColor: "transparent"
                         stopColor: "transparent"
-                        fontPixelSize:17
 
                         Drag.active: stepItem.held
                         Drag.source: stepItem
@@ -483,7 +481,7 @@ Item {
                 }
                 highlightFollowsCurrentItem: true
                 currentIndex: -1
-                interactive: true
+                interactive: false
 
                 delegate: TextButton {
                     height: 30
@@ -492,7 +490,6 @@ Item {
                     anchors.leftMargin: 0
                     anchors.right: parent.right
                     anchors.rightMargin: 0
-                    fontPixelSize:15
 
                     buttonradius: 0
 
@@ -536,7 +533,7 @@ Item {
 
         Item {
             id: paramColumn
-            width: columnWidth*2
+            width: columnWidth*2.5
             anchors.bottom: parent.bottom
             anchors.top: parent.top
             visible: !operationColumn.visible
@@ -573,7 +570,7 @@ Item {
                 anchors.right: parent.right
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
-                interactive: true
+                interactive: false
                 model: selector.paramListModel
 
                 delegate: Item {
@@ -598,12 +595,12 @@ Item {
                     Text {
                         id: paramName
                         height:30
-                        width:80
+                        width:100
                         text: modelData.Display
                         horizontalAlignment: Text.AlignRight
                         verticalAlignment: Text.AlignVCenter
                         color:"#d9d9d9"
-                        font.pixelSize: 15
+                        font.pixelSize: 17
                         font.bold: true
                     }
 
@@ -626,7 +623,6 @@ Item {
                                 focus:true
                                 activeFocusOnTab: true
                                 selectByMouse: true
-                                inputMethodHints: Qt.ImhDigitsOnly
                                 //text: getText()
 
                                 Component.onCompleted: {

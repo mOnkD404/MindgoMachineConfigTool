@@ -3,8 +3,7 @@ import QtQuick.Controls 2.1
 import Common 1.0
 
 Item {
-    property string operationGroupType;
-    property int columnWidth;
+    property string operationGroupType
     signal positionSelected(int index);
 
     function setPosition(index){
@@ -26,8 +25,7 @@ Item {
         selector.onCompleteSingleOperation();
     }
 
-    columnWidth: 150
-    width: columnWidth *3+10
+    width: column.width + 10 + column1.width
 
 
     Row {
@@ -38,7 +36,7 @@ Item {
 
         Item {
             id: column
-            width: columnWidth
+            width: 150
             anchors.top: parent.top
             anchors.topMargin: 0
             anchors.bottom: parent.bottom
@@ -90,7 +88,7 @@ Item {
                 }
                 highlightFollowsCurrentItem: true
                 currentIndex: 0
-                interactive: true
+                interactive: false
 
                 delegate: TextButton {
                     height: 30
@@ -125,7 +123,7 @@ Item {
 
         Item {
             id: column1
-            width: columnWidth*2
+            width: column.width*2.5
             anchors.bottom: parent.bottom
             anchors.top: parent.top
 
@@ -160,7 +158,7 @@ Item {
                 anchors.right: parent.right
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
-                interactive: true
+                interactive: false
 
                 model : selector.paramModel
 
@@ -212,7 +210,6 @@ Item {
                                 validator: getValidator()
                                 focus:true
                                 activeFocusOnTab: true
-                                inputMethodHints: Qt.ImhDigitsOnly
 
                                 function getValidator(){
                                     if(modelData.Type == "integer"){

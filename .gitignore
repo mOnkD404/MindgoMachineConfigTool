@@ -86,3 +86,5 @@ win32deploy/MindgoTool/MindgoTool.zip
 BussinessLayer/WorkflowProtocol/moc_predefs.h
 
 DebugTool/moc_predefs.h
+
+moc_predefs.h

@@ -1,4 +1,5 @@
 ﻿import QtQuick 2.7
+import QtQuick.VirtualKeyboard 2.1
 
 Item {
     id:singleStepPage
@@ -68,7 +69,7 @@ Item {
             anchors.topMargin: 5
             anchors.left: singleStepOperation.right
             anchors.leftMargin: 5
-            anchors.right: execButton.left
+            anchors.right: parent.right
             anchors.rightMargin: 5
             height:85
 
@@ -92,6 +93,16 @@ Item {
             onItemSelected: {
                 singleStepOperation.setPosition(index);
             }
+        }
+
+        InputPanel{
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+            width: 500
+            height:500
+            visible: Qt.inputMethod.visible
+            //x: Qt.inputMethod.visible?parent.width - InputPanel.width: parent.width;
         }
     }
 

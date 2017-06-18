@@ -55,3 +55,8 @@ QMAKE_LFLAGS_RELEASE += /debug /opt:ref
 }
 
 win32:CONFIG(release, debug|release): QMAKE_LFLAGS += /MANIFESTUAC:\"level=\'requireAdministrator\' uiAccess=\'false\'\"
+
+static{
+    QTPLUGIN += qtvirtualkeyboardplugin
+    QT += svg
+}

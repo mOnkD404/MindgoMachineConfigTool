@@ -1,5 +1,6 @@
 ﻿import QtQuick 2.7
 import QtQuick.Window 2.2
+import QtQuick.VirtualKeyboard 2.1
 
 Item {
     visible: true

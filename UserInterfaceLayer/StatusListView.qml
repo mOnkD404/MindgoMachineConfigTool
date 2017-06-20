@@ -1,5 +1,6 @@
 ﻿import QtQuick 2.7
 import QtQuick.Controls 1.4
+import QtQuick.Controls 2.2
 import Common 1.0
 
 Item {
@@ -51,6 +52,7 @@ Item {
             }
             highlightFollowsCurrentItem: true
             highlightMoveDuration: 1000
+            ScrollBar.vertical: ScrollBar{}
 
             delegate: Rectangle{
                 anchors.left: parent.left

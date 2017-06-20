@@ -2,9 +2,6 @@
 import QtQuick.Controls 2.1
 import Common 1.0
 import QtQml.Models 2.2
-import QtQuick.VirtualKeyboard 2.2
-import QtQuick.VirtualKeyboard.Styles 2.2
-import QtQuick.VirtualKeyboard.Settings 2.2
 
 Item {
     signal positionSelected(int index);
@@ -71,7 +68,7 @@ Item {
                 id:planActionbar
                 positionAction: false
 
-                height: 30
+                height: 24
 
                 anchors.top: userPlanSelect.bottom
                 anchors.left: parent.left
@@ -105,13 +102,13 @@ Item {
                 id: planListView
                 spacing: 4
                 anchors.top: planActionbar.bottom
-                anchors.topMargin: 10
+                anchors.topMargin: 4
                 anchors.right: parent.right
-                anchors.rightMargin: 10
+                anchors.rightMargin: 4
                 anchors.left: parent.left
-                anchors.leftMargin: 10
+                anchors.leftMargin: 4
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 10
+                anchors.bottomMargin: 4
 
                 clip: true
                 highlight: Rectangle{
@@ -182,7 +179,7 @@ Item {
                         anchors.leftMargin: 0
                         anchors.right: parent.right
                         anchors.rightMargin: 0
-                        fontPixelSize: 15
+                        fontPixelSize: 17
 
                         buttonradius: 0
 
@@ -250,7 +247,7 @@ Item {
             ActionBar{
                 id:stepActionBar
 
-                height: 30
+                height: 24
 
                 anchors.top: stepList.bottom
                 anchors.left: parent.left
@@ -298,6 +295,8 @@ Item {
             ListView {
                 id: stepListView
 
+                ScrollBar.vertical: ScrollBar{}
+
                 function refreshStepListModel(){
                     var list = selector.stepListModel(planListView.currentIndex);
                     stepListModel.clear();
@@ -315,13 +314,13 @@ Item {
 
                 spacing: 4
                 anchors.top: stepActionBar.bottom
-                anchors.topMargin: 10
+                anchors.topMargin: 4
                 anchors.right: parent.right
-                anchors.rightMargin: 10
+                anchors.rightMargin: 4
                 anchors.left: parent.left
-                anchors.leftMargin: 10
+                anchors.leftMargin: 4
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 10
+                anchors.bottomMargin: 4
                 model: stepVisualModel
 
                 clip: true
@@ -578,8 +577,15 @@ Item {
                 anchors.bottom: parent.bottom
                 interactive: true
                 model: selector.paramListModel
+                highlightRangeMode: ListView.StrictlyEnforceRange
+                highlight: Item{
+
+                }
+                highlightFollowsCurrentItem:true
+                ScrollBar.vertical: ScrollBar{}
 
                 delegate: Item {
+                    property int paramIndex: index
                     height:30
                     anchors.left: parent.left
                     anchors.right: parent.right
@@ -639,6 +645,10 @@ Item {
                                 onActiveFocusChanged: {
                                     if(activeFocus){
                                         selectAll();
+                                        if(paramList.currentIndex != paramIndex){
+                                            paramList.currentIndex = paramIndex;
+                                            forceActiveFocus();
+                                        }
                                     }else{
                                         deselect();
                                     }

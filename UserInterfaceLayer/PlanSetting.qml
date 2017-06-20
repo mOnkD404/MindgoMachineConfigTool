@@ -17,13 +17,13 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top
-            height: parent.height/8
+            height: 30
 
             Text{
                 text:qsTr("Plan setting")
                 verticalAlignment: Text.AlignVCenter
                 font.bold: true
-                font.pointSize: 19
+                font.pixelSize: 20
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 30
@@ -36,6 +36,7 @@ Item {
                 textValue: qsTr("Save")
                 anchors.right: parent.right
                 anchors.rightMargin: 0
+                fontPixelSize: 20
                 buttonradius: 0
                 onClicked: {
                     planList.savePlan();
@@ -49,12 +50,17 @@ Item {
             anchors.top: row.bottom
             anchors.left: parent.left
             //anchors.right: parent.right
-            anchors.bottom: parent.bottom
+            //anchors.bottom: parent.bottom
 
             width: parent.width/3*2
 
             onPositionSelected: {
                 planStepGallery.currentIndex = index;
+            }
+            height:globalinput.active?parent.height-row.height-globalinput.height:parent.height-row.height;
+
+            Behavior on height{
+                PropertyAnimation { duration:200}
             }
         }
 
@@ -67,7 +73,8 @@ Item {
             anchors.right: parent.right
             //anchors.bottom: parent.bottom
 
-            anchors.margins: 20
+            anchors.topMargin: 20
+
 
             activeOnClick: true
             showLabel: false

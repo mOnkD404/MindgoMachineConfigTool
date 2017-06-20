@@ -74,10 +74,6 @@ Item {
         clip: true
         flow: GridView.FlowTopToBottom
         anchors.fill: parent
-        anchors.topMargin: 5
-        anchors.leftMargin: 5
-        anchors.rightMargin: 5
-        anchors.bottomMargin: 5
         currentIndex: -1
         highlight: Rectangle{
             width:200

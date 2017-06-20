@@ -54,8 +54,11 @@ Item {
             anchors.top: row.bottom
             anchors.left: parent.left
             anchors.leftMargin: 10
-            anchors.bottom: parent.bottom
-
+            //anchors.bottom: parent.bottom
+            height: globalinput.active?parent.height - row.height-globalinput.height:parent.height-row.height;
+            Behavior on height{
+                PropertyAnimation { duration:200}
+            }
             operationGroupType: "NormalOperation"
 
             onPositionSelected: {
@@ -95,15 +98,6 @@ Item {
             }
         }
 
-        InputPanel{
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
-            width: 500
-            height:500
-            visible: Qt.inputMethod.visible
-            //x: Qt.inputMethod.visible?parent.width - InputPanel.width: parent.width;
-        }
     }
 
 }

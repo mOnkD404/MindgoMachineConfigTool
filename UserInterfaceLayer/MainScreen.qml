@@ -2,7 +2,7 @@
 import Common 1.0
 
 Item {
-    anchors.fill: parent
+    //anchors.fill: parent
 
     PlanController{
         id:controller
@@ -105,6 +105,7 @@ Item {
                 anchors.left: mainVDewID.left
                 anchors.bottom: mainVDewID.bottom
                 anchors.right: statusList.left
+                anchors.margins: 10
                 onTypeChanged: {
                     resetGridView();
                 }

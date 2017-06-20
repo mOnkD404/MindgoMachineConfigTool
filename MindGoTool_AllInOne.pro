@@ -2,6 +2,8 @@ QT += qml quick
 
 CONFIG += c++11
 
+CONFIG += disable-desktop
+
 SOURCES += \
     InfrastructureLayer/Communication/communication.cpp \
     BussinessLayer/WorkflowProtocol/workflowprotocol.cpp \
@@ -56,7 +58,3 @@ QMAKE_LFLAGS_RELEASE += /debug /opt:ref
 
 win32:CONFIG(release, debug|release): QMAKE_LFLAGS += /MANIFESTUAC:\"level=\'requireAdministrator\' uiAccess=\'false\'\"
 
-static{
-    QTPLUGIN += qtvirtualkeyboardplugin
-    QT += svg
-}

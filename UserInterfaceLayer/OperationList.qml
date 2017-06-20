@@ -162,10 +162,20 @@ Item {
                 anchors.bottom: parent.bottom
                 interactive: true
 
+                ScrollBar.vertical: ScrollBar{}
+                highlightRangeMode: ListView.StrictlyEnforceRange
+                highlightFollowsCurrentItem: true
+                highlight: Item{
+
+                }
+
+
+
                 model : selector.paramModel
 
 
                 delegate: Item {
+                    property int paramIndex: index
                     height:30
                     anchors.left: parent.left
                     anchors.right: parent.right
@@ -213,6 +223,15 @@ Item {
                                 focus:true
                                 activeFocusOnTab: true
                                 inputMethodHints: Qt.ImhDigitsOnly
+
+                                onActiveFocusChanged: {
+                                    if(activeFocus){
+                                        if(paramList.currentIndex != paramIndex){
+                                            paramList.currentIndex = paramIndex;
+                                            forceActiveFocus();
+                                        }
+                                    }
+                                }
 
                                 function getValidator(){
                                     if(modelData.Type == "integer"){

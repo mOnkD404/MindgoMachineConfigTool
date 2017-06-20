@@ -1,8 +1,5 @@
 ﻿import QtQuick 2.7
 import QtQuick.Controls 1.4
-import QtQuick.VirtualKeyboard 2.2
-import QtQuick.VirtualKeyboard.Styles 2.2
-import QtQuick.VirtualKeyboard.Settings 2.2
 
 Item {
     id:systemSettingPage
@@ -71,6 +68,7 @@ Item {
                         text: IPAddressObject.IpAddress
                         horizontalAlignment: Text.AlignHCenter
                         font.pixelSize: 20
+                        inputMethodHints: Qt.ImhDigitsOnly
 
                         validator: RegExpValidator{regExp: /^(([01]?[0-9]?[0-9]|2([0-4][0-9]|5[0-5]))\.){3}([01]?[0-9]?[0-9]|2([0-4][0-9]|5[0-5]))$/}
                         //inputMask: "000.000.000.000;_"
@@ -102,6 +100,7 @@ Item {
                         placeholderText: qsTr("port")
                         horizontalAlignment: Text.AlignHCenter
                         font.pixelSize: 20
+                        inputMethodHints: Qt.ImhDigitsOnly
 
                         validator:IntValidator{
                             bottom: 0
@@ -140,6 +139,7 @@ Item {
                         placeholderText: qsTr("Wait time")
                         horizontalAlignment: Text.AlignHCenter
                         font.pixelSize: 20
+                        inputMethodHints: Qt.ImhDigitsOnly
 
                         validator:IntValidator{
                             bottom: 0

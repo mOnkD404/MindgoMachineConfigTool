@@ -1,4 +1,4 @@
-﻿{
+{
     "license": "2328-1768-0720-4852",
     "plan": {
         "123": [
@@ -13,7 +13,7 @@
             {
                 "operation": "Loop",
                 "params": {
-                    "cycleCount": 3
+                    "cycleCount": 6
                 },
                 "sequenceNumber": 2
             },
@@ -45,7 +45,7 @@
                     "boardType": 1,
                     "drain": true,
                     "drainHeight": 77,
-                    "drainVolume": 7,
+                    "drainVolume": 6,
                     "position": 9,
                     "speed": 1
                 },

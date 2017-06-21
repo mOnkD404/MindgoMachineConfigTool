@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
     SetUnhandledExceptionFilter(TopLevelExceptionFilter);
 #endif
 
-#ifdef QT_WS_QWS
+#ifndef NO_VIRTUAL_KEYBOARD
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
 #endif
     QGuiApplication app(argc, argv);
@@ -123,7 +123,7 @@ int main(int argc, char *argv[])
 
     view.connect(view.engine(), &QQmlEngine::quit, &app, &QCoreApplication::quit);
     view.setResizeMode(QQuickView::SizeRootObjectToView);
-#ifdef QT_WS_QWS
+#ifndef NO_VIRTUAL_KEYBOARD
     view.setSource(QUrl("qrc:/main.qml"));
 #else
     view.setSource(QUrl("qrc:/MainNoKeyboard.qml"));

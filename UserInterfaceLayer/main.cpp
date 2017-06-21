@@ -87,9 +87,9 @@ int main(int argc, char *argv[])
     SetUnhandledExceptionFilter(TopLevelExceptionFilter);
 #endif
 
-//#ifdef QT_WS_QWS
+#ifdef QT_WS_QWS
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
-//#endif
+#endif
     QGuiApplication app(argc, argv);
     app.setApplicationName("Mindgo");
 
@@ -123,7 +123,11 @@ int main(int argc, char *argv[])
 
     view.connect(view.engine(), &QQmlEngine::quit, &app, &QCoreApplication::quit);
     view.setResizeMode(QQuickView::SizeRootObjectToView);
+#ifdef QT_WS_QWS
     view.setSource(QUrl("qrc:/main.qml"));
+#else
+    view.setSource(QUrl("qrc:/MainNoKeyboard.qml"));
+#endif
     view.setMinimumSize(QSize(800,480));
     QScreen* scn = view.screen();
     qDebug()<<scn->physicalSize();

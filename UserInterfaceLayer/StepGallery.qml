@@ -131,7 +131,7 @@ Item {
                         font.bold: true
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignHCenter
-                        font.pointSize: height*2/5
+                        font.pixelSize: height>0?(height*2/5):10
                     }
                 }
             }

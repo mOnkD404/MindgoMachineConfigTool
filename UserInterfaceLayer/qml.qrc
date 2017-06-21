@@ -23,5 +23,7 @@
         <file>image/2-1.png</file>
         <file>image/2-4.png</file>
         <file>image/4-1.png</file>
+        <file>MainNoKeyboard.qml</file>
+        <file>DragDropButton.qml</file>
     </qresource>
 </RCC>

@@ -353,66 +353,102 @@ Item {
             Component{
                 id: stepDelegate
 
-                MouseArea {
-                    id: stepItem
-
-                    property bool held: false
-
-                    anchors { left: parent.left; right: parent.right }
-                    height: stepContent.height
-
-                    drag.target: held ? stepContent : undefined
-                    drag.axis: Drag.YAxis
-
-                    onPressAndHold: {
-                        console.debug("holding");
-                        parent.held = true;
-                    }
-                    onReleased: {
-                        console.debug("release");
-                        parent.height = false;
+                MouseArea{
+                    onClicked: {
+                        stepListView.currentIndex = index;
                     }
 
-                    TextButton {
-                        id: stepContent
+                    property bool holding;
+                    //drag
+                    holding:false
+
+                    id:stepContent
+                    width: parent.width
+                    height: 30
+                    anchors.left:parent.left
+                    anchors.leftMargin: 0
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+
+
+                    Rectangle{
+                        id:content
+                        width: stepContent.width
                         height: 30
-                        anchors.left:parent.left
-                        anchors.leftMargin: 0
-                        anchors.right: parent.right
-                        anchors.rightMargin: 0
+                        anchors {
+                            horizontalCenter: parent.horizontalCenter
+                            verticalCenter: parent.verticalCenter
+                        }
 
-                        buttonradius: 0
-                        textValue: (index+1) + ". " + name
-                        startColor: "transparent"
-                        stopColor: "transparent"
-                        fontPixelSize:17
+                        opacity: enabled?1:0.3
 
-                        Drag.active: stepItem.held
-                        Drag.source: stepItem
+                        color: stepContent.pressed?"lightblue":"transparent";
+
+
+                        border.color: "transparent"
+                        border.width: 2
+
+                        Text{
+                            id:textItem
+                            anchors.fill: parent
+                            horizontalAlignment: Text.AlignHCenter
+
+                            text:(index+1) + ". " + name
+                            color:"#e1e8e2"
+
+                            font.pixelSize: 17
+                            font.bold: true
+                            verticalAlignment: Text.AlignVCenter
+                            styleColor: "#3a3a3a"
+                            style: Text.Raised
+
+                        }
+
+                        Drag.active: stepContent.holding
+                        Drag.source: stepContent
                         Drag.hotSpot.x: width / 2
                         Drag.hotSpot.y: height / 2
 
                         states: State {
-                            when: stepItem.held
+                            when: stepContent.holding
 
-                            ParentChange { target: stepContent; parent: stepListView }
+                            ParentChange { target: content; parent: stepColumn }
                             AnchorChanges {
-                                target: stepContent
+                                target: content
                                 anchors { horizontalCenter: undefined; verticalCenter: undefined }
                             }
-                        }
-
-                        onClicked: {
-                            stepListView.currentIndex = index;
+                            PropertyChanges {
+                                target: stepListView
+                                currentIndex: -1
+                            }
+                            PropertyChanges {
+                                target: content
+                                scale: 1.1
+                            }
                         }
                     }
+
+                    onReleased: {
+                        if(holding){
+                            holding = false;
+                            stepListView.currentIndex = stepContent.DelegateModel.itemsIndex;
+                        }
+                    }
+
+                    onPressAndHold: holding = true
+
+                    drag.target: holding ? content : undefined
+                    drag.axis: Drag.YAxis
 
                     DropArea {
                         anchors { fill: parent; margins: 10 }
 
                         onEntered: {
-                            console.debug("start pos "+drag.source.DelegateModel.itemsIndex+" new index "+stepItem.DelegateModel.itemsIndex);
-                            stepVisualModel.items.move(drag.source.DelegateModel.itemsIndex,stepItem.DelegateModel.itemsIndex);
+                            console.debug("start pos "+drag.source.DelegateModel.itemsIndex+" new index "+stepContent.DelegateModel.itemsIndex);
+                            selector.moveStep(planListView.currentIndex, drag.source.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex);
+                            //stepVisualModel.items.move(drag.source.DelegateModel.itemsIndex,stepContent.DelegateModel.itemsIndex);
+
+                            stepListModel.move(drag.source.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex, 1);
                         }
                     }
                 }

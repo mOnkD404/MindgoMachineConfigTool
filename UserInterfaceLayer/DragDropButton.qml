@@ -1,7 +1,7 @@
-﻿import QtQuick 2.7
+import QtQuick 2.7
 import QtQuick.Controls 2.1
 
-Item{
+MouseArea{
     property color startColor;
     property color stopColor;
     property color borderColor;
@@ -12,12 +12,13 @@ Item{
     property int fontPixelSize;
     property bool holding;
 
-    signal clicked;
-    signal pressed;
-    signal released;
+    property int pressAndHoldDuration;
+
+    signal dragEntered(var drag);
 
     //drag
     holding:false
+    //pressAndHoldDuration: 500
 
     id:textbutton
     width: parent.width
@@ -35,12 +36,13 @@ Item{
 
 
     Rectangle{
+        id:content
         anchors.fill: parent
 
         opacity: enabled?1:0.3
         //color: mouseButton.pressed?"lightgreen":"lightgray"
         radius: buttonradius
-        gradient: getGradient()
+        gradient: textbutton.pressed?pressGradient:normalGradient;
 
         Gradient {
             id:normalGradient
@@ -54,12 +56,7 @@ Item{
             GradientStop { position: 1.0; color: "lightblue" }
         }
 
-        function getGradient(){
-            if (mouseButton.pressed)
-                return pressGradient;
-            else
-                return normalGradient;
-        }
+
         border.color: borderColor
         border.width: 2
 
@@ -79,35 +76,36 @@ Item{
 
         }
 
+        Drag.active: textbutton.holding
+        Drag.source: textbutton
+        Drag.hotSpot.x: width / 2
+        Drag.hotSpot.y: height / 2
 
-        MouseArea{
-            id:mouseButton
-            anchors.fill: parent
-            property int pressAndHoldDuration: 500
+        states: State {
+            when: textbutton.holding
 
-            onClicked: {
-                textbutton.clicked();
+            ParentChange { target: content; parent: textbutton.parent }
+            AnchorChanges {
+                target: content
+                anchors { horizontalCenter: undefined; verticalCenter: undefined }
             }
-            onPressed:{
-                mouse.acccepted = true;
-                textbutton.pressed();
-                pressAndHoldTimer.start();
-            }
-            onReleased: {
-                textbutton.released();
-                pressAndHoldTimer.stop();
-                textbutton.holding = false;
-            }
+        }
+    }
 
-            Timer {
-                id:  pressAndHoldTimer
-                interval: parent.pressAndHoldDuration
-                running: false
-                repeat: false
-                onTriggered: {
-                    textbutton.holding = true;
-                }
-            }
+    onReleased: {
+        holding = false;
+    }
+
+    onPressAndHold: holding = true
+
+    drag.target: holding ? content : undefined
+    drag.axis: Drag.YAxis
+
+    DropArea {
+        anchors { fill: parent; margins: 10 }
+
+        onEntered: {
+            textbutton.dragEntered(drag);
         }
     }
 }

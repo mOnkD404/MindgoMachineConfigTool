@@ -28,7 +28,10 @@ Item {
         //visible: Qt.inputMethod.visible
         y:active?parent.height - height:parent.height
         Behavior on y{
-            PropertyAnimation{duration:200}
+            PropertyAnimation{
+                easing.type: Easing.InOutSine
+                duration:200
+            }
         }
     }
 }

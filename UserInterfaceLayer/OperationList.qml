@@ -163,7 +163,7 @@ Item {
                 interactive: true
 
                 ScrollBar.vertical: ScrollBar{}
-                highlightRangeMode: ListView.StrictlyEnforceRange
+                //highlightRangeMode: ListView.StrictlyEnforceRange
                 highlightFollowsCurrentItem: true
                 highlight: Item{
 

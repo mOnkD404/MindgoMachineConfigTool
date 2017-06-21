@@ -296,6 +296,9 @@ Item {
                 id: stepListView
 
                 ScrollBar.vertical: ScrollBar{}
+                displaced: Transition {
+                    NumberAnimation { properties: "x,y"; easing.type: Easing.OutQuad }
+                }
 
                 function refreshStepListModel(){
                     var list = selector.stepListModel(planListView.currentIndex);
@@ -613,10 +616,8 @@ Item {
                 anchors.bottom: parent.bottom
                 interactive: true
                 model: selector.paramListModel
-                highlightRangeMode: ListView.StrictlyEnforceRange
-                highlight: Item{
-
-                }
+                //highlightRangeMode: ListView.StrictlyEnforceRange
+                highlight: Item{}
                 highlightFollowsCurrentItem:true
                 ScrollBar.vertical: ScrollBar{}
 

@@ -126,6 +126,8 @@ Item {
                                 return (gridType == "null")?qsTr("Empty"):qsTr("Ready");
                             }else if(showIndex && gridIndex>=0){
                                 return gridIndex+1;
+                            }else{
+                                return "";
                             }
                         }
                         font.bold: true

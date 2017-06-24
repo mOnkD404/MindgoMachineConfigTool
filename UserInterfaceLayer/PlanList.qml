@@ -285,19 +285,26 @@ Item {
                 id:stepListModel
             }
 
-            DelegateModel{
-                id:stepVisualModel
+//            DelegateModel{
+//                id:stepVisualModel
 
-                model: stepListModel
-                delegate:stepDelegate
-            }
+//                model: stepListModel
+//                delegate:stepDelegate
+//            }
 
             ListView {
                 id: stepListView
 
+                property int scrollingDirection:0
+                signal scrollOver(int direction);
+
+//                Behavior on contentY{
+//                    NumberAnimation{duration:100}
+//                }
+
                 ScrollBar.vertical: ScrollBar{}
-                displaced: Transition {
-                    NumberAnimation { properties: "x,y"; easing.type: Easing.OutQuad }
+                moveDisplaced: Transition {
+                    NumberAnimation { duration: 200; properties: "x,y"; easing.type: Easing.InOutCubic }
                 }
 
                 function refreshStepListModel(){
@@ -315,7 +322,7 @@ Item {
                     }
                 }
 
-                spacing: 4
+                spacing: 2
                 anchors.top: stepActionBar.bottom
                 anchors.topMargin: 4
                 anchors.right: parent.right
@@ -324,7 +331,12 @@ Item {
                 anchors.leftMargin: 4
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 4
-                model: stepVisualModel
+                model: stepListModel
+                delegate: stepDelegate
+                highlightMoveDuration:200
+                snapMode: ListView.SnapToItem
+
+
 
                 clip: true
                 highlight: Rectangle{
@@ -346,36 +358,85 @@ Item {
 
                 onCurrentIndexChanged: {
                     selector.setSelectedStep(planListView.currentIndex, currentIndex);
-
-                    //operationList.currentIndex = selector.operationCurrentIndex();
-                   // paramList.model = selector.paramListModel();
                     if(operationColumn.visible) operationColumn.visible = false;
+                }
+
+
+                SmoothedAnimation {
+                    id: upAnimation
+                    target: stepListView
+                    property: "contentY"
+                    to: 0
+                    running: false
+                    velocity: 170
+                    onStopped: {
+                        stepListView.scrollOver(-1);
+                    }
+                    function tryStart(){
+                        console.debug("content y "+stepListView.contentY);
+                        console.debug("content height "+stepListView.contentHeight);
+                        if(stepListView.contentY - 32 >= 0){
+                            upAnimation.to = stepListView.contentY - 32;
+                            upAnimation.start();
+                        }else if (stepListView.contentY > 0){
+                            upAnimation.to = 0;
+                            upAnimation.start();
+                        }else{
+                            //nothing
+                        }
+                    }
+                }
+                SmoothedAnimation {
+                    id: downAnimation
+                    target: stepListView
+                    property: "contentY"
+                    to: stepListView.contentHeight - stepListView.height
+                    running: false
+                    velocity: 170
+                    onStopped: {
+                        stepListView.scrollOver(1);
+                    }
+                    function tryStart(){
+                        if(stepListView.contentY + 32 <= stepListView.contentHeight - stepListView.height){
+                            downAnimation.to = stepListView.contentY + 32;
+                            downAnimation.start();
+                        }else if (stepListView.contentY < stepListView.contentHeight - stepListView.height){
+                            downAnimation.to = stepListView.contentHeight - stepListView.height;
+                            downAnimation.start();
+                        }else{
+                            //nothing
+                        }
+                    }
                 }
             }
 
             Component{
                 id: stepDelegate
-
                 MouseArea{
+                    id:stepContent
                     onClicked: {
                         stepListView.currentIndex = index;
                     }
 
                     property bool holding;
+
                     //drag
                     holding:false
 
-                    id:stepContent
                     width: parent.width
                     height: 30
                     anchors.left:parent.left
                     anchors.leftMargin: 0
                     anchors.right: parent.right
                     anchors.rightMargin: 0
+                    clip:true
 
 
                     Rectangle{
                         id:content
+
+                        signal stepScrollOver(int dir);
+
                         width: stepContent.width
                         height: 30
                         anchors {
@@ -384,7 +445,7 @@ Item {
                         }
 
                         opacity: enabled?1:0.3
-
+                        clip:true
                         color: stepContent.pressed?"lightblue":"transparent";
 
 
@@ -415,26 +476,92 @@ Item {
                         states: State {
                             when: stepContent.holding
 
-                            ParentChange { target: content; parent: stepColumn }
+                            ParentChange { target: content; parent: stepListView }
                             AnchorChanges {
                                 target: content
                                 anchors { horizontalCenter: undefined; verticalCenter: undefined }
                             }
                             PropertyChanges {
+                                target: content
+                                scale: 1.2
+                            }
+                            PropertyChanges {
                                 target: stepListView
                                 currentIndex: -1
+                                scrollingDirection:{
+                                    console.debug("x:"+content.x+" y:"+content.y+" width:"+content.width+" height:"+content.height);
+                                    var yCoord = stepListView.mapFromItem(content, 0, content.height/2).y;
+                                    if((yCoord < content.height*3/4)){
+                                        return -1;
+                                    }else if((yCoord > stepListView.height - content.height*3/4)){
+                                        return 1;
+                                    }else{
+                                        return 0;
+                                    }
+                                }
+                                onCurrentIndexChanged:undefined
+                            }
+                            PropertyChanges {
+                                target: stepListView
+                                onScrollOver:{
+                                    content.stepScrollOver(direction);
+                                }
                             }
                             PropertyChanges {
                                 target: content
-                                scale: 1.1
+                                onStepScrollOver: {
+                                    //console.debug("scroll over "+dir);
+                                    onEdgeScroll(dir);
+                                }
+                            }
+                            PropertyChanges {
+                                target: scrollTimer
+                                running: (stepListView.scrollingDirection != 0)
                             }
                         }
+                        function onEdgeScroll(direction){
+                            //console.debug("edge scroll "+direction);
+                            if(direction == 1){
+                                selector.moveStep(planListView.currentIndex, stepContent.DelegateModel.itemsIndex , stepContent.DelegateModel.itemsIndex + 1);
+                                stepListModel.move( stepContent.DelegateModel.itemsIndex,stepContent.DelegateModel.itemsIndex+1 ,1);
+                            }else if(direction == -1){
+                                selector.moveStep(planListView.currentIndex, stepContent.DelegateModel.itemsIndex - 1 , stepContent.DelegateModel.itemsIndex);
+                                stepListModel.move(stepContent.DelegateModel.itemsIndex-1, stepContent.DelegateModel.itemsIndex,1);
+                            }
+                        }
+
+
+                        Timer {
+                            id:  scrollTimer
+                            interval: 200
+                            running: false
+                            repeat: true
+                            onTriggered: {
+                                if(stepListView.scrollingDirection == -1){
+                                    upAnimation.tryStart();
+                                }else if(stepListView.scrollingDirection == 1){
+                                    downAnimation.tryStart();
+                                }
+                            }
+                        }
+//                        function judgeListScroll(){
+//                            console.debug(stepListView.mapFromItem(content, x, y));
+//                            if(stepListView.mapFromItem(content, x, y).y >= stepListView.height - content.height/2){
+//                                console.debug("should scroll down");
+//                                stepListView.flick(0,-200);
+//                            }else if(stepListView.mapFromItem(content, x, y).y <= content.height/2){
+//                                console.debug("shold scroll up");
+//                                stepListView.flick(0,200);
+//                            }
+//                        }
                     }
 
                     onReleased: {
                         if(holding){
                             holding = false;
+                            stepListView.highlightMoveDuration = 0;
                             stepListView.currentIndex = stepContent.DelegateModel.itemsIndex;
+                            stepListView.highlightMoveDuration = 200;
                         }
                     }
 
@@ -444,18 +571,39 @@ Item {
                     drag.axis: Drag.YAxis
 
                     DropArea {
-                        anchors { fill: parent; margins: 10 }
+                        id: dropDelegate
+                        anchors { fill: parent; margins: 0 }
 
                         onEntered: {
-                            console.debug("start pos "+drag.source.DelegateModel.itemsIndex+" new index "+stepContent.DelegateModel.itemsIndex);
-                            selector.moveStep(planListView.currentIndex, drag.source.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex);
-                            //stepVisualModel.items.move(drag.source.DelegateModel.itemsIndex,stepContent.DelegateModel.itemsIndex);
+                            if(stepListView.scrollingDirection == 0){
+                                //console.debug("start pos "+drag.source.DelegateModel.itemsIndex+" new index "+stepContent.DelegateModel.itemsIndex);
+                                selector.moveStep(planListView.currentIndex, drag.source.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex);
+                                stepListModel.move(drag.source.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex, 1);
+                                //stepVisualModel.items.move(drag.source.DelegateModel.itemsIndex,stepContent.DelegateModel.itemsIndex);
 
-                            stepListModel.move(drag.source.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex, 1);
+
+
+                                //judgeListScroll(drag.x, drag.y);
+                            }
+
                         }
+//                        onPositionChanged: {
+//                            judgeListScroll(drag.x, drag.y);
+//                        }
+//                        function judgeListScroll(x, y){
+//                            console.debug(stepListView.mapFromItem(dropDelegate, x, y));
+//                            if(stepListView.mapFromItem(dropDelegate, x, y).y >= stepListView.height - dropDelegate.height/2){
+//                                console.debug("should scroll down");
+//                                stepListView.flick(0,-200);
+//                            }else if(stepListView.mapFromItem(dropDelegate, x, y).y <= dropDelegate.height/2){
+//                                console.debug("shold scroll up");
+//                                stepListView.flick(0,200);
+//                            }
+//                        }
                     }
                 }
             }
+
         }
 
         Item {

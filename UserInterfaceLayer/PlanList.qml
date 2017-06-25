@@ -524,11 +524,15 @@ Item {
                             }
                             PropertyChanges {
                                 target: content
-                                scale: 1.2
+                                scale: 0.9
+                                color: "#4cffffff"
+                                radius: 4
+                                border.color: "#60ffffff"
+                                border.width: 3
                             }
                             PropertyChanges {
                                 target: stepListView
-                                currentIndex: -1
+                                //currentIndex: -1
                                 scrollingDirection:{
                                     //console.debug("x:"+content.x+" y:"+content.y+" width:"+content.width+" height:"+content.height);
                                     var top = content.y;
@@ -543,12 +547,10 @@ Item {
                                     }
                                 }
                                 onCurrentIndexChanged:undefined
-                            }
-                            PropertyChanges {
-                                target: stepListView
                                 onScrollOver:{
                                     content.stepScrollOver(direction);
                                 }
+                                currentIndex: stepContent.DelegateModel.itemsIndex
                             }
                             PropertyChanges {
                                 target: content
@@ -616,15 +618,16 @@ Item {
                     onReleased: {
                         if(holding){
                             holding = false;
-//                            console.debug(stepContent);
                             stepListView.highlightMoveDuration = 0;
                             stepListView.currentIndex = stepContent.DelegateModel.itemsIndex;
                             stepListView.highlightMoveDuration = 200;
                         }
                     }
 
-                    onPressAndHold: holding = true
-
+                    onPressAndHold: {
+                        stepListView.currentIndex = -1;
+                        holding = true;
+                    }
                     drag.target: holding ? content : undefined
                     drag.axis: Drag.YAxis
 

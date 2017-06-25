@@ -1,6 +1,7 @@
 ﻿import QtQuick 2.7
 
 Item {
+    property bool showHeader: false
     id:planSettingPage
     anchors.fill: parent
 
@@ -17,7 +18,7 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top
-            height: 30
+            height: 45
 
             Text{
                 text:qsTr("Plan setting")
@@ -28,6 +29,7 @@ Item {
                 anchors.left: parent.left
                 anchors.leftMargin: 30
                 color:"#d9d9d9"
+                visible: showHeader
             }
 
             TextButton{
@@ -47,17 +49,18 @@ Item {
         PlanList{
             id:planList
 
-            anchors.top: row.bottom
+            anchors.margins: 4
+            anchors.top: showHeader?row.bottom:parent.top
             anchors.left: parent.left
             //anchors.right: parent.right
             //anchors.bottom: parent.bottom
 
-            width: parent.width/3*2
+            //width: parent.width/3*2
 
             onPositionSelected: {
                 planStepGallery.currentIndex = index;
             }
-            height:globalinput.active?parent.height-row.height-globalinput.height:parent.height-row.height;
+            height:globalinput.active?parent.height-globalinput.height:parent.height;
 
             Behavior on height{
                 PropertyAnimation { duration:200}
@@ -70,11 +73,14 @@ Item {
             id:planStepGallery
             anchors.top: row.bottom
             anchors.left: planList.right
+            //x:planList.x + planList.width
             anchors.right: parent.right
             //anchors.bottom: parent.bottom
 
             anchors.topMargin: 20
+            anchors.leftMargin: 7
 
+            visible: (planList.operationState != "expandOperation")
 
             activeOnClick: true
             showLabel: false

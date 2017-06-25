@@ -14,7 +14,7 @@
                 "operation": "Suction",
                 "params": {
                     "boardType": 1,
-                    "position": 9,
+                    "position": 3,
                     "postSuction": true,
                     "postSuctionVolume": 23,
                     "preSuction": true,
@@ -26,17 +26,12 @@
                 "sequenceNumber": 2
             },
             {
-                "operation": "Loop",
+                "operation": "Dump Tip",
                 "params": {
-                    "cycleCount": 6
+                    "boardType": 1,
+                    "position": 0
                 },
                 "sequenceNumber": 3
-            },
-            {
-                "operation": "EndLoop",
-                "params": {
-                },
-                "sequenceNumber": 4
             },
             {
                 "operation": "Mix",
@@ -53,14 +48,7 @@
                     "suctionHeight": 77,
                     "volume": 8
                 },
-                "sequenceNumber": 5
-            },
-            {
-                "operation": "WaitArray",
-                "params": {
-                    "waitTime": 2
-                },
-                "sequenceNumber": 6
+                "sequenceNumber": 4
             },
             {
                 "operation": "Dispense",
@@ -72,26 +60,42 @@
                     "position": 9,
                     "speed": 1
                 },
-                "sequenceNumber": 7
+                "sequenceNumber": 5
             },
             {
                 "operation": "EndLoop",
                 "params": {
                 },
-                "sequenceNumber": 8
+                "sequenceNumber": 6
             },
             {
                 "operation": "Loop",
                 "params": {
                     "cycleCount": 3
                 },
-                "sequenceNumber": 9
+                "sequenceNumber": 7
             },
             {
                 "operation": "Dump Tip",
                 "params": {
                     "boardType": 1,
                     "position": 1
+                },
+                "sequenceNumber": 8
+            },
+            {
+                "operation": "Load Tip",
+                "params": {
+                    "boardType": 1,
+                    "position": 0
+                },
+                "sequenceNumber": 9
+            },
+            {
+                "operation": "Load Tip",
+                "params": {
+                    "boardType": 1,
+                    "position": 0
                 },
                 "sequenceNumber": 10
             },
@@ -104,10 +108,9 @@
                 "sequenceNumber": 11
             },
             {
-                "operation": "Load Tip",
+                "operation": "WaitArray",
                 "params": {
-                    "boardType": 1,
-                    "position": 0
+                    "waitTime": 2
                 },
                 "sequenceNumber": 12
             },
@@ -120,7 +123,7 @@
                 "sequenceNumber": 13
             },
             {
-                "operation": "Dump Tip",
+                "operation": "Load Tip",
                 "params": {
                     "boardType": 1,
                     "position": 0
@@ -128,22 +131,33 @@
                 "sequenceNumber": 14
             },
             {
-                "operation": "Load Tip",
+                "operation": "Dispense",
                 "params": {
                     "boardType": 1,
-                    "position": 0
+                    "drain": false,
+                    "drainHeight": 0,
+                    "drainVolume": 0,
+                    "position": 0,
+                    "speed": 1
                 },
                 "sequenceNumber": 15
             },
             {
-                "operation": "Load Tip",
+                "operation": "Loop",
                 "params": {
-                    "boardType": 1,
-                    "position": 0
+                    "cycleCount": 6
                 },
                 "sequenceNumber": 16
             },
             {
+                "operation": "Load Tip",
+                "params": {
+                    "boardType": 1,
+                    "position": 0
+                },
+                "sequenceNumber": 17
+            },
+            {
                 "operation": "Dispense",
                 "params": {
                     "boardType": 1,
@@ -153,7 +167,54 @@
                     "position": 0,
                     "speed": 1
                 },
-                "sequenceNumber": 17
+                "sequenceNumber": 18
+            },
+            {
+                "operation": "EndLoop",
+                "params": {
+                },
+                "sequenceNumber": 19
+            },
+            {
+                "operation": "Dump Tip",
+                "params": {
+                    "boardType": 1,
+                    "position": 0
+                },
+                "sequenceNumber": 20
+            },
+            {
+                "operation": "Mix",
+                "params": {
+                    "boardType": 1,
+                    "cycleCount": 1,
+                    "drainHeight": 0,
+                    "position": 0,
+                    "postSuction": false,
+                    "postSuctionVolume": 0,
+                    "preSuction": false,
+                    "preSuctionVolume": 0,
+                    "speed": 1,
+                    "suctionHeight": 0,
+                    "volume": 0
+                },
+                "sequenceNumber": 21
+            },
+            {
+                "operation": "Relative Motion",
+                "params": {
+                    "motionDistance": 0,
+                    "motionSpeed": 0,
+                    "spindleIndex": 0
+                },
+                "sequenceNumber": 22
+            },
+            {
+                "operation": "Reset",
+                "params": {
+                    "spindleIndex": 0
+                },
+                "sequenceNumber": 23
             },
             {
                 "operation": "Load Tip",
@@ -161,19 +222,7 @@
                     "boardType": 1,
                     "position": 0
                 },
-                "sequenceNumber": 18
-            },
-            {
-                "operation": "Dispense",
-                "params": {
-                    "boardType": 1,
-                    "drain": false,
-                    "drainHeight": 0,
-                    "drainVolume": 0,
-                    "position": 0,
-                    "speed": 1
-                },
-                "sequenceNumber": 19
+                "sequenceNumber": 24
             }
         ]
     },

@@ -60,8 +60,8 @@ Item {
 
         Rectangle{
 
-            width: 20
-            height: 20
+            width: height
+            height: parent.height
 
             color:mouse.pressed?"lightblue":colorVal
 
@@ -73,6 +73,7 @@ Item {
                 anchors.rightMargin: 3
                 anchors.bottomMargin: 3
                 smooth: true
+                mipmap: true
                 antialiasing: true
                 visible: true
             }
@@ -89,18 +90,18 @@ Item {
     }
 
     ListView{
-        anchors.rightMargin: 5
-        anchors.leftMargin: 5
-        anchors.bottomMargin: 4
-        anchors.topMargin: 4
+        //anchors.rightMargin: 5
+        //anchors.leftMargin: 5
+        //anchors.bottomMargin: 4
+       // anchors.topMargin: 4
         anchors.fill: parent
         highlightMoveDuration: 5
         highlightRangeMode: ListView.StrictlyEnforceRange
-        spacing: 4
+        spacing: 3
         interactive: false
         clip: false
-        contentWidth: 20
-        contentHeight: 20
+//        contentWidth: 20
+//        contentHeight: 20
         orientation: Qt.Horizontal
         layoutDirection: Qt.LeftToRight
         delegate: iconArea

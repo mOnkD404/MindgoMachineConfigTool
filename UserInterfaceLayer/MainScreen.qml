@@ -136,11 +136,11 @@ Item {
             anchors.right: parent.right
             anchors.rightMargin: 20
             anchors.bottom: parent.bottom
-            spacing: 20
+            spacing: 10
 
             TextButton{
                 id:singleStepButton
-                height: 50
+                height: 55
                 fontPixelSize: 25
                 textValue: qsTr("Single step")
                 startColor:"#a9aaac"
@@ -152,7 +152,7 @@ Item {
 
             TextButton{
                 id:systemSettingButton
-                height: 50
+                height: 55
                 fontPixelSize: 25
                 textValue: qsTr("System settings")
                 startColor:"#a9aaac"
@@ -164,7 +164,7 @@ Item {
 
             TextButton{
                 id:planSettingButton
-                height: 50
+                height: 55
                 fontPixelSize: 25
                 textValue: qsTr("Plan settings")
                 startColor:"#a9aaac"
@@ -349,7 +349,9 @@ Item {
                 anchors.left: parent.left
                 anchors.leftMargin: 10
                 anchors.top: parent.top
-                anchors.topMargin: 10
+                anchors.topMargin: 4
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 4
 
                 startColor: "#1f1f1f"
                 stopColor: "#1f1f1f"

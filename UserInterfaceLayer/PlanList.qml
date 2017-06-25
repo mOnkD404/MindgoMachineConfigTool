@@ -4,9 +4,10 @@ import Common 1.0
 import QtQml.Models 2.2
 
 Item {
+    property alias operationState: operationColumn.state
     signal positionSelected(int index);
     id: root    
-
+    clip:true
     function savePlan(){
         selector.onSave();
     }
@@ -26,21 +27,39 @@ Item {
 
     property var columnWidth;
 
-    columnWidth: width/4-10
+    columnWidth: 135
+    width: row.width
 
     Row {
         id: row
-        anchors.topMargin: 10
-        spacing: 10
-        anchors.fill: parent
+        spacing: 4
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
 
         Item {
             id: planColumn
-            width: columnWidth
+            width: 0
             anchors.top: parent.top
             anchors.topMargin: 0
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
+            clip: true
+
+
+            Behavior on width{
+                PropertyAnimation{
+                    easing.type: Easing.InOutSine
+                    duration:200
+                }
+            }
+            states:State{
+                name:"expandPlan"
+                PropertyChanges {
+                    target: planColumn
+                    width: columnWidth*0.8
+                }
+            }
 
             Rectangle{
                 id: userPlanSelect
@@ -50,17 +69,37 @@ Item {
                 anchors.leftMargin: 0
                 anchors.top: parent.top
                 color:"#747474"
-                height: 30
+                height: 35
 
                 Text {
                     text: qsTr("Plan list")
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    anchors.fill: parent
+                    //anchors.fill: parent
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    anchors.left: parent.left
+                    anchors.right: hideButton.left
                     font.pixelSize: 17
                     font.bold: true
                     width: 120
                     color:"#d9d9d9"
+                }
+
+                TextButton{
+                    id: hideButton
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    anchors.margins: 1
+                    width: height
+                    buttonradius: 0
+
+                    textValue:"<"
+
+                    onClicked: {
+                        planColumn.state = "";
+                    }
                 }
             }
 
@@ -68,11 +107,12 @@ Item {
                 id:planActionbar
                 positionAction: false
 
-                height: 24
+                height: 28
 
                 anchors.top: userPlanSelect.bottom
                 anchors.left: parent.left
                 anchors.right: parent.right
+                anchors.margins: 4
 
                 onDoAction: {
                     if(str == "edit"){
@@ -229,37 +269,59 @@ Item {
                 anchors.leftMargin: 0
                 anchors.top: parent.top
                 color:"#747474"
-                height: 30
+                height: 35
+
+                TextButton{
+                    id: expandButton
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    anchors.margins: 1
+                    width: height
+                    buttonradius: 0
+
+                    textValue:">"
+                    visible:(planColumn.state=="")
+
+                    onClicked: {
+                        planColumn.state = "expandPlan";
+                    }
+                }
 
                 Text {
                     text: qsTr("Step list")
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    anchors.fill: parent
+                    //anchors.fill: parent
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    anchors.right: parent.right
+                    anchors.left: expandButton.visible?expandButton.right:parent.left
                     font.pixelSize: 17
                     font.bold: true
-                    width: 120
+                    //width: 120
                     color:"#d9d9d9"
                 }
-
             }
 
             ActionBar{
                 id:stepActionBar
 
-                height: 24
+                height: 28
 
+                positionAction: false
                 anchors.top: stepList.bottom
                 anchors.left: parent.left
                 anchors.right: parent.right
+                anchors.margins: 4
 
                 onDoAction: {
                     if (str == "add"){
                         operationColumn.changeOperation = "add"
-                        operationColumn.visible = true;
+                        operationColumn.state = "expandOperation";
                     }else if(str == "edit"){
                         operationColumn.changeOperation = "edit";
-                        operationColumn.visible = true;
+                        operationColumn.state = "expandOperation";
                     }else if(str == "up"){
                         selector.moveStep(planListView.currentIndex, stepListView.currentIndex, stepListView.currentIndex-1);
                         stepListModel.move(stepListView.currentIndex, stepListView.currentIndex - 1, 1);
@@ -285,12 +347,12 @@ Item {
                 id:stepListModel
             }
 
-//            DelegateModel{
-//                id:stepVisualModel
+            DelegateModel{
+                id:stepVisualModel
 
-//                model: stepListModel
-//                delegate:stepDelegate
-//            }
+                model: stepListModel
+                delegate:stepDelegate
+            }
 
             ListView {
                 id: stepListView
@@ -322,6 +384,7 @@ Item {
                     }
                 }
 
+                cacheBuffer: 1000
                 spacing: 2
                 anchors.top: stepActionBar.bottom
                 anchors.topMargin: 4
@@ -331,9 +394,10 @@ Item {
                 anchors.leftMargin: 4
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 4
-                model: stepListModel
-                delegate: stepDelegate
+                model: stepVisualModel
+                //delegate: stepDelegate
                 highlightMoveDuration:200
+                //highlightRangeMode: ListView.ApplyRange
                 snapMode: ListView.SnapToItem
 
 
@@ -358,7 +422,7 @@ Item {
 
                 onCurrentIndexChanged: {
                     selector.setSelectedStep(planListView.currentIndex, currentIndex);
-                    if(operationColumn.visible) operationColumn.visible = false;
+                    if(operationColumn.state == "expandOperation") operationColumn.state = "";
                 }
 
 
@@ -368,22 +432,9 @@ Item {
                     property: "contentY"
                     to: 0
                     running: false
-                    velocity: 170
+                    //duration: 200
                     onStopped: {
                         stepListView.scrollOver(-1);
-                    }
-                    function tryStart(){
-                        console.debug("content y "+stepListView.contentY);
-                        console.debug("content height "+stepListView.contentHeight);
-                        if(stepListView.contentY - 32 >= 0){
-                            upAnimation.to = stepListView.contentY - 32;
-                            upAnimation.start();
-                        }else if (stepListView.contentY > 0){
-                            upAnimation.to = 0;
-                            upAnimation.start();
-                        }else{
-                            //nothing
-                        }
                     }
                 }
                 SmoothedAnimation {
@@ -392,20 +443,9 @@ Item {
                     property: "contentY"
                     to: stepListView.contentHeight - stepListView.height
                     running: false
-                    velocity: 170
+                    //duration: 200
                     onStopped: {
                         stepListView.scrollOver(1);
-                    }
-                    function tryStart(){
-                        if(stepListView.contentY + 32 <= stepListView.contentHeight - stepListView.height){
-                            downAnimation.to = stepListView.contentY + 32;
-                            downAnimation.start();
-                        }else if (stepListView.contentY < stepListView.contentHeight - stepListView.height){
-                            downAnimation.to = stepListView.contentHeight - stepListView.height;
-                            downAnimation.start();
-                        }else{
-                            //nothing
-                        }
                     }
                 }
             }
@@ -419,12 +459,13 @@ Item {
                     }
 
                     property bool holding;
+                    property int itemStepLength: height+stepListView.spacing
 
                     //drag
                     holding:false
 
                     width: parent.width
-                    height: 30
+                    height: 35
                     anchors.left:parent.left
                     anchors.leftMargin: 0
                     anchors.right: parent.right
@@ -438,7 +479,7 @@ Item {
                         signal stepScrollOver(int dir);
 
                         width: stepContent.width
-                        height: 30
+                        height: 35
                         anchors {
                             horizontalCenter: parent.horizontalCenter
                             verticalCenter: parent.verticalCenter
@@ -489,11 +530,13 @@ Item {
                                 target: stepListView
                                 currentIndex: -1
                                 scrollingDirection:{
-                                    console.debug("x:"+content.x+" y:"+content.y+" width:"+content.width+" height:"+content.height);
-                                    var yCoord = stepListView.mapFromItem(content, 0, content.height/2).y;
-                                    if((yCoord < content.height*3/4)){
+                                    //console.debug("x:"+content.x+" y:"+content.y+" width:"+content.width+" height:"+content.height);
+                                    var top = content.y;
+                                    var bottom = content.y+content.height;
+                                    var movePercent = 0.1;
+                                    if((top < content.height*movePercent && stepListView.contentY > 0)){
                                         return -1;
-                                    }else if((yCoord > stepListView.height - content.height*3/4)){
+                                    }else if((bottom > (stepListView.height - content.height*movePercent) && stepListView.contentY < stepListView.contentHeight - stepListView.height)){
                                         return 1;
                                     }else{
                                         return 0;
@@ -520,45 +563,60 @@ Item {
                             }
                         }
                         function onEdgeScroll(direction){
-                            //console.debug("edge scroll "+direction);
-                            if(direction == 1){
+                            console.debug("edge scroll "+direction);
+                            if(direction == 1 && (stepContent.DelegateModel.itemsIndex < stepListModel.count - 1)){
+                                console.debug("move index "+stepContent.DelegateModel.itemsIndex+" to "+(stepContent.DelegateModel.itemsIndex+1));
                                 selector.moveStep(planListView.currentIndex, stepContent.DelegateModel.itemsIndex , stepContent.DelegateModel.itemsIndex + 1);
                                 stepListModel.move( stepContent.DelegateModel.itemsIndex,stepContent.DelegateModel.itemsIndex+1 ,1);
-                            }else if(direction == -1){
+                            }else if(direction == -1 && (stepContent.DelegateModel.itemsIndex > 0)){
                                 selector.moveStep(planListView.currentIndex, stepContent.DelegateModel.itemsIndex - 1 , stepContent.DelegateModel.itemsIndex);
-                                stepListModel.move(stepContent.DelegateModel.itemsIndex-1, stepContent.DelegateModel.itemsIndex,1);
+                                console.debug("move index "+stepContent.DelegateModel.itemsIndex+" to "+(stepContent.DelegateModel.itemsIndex-1));
+                                stepListModel.move(stepContent.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex-1,1);
                             }
                         }
 
 
                         Timer {
                             id:  scrollTimer
-                            interval: 200
+                            interval: 300
                             running: false
                             repeat: true
                             onTriggered: {
+                                //console.debug("content y "+stepListView.contentY);
+                                //console.debug("content height "+stepListView.contentHeight);
                                 if(stepListView.scrollingDirection == -1){
-                                    upAnimation.tryStart();
+                                    if(stepListView.contentY - itemStepLength >= 0){
+                                        //parent.onEdgeScroll(-1);
+                                        upAnimation.to = stepListView.contentY - itemStepLength;
+                                        upAnimation.start();
+                                    }else if (stepListView.contentY > 0){
+                                        //parent.onEdgeScroll(-1);
+                                        upAnimation.to = 0;
+                                        upAnimation.start();
+                                    }else{
+                                        //nothing
+                                    }
                                 }else if(stepListView.scrollingDirection == 1){
-                                    downAnimation.tryStart();
+                                    if(stepListView.contentY + itemStepLength <= stepListView.contentHeight - stepListView.height){
+                                        //parent.onEdgeScroll(1);
+                                        downAnimation.to = stepListView.contentY + itemStepLength;
+                                        downAnimation.start();
+                                    }else if (stepListView.contentY < stepListView.contentHeight - stepListView.height){
+                                        //parent.onEdgeScroll(1);
+                                        downAnimation.to = stepListView.contentHeight - stepListView.height;
+                                        downAnimation.start();
+                                    }else{
+                                        //nothing
+                                    }
                                 }
                             }
                         }
-//                        function judgeListScroll(){
-//                            console.debug(stepListView.mapFromItem(content, x, y));
-//                            if(stepListView.mapFromItem(content, x, y).y >= stepListView.height - content.height/2){
-//                                console.debug("should scroll down");
-//                                stepListView.flick(0,-200);
-//                            }else if(stepListView.mapFromItem(content, x, y).y <= content.height/2){
-//                                console.debug("shold scroll up");
-//                                stepListView.flick(0,200);
-//                            }
-//                        }
                     }
 
                     onReleased: {
                         if(holding){
                             holding = false;
+//                            console.debug(stepContent);
                             stepListView.highlightMoveDuration = 0;
                             stepListView.currentIndex = stepContent.DelegateModel.itemsIndex;
                             stepListView.highlightMoveDuration = 200;
@@ -572,18 +630,17 @@ Item {
 
                     DropArea {
                         id: dropDelegate
-                        anchors { fill: parent; margins: 0 }
+                        anchors { fill: parent; margins: 2 }
 
                         onEntered: {
                             if(stepListView.scrollingDirection == 0){
-                                //console.debug("start pos "+drag.source.DelegateModel.itemsIndex+" new index "+stepContent.DelegateModel.itemsIndex);
-                                selector.moveStep(planListView.currentIndex, drag.source.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex);
-                                stepListModel.move(drag.source.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex, 1);
-                                //stepVisualModel.items.move(drag.source.DelegateModel.itemsIndex,stepContent.DelegateModel.itemsIndex);
-
-
-
-                                //judgeListScroll(drag.x, drag.y);
+                                if(drag.source.DelegateModel.itemsIndex != stepContent.DelegateModel.itemsIndex){
+                                    console.debug("drag index "+drag.source.DelegateModel.itemsIndex+" drop index "+stepContent.DelegateModel.itemsIndex);
+                                    selector.moveStep(planListView.currentIndex, drag.source.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex);
+                                    stepListModel.move(drag.source.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex, 1);
+                                    //stepVisualModel.items.move(drag.source.DelegateModel.itemsIndex,stepContent.DelegateModel.itemsIndex);
+                                    //judgeListScroll(drag.x, drag.y);
+                                }
                             }
 
                         }
@@ -610,14 +667,33 @@ Item {
             property var  changeOperation;
 
             id: operationColumn
-            width: columnWidth
+            width: 0
             anchors.top: parent.top
             anchors.topMargin: 0
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
-            visible: false
+            clip:true
+            //visible: false
 
             changeOperation:"add"
+
+            states:State{
+                name:"expandOperation"
+                PropertyChanges{
+                    target: operationColumn
+                    width: columnWidth
+                }
+                PropertyChanges {
+                    target: paramColumn
+                    width: 0
+                }
+            }
+
+            Behavior on width{
+                PropertyAnimation{
+                    duration: 200
+                }
+            }
 
             Rectangle{
                 id: operationType
@@ -627,7 +703,7 @@ Item {
                 anchors.leftMargin: 0
                 anchors.top: parent.top
                 color:"#747474"
-                height: 30
+                height: 35
 
                 Text {
                     text: qsTr("Operation type")
@@ -670,7 +746,7 @@ Item {
                         }
                     }
                 }
-                highlightFollowsCurrentItem: true
+                highlightFollowsCurrentItem: false
                 currentIndex: -1
                 interactive: true
 
@@ -681,7 +757,7 @@ Item {
                     anchors.leftMargin: 0
                     anchors.right: parent.right
                     anchors.rightMargin: 0
-                    fontPixelSize:15
+                    fontPixelSize:18
 
                     buttonradius: 0
 
@@ -690,8 +766,8 @@ Item {
                     stopColor: "transparent"
                     onClicked: {
                         console.debug(modelData+"clicked");
-                        operationList.currentIndex = index;
-                        operationColumn.visible = false;
+                        //operationList.currentIndex = index;
+                        operationColumn.state = "";
 
 
                         if(operationColumn.changeOperation == "add"){
@@ -712,13 +788,14 @@ Item {
                 Component.onCompleted:
                 {
                     model = selector.operationListModel();
+                    currentIndex = -1;
                 }
-                onVisibleChanged: {
-                    if((operationColumn.changeOperation == false) && (operationColumn.visible == true)){
-                        currentIndex = selector.operationCurrentIndex();
-                    }else {
-                        currentIndex = -1;
-                    }
+                onStateChanged: {
+//                    if((operationColumn.changeOperation == "edit") && (operationColumn.state == "expandOperation")){
+//                        currentIndex = selector.operationCurrentIndex();
+//                    }else {
+//                        currentIndex = -1;
+//                    }
                 }
             }
         }
@@ -728,7 +805,13 @@ Item {
             width: columnWidth*2
             anchors.bottom: parent.bottom
             anchors.top: parent.top
-            visible: !operationColumn.visible
+            //visible: !operationColumn.visible
+            clip:true
+            Behavior on width{
+                PropertyAnimation{
+                    duration: 200
+                }
+            }
 
             Rectangle{
                 id: operationParam
@@ -738,7 +821,7 @@ Item {
                 anchors.leftMargin: 0
                 anchors.top: parent.top
                 color:"#747474"
-                height: 30
+                height: 35
 
                 Text {
                     text: qsTr("Operation param")
@@ -756,9 +839,9 @@ Item {
                 id: paramList
                 anchors.leftMargin: 0
                 clip:true
-                spacing: 4
+                spacing: 2
                 anchors.top: operationParam.bottom
-                anchors.topMargin: 10
+                anchors.topMargin: 4
                 anchors.right: parent.right
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
@@ -771,7 +854,7 @@ Item {
 
                 delegate: Item {
                     property int paramIndex: index
-                    height:30
+                    height:38
                     anchors.left: parent.left
                     anchors.right: parent.right
 
@@ -791,13 +874,13 @@ Item {
 
                     Text {
                         id: paramName
-                        height:30
-                        width:80
+                        height:parent.height
+                        width:105
                         text: modelData.Display
                         horizontalAlignment: Text.AlignRight
                         verticalAlignment: Text.AlignVCenter
                         color:"#d9d9d9"
-                        font.pixelSize: 15
+                        font.pixelSize: 17
                         font.bold: true
                     }
 
@@ -944,11 +1027,11 @@ Item {
                         anchors.bottom: parent.bottom
                         anchors.right: paramUnit.left
                         anchors.rightMargin: 3
+                        anchors.leftMargin: 4
 
-                        height: 30
+                        height: parent.height
 
 
-                        anchors.leftMargin: 10
                         sourceComponent:getcomponent(modelData.Type)
 
 

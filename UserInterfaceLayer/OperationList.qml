@@ -69,19 +69,19 @@ Item {
 
             ListView {
                 id: operationList
-                spacing: 4
+                spacing: 1
                 anchors.top: operationType.bottom
-                anchors.topMargin: 10
+                anchors.topMargin: 4
                 anchors.right: parent.right
-                anchors.rightMargin: 10
+                anchors.rightMargin: 4
                 anchors.left: parent.left
-                anchors.leftMargin: 10
+                anchors.leftMargin: 4
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 10
+                anchors.bottomMargin: 4
 
                 clip: true
                 highlight: Rectangle{
-                    height: 30
+                    height: 40
                     anchors.left: parent.left
                     anchors.right: parent.right
 
@@ -154,9 +154,9 @@ Item {
                 id: paramList
                 anchors.leftMargin: 0
                 clip:true
-                spacing: 4
+                spacing: 2
                 anchors.top: operationParam.bottom
-                anchors.topMargin: 10
+                anchors.topMargin: 4
                 anchors.right: parent.right
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
@@ -176,7 +176,7 @@ Item {
 
                 delegate: Item {
                     property int paramIndex: index
-                    height:30
+                    height:38
                     anchors.left: parent.left
                     anchors.right: parent.right
 

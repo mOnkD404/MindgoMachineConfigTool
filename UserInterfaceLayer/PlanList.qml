@@ -1,4 +1,4 @@
-﻿import QtQuick 2.7
+import QtQuick 2.7
 import QtQuick.Controls 2.1
 import Common 1.0
 import QtQml.Models 2.2
@@ -29,6 +29,7 @@ Item {
 
     columnWidth: 135
     width: row.width
+
 
     Row {
         id: row
@@ -219,7 +220,9 @@ Item {
                         anchors.leftMargin: 0
                         anchors.right: parent.right
                         anchors.rightMargin: 0
+
                         fontPixelSize: 17
+
 
                         buttonradius: 0
 
@@ -478,6 +481,7 @@ Item {
 
                         signal stepScrollOver(int dir);
 
+
                         width: stepContent.width
                         height: 35
                         anchors {
@@ -732,8 +736,7 @@ Item {
                 anchors.right: parent.right
                 anchors.rightMargin: 10
                 anchors.left: parent.left
-                anchors.leftMargin: 10
-                anchors.bottom: parent.bottom
+                anchors.leftMargin: 10                anchors.bottom: parent.bottom
                 anchors.bottomMargin: 10
 
                 clip: true
@@ -751,7 +754,7 @@ Item {
                 }
                 highlightFollowsCurrentItem: false
                 currentIndex: -1
-                interactive: true
+                interactive: false
 
                 delegate: TextButton {
                     height: 30
@@ -760,7 +763,9 @@ Item {
                     anchors.leftMargin: 0
                     anchors.right: parent.right
                     anchors.rightMargin: 0
+
                     fontPixelSize:18
+
 
                     buttonradius: 0
 
@@ -805,7 +810,7 @@ Item {
 
         Item {
             id: paramColumn
-            width: columnWidth*2
+            width: columnWidth*2.5
             anchors.bottom: parent.bottom
             anchors.top: parent.top
             //visible: !operationColumn.visible
@@ -848,7 +853,7 @@ Item {
                 anchors.right: parent.right
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
-                interactive: true
+                interactive: false
                 model: selector.paramListModel
                 //highlightRangeMode: ListView.StrictlyEnforceRange
                 highlight: Item{}
@@ -877,8 +882,10 @@ Item {
 
                     Text {
                         id: paramName
+
                         height:parent.height
                         width:105
+
                         text: modelData.Display
                         horizontalAlignment: Text.AlignRight
                         verticalAlignment: Text.AlignVCenter
@@ -906,7 +913,6 @@ Item {
                                 focus:true
                                 activeFocusOnTab: true
                                 selectByMouse: true
-                                inputMethodHints: Qt.ImhDigitsOnly
                                 //text: getText()
 
                                 Component.onCompleted: {

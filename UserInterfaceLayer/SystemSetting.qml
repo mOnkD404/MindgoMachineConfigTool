@@ -1,4 +1,4 @@
-﻿import QtQuick 2.7
+import QtQuick 2.7
 import QtQuick.Controls 1.4
 
 Item {
@@ -20,9 +20,7 @@ Item {
             id: column
             spacing: 5
 
-            anchors.left:parent.left
-            anchors.right: parent.right
-            anchors.top: parent.top
+            anchors.fill:parent
             anchors.topMargin: 20
             anchors.leftMargin: 20
             anchors.rightMargin: 20
@@ -148,6 +146,7 @@ Item {
                     }
                 }
             }
+
         }
         StepGallery{
             visible: isAdministratorAccount
@@ -159,9 +158,19 @@ Item {
             anchors.leftMargin: 10
             width: 500
 
-            activeOnClick: true
-            showLabel: false
-            showCombo: true
+
+            StepGallery{
+                visible: isAdministratorAccount
+                height: 480
+                width: 1000
+
+                activeOnClick: true
+                showLabel: false
+                showCombo: true
+            }
+
+
+
         }
         TextButton {
             id: textButton

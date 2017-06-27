@@ -77,8 +77,7 @@ Item {
         currentIndex: -1
         highlight: Rectangle{
             width:200
-            height:100
-            radius: 3
+            height:100            radius: 3
             color:"#747474"
             border.width: 3
             border.color:"#99da73"
@@ -111,8 +110,10 @@ Item {
                     visible: showLabel||showIndex
                     id:textBack
                     color:"#92d456"
+
                     width:itemImage.width
                     height:itemImage.height/3
+
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.right: parent.right
@@ -133,7 +134,9 @@ Item {
                         font.bold: true
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignHCenter
+
                         font.pixelSize: height>0?(height*4/5):10
+
                     }
                 }
             }
@@ -149,8 +152,10 @@ Item {
             {
                 visible: showCombo
                 id: combox
+
                 width: itemImage.width-4
                 height:itemImage.height/2
+
                 anchors.centerIn: parent
                 textRole: "name"
                 model: ListModel{

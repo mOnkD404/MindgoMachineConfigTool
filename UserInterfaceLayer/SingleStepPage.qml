@@ -1,4 +1,4 @@
-﻿import QtQuick 2.7
+import QtQuick 2.7
 
 Item {
     id:singleStepPage
@@ -17,7 +17,9 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top
+
             height: 40
+
 
             Text{
                 text:qsTr("Single step operation")
@@ -31,9 +33,11 @@ Item {
             }
 
             TextButton{
+
                 id: execButton
                 width: height*2
                 height: parent.height
+
                 textValue: qsTr("Execute")
                 anchors.right: parent.right
                 anchors.rightMargin: 0
@@ -49,7 +53,9 @@ Item {
         OperationList{
             id:singleStepOperation
 
+
             columnWidth: 160
+
             anchors.top: row.bottom
             anchors.left: parent.left
             anchors.leftMargin: 10
@@ -70,23 +76,26 @@ Item {
             anchors.top: row.bottom
             anchors.topMargin: 5
             anchors.left: singleStepOperation.right
+
             anchors.leftMargin: 5
             anchors.right: parent.right
             anchors.rightMargin: 5
             height:85
 
+
+            height: 400
         }
         StepGallery{
             //height: 480
             //width: 1000
             id:stepGallery
 
-            anchors.top: singleStepStatus.bottom
-            anchors.left: singleStepOperation.right
+            anchors.top: row.bottom
+            anchors.left: singleStepStatus.right
             anchors.right: parent.right
             anchors.bottom: parent.bottom
 
-            anchors.margins: 10
+            anchors.margins: 20
 
             activeOnClick: true
             showLabel: false

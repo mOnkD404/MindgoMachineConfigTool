@@ -1,4 +1,4 @@
-﻿import QtQuick 2.7
+import QtQuick 2.7
 import QtQuick.Controls 1.4
 import QtQuick.Controls 2.1
 import Common 1.0
@@ -34,16 +34,13 @@ Item {
         dynamicRoles:true
     }
 
-//    ScrollView{
-//        anchors.fill: parent
-//        horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
-//        verticalScrollBarPolicy: Qt.ScrollBarAlwaysOff
+    ScrollView{
+        anchors.fill: parent
 
         ListView{
             id:statusList
             anchors.fill: parent
             spacing: 4
-            clip:true
             model:displayModel
             highlight: Rectangle{
                 height: 85
@@ -61,7 +58,9 @@ Item {
                 border.width: 2
                 border.color:"#747474"
                 color:"transparent"
+
                 height: 80
+
 
                 Component{
                     id:controlCmd
@@ -72,6 +71,7 @@ Item {
                         anchors.topMargin: 3
 
                         //anchors { fill: parent; margins: 2 }
+
 
                         Text { text: 'Step: ' + sequence; color:"#d9d9d9"; visible: (sequence == 0xffff)?false:true; font.pixelSize: 15 }
                         Text { text: 'Tunning'; color:"#d9d9d9"; font.bold: true; visible: (sequence==0xffff)?true:false; font.pixelSize: 15 }
@@ -121,6 +121,7 @@ Item {
                             font.bold: true;
                             font.pixelSize: 15
                         }
+
                     }
                 }
                 Component{
@@ -133,10 +134,12 @@ Item {
 
                         //anchors { fill: parent; margins: 2 }
 
+
                         Text { text: 'Step: ' + sequence; color:"#d9d9d9"; font.pixelSize: 15 }
                         Text { text: operation; color:"#d9d9d9"; font.pixelSize: 15 }
                         Text { text: 'Wait: ' + waitArray; color:"#d9d9d9"; font.bold: true; font.pixelSize: 15 }
                         Text { text: 'Waitting: ' + waitting; color:"#d9d9d9"; font.bold: true; font.pixelSize: 15 }
+
                     }
                 }
                 Component{
@@ -152,6 +155,7 @@ Item {
                         Text { text: 'Step: ' + sequence; color:"#d9d9d9"; font.pixelSize: 15 }
                         Text { text: operation; color:"#d9d9d9"; font.pixelSize: 15 }
                         Text { text: 'Count: ' + loopCount; color:"#d9d9d9"; font.bold: true; font.pixelSize: 15 }
+
                     }
                 }
                 Component{
@@ -159,14 +163,16 @@ Item {
                     Column {
                         id: column
                         anchors.fill: parent
-                        anchors.leftMargin: 3
+                        anchors.leftMargin: 5
                         anchors.topMargin: 3
 
                         //anchors { fill: parent; margins: 2 }
 
+
                         Text { text: 'Step: ' + sequence; color:"#d9d9d9"; font.pixelSize: 15 }
                         Text { text: operation; color:"#d9d9d9"; font.pixelSize: 15 }
                         Text { text: 'Remain: ' + remainLoopCount; color:"#d9d9d9"; font.bold: true; font.pixelSize: 15 }
+
                     }
                 }
                 Loader{
@@ -188,5 +194,5 @@ Item {
                 }
             }
         }
-//    }
+    }
 }

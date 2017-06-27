@@ -1,4 +1,4 @@
-﻿import QtQuick 2.7
+import QtQuick 2.7
 
 Item {
     property bool showHeader: false
@@ -18,7 +18,9 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top
+
             height: 45
+
 
             Text{
                 text:qsTr("Plan setting")
@@ -33,8 +35,8 @@ Item {
             }
 
             TextButton{
-                width: height*2
-                height: parent.height
+                width: 130
+                height: 60
                 textValue: qsTr("Save")
                 anchors.right: parent.right
                 anchors.rightMargin: 0
@@ -55,7 +57,9 @@ Item {
             //anchors.right: parent.right
             //anchors.bottom: parent.bottom
 
+
             //width: parent.width/3*2
+
 
             onPositionSelected: {
                 planStepGallery.currentIndex = index;

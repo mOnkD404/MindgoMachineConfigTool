@@ -74,15 +74,10 @@ Item {
         clip: true
         flow: GridView.FlowTopToBottom
         anchors.fill: parent
-        anchors.topMargin: 5
-        anchors.leftMargin: 5
-        anchors.rightMargin: 5
-        anchors.bottomMargin: 5
         currentIndex: -1
         highlight: Rectangle{
             width:200
-            height:100
-            radius: 3
+            height:100            radius: 3
             color:"#747474"
             border.width: 3
             border.color:"#99da73"
@@ -115,8 +110,10 @@ Item {
                     visible: showLabel||showIndex
                     id:textBack
                     color:"#92d456"
-                    //width:parent.width - 10
-                    height:40
+
+                    width:itemImage.width
+                    height:itemImage.height/3
+
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.right: parent.right
@@ -130,12 +127,16 @@ Item {
                                 return (gridType == "null")?qsTr("Empty"):qsTr("Ready");
                             }else if(showIndex && gridIndex>=0){
                                 return gridIndex+1;
+                            }else{
+                                return "";
                             }
                         }
                         font.bold: true
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignHCenter
-                        font.pointSize: 16
+
+                        font.pixelSize: height>0?(height*4/5):10
+
                     }
                 }
             }
@@ -151,6 +152,10 @@ Item {
             {
                 visible: showCombo
                 id: combox
+
+                width: itemImage.width-4
+                height:itemImage.height/2
+
                 anchors.centerIn: parent
                 textRole: "name"
                 model: ListModel{

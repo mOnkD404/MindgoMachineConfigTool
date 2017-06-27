@@ -1,6 +1,7 @@
-﻿import QtQuick 2.7
+import QtQuick 2.7
 
 Item {
+    property bool showHeader: false
     id:planSettingPage
     anchors.fill: parent
 
@@ -17,17 +18,20 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top
-            height: 50
+
+            height: 45
+
 
             Text{
                 text:qsTr("Plan setting")
                 verticalAlignment: Text.AlignVCenter
                 font.bold: true
-                font.pointSize: 19
+                font.pixelSize: 20
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 30
                 color:"#d9d9d9"
+                visible: showHeader
             }
 
             TextButton{
@@ -36,6 +40,7 @@ Item {
                 textValue: qsTr("Save")
                 anchors.right: parent.right
                 anchors.rightMargin: 0
+                fontPixelSize: 20
                 buttonradius: 0
                 onClicked: {
                     planList.savePlan();
@@ -46,15 +51,23 @@ Item {
         PlanList{
             id:planList
 
-            anchors.top: row.bottom
+            anchors.margins: 4
+            anchors.top: showHeader?row.bottom:parent.top
             anchors.left: parent.left
             //anchors.right: parent.right
-            anchors.bottom: parent.bottom
+            //anchors.bottom: parent.bottom
 
-            width: 700
+
+            //width: parent.width/3*2
+
 
             onPositionSelected: {
                 planStepGallery.currentIndex = index;
+            }
+            height:globalinput.active?parent.height-globalinput.height:parent.height;
+
+            Behavior on height{
+                PropertyAnimation { duration:200}
             }
         }
 
@@ -64,10 +77,14 @@ Item {
             id:planStepGallery
             anchors.top: row.bottom
             anchors.left: planList.right
+            //x:planList.x + planList.width
             anchors.right: parent.right
             //anchors.bottom: parent.bottom
 
-            anchors.margins: 20
+            anchors.topMargin: 20
+            anchors.leftMargin: 7
+
+            visible: (planList.operationState != "expandOperation")
 
             activeOnClick: true
             showLabel: false

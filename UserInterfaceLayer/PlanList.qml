@@ -1,12 +1,13 @@
-﻿import QtQuick 2.7
+import QtQuick 2.7
 import QtQuick.Controls 2.1
 import Common 1.0
 import QtQml.Models 2.2
 
 Item {
+    property alias operationState: operationColumn.state
     signal positionSelected(int index);
     id: root    
-
+    clip:true
     function savePlan(){
         selector.onSave();
     }
@@ -26,21 +27,40 @@ Item {
 
     property var columnWidth;
 
-    columnWidth: 150
+    columnWidth: 135
+    width: row.width
+
 
     Row {
         id: row
-        anchors.topMargin: 10
-        spacing: 10
-        anchors.fill: parent
+        spacing: 4
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
 
         Item {
             id: planColumn
-            width: columnWidth
+            width: 0
             anchors.top: parent.top
             anchors.topMargin: 0
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
+            clip: true
+
+
+            Behavior on width{
+                PropertyAnimation{
+                    easing.type: Easing.InOutSine
+                    duration:200
+                }
+            }
+            states:State{
+                name:"expandPlan"
+                PropertyChanges {
+                    target: planColumn
+                    width: columnWidth*0.8
+                }
+            }
 
             Rectangle{
                 id: userPlanSelect
@@ -50,17 +70,37 @@ Item {
                 anchors.leftMargin: 0
                 anchors.top: parent.top
                 color:"#747474"
-                height: 30
+                height: 35
 
                 Text {
                     text: qsTr("Plan list")
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    anchors.fill: parent
+                    //anchors.fill: parent
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    anchors.left: parent.left
+                    anchors.right: hideButton.left
                     font.pixelSize: 17
                     font.bold: true
                     width: 120
                     color:"#d9d9d9"
+                }
+
+                TextButton{
+                    id: hideButton
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    anchors.margins: 1
+                    width: height
+                    buttonradius: 0
+
+                    textValue:"<"
+
+                    onClicked: {
+                        planColumn.state = "";
+                    }
                 }
             }
 
@@ -68,11 +108,12 @@ Item {
                 id:planActionbar
                 positionAction: false
 
-                height: 30
+                height: 28
 
                 anchors.top: userPlanSelect.bottom
                 anchors.left: parent.left
                 anchors.right: parent.right
+                anchors.margins: 4
 
                 onDoAction: {
                     if(str == "edit"){
@@ -102,13 +143,13 @@ Item {
                 id: planListView
                 spacing: 4
                 anchors.top: planActionbar.bottom
-                anchors.topMargin: 10
+                anchors.topMargin: 4
                 anchors.right: parent.right
-                anchors.rightMargin: 10
+                anchors.rightMargin: 4
                 anchors.left: parent.left
-                anchors.leftMargin: 10
+                anchors.leftMargin: 4
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 10
+                anchors.bottomMargin: 4
 
                 clip: true
                 highlight: Rectangle{
@@ -180,6 +221,9 @@ Item {
                         anchors.right: parent.right
                         anchors.rightMargin: 0
 
+                        fontPixelSize: 17
+
+
                         buttonradius: 0
 
                         textValue: name
@@ -228,37 +272,59 @@ Item {
                 anchors.leftMargin: 0
                 anchors.top: parent.top
                 color:"#747474"
-                height: 30
+                height: 35
+
+                TextButton{
+                    id: expandButton
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    anchors.margins: 1
+                    width: height
+                    buttonradius: 0
+
+                    textValue:">"
+                    visible:(planColumn.state=="")
+
+                    onClicked: {
+                        planColumn.state = "expandPlan";
+                    }
+                }
 
                 Text {
                     text: qsTr("Step list")
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    anchors.fill: parent
+                    //anchors.fill: parent
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    anchors.right: parent.right
+                    anchors.left: expandButton.visible?expandButton.right:parent.left
                     font.pixelSize: 17
                     font.bold: true
-                    width: 120
+                    //width: 120
                     color:"#d9d9d9"
                 }
-
             }
 
             ActionBar{
                 id:stepActionBar
 
-                height: 30
+                height: 28
 
+                positionAction: false
                 anchors.top: stepList.bottom
                 anchors.left: parent.left
                 anchors.right: parent.right
+                anchors.margins: 4
 
                 onDoAction: {
                     if (str == "add"){
                         operationColumn.changeOperation = "add"
-                        operationColumn.visible = true;
+                        operationColumn.state = "expandOperation";
                     }else if(str == "edit"){
                         operationColumn.changeOperation = "edit";
-                        operationColumn.visible = true;
+                        operationColumn.state = "expandOperation";
                     }else if(str == "up"){
                         selector.moveStep(planListView.currentIndex, stepListView.currentIndex, stepListView.currentIndex-1);
                         stepListModel.move(stepListView.currentIndex, stepListView.currentIndex - 1, 1);
@@ -294,6 +360,18 @@ Item {
             ListView {
                 id: stepListView
 
+                property int scrollingDirection:0
+                signal scrollOver(int direction);
+
+//                Behavior on contentY{
+//                    NumberAnimation{duration:100}
+//                }
+
+                ScrollBar.vertical: ScrollBar{}
+                moveDisplaced: Transition {
+                    NumberAnimation { duration: 200; properties: "x,y"; easing.type: Easing.InOutCubic }
+                }
+
                 function refreshStepListModel(){
                     var list = selector.stepListModel(planListView.currentIndex);
                     stepListModel.clear();
@@ -309,16 +387,23 @@ Item {
                     }
                 }
 
-                spacing: 4
+                cacheBuffer: 1000
+                spacing: 2
                 anchors.top: stepActionBar.bottom
-                anchors.topMargin: 10
+                anchors.topMargin: 4
                 anchors.right: parent.right
-                anchors.rightMargin: 10
+                anchors.rightMargin: 4
                 anchors.left: parent.left
-                anchors.leftMargin: 10
+                anchors.leftMargin: 4
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 10
+                anchors.bottomMargin: 4
                 model: stepVisualModel
+                //delegate: stepDelegate
+                highlightMoveDuration:200
+                //highlightRangeMode: ListView.ApplyRange
+                snapMode: ListView.SnapToItem
+
+
 
                 clip: true
                 highlight: Rectangle{
@@ -340,93 +425,282 @@ Item {
 
                 onCurrentIndexChanged: {
                     selector.setSelectedStep(planListView.currentIndex, currentIndex);
+                    if(operationColumn.state == "expandOperation") operationColumn.state = "";
+                }
 
-                    //operationList.currentIndex = selector.operationCurrentIndex();
-                   // paramList.model = selector.paramListModel();
-                    if(operationColumn.visible) operationColumn.visible = false;
+
+                SmoothedAnimation {
+                    id: upAnimation
+                    target: stepListView
+                    property: "contentY"
+                    to: 0
+                    running: false
+                    //duration: 200
+                    onStopped: {
+                        stepListView.scrollOver(-1);
+                    }
+                }
+                SmoothedAnimation {
+                    id: downAnimation
+                    target: stepListView
+                    property: "contentY"
+                    to: stepListView.contentHeight - stepListView.height
+                    running: false
+                    //duration: 200
+                    onStopped: {
+                        stepListView.scrollOver(1);
+                    }
                 }
             }
 
             Component{
                 id: stepDelegate
-
-                MouseArea {
-                    id: stepItem
-
-                    property bool held: false
-
-                    anchors { left: parent.left; right: parent.right }
-                    height: stepContent.height
-
-                    drag.target: held ? stepContent : undefined
-                    drag.axis: Drag.YAxis
-
-                    onPressAndHold: {
-                        console.debug("holding");
-                        parent.held = true;
-                    }
-                    onReleased: {
-                        console.debug("release");
-                        parent.height = false;
+                MouseArea{
+                    id:stepContent
+                    onClicked: {
+                        stepListView.currentIndex = index;
                     }
 
-                    TextButton {
-                        id: stepContent
-                        height: 30
-                        anchors.left:parent.left
-                        anchors.leftMargin: 0
-                        anchors.right: parent.right
-                        anchors.rightMargin: 0
+                    property bool holding;
+                    property int itemStepLength: height+stepListView.spacing
 
-                        buttonradius: 0
-                        textValue: (index+1) + ". " + name
-                        startColor: "transparent"
-                        stopColor: "transparent"
+                    //drag
+                    holding:false
 
-                        Drag.active: stepItem.held
-                        Drag.source: stepItem
+                    width: parent.width
+                    height: 35
+                    anchors.left:parent.left
+                    anchors.leftMargin: 0
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    clip:true
+
+
+                    Rectangle{
+                        id:content
+
+                        signal stepScrollOver(int dir);
+
+
+                        width: stepContent.width
+                        height: 35
+                        anchors {
+                            horizontalCenter: parent.horizontalCenter
+                            verticalCenter: parent.verticalCenter
+                        }
+
+                        opacity: enabled?1:0.3
+                        clip:true
+                        color: stepContent.pressed?"lightblue":"transparent";
+
+
+                        border.color: "transparent"
+                        border.width: 2
+
+                        Text{
+                            id:textItem
+                            anchors.fill: parent
+                            horizontalAlignment: Text.AlignHCenter
+
+                            text:(index+1) + ". " + name
+                            color:"#e1e8e2"
+
+                            font.pixelSize: 17
+                            font.bold: true
+                            verticalAlignment: Text.AlignVCenter
+                            styleColor: "#3a3a3a"
+                            style: Text.Raised
+
+                        }
+
+                        Drag.active: stepContent.holding
+                        Drag.source: stepContent
                         Drag.hotSpot.x: width / 2
                         Drag.hotSpot.y: height / 2
 
                         states: State {
-                            when: stepItem.held
+                            when: stepContent.holding
 
-                            ParentChange { target: stepContent; parent: stepListView }
+                            ParentChange { target: content; parent: stepListView }
                             AnchorChanges {
-                                target: stepContent
+                                target: content
                                 anchors { horizontalCenter: undefined; verticalCenter: undefined }
+                            }
+                            PropertyChanges {
+                                target: content
+                                scale: 0.9
+                                color: "#4cffffff"
+                                radius: 4
+                                border.color: "#60ffffff"
+                                border.width: 3
+                            }
+                            PropertyChanges {
+                                target: stepListView
+                                //currentIndex: -1
+                                scrollingDirection:{
+                                    //console.debug("x:"+content.x+" y:"+content.y+" width:"+content.width+" height:"+content.height);
+                                    var top = content.y;
+                                    var bottom = content.y+content.height;
+                                    var movePercent = 0.1;
+                                    if((top < content.height*movePercent && stepListView.contentY > 0)){
+                                        return -1;
+                                    }else if((bottom > (stepListView.height - content.height*movePercent) && stepListView.contentY < stepListView.contentHeight - stepListView.height)){
+                                        return 1;
+                                    }else{
+                                        return 0;
+                                    }
+                                }
+                                onCurrentIndexChanged:undefined
+                                onScrollOver:{
+                                    content.stepScrollOver(direction);
+                                }
+                                currentIndex: stepContent.DelegateModel.itemsIndex
+                            }
+                            PropertyChanges {
+                                target: content
+                                onStepScrollOver: {
+                                    //console.debug("scroll over "+dir);
+                                    onEdgeScroll(dir);
+                                }
+                            }
+                            PropertyChanges {
+                                target: scrollTimer
+                                running: (stepListView.scrollingDirection != 0)
+                            }
+                        }
+                        function onEdgeScroll(direction){
+                            console.debug("edge scroll "+direction);
+                            if(direction == 1 && (stepContent.DelegateModel.itemsIndex < stepListModel.count - 1)){
+                                console.debug("move index "+stepContent.DelegateModel.itemsIndex+" to "+(stepContent.DelegateModel.itemsIndex+1));
+                                selector.moveStep(planListView.currentIndex, stepContent.DelegateModel.itemsIndex , stepContent.DelegateModel.itemsIndex + 1);
+                                stepListModel.move( stepContent.DelegateModel.itemsIndex,stepContent.DelegateModel.itemsIndex+1 ,1);
+                            }else if(direction == -1 && (stepContent.DelegateModel.itemsIndex > 0)){
+                                selector.moveStep(planListView.currentIndex, stepContent.DelegateModel.itemsIndex - 1 , stepContent.DelegateModel.itemsIndex);
+                                console.debug("move index "+stepContent.DelegateModel.itemsIndex+" to "+(stepContent.DelegateModel.itemsIndex-1));
+                                stepListModel.move(stepContent.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex-1,1);
                             }
                         }
 
-                        onClicked: {
-                            stepListView.currentIndex = index;
+
+                        Timer {
+                            id:  scrollTimer
+                            interval: 300
+                            running: false
+                            repeat: true
+                            onTriggered: {
+                                //console.debug("content y "+stepListView.contentY);
+                                //console.debug("content height "+stepListView.contentHeight);
+                                if(stepListView.scrollingDirection == -1){
+                                    if(stepListView.contentY - itemStepLength >= 0){
+                                        //parent.onEdgeScroll(-1);
+                                        upAnimation.to = stepListView.contentY - itemStepLength;
+                                        upAnimation.start();
+                                    }else if (stepListView.contentY > 0){
+                                        //parent.onEdgeScroll(-1);
+                                        upAnimation.to = 0;
+                                        upAnimation.start();
+                                    }else{
+                                        //nothing
+                                    }
+                                }else if(stepListView.scrollingDirection == 1){
+                                    if(stepListView.contentY + itemStepLength <= stepListView.contentHeight - stepListView.height){
+                                        //parent.onEdgeScroll(1);
+                                        downAnimation.to = stepListView.contentY + itemStepLength;
+                                        downAnimation.start();
+                                    }else if (stepListView.contentY < stepListView.contentHeight - stepListView.height){
+                                        //parent.onEdgeScroll(1);
+                                        downAnimation.to = stepListView.contentHeight - stepListView.height;
+                                        downAnimation.start();
+                                    }else{
+                                        //nothing
+                                    }
+                                }
+                            }
                         }
                     }
 
+                    onReleased: {
+                        if(holding){
+                            holding = false;
+                            stepListView.highlightMoveDuration = 0;
+                            stepListView.currentIndex = stepContent.DelegateModel.itemsIndex;
+                            stepListView.highlightMoveDuration = 200;
+                        }
+                    }
+
+                    onPressAndHold: {
+                        stepListView.currentIndex = -1;
+                        holding = true;
+                    }
+                    drag.target: holding ? content : undefined
+                    drag.axis: Drag.YAxis
+
                     DropArea {
-                        anchors { fill: parent; margins: 10 }
+                        id: dropDelegate
+                        anchors { fill: parent; margins: 2 }
 
                         onEntered: {
-                            console.debug("start pos "+drag.source.DelegateModel.itemsIndex+" new index "+stepItem.DelegateModel.itemsIndex);
-                            stepVisualModel.items.move(drag.source.DelegateModel.itemsIndex,stepItem.DelegateModel.itemsIndex);
+                            if(stepListView.scrollingDirection == 0){
+                                if(drag.source.DelegateModel.itemsIndex != stepContent.DelegateModel.itemsIndex){
+                                    console.debug("drag index "+drag.source.DelegateModel.itemsIndex+" drop index "+stepContent.DelegateModel.itemsIndex);
+                                    selector.moveStep(planListView.currentIndex, drag.source.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex);
+                                    stepListModel.move(drag.source.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex, 1);
+                                    //stepVisualModel.items.move(drag.source.DelegateModel.itemsIndex,stepContent.DelegateModel.itemsIndex);
+                                    //judgeListScroll(drag.x, drag.y);
+                                }
+                            }
+
                         }
+//                        onPositionChanged: {
+//                            judgeListScroll(drag.x, drag.y);
+//                        }
+//                        function judgeListScroll(x, y){
+//                            console.debug(stepListView.mapFromItem(dropDelegate, x, y));
+//                            if(stepListView.mapFromItem(dropDelegate, x, y).y >= stepListView.height - dropDelegate.height/2){
+//                                console.debug("should scroll down");
+//                                stepListView.flick(0,-200);
+//                            }else if(stepListView.mapFromItem(dropDelegate, x, y).y <= dropDelegate.height/2){
+//                                console.debug("shold scroll up");
+//                                stepListView.flick(0,200);
+//                            }
+//                        }
                     }
                 }
             }
+
         }
 
         Item {
             property var  changeOperation;
 
             id: operationColumn
-            width: columnWidth
+            width: 0
             anchors.top: parent.top
             anchors.topMargin: 0
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
-            visible: false
+            clip:true
+            //visible: false
 
             changeOperation:"add"
+
+            states:State{
+                name:"expandOperation"
+                PropertyChanges{
+                    target: operationColumn
+                    width: columnWidth
+                }
+                PropertyChanges {
+                    target: paramColumn
+                    width: 0
+                }
+            }
+
+            Behavior on width{
+                PropertyAnimation{
+                    duration: 200
+                }
+            }
 
             Rectangle{
                 id: operationType
@@ -436,7 +710,7 @@ Item {
                 anchors.leftMargin: 0
                 anchors.top: parent.top
                 color:"#747474"
-                height: 30
+                height: 35
 
                 Text {
                     text: qsTr("Operation type")
@@ -462,8 +736,7 @@ Item {
                 anchors.right: parent.right
                 anchors.rightMargin: 10
                 anchors.left: parent.left
-                anchors.leftMargin: 10
-                anchors.bottom: parent.bottom
+                anchors.leftMargin: 10                anchors.bottom: parent.bottom
                 anchors.bottomMargin: 10
 
                 clip: true
@@ -479,7 +752,7 @@ Item {
                         }
                     }
                 }
-                highlightFollowsCurrentItem: true
+                highlightFollowsCurrentItem: false
                 currentIndex: -1
                 interactive: false
 
@@ -491,6 +764,9 @@ Item {
                     anchors.right: parent.right
                     anchors.rightMargin: 0
 
+                    fontPixelSize:18
+
+
                     buttonradius: 0
 
                     textValue: modelData
@@ -498,8 +774,8 @@ Item {
                     stopColor: "transparent"
                     onClicked: {
                         console.debug(modelData+"clicked");
-                        operationList.currentIndex = index;
-                        operationColumn.visible = false;
+                        //operationList.currentIndex = index;
+                        operationColumn.state = "";
 
 
                         if(operationColumn.changeOperation == "add"){
@@ -520,13 +796,14 @@ Item {
                 Component.onCompleted:
                 {
                     model = selector.operationListModel();
+                    currentIndex = -1;
                 }
-                onVisibleChanged: {
-                    if((operationColumn.changeOperation == false) && (operationColumn.visible == true)){
-                        currentIndex = selector.operationCurrentIndex();
-                    }else {
-                        currentIndex = -1;
-                    }
+                onStateChanged: {
+//                    if((operationColumn.changeOperation == "edit") && (operationColumn.state == "expandOperation")){
+//                        currentIndex = selector.operationCurrentIndex();
+//                    }else {
+//                        currentIndex = -1;
+//                    }
                 }
             }
         }
@@ -536,7 +813,13 @@ Item {
             width: columnWidth*2.5
             anchors.bottom: parent.bottom
             anchors.top: parent.top
-            visible: !operationColumn.visible
+            //visible: !operationColumn.visible
+            clip:true
+            Behavior on width{
+                PropertyAnimation{
+                    duration: 200
+                }
+            }
 
             Rectangle{
                 id: operationParam
@@ -546,7 +829,7 @@ Item {
                 anchors.leftMargin: 0
                 anchors.top: parent.top
                 color:"#747474"
-                height: 30
+                height: 35
 
                 Text {
                     text: qsTr("Operation param")
@@ -564,17 +847,22 @@ Item {
                 id: paramList
                 anchors.leftMargin: 0
                 clip:true
-                spacing: 4
+                spacing: 2
                 anchors.top: operationParam.bottom
-                anchors.topMargin: 10
+                anchors.topMargin: 4
                 anchors.right: parent.right
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
                 interactive: false
                 model: selector.paramListModel
+                //highlightRangeMode: ListView.StrictlyEnforceRange
+                highlight: Item{}
+                highlightFollowsCurrentItem:true
+                ScrollBar.vertical: ScrollBar{}
 
                 delegate: Item {
-                    height:30
+                    property int paramIndex: index
+                    height:38
                     anchors.left: parent.left
                     anchors.right: parent.right
 
@@ -594,8 +882,10 @@ Item {
 
                     Text {
                         id: paramName
-                        height:30
-                        width:100
+
+                        height:parent.height
+                        width:105
+
                         text: modelData.Display
                         horizontalAlignment: Text.AlignRight
                         verticalAlignment: Text.AlignVCenter
@@ -632,6 +922,10 @@ Item {
                                 onActiveFocusChanged: {
                                     if(activeFocus){
                                         selectAll();
+                                        if(paramList.currentIndex != paramIndex){
+                                            paramList.currentIndex = paramIndex;
+                                            forceActiveFocus();
+                                        }
                                     }else{
                                         deselect();
                                     }
@@ -742,11 +1036,11 @@ Item {
                         anchors.bottom: parent.bottom
                         anchors.right: paramUnit.left
                         anchors.rightMargin: 3
+                        anchors.leftMargin: 4
 
-                        height: 30
+                        height: parent.height
 
 
-                        anchors.leftMargin: 10
                         sourceComponent:getcomponent(modelData.Type)
 
 

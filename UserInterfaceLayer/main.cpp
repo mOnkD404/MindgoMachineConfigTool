@@ -15,6 +15,10 @@
 #include <QFontDatabase>
 #include <QTime>
 
+#include <QScreen>
+#include <QtPlugin>
+
+
 #ifdef WIN32
 #include <Windows.h>
 #include <iostream>
@@ -85,6 +89,11 @@ int main(int argc, char *argv[])
     SetUnhandledExceptionFilter(TopLevelExceptionFilter);
 #endif
 
+
+#ifndef NO_VIRTUAL_KEYBOARD
+    qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
+#endif
+
     QGuiApplication app(argc, argv);
     app.setApplicationName("Mindgo");
 
@@ -103,7 +112,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<StatusViewWatcher>("Common", 1,0,"StatusViewWatcher");
     qmlRegisterType<PlanController>("Common", 1,0,"PlanController");
 
-    QFontDatabase::addApplicationFont("qrc:/FZHTJW.TTF");
+    QFontDatabase::addApplicationFont(getConfigFullName("FZHTJW.TTF"));
     QFont font;
     font.setFamily(QString::fromWCharArray(L"方正黑体简体"));
     app.setFont(font);
@@ -118,8 +127,17 @@ int main(int argc, char *argv[])
 
     view.connect(view.engine(), &QQmlEngine::quit, &app, &QCoreApplication::quit);
     view.setResizeMode(QQuickView::SizeRootObjectToView);
+#ifndef NO_VIRTUAL_KEYBOARD
     view.setSource(QUrl("qrc:/main.qml"));
-    //view.setMinimumSize(QSize(1400,720));
+
+#else
+    view.setSource(QUrl("qrc:/MainNoKeyboard.qml"));
+#endif
+    view.setMinimumSize(QSize(800,480));
+    QScreen* scn = view.screen();
+    qDebug()<<scn->physicalSize();
+#ifdef QT_WS_QWS
+
     view.showFullScreen();
 
     return app.exec();

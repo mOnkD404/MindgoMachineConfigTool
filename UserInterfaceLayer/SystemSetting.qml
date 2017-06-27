@@ -1,4 +1,4 @@
-﻿import QtQuick 2.7
+import QtQuick 2.7
 import QtQuick.Controls 1.4
 
 Item {
@@ -66,6 +66,7 @@ Item {
                         text: IPAddressObject.IpAddress
                         horizontalAlignment: Text.AlignHCenter
                         font.pixelSize: 20
+                        inputMethodHints: Qt.ImhDigitsOnly
 
                         validator: RegExpValidator{regExp: /^(([01]?[0-9]?[0-9]|2([0-4][0-9]|5[0-5]))\.){3}([01]?[0-9]?[0-9]|2([0-4][0-9]|5[0-5]))$/}
                         //inputMask: "000.000.000.000;_"
@@ -97,6 +98,7 @@ Item {
                         placeholderText: qsTr("port")
                         horizontalAlignment: Text.AlignHCenter
                         font.pixelSize: 20
+                        inputMethodHints: Qt.ImhDigitsOnly
 
                         validator:IntValidator{
                             bottom: 0
@@ -135,6 +137,7 @@ Item {
                         placeholderText: qsTr("Wait time")
                         horizontalAlignment: Text.AlignHCenter
                         font.pixelSize: 20
+                        inputMethodHints: Qt.ImhDigitsOnly
 
                         validator:IntValidator{
                             bottom: 0
@@ -143,6 +146,18 @@ Item {
                     }
                 }
             }
+
+        }
+        StepGallery{
+            visible: isAdministratorAccount
+            //anchors.right: parent.right
+            anchors.left: parent.left
+            anchors.top: column.bottom
+            anchors.bottom: parent.bottom
+            anchors.topMargin: 10
+            anchors.leftMargin: 10
+            width: 500
+
 
             StepGallery{
                 visible: isAdministratorAccount

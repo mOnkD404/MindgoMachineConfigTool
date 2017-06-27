@@ -1,5 +1,6 @@
 import QtQuick 2.7
-import QtGraphicalEffects 1.0
+//import QtGraphicalEffects 1.0
+
 
 Item {
     property var positionAction;
@@ -60,6 +61,7 @@ Item {
 
         Rectangle{
 
+
             width: 25
             height: 25
 
@@ -73,6 +75,7 @@ Item {
                 anchors.rightMargin: 3
                 anchors.bottomMargin: 3
                 smooth: true
+                mipmap: true
                 antialiasing: true
                 visible: true
             }
@@ -89,18 +92,20 @@ Item {
     }
 
     ListView{
-        anchors.rightMargin: 5
-        anchors.leftMargin: 5
-        anchors.bottomMargin: 4
-        anchors.topMargin: 4
+        //anchors.rightMargin: 5
+        //anchors.leftMargin: 5
+        //anchors.bottomMargin: 4
+       // anchors.topMargin: 4
         anchors.fill: parent
         highlightMoveDuration: 5
         highlightRangeMode: ListView.StrictlyEnforceRange
-        spacing: 4
+        spacing: 3
         interactive: false
         clip: false
+
         contentWidth: 25
         contentHeight: 25
+
         orientation: Qt.Horizontal
         layoutDirection: Qt.LeftToRight
         delegate: iconArea

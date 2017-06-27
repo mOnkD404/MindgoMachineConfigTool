@@ -1,4 +1,4 @@
-﻿import QtQuick 2.7
+import QtQuick 2.7
 import QtQuick.Controls 2.1
 import Common 1.0
 
@@ -25,7 +25,10 @@ Item {
         selector.onCompleteSingleOperation();
     }
 
-    width: column.width + 10 + column1.width
+
+    columnWidth: 150
+    width: columnWidth *2.7+10
+
 
 
     Row {
@@ -67,19 +70,19 @@ Item {
 
             ListView {
                 id: operationList
-                spacing: 4
+                spacing: 1
                 anchors.top: operationType.bottom
-                anchors.topMargin: 10
+                anchors.topMargin: 4
                 anchors.right: parent.right
-                anchors.rightMargin: 10
+                anchors.rightMargin: 4
                 anchors.left: parent.left
-                anchors.leftMargin: 10
+                anchors.leftMargin: 4
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 10
+                anchors.bottomMargin: 4
 
                 clip: true
                 highlight: Rectangle{
-                    height: 30
+                    height: 40
                     anchors.left: parent.left
                     anchors.right: parent.right
 
@@ -123,7 +126,9 @@ Item {
 
         Item {
             id: column1
-            width: column.width*2.5
+
+            width: columnWidth*1.7
+
             anchors.bottom: parent.bottom
             anchors.top: parent.top
 
@@ -152,19 +157,29 @@ Item {
                 id: paramList
                 anchors.leftMargin: 0
                 clip:true
-                spacing: 4
+                spacing: 2
                 anchors.top: operationParam.bottom
-                anchors.topMargin: 10
+                anchors.topMargin: 4
                 anchors.right: parent.right
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
                 interactive: false
 
+                ScrollBar.vertical: ScrollBar{}
+                //highlightRangeMode: ListView.StrictlyEnforceRange
+                highlightFollowsCurrentItem: true
+                highlight: Item{
+
+                }
+
+
+
                 model : selector.paramModel
 
 
                 delegate: Item {
-                    height:30
+                    property int paramIndex: index
+                    height:38
                     anchors.left: parent.left
                     anchors.right: parent.right
 
@@ -210,6 +225,15 @@ Item {
                                 validator: getValidator()
                                 focus:true
                                 activeFocusOnTab: true
+
+                                onActiveFocusChanged: {
+                                    if(activeFocus){
+                                        if(paramList.currentIndex != paramIndex){
+                                            paramList.currentIndex = paramIndex;
+                                            forceActiveFocus();
+                                        }
+                                    }
+                                }
 
                                 function getValidator(){
                                     if(modelData.Type == "integer"){

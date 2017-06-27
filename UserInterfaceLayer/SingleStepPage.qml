@@ -1,4 +1,4 @@
-﻿import QtQuick 2.7
+import QtQuick 2.7
 
 Item {
     id:singleStepPage
@@ -17,13 +17,15 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top
-            height: 50
+
+            height: 40
+
 
             Text{
                 text:qsTr("Single step operation")
                 verticalAlignment: Text.AlignVCenter
                 font.bold: true
-                font.pointSize: 19
+                font.pixelSize: 20
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 30
@@ -31,12 +33,16 @@ Item {
             }
 
             TextButton{
-                width: 130
-                height: 60
+
+                id: execButton
+                width: height*2
+                height: parent.height
+
                 textValue: qsTr("Execute")
                 anchors.right: parent.right
                 anchors.rightMargin: 0
                 buttonradius: 0
+                fontPixelSize: 20
                 onClicked: {
                     singleStepOperation.commitData();
                     console.debug("Execute single step operation.");
@@ -47,11 +53,17 @@ Item {
         OperationList{
             id:singleStepOperation
 
+
+            columnWidth: 160
+
             anchors.top: row.bottom
             anchors.left: parent.left
             anchors.leftMargin: 10
-            anchors.bottom: parent.bottom
-
+            //anchors.bottom: parent.bottom
+            height: globalinput.active?parent.height - row.height-globalinput.height:parent.height-row.height;
+            Behavior on height{
+                PropertyAnimation { duration:200}
+            }
             operationGroupType: "NormalOperation"
 
             onPositionSelected: {
@@ -62,9 +74,14 @@ Item {
         StatusListView{
             id: singleStepStatus
             anchors.top: row.bottom
-            anchors.topMargin: 10
+            anchors.topMargin: 5
             anchors.left: singleStepOperation.right
-            anchors.leftMargin: 10
+
+            anchors.leftMargin: 5
+            anchors.right: parent.right
+            anchors.rightMargin: 5
+            height:85
+
 
             height: 400
         }
@@ -76,7 +93,7 @@ Item {
             anchors.top: row.bottom
             anchors.left: singleStepStatus.right
             anchors.right: parent.right
-            //anchors.bottom: parent.bottom
+            anchors.bottom: parent.bottom
 
             anchors.margins: 20
 
@@ -88,6 +105,7 @@ Item {
                 singleStepOperation.setPosition(index);
             }
         }
+
     }
 
 }

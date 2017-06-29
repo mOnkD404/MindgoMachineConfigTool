@@ -268,7 +268,7 @@ Item {
 
         Item {
             id: stepColumn
-            width: columnWidth
+            width: columnWidth*1.2
             anchors.top: parent.top
             anchors.topMargin: 0
             anchors.bottom: parent.bottom

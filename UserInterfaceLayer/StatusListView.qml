@@ -29,6 +29,7 @@ Item {
 
     width: 220
     Rectangle{
+        visible: false
         anchors.fill: parent
         radius:8
         color: "#3c747474"

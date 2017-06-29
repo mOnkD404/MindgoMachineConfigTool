@@ -86,7 +86,7 @@ Item {
             anchors.leftMargin: 10
             anchors.topMargin: 20
             anchors.bottomMargin: 20
-            anchors.rightMargin: 20
+            anchors.rightMargin: 0
 
             activeOnClick: true
             showLabel: false

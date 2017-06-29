@@ -1,4 +1,4 @@
-import QtQuick 2.7
+﻿import QtQuick 2.7
 import QtQuick.Controls 1.4
 
 Item {
@@ -20,7 +20,9 @@ Item {
             id: column
             spacing: 5
 
-            anchors.fill:parent
+            anchors.top:parent.top
+            anchors.left: parent.left
+            anchors.right: parent.right
             anchors.topMargin: 20
             anchors.leftMargin: 20
             anchors.rightMargin: 20
@@ -153,24 +155,14 @@ Item {
             //anchors.right: parent.right
             anchors.left: parent.left
             anchors.top: column.bottom
-            anchors.bottom: parent.bottom
+            //anchors.bottom: parent.bottom
             anchors.topMargin: 10
             anchors.leftMargin: 10
-            width: 500
+            width: 600
+            height: 350
 
-
-            StepGallery{
-                visible: isAdministratorAccount
-                height: 480
-                width: 1000
-
-                activeOnClick: true
-                showLabel: false
-                showCombo: true
-            }
-
-
-
+            showLabel: false
+            showCombo: true
         }
         TextButton {
             id: textButton
@@ -182,6 +174,7 @@ Item {
             anchors.rightMargin: 0
             buttonradius: 0
             textValue: qsTr("Save")
+            fontPixelSize: 20
 
             onClicked: {
                 IPAddressObject.IpAddress = textInput.text;

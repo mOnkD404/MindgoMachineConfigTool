@@ -1,4 +1,4 @@
-import QtQuick 2.7
+﻿import QtQuick 2.7
 import QtQuick.Controls 2.1
 
 Item{
@@ -71,7 +71,7 @@ Item{
             text:textValue
             color:textColor
 
-            font.pixelSize: 20
+            font.pixelSize: fontPixelSize
             font.bold: true
             verticalAlignment: Text.AlignVCenter
             styleColor: "#3a3a3a"

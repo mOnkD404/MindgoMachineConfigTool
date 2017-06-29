@@ -136,7 +136,7 @@ Item {
             TextButton{
                 id:singleStepButton
                 height: 55
-                fontPixelSize: 25
+                fontPixelSize: 22
                 textValue: qsTr("Single step")
                 startColor:"#a9aaac"
                 stopColor:"#6e6d71"
@@ -148,7 +148,7 @@ Item {
             TextButton{
                 id:systemSettingButton
                 height: 55
-                fontPixelSize: 25
+                fontPixelSize: 22
                 textValue: qsTr("System settings")
                 startColor:"#a9aaac"
                 stopColor:"#6e6d71"
@@ -160,7 +160,7 @@ Item {
             TextButton{
                 id:planSettingButton
                 height: 55
-                fontPixelSize: 25
+                fontPixelSize: 22
                 textValue: qsTr("Plan settings")
                 startColor:"#a9aaac"
                 stopColor:"#6e6d71"
@@ -174,7 +174,7 @@ Item {
                 id:startButton
                 textValue: qsTr("Start test")
                 height: 65
-                fontPixelSize: 25
+                fontPixelSize: 22
                 startColor:"#cffe9e"
                 stopColor:"#92d456"
                 borderColor:"#99da73"
@@ -191,7 +191,7 @@ Item {
                 id:stopButton
                 textValue: qsTr("Stop test")
                 height: 65
-                fontPixelSize: 25
+                fontPixelSize: 22
                 startColor:"#cffe9e"
                 stopColor:"#92d456"
                 borderColor:"#99da73"
@@ -211,7 +211,7 @@ Item {
                 id:pauseButton
                 textValue: qsTr("Pause test")
                 height: 65
-                fontPixelSize: 25
+                fontPixelSize: 22
                 startColor:"#cffe9e"
                 stopColor:"#92d456"
                 borderColor:"#99da73"
@@ -226,7 +226,7 @@ Item {
                 id:resumeButton
                 textValue: qsTr("Resume test")
                 height: 65
-                fontPixelSize: 25
+                fontPixelSize: 22
                 startColor:"#a9aaac"
                 stopColor:"#6e6d71"
                 borderColor:"#99da73"

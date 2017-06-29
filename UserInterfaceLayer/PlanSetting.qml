@@ -1,4 +1,4 @@
-import QtQuick 2.7
+﻿import QtQuick 2.7
 
 Item {
     property bool showHeader: false
@@ -79,10 +79,10 @@ Item {
             anchors.left: planList.right
             //x:planList.x + planList.width
             anchors.right: parent.right
-            //anchors.bottom: parent.bottom
+            anchors.bottom: parent.bottom
 
-            anchors.topMargin: 20
-            anchors.leftMargin: 7
+            anchors.topMargin: 35
+            anchors.leftMargin: 20
 
             visible: (planList.operationState != "expandOperation")
 

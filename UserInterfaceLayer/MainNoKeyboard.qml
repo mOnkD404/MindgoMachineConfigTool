@@ -1,11 +1,11 @@
-import QtQuick 2.7
+﻿import QtQuick 2.7
 import QtQuick.Controls 1.4
 import QtQuick.Window 2.2
 
 Item {
     visible: true
-    width: 800
-    height: 480
+    //width: 1400
+    //height: 720
     antialiasing: true
     //scale: 0.5
 

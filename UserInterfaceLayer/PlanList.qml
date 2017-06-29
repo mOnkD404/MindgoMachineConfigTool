@@ -1,4 +1,4 @@
-import QtQuick 2.7
+﻿import QtQuick 2.7
 import QtQuick.Controls 2.1
 import Common 1.0
 import QtQml.Models 2.2
@@ -27,13 +27,16 @@ Item {
 
     property var columnWidth;
 
-    columnWidth: 135
+    columnWidth: 165
     width: row.width
+    Component.onCompleted: {
+        planColumn.state = "expandPlan"
+    }
 
 
     Row {
         id: row
-        spacing: 4
+        spacing: 10
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left: parent.left
@@ -45,7 +48,7 @@ Item {
             anchors.topMargin: 0
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
-            clip: true
+            clip: true            
 
 
             Behavior on width{
@@ -58,8 +61,15 @@ Item {
                 name:"expandPlan"
                 PropertyChanges {
                     target: planColumn
-                    width: columnWidth*0.8
+                    width: columnWidth
                 }
+            }
+
+            Rectangle{
+                anchors.fill: parent
+                anchors.bottomMargin: 8
+                radius:8
+                color: "#3c747474"
             }
 
             Rectangle{
@@ -70,7 +80,7 @@ Item {
                 anchors.leftMargin: 0
                 anchors.top: parent.top
                 color:"#747474"
-                height: 35
+                height: 40
 
                 Text {
                     text: qsTr("Plan list")
@@ -81,7 +91,7 @@ Item {
                     anchors.bottom: parent.bottom
                     anchors.left: parent.left
                     anchors.right: hideButton.left
-                    font.pixelSize: 17
+                    font.pixelSize: 20
                     font.bold: true
                     width: 120
                     color:"#d9d9d9"
@@ -92,7 +102,7 @@ Item {
                     anchors.right: parent.right
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
-                    anchors.margins: 1
+                    anchors.margins: 3
                     width: height
                     buttonradius: 0
 
@@ -108,7 +118,7 @@ Item {
                 id:planActionbar
                 positionAction: false
 
-                height: 28
+                height: 27
 
                 anchors.top: userPlanSelect.bottom
                 anchors.left: parent.left
@@ -149,11 +159,11 @@ Item {
                 anchors.left: parent.left
                 anchors.leftMargin: 4
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 4
+                anchors.bottomMargin: 8
 
                 clip: true
                 highlight: Rectangle{
-                    height: 30
+                    height: 40
                     anchors.left: parent.left
                     anchors.right: parent.right
 
@@ -167,7 +177,7 @@ Item {
 
                 delegate: Item{
                     property bool inEdit: false
-                    height: 30
+                    height: 40
                     anchors.left:parent.left
                     anchors.leftMargin: 0
                     anchors.right: parent.right
@@ -178,10 +188,10 @@ Item {
                         id:inputArea
                         visible: inEdit
 
-                        height: 30
+                        height: 40
                         font.italic: true
                         verticalAlignment: Text.AlignVCenter
-                        font.pointSize: 20
+                        font.pointSize: 22
 
                         anchors.left:parent.left
                         anchors.leftMargin: 0
@@ -215,13 +225,13 @@ Item {
                     TextButton {
                         visible: !inEdit
 
-                        height: 30
+                        height: 40
                         anchors.left:parent.left
                         anchors.leftMargin: 0
                         anchors.right: parent.right
                         anchors.rightMargin: 0
 
-                        fontPixelSize: 17
+                        fontPixelSize: 20
 
 
                         buttonradius: 0
@@ -265,6 +275,13 @@ Item {
             anchors.bottomMargin: 0
 
             Rectangle{
+                anchors.fill: parent
+                anchors.bottomMargin: 8
+                radius:8
+                color: "#3c747474"
+            }
+
+            Rectangle{
                 id: stepList
                 anchors.right: parent.right
                 anchors.rightMargin: 0
@@ -272,14 +289,14 @@ Item {
                 anchors.leftMargin: 0
                 anchors.top: parent.top
                 color:"#747474"
-                height: 35
+                height: 40
 
                 TextButton{
                     id: expandButton
                     anchors.left: parent.left
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
-                    anchors.margins: 1
+                    anchors.margins: 3
                     width: height
                     buttonradius: 0
 
@@ -300,7 +317,7 @@ Item {
                     anchors.bottom: parent.bottom
                     anchors.right: parent.right
                     anchors.left: expandButton.visible?expandButton.right:parent.left
-                    font.pixelSize: 17
+                    font.pixelSize: 20
                     font.bold: true
                     //width: 120
                     color:"#d9d9d9"
@@ -310,9 +327,9 @@ Item {
             ActionBar{
                 id:stepActionBar
 
-                height: 28
+                height: 27
 
-                positionAction: false
+                //positionAction: false
                 anchors.top: stepList.bottom
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -388,7 +405,7 @@ Item {
                 }
 
                 cacheBuffer: 1000
-                spacing: 2
+                spacing: 4
                 anchors.top: stepActionBar.bottom
                 anchors.topMargin: 4
                 anchors.right: parent.right
@@ -396,7 +413,7 @@ Item {
                 anchors.left: parent.left
                 anchors.leftMargin: 4
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 4
+                anchors.bottomMargin: 10
                 model: stepVisualModel
                 //delegate: stepDelegate
                 highlightMoveDuration:200
@@ -407,7 +424,7 @@ Item {
 
                 clip: true
                 highlight: Rectangle{
-                    height: 30
+                    height: 40
 
                     color: "#5cc5ff"
                     radius: 0
@@ -468,7 +485,7 @@ Item {
                     holding:false
 
                     width: parent.width
-                    height: 35
+                    height: 40
                     anchors.left:parent.left
                     anchors.leftMargin: 0
                     anchors.right: parent.right
@@ -483,7 +500,7 @@ Item {
 
 
                         width: stepContent.width
-                        height: 35
+                        height: 40
                         anchors {
                             horizontalCenter: parent.horizontalCenter
                             verticalCenter: parent.verticalCenter
@@ -505,7 +522,7 @@ Item {
                             text:(index+1) + ". " + name
                             color:"#e1e8e2"
 
-                            font.pixelSize: 17
+                            font.pixelSize: 20
                             font.bold: true
                             verticalAlignment: Text.AlignVCenter
                             styleColor: "#3a3a3a"
@@ -701,6 +718,12 @@ Item {
                     duration: 200
                 }
             }
+            Rectangle{
+                anchors.fill: parent
+                anchors.bottomMargin: 8
+                radius:8
+                color: "#3c747474"
+            }
 
             Rectangle{
                 id: operationType
@@ -710,14 +733,14 @@ Item {
                 anchors.leftMargin: 0
                 anchors.top: parent.top
                 color:"#747474"
-                height: 35
+                height: 40
 
                 Text {
                     text: qsTr("Operation type")
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     anchors.fill: parent
-                    font.pixelSize: 17
+                    font.pixelSize: 20
                     font.bold: true
                     width: 120
                     color:"#d9d9d9"
@@ -736,12 +759,13 @@ Item {
                 anchors.right: parent.right
                 anchors.rightMargin: 10
                 anchors.left: parent.left
-                anchors.leftMargin: 10                anchors.bottom: parent.bottom
+                anchors.leftMargin: 10
+                anchors.bottom: parent.bottom
                 anchors.bottomMargin: 10
 
                 clip: true
                 highlight: Rectangle{
-                    height: 30
+                    height: 40
 
                     color: "#5cc5ff"
                     radius: 0
@@ -757,14 +781,14 @@ Item {
                 interactive: false
 
                 delegate: TextButton {
-                    height: 30
+                    height: 40
 
                     anchors.left:parent.left
                     anchors.leftMargin: 0
                     anchors.right: parent.right
                     anchors.rightMargin: 0
 
-                    fontPixelSize:18
+                    fontPixelSize:20
 
 
                     buttonradius: 0
@@ -822,6 +846,13 @@ Item {
             }
 
             Rectangle{
+                anchors.fill: parent
+                anchors.bottomMargin: 8
+                radius:8
+                color: "#3c747474"
+            }
+
+            Rectangle{
                 id: operationParam
                 anchors.right: parent.right
                 anchors.rightMargin: 0
@@ -829,14 +860,14 @@ Item {
                 anchors.leftMargin: 0
                 anchors.top: parent.top
                 color:"#747474"
-                height: 35
+                height: 40
 
                 Text {
                     text: qsTr("Operation param")
                     anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
-                    font.pixelSize: 17
+                    font.pixelSize: 20
                     font.bold: true
 
                     color:"#d9d9d9"
@@ -845,7 +876,6 @@ Item {
 
             ListView {
                 id: paramList
-                anchors.leftMargin: 0
                 clip:true
                 spacing: 2
                 anchors.top: operationParam.bottom
@@ -853,6 +883,8 @@ Item {
                 anchors.right: parent.right
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
+                anchors.leftMargin: 5
+                anchors.rightMargin: 5
                 interactive: false
                 model: selector.paramListModel
                 //highlightRangeMode: ListView.StrictlyEnforceRange
@@ -862,7 +894,7 @@ Item {
 
                 delegate: Item {
                     property int paramIndex: index
-                    height:38
+                    height:40
                     anchors.left: parent.left
                     anchors.right: parent.right
 
@@ -884,13 +916,13 @@ Item {
                         id: paramName
 
                         height:parent.height
-                        width:105
+                        width:135
 
                         text: modelData.Display
                         horizontalAlignment: Text.AlignRight
                         verticalAlignment: Text.AlignVCenter
                         color:"#d9d9d9"
-                        font.pixelSize: 17
+                        font.pixelSize: 20
                         font.bold: true
                     }
 
@@ -1065,7 +1097,7 @@ Item {
                         horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter
                         color:"#d9d9d9"
-                        font.pixelSize: 17
+                        font.pixelSize: 20
                         font.bold: true
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom

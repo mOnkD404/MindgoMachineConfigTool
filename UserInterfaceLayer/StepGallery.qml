@@ -77,7 +77,8 @@ Item {
         currentIndex: -1
         highlight: Rectangle{
             width:200
-            height:100            radius: 3
+            height:100
+            radius: 3
             color:"#747474"
             border.width: 3
             border.color:"#99da73"

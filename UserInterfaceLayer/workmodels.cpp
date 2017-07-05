@@ -280,6 +280,11 @@ QStringList PlanSelector::stepListModel(int planIndex)
     return EnvironmentVariant::instance()->StepList(planIndex);
 }
 
+QStringList PlanSelector::planSelectStepListModel(int planIndex)
+{
+    return EnvironmentVariant::instance()->planSelectStepListModel(planIndex);
+}
+
 void PlanSelector::setSelectedStep(int planIndex, int stepIndex)
 {
     m_operationData = EnvironmentVariant::instance()->planStepParam(planIndex, stepIndex);

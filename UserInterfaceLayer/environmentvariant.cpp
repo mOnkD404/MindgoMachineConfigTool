@@ -178,7 +178,59 @@ QStringList EnvironmentVariant::StepList(int planIndex)
         {
             if(m_operationNameDispMap.contains(pda.operationName))
             {
-                steplist.append(m_operationNameDispMap[pda.operationName]);
+                if(pda.operationName == "Group")
+                {
+                    QString groupName;
+                    foreach( const OperationParamData& param, pda.params)
+                    {
+                        if(param.Name == "GroupName")
+                        {
+                            groupName = param.StringValue;
+                            break;
+                        }
+                    }
+                    steplist.append(m_operationNameDispMap[pda.operationName]+"["+groupName+"]");
+                }
+                else
+                {
+                    steplist.append(m_operationNameDispMap[pda.operationName]);
+                }
+            }
+        }
+    }
+    return steplist;
+}
+
+QStringList EnvironmentVariant::planSelectStepListModel(int planIndex)
+{
+    QStringList steplist;
+    int loopStack = 0;
+    int currentIndex = 0;
+    if(planIndex >= 0 && planIndex < m_planList.size())
+    {
+        const QList<SingleOperationData> & data = m_planList[planIndex].second;
+        foreach (const SingleOperationData& pda, data)
+        {
+            if(m_operationNameDispMap.contains(pda.operationName))
+            {
+                if(pda.operationName != "Group" )
+                {
+                    if ( loopStack == 0)
+                    {
+                        steplist.append(QString::number(currentIndex+1) + ". "+m_operationNameDispMap[pda.operationName]);
+                    }
+                    currentIndex++;
+                }
+
+                if(pda.operationName == "Loop")
+                {
+                    loopStack ++;
+                }
+                else if(pda.operationName == "EndLoop" && loopStack > 0)
+                {
+                    loopStack--;
+                }
+
             }
         }
     }
@@ -393,6 +445,10 @@ void EnvironmentVariant::SetPlanStepSingleParam(int planIndex, int stepIndex, co
             {
                 iterdata->BoolValue = value.toBool();
             }
+            else if(iterdata->Type == "string")
+            {
+                iterdata->StringValue = value.toString();
+            }
 
             break;
         }
@@ -450,8 +506,13 @@ void EnvironmentVariant::StartPlan(int planIndex, int stepIndex)
     QJsonObject planObj;
     QJsonArray oparray;
     int seq = 1;
+
     foreach(const SingleOperationData& opData, stepList)
     {
+        if(opData.operationName == "Group")
+        {
+            continue;
+        }
         QJsonObject singleOperationObj;
         singleOperationObj["operation"] = opData.operationName;
         singleOperationObj["sequence"] = seq++;

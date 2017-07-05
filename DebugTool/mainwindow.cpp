@@ -139,6 +139,7 @@ bool WorkerObject::handleData(const QByteArray& array)
 
         memcpy(ack+3, array.data()+3, 4);
         m_ackData = QByteArray(ack,9);
+        m_ackData[8] = 1;
     }
     else if(memcmp(array.data(), command[5], 5) == 0)
     {

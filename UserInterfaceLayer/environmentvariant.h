@@ -33,6 +33,7 @@ public:
 
     QStringList PlanList();
     QStringList StepList(int planIndex );
+    QStringList planSelectStepListModel(int planIndex);
     SingleOperationData planStepParam(int planIndex, int stepIndex);
 
     void AddPlanStep(int planIndex, int before, int operationIndex);

@@ -147,7 +147,7 @@ Item {
 
             TextButton{
                 id:systemSettingButton
-                height: 55
+                height: isAdministratorAccount?55:0
                 fontPixelSize: 22
                 textValue: qsTr("System settings")
                 startColor:"#a9aaac"
@@ -159,13 +159,12 @@ Item {
 
             TextButton{
                 id:planSettingButton
-                height: 55
+                height: isAdministratorAccount?55:0
                 fontPixelSize: 22
                 textValue: qsTr("Plan settings")
                 startColor:"#a9aaac"
                 stopColor:"#6e6d71"
-                borderColor:"#cecece"
-                enabled: isAdministratorAccount
+                borderColor:"#cecece"                
 
                 onClicked: subPage.subPageUrl = Qt.resolvedUrl("PlanSetting.qml")
             }

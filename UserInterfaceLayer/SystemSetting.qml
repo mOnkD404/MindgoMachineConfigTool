@@ -151,7 +151,6 @@ Item {
 
         }
         StepGallery{
-            visible: isAdministratorAccount
             //anchors.right: parent.right
             anchors.left: parent.left
             anchors.top: column.bottom

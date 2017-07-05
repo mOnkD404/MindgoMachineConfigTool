@@ -63,7 +63,7 @@ Item {
         Text {
             id: text4
             width: 130
-            height: 25
+            height: 35
             text: qsTr("Test")
             anchors.top: parent.top
             anchors.topMargin: 75
@@ -85,10 +85,53 @@ Item {
             anchors.topMargin: 75
             font.pixelSize: 25
 
-            model: selector.planListModel()
+            //model: selector.planListModel()
             currentIndex: 0
             focus:true
             activeFocusOnTab: true
+
+            onVisibleChanged: {
+                if(visible){
+                    model = selector.planListModel();
+                }
+            }
+        }
+
+        Text{
+            id: text5
+            width: 130
+            height: 35
+            text: qsTr("Start Step")
+            anchors.top: text4.bottom
+            anchors.topMargin: 10
+            anchors.left: parent.left
+            anchors.leftMargin: 21
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: 25
+            color: "#b5b7b6"
+        }
+
+        ComboBox {
+            id: stepcomboBox
+            width: 200
+            height: 35
+            anchors.left: text5.right
+            anchors.leftMargin: 10
+            anchors.top:plancomboBox.bottom
+            anchors.topMargin: 10
+            font.pixelSize: 25
+
+            //model: selector.planSelectStepListModel(plancomboBox.currentIndex)
+            currentIndex: 0
+            focus:true
+            activeFocusOnTab: true
+
+            onVisibleChanged: {
+                if(visible){
+                    model = selector.planSelectStepListModel(plancomboBox.currentIndex)
+                }
+            }
         }
 
         TextButton {

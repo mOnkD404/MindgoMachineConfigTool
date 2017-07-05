@@ -336,6 +336,7 @@ Item {
                 anchors.margins: 4
 
                 onDoAction: {
+                    stepListView.expandAll();
                     if (str == "add"){
                         operationColumn.changeOperation = "add"
                         operationColumn.state = "expandOperation";
@@ -367,12 +368,12 @@ Item {
                 id:stepListModel
             }
 
-            DelegateModel{
-                id:stepVisualModel
+//            DelegateModel{
+//                id:stepVisualModel
 
-                model: stepListModel
-                delegate:stepDelegate
-            }
+//                model: stepListModel
+//                delegate:stepDelegate
+//            }
 
             ListView {
                 id: stepListView
@@ -393,7 +394,7 @@ Item {
                     var list = selector.stepListModel(planListView.currentIndex);
                     stepListModel.clear();
                     for(var ind = 0; ind < list.length; ind++){
-                        stepListModel.append({"name":list[ind]});
+                        stepListModel.append({"name":list[ind],"showStep":true});
                     }
                     if(stepListModel.count > 0){
                         currentIndex = 0;
@@ -403,9 +404,29 @@ Item {
                         currentIndex = -1;
                     }
                 }
+                
+                function hideGroup(index){
+                    for(var cur = index+1; cur < stepListModel.count; cur++){
+                        if( stepListModel.get(cur).name.substring(0,2)=="分组"){
+                            break;
+                        }else{
+                            var vi = stepListModel.get(cur).showStep;
+                            stepListModel.setProperty(cur, "showStep", !vi);
+                        }
+                    }
+                }
+
+                function expandAll(){
+                    for(var cur = 0; cur < stepListModel.count; cur++){
+                        if( stepListModel.get(cur).name.substring(0,2)!="分组"){
+                            var vi = stepListModel.get(cur).showStep;
+                            stepListModel.setProperty(cur, "showStep", true);
+                        }
+                    }
+                }
 
                 cacheBuffer: 1000
-                spacing: 4
+                spacing: 0
                 anchors.top: stepActionBar.bottom
                 anchors.topMargin: 4
                 anchors.right: parent.right
@@ -414,13 +435,11 @@ Item {
                 anchors.leftMargin: 4
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 10
-                model: stepVisualModel
-                //delegate: stepDelegate
-                highlightMoveDuration:200
+                model: stepListModel
+                delegate: stepDelegate
+                highlightMoveDuration:100
                 //highlightRangeMode: ListView.ApplyRange
                 snapMode: ListView.SnapToItem
-
-
 
                 clip: true
                 highlight: Rectangle{
@@ -485,7 +504,15 @@ Item {
                     holding:false
 
                     width: parent.width
-                    height: 40
+                    height: showStep?40:0
+
+                    Behavior on height {
+                        PropertyAnimation{
+                            easing.type: Easing.InOutSine
+                            duration:200
+                        }
+                    }
+
                     anchors.left:parent.left
                     anchors.leftMargin: 0
                     anchors.right: parent.right
@@ -517,7 +544,8 @@ Item {
                         Text{
                             id:textItem
                             anchors.fill: parent
-                            horizontalAlignment: Text.AlignHCenter
+                            anchors.leftMargin: 18
+                            horizontalAlignment: Text.AlignLeft//Text.AlignHCenter
 
                             text:(index+1) + ". " + name
                             color:"#e1e8e2"
@@ -534,6 +562,7 @@ Item {
                         Drag.source: stepContent
                         Drag.hotSpot.x: width / 2
                         Drag.hotSpot.y: height / 2
+                        Drag.keys: "reorder"
 
                         states: State {
                             when: stepContent.holding
@@ -642,12 +671,17 @@ Item {
                             stepListView.highlightMoveDuration = 0;
                             stepListView.currentIndex = stepContent.DelegateModel.itemsIndex;
                             stepListView.highlightMoveDuration = 200;
+                        }else{
+                            if(name.substring(0,2) == "分组"){
+                                stepListView.hideGroup(stepContent.DelegateModel.itemsIndex);
+                            }
                         }
                     }
 
                     onPressAndHold: {
                         stepListView.currentIndex = -1;
                         holding = true;
+                        stepListView.expandAll();
                     }
                     drag.target: holding ? content : undefined
                     drag.axis: Drag.YAxis
@@ -655,18 +689,23 @@ Item {
                     DropArea {
                         id: dropDelegate
                         anchors { fill: parent; margins: 2 }
+                        keys: ["reorder","add"]
 
                         onEntered: {
-                            if(stepListView.scrollingDirection == 0){
-                                if(drag.source.DelegateModel.itemsIndex != stepContent.DelegateModel.itemsIndex){
-                                    console.debug("drag index "+drag.source.DelegateModel.itemsIndex+" drop index "+stepContent.DelegateModel.itemsIndex);
-                                    selector.moveStep(planListView.currentIndex, drag.source.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex);
-                                    stepListModel.move(drag.source.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex, 1);
-                                    //stepVisualModel.items.move(drag.source.DelegateModel.itemsIndex,stepContent.DelegateModel.itemsIndex);
-                                    //judgeListScroll(drag.x, drag.y);
+                            console.debug("drag enter "+drag.keys);
+                            if(drag.keys == "reorder"){
+                                if(stepListView.scrollingDirection == 0){
+                                    if(drag.source.DelegateModel.itemsIndex != stepContent.DelegateModel.itemsIndex){
+                                        console.debug("drag index "+drag.source.DelegateModel.itemsIndex+" drop index "+stepContent.DelegateModel.itemsIndex);
+                                        selector.moveStep(planListView.currentIndex, drag.source.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex);
+                                        stepListModel.move(drag.source.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex, 1);
+                                        //stepVisualModel.items.move(drag.source.DelegateModel.itemsIndex,stepContent.DelegateModel.itemsIndex);
+                                        //judgeListScroll(drag.x, drag.y);
+                                    }
                                 }
-                            }
+                            }else if(drag.keys == "add"){
 
+                            }
                         }
 //                        onPositionChanged: {
 //                            judgeListScroll(drag.x, drag.y);
@@ -804,7 +843,7 @@ Item {
 
                         if(operationColumn.changeOperation == "add"){
                             selector.addStep(planListView.currentIndex, stepListView.count, index);
-                            stepListModel.append({"name":textValue});
+                            stepListModel.append({"name":textValue, "showStep":true});
 
                             //paramList.model = selector.paramListModel();
 
@@ -1010,6 +1049,11 @@ Item {
                                         }
 
                                         selector.commitParam(planListView.currentIndex, stepListView.currentIndex, modelData.Name, text);
+
+                                        if(modelData.Name=="GroupName"){
+                                            var list = selector.stepListModel(planListView.currentIndex);
+                                            stepListModel.setProperty(stepListView.currentIndex, "name", list[stepListView.currentIndex]);
+                                        }
                                     }
                                 }
                                 onEnabledChanged: {

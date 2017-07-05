@@ -182,7 +182,7 @@ bool WorkflowProtocol::parseAckFrame(const QByteArray& buff, QJsonObject& ret)
                 m_sendFrame.seq != m_recvFrame.seq || \
                 m_recvFrame.result != 0)
             {
-                return false;
+                return true;
             }
             else
             {
@@ -569,7 +569,7 @@ bool SubThreadWorker::handleControlCommand(Communication& com, QJsonObject& cmdO
     retObj["ack"] = recvret;
 
     emit statusChanged(retObj);
-    if(!recvret)
+    if(!recvret || retObj["ackResult"] != 0)
         return false;
 
     return true;

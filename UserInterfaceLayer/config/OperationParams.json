@@ -1,6 +1,6 @@
 ﻿{
     "OperationEnum":["Load Tip", "Dump Tip", "Suction", "Dispense", "Mix", "Magnetic Separation", "Relative Motion", "Absolute Motion", "Reset"],
-    "LogicalControlEnum":["WaitArray","Loop", "EndLoop"],
+    "LogicalControlEnum":["WaitArray","Loop", "EndLoop", "Group"],
     "NormalOperation":{
         "Load Tip":[         "boardType", "position"],
         "Suction": ["speed", "boardType", "position", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume",                        "suctionHeight"],
@@ -15,7 +15,8 @@
     "logicalControl":{
         "WaitArray":["waitTime"],
         "Loop":[ "cycleCount"],
-        "EndLoop":[]
+        "EndLoop":[],
+        "Group":["GroupName"]
     },
     "Operation Display Name":{
         "Load Tip":"装载针头",
@@ -29,7 +30,8 @@
         "Magnetic Separation":"磁分离位置",
         "Relative Motion":"单轴相对运动",
         "Absolute Motion":"单轴绝对运动",
-        "Reset":"单轴复位"
+        "Reset":"单轴复位",
+        "Group":"分组"
     },
 
     "params":{
@@ -166,6 +168,12 @@
             "unit":"mm",
             "bottomValue":0,
             "topValue":1000
+        },
+        "GroupName":{
+            "type":"string",
+            "default":"",
+            "display":"分组名",
+            "unit":""
         }
     }
 }

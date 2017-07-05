@@ -386,6 +386,7 @@ public:
 
     Q_INVOKABLE QStringList planListModel();
     Q_INVOKABLE QStringList stepListModel(int planIndex);
+    Q_INVOKABLE QStringList planSelectStepListModel(int planIndex);
     Q_INVOKABLE QStringList operationListModel() {return m_operationListModel;}
 
     QList<QObject*> getParamListModel() {return paramListModel;}

@@ -36,6 +36,7 @@ Item{
 
     Rectangle{
         anchors.fill: parent
+        clip:true
 
         opacity: enabled?1:0.3
         //color: mouseButton.pressed?"lightgreen":"lightgray"

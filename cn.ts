@@ -9,73 +9,60 @@
         <translation>自动移液机系统</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/MainScreen.qml" line="49"/>
+        <location filename="UserInterfaceLayer/MainScreen.qml" line="50"/>
         <source>00-00-00</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/MainScreen.qml" line="137"/>
+        <location filename="UserInterfaceLayer/MainScreen.qml" line="140"/>
         <source>Single step</source>
         <translation>单步操作</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/MainScreen.qml" line="148"/>
+        <location filename="UserInterfaceLayer/MainScreen.qml" line="152"/>
         <source>System settings</source>
         <translation>系统设置</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/MainScreen.qml" line="159"/>
+        <location filename="UserInterfaceLayer/MainScreen.qml" line="164"/>
         <source>Plan settings</source>
         <translation>计划设置</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/MainScreen.qml" line="169"/>
+        <location filename="UserInterfaceLayer/MainScreen.qml" line="174"/>
         <source>Start test</source>
         <translation>开始实验</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/MainScreen.qml" line="185"/>
+        <location filename="UserInterfaceLayer/MainScreen.qml" line="191"/>
         <source>Stop test</source>
         <translation>停止实验</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/MainScreen.qml" line="204"/>
+        <location filename="UserInterfaceLayer/MainScreen.qml" line="211"/>
         <source>Pause test</source>
         <translation>暂停实验</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/MainScreen.qml" line="218"/>
+        <location filename="UserInterfaceLayer/MainScreen.qml" line="226"/>
         <source>Resume test</source>
         <translation>恢复实验</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/MainScreen.qml" line="330"/>
+        <location filename="UserInterfaceLayer/MainScreen.qml" line="339"/>
         <source>&lt; Back</source>
         <translation> &lt; 返回</translation>
     </message>
 </context>
 <context>
-    <name>MainWindow</name>
-    <message>
-        <location filename="DebugTool/mainwindow.ui" line="20"/>
-        <source>MainWindow</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="DebugTool/mainwindow.ui" line="65"/>
-        <source>Ack time</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>OperationList</name>
     <message>
-        <location filename="UserInterfaceLayer/OperationList.qml" line="46"/>
+        <location filename="UserInterfaceLayer/OperationList.qml" line="67"/>
         <source>Operation type</source>
         <translation>操作类型</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/OperationList.qml" line="131"/>
+        <location filename="UserInterfaceLayer/OperationList.qml" line="163"/>
         <source>Operation param</source>
         <translation>操作参数</translation>
     </message>
@@ -83,22 +70,22 @@
 <context>
     <name>PlanList</name>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="46"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="86"/>
         <source>Plan list</source>
         <translation>计划设置</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="224"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="312"/>
         <source>Step list</source>
         <translation>实验流程</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="429"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="827"/>
         <source>Operation type</source>
         <translation>操作类型</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="540"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="954"/>
         <source>Operation param</source>
         <translation>操作参数</translation>
     </message>
@@ -106,12 +93,12 @@
 <context>
     <name>PlanSetting</name>
     <message>
-        <location filename="UserInterfaceLayer/PlanSetting.qml" line="23"/>
+        <location filename="UserInterfaceLayer/PlanSetting.qml" line="26"/>
         <source>Plan setting</source>
         <translation>计划设置</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanSetting.qml" line="36"/>
+        <location filename="UserInterfaceLayer/PlanSetting.qml" line="40"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
@@ -119,12 +106,12 @@
 <context>
     <name>SingleStepPage</name>
     <message>
-        <location filename="UserInterfaceLayer/SingleStepPage.qml" line="23"/>
+        <location filename="UserInterfaceLayer/SingleStepPage.qml" line="25"/>
         <source>Single step operation</source>
         <translation>单步操作</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SingleStepPage.qml" line="36"/>
+        <location filename="UserInterfaceLayer/SingleStepPage.qml" line="41"/>
         <source>Execute</source>
         <translation>执行</translation>
     </message>
@@ -142,12 +129,17 @@
         <translation>实验名称</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="107"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="104"/>
+        <source>Start Step</source>
+        <translation>开始步骤</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="152"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="129"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="175"/>
         <source>Start</source>
         <translation>开始</translation>
     </message>
@@ -155,32 +147,32 @@
 <context>
     <name>StepGallery</name>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="119"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="128"/>
         <source>Empty</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="119"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="128"/>
         <source>Ready</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="140"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="164"/>
         <source>tips</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="141"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="165"/>
         <source>tubes</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="142"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="166"/>
         <source>null</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="170"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="194"/>
         <source>Used</source>
         <translation></translation>
     </message>
@@ -188,32 +180,32 @@
 <context>
     <name>SystemSetting</name>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="42"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="51"/>
         <source>Machine Address</source>
         <translation>下位机IP</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="58"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="67"/>
         <source>IP Address</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="78"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="100"/>
         <source>port</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="97"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="120"/>
         <source>Max ack waiting time</source>
         <translation>最大等待时间</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="116"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="139"/>
         <source>Wait time</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="147"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="175"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>

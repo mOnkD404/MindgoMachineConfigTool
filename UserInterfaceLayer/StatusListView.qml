@@ -4,6 +4,7 @@ import QtQuick.Controls 2.1
 import Common 1.0
 
 Item {
+    id:root
     function clearModel(){
         displayModel.clear();
         statusList.currentIndex = -1;
@@ -25,6 +26,18 @@ Item {
 
             statusList.currentIndex = displayModel.count - 1;
         }
+    }
+
+    function decodeError(errCode){
+        var retVal;
+        switch(parseInt(errCode)){
+        case 0x0001:
+            retVal = 'XY轴定位失败';
+            break;
+        default:
+            break;
+        }
+        return retVal;
     }
 
     width: 220
@@ -115,7 +128,7 @@ Item {
                                     if(ackResult==0){
                                         return 'Success';
                                     }else{
-                                        return 'Fail code'+ackResult.toString();
+                                        return 'Fail: '+ root.decodeError(ackResult.toString());
                                     }
                                 }
                             }else{

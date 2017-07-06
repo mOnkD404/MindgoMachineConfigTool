@@ -405,15 +405,19 @@ Item {
                     }
                 }
                 
-                function hideGroup(index){
+                //return visible status
+                function toggleGroup(index){
+                    var retVal = true;
                     for(var cur = index+1; cur < stepListModel.count; cur++){
                         if( stepListModel.get(cur).name.substring(0,2)=="分组"){
                             break;
                         }else{
                             var vi = stepListModel.get(cur).showStep;
                             stepListModel.setProperty(cur, "showStep", !vi);
+                            retVal = !vi;
                         }
                     }
+                    return retVal;
                 }
 
                 function expandAll(){
@@ -558,6 +562,56 @@ Item {
 
                         }
 
+                        Rectangle{
+                            id:collapseContent
+                            property bool collapsed: false
+                            anchors.top: parent.top
+                            anchors.right: parent.right
+                            anchors.bottom: parent.bottom
+                            anchors.margins: 5
+                            radius: 4
+                            width: height
+                            color: collapseButton.pressed?"lightblue":"transparent"
+                            border.color: "#e1e8e2"
+                            border.width: 1
+                            visible:(name.substring(0,2) == "分组")
+                            clip:true
+                            rotation: collapseContent.collapsed?0:-90
+
+                            Behavior on rotation{
+                                PropertyAnimation{
+                                    duration: 100
+                                }
+                            }
+
+                            Text{
+                                anchors.fill: parent
+                                anchors.margins: 4
+                                text:"<"
+                                color:"#e1e8e2"
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+
+                            }
+
+                            MouseArea{
+                                id: collapseButton
+                                anchors.fill: parent
+
+                                onClicked: {
+                                    stepContent.clicked(mouse);
+                                    if(name.substring(0,2) == "分组"){
+                                        if (stepListView.toggleGroup(stepContent.DelegateModel.itemsIndex)){
+                                            collapseContent.collapsed = false;
+                                        }else{
+                                            collapseContent.collapsed = true;
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+
                         Drag.active: stepContent.holding
                         Drag.source: stepContent
                         Drag.hotSpot.x: width / 2
@@ -672,9 +726,6 @@ Item {
                             stepListView.currentIndex = stepContent.DelegateModel.itemsIndex;
                             stepListView.highlightMoveDuration = 200;
                         }else{
-                            if(name.substring(0,2) == "分组"){
-                                stepListView.hideGroup(stepContent.DelegateModel.itemsIndex);
-                            }
                         }
                     }
 

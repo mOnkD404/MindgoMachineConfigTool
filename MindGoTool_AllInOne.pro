@@ -50,6 +50,8 @@ DISTFILES += \
     UserInterfaceLayer/config/UserConfig.json \
     UserInterfaceLayer/config/cn.qm
 
+TRANSLATIONS+=cn.ts
+
 win32: {LIBS += -lDbgHelp
 QMAKE_LFLAGS_RELEASE += /MAP
 QMAKE_CFLAGS_RELEASE += /Zi

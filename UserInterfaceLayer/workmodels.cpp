@@ -456,18 +456,23 @@ bool StatusViewWatcher::eventFilter(QObject *watched, QEvent *event)
     return false;
 }
 
-QStringList StatusViewWatcher::getWorkLocationTypeList()
+QJsonObject StatusViewWatcher::getWorkLocationTypeList()
 {
     return EnvironmentVariant::instance()->getWorkLocationTypeList();
 }
 
-bool StatusViewWatcher::setWorkLocationType(int index, const QString& type)
+bool StatusViewWatcher::setWorkLocationType(int configIndex, int workPlaceIndex, const QString& type)
 {
-    if(EnvironmentVariant::instance()->setWorkLocationType(index, type))
+    if(EnvironmentVariant::instance()->setWorkLocationType(configIndex, workPlaceIndex, type))
     {
         return true;
     }
     return false;
+}
+
+QJsonArray StatusViewWatcher::getWorkPlaceConstraint()
+{
+    return EnvironmentVariant::instance()->WorkPlaceConstraint();
 }
 
 void TargetMachineObject::onMachineConfigChanged()

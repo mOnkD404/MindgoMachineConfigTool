@@ -95,6 +95,9 @@ Item {
                     model = selector.planListModel();
                 }
             }
+            onCurrentIndexChanged: {
+                stepcomboBox.model = selector.planSelectStepListModel(plancomboBox.currentIndex)
+            }
         }
 
         Text{

@@ -1,11 +1,30 @@
-{
+﻿{
     "license": "2328-1768-0720-4852",
     "plan": {
+        "2": [
+            {
+                "operation": "Suction",
+                "params": {
+                    "boardType": 1,
+                    "onBoardIndex": 4,
+                    "position": 0,
+                    "postSuction": false,
+                    "postSuctionVolume": 0,
+                    "preSuction": false,
+                    "preSuctionVolume": 0,
+                    "speed": 1,
+                    "suctionHeight": 0,
+                    "tipIndex": 2,
+                    "volume": 0
+                },
+                "sequenceNumber": 1
+            }
+        ],
         "NewPlan": [
             {
                 "operation": "Group",
                 "params": {
-                    "GroupName": "7"
+                    "GroupName": "678"
                 },
                 "sequenceNumber": 1
             },
@@ -138,21 +157,45 @@
         "maxReceiveTime": 30,
         "port": 20000
     },
-    "workers": {
-        "count": 12,
-        "type": [
-            "tips",
-            "tips",
-            "null",
-            "null",
-            "tubes",
-            "tubes",
-            "tips",
-            "tubes",
-            "tubes",
-            "tips",
-            "tubes",
-            "tubes"
-        ]
+    "workSpace": {
+        "config": [
+            {
+                "count": 12,
+                "name": "1",
+                "type": [
+                    "megneticSeperation",
+                    "null",
+                    "sbsBoard",
+                    "null",
+                    "null",
+                    "null",
+                    "null",
+                    "null",
+                    "sbsBoard",
+                    "null",
+                    "null",
+                    "null"
+                ]
+            },
+            {
+                "count": 12,
+                "name": "1",
+                "type": [
+                    "null",
+                    "null",
+                    "null",
+                    "null",
+                    "null",
+                    "null",
+                    "null",
+                    "null",
+                    "null",
+                    "null",
+                    "null",
+                    "null"
+                ]
+            }
+        ],
+        "current": 0
     }
 }

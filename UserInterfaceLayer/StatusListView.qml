@@ -13,9 +13,9 @@ Item {
     StatusViewWatcher{
         id:watcher
         onStatusChanged: {
-            if(displayModel.count > 0 && (jsobj["newOperationItem"] == false) &&
-                    (jsobj["operation"] == displayModel.get(displayModel.count-1).operation ) &&
-                    (jsobj["sequence"] == displayModel.get(displayModel.count-1).sequence))
+            if(displayModel.count > 0 && (jsobj.newOperationItem == false) &&
+                    (jsobj.operation == displayModel.get(displayModel.count-1).operation ) &&
+                    (jsobj.sequence == displayModel.get(displayModel.count-1).sequence))
             {
                 displayModel.set(displayModel.count-1, jsobj);
             }

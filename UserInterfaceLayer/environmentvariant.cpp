@@ -36,6 +36,7 @@ void EnvironmentVariant::parseConfigFile(const QString& str)
     m_operationNameDispMap = handler.ParseMap("Operation Display Name");
     m_operationDispNameMap = handler.ParseMapRevertKeyValue("Operation Display Name");
     m_paramDefaultValueMap = handler.ParseParamValue("params");
+    m_workPlaceConstraint = handler.ParseWorkPlaceConstraint();
 }
 
 void EnvironmentVariant::initProtocol(const QString &protoconConfig)
@@ -52,7 +53,7 @@ void EnvironmentVariant::initUserConfig(const QString &str)
     m_machineConfig.init(handler.ParseHostIP(), handler.ParseHostPort(), handler.ParseHostSingleOperationThreshold());
 
     handler.ParsePlanList(m_planList, m_paramDefaultValueMap);
-    handler.ParseWorkLocationTypeList(m_workLocationTypeList);
+    handler.ParseWorkSpaceTypeList(m_workLocationTypeList);
 
     //2328-1768-0720-4852
     const uchar preCalculatedSha1[20] = {
@@ -577,23 +578,28 @@ SingleOperationData EnvironmentVariant::defaultValue(const QString& Operationnam
     return SingleOperationData();
 }
 
-QStringList EnvironmentVariant::getWorkLocationTypeList()
+QJsonObject EnvironmentVariant::getWorkLocationTypeList()
 {
     return m_workLocationTypeList;
 }
 
-bool EnvironmentVariant::setWorkLocationType(int index, const QString& type)
+bool EnvironmentVariant::setWorkLocationType(int configIndex, int workSpaceIndex, const QString& type)
 {
-    if(index < 0 || index >= m_workLocationTypeList.size())
+    QJsonArray list = m_workLocationTypeList["config"].toArray();
+    if(configIndex < 0 || configIndex >= list.size())
         return false;
-    if(m_workLocationTypeList[index] == type)
+    if(workSpaceIndex < 0 || workSpaceIndex >= list.at(configIndex).toObject()["type"].toArray().size())
     {
         return false;
     }
-    else
+    if(list.at(configIndex).toObject()["type"].toArray()[workSpaceIndex] != type)
     {
-        m_workLocationTypeList[index] = type;
+        m_workLocationTypeList["config"].toArray().at(configIndex).toObject()["type"].toArray()[workSpaceIndex] = type;
         emit workLocationTypeChanged();
         return true;
+    }
+    else
+    {
+        return false;
     }
 }

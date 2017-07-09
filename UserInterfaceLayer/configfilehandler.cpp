@@ -190,6 +190,13 @@ qint32 configFileHandler::ParseHostSingleOperationThreshold()
     return  targetObj["maxReceiveTime"].toInt();
 }
 
+QJsonArray configFileHandler::ParseWorkPlaceConstraint()
+{
+    QJsonArray workSpace =  m_configFileObj["workPlace"].toArray();
+
+    return workSpace;
+}
+
 void configFileHandler::ParsePlanList(QList<QPair<QString, QList<SingleOperationData> > >& planMap, const QMap<QString, OperationParamData> & defaultParamMap)
 {
     planMap.clear();
@@ -268,10 +275,10 @@ void configFileHandler::SavePlanList(const QString& configFile, const QList<QPai
     fileObj.remove("plan");
 
     QJsonObject planObj;
-    int seq = 1;
 
     for(QList<QPair<QString, QList<SingleOperationData> > >::const_iterator iter = planData.begin(); iter != planData.end(); iter++)
     {
+        int seq = 1;
         QString planName = iter->first;
         const QList<SingleOperationData>& opList = iter->second;
         QJsonArray planStepList;
@@ -319,7 +326,7 @@ void configFileHandler::SavePlanList(const QString& configFile, const QList<QPai
     loadFile.close();
 }
 
-void configFileHandler::SaveMachineConfig(const QString& configFile, const MachineConfigData& cfgData, const QStringList& typeConfig)
+void configFileHandler::SaveMachineConfig(const QString& configFile, const MachineConfigData& cfgData, const QJsonObject& typeConfig)
 {
     QFile loadFile(configFile);
     if(!loadFile.open(QIODevice::ReadWrite))
@@ -341,15 +348,15 @@ void configFileHandler::SaveMachineConfig(const QString& configFile, const Machi
 
     fileObj["target"] = ipobj;
 
-    QJsonObject workers = fileObj["workers"].toObject();
-    fileObj.remove("workers");
-    workers.remove("type");
-    QJsonArray newTypeList;
-    foreach (const QString& str, typeConfig) {
-        newTypeList.append(str);
-    }
-    workers["type"] = newTypeList;
-    fileObj["workers"] = workers;
+//    QJsonObject workers = fileObj["workers"].toObject();
+//    fileObj.remove("workers");
+//    workers.remove("type");
+//    QJsonArray newTypeList;
+//    foreach (const QString& str, typeConfig) {
+//        newTypeList.append(str);
+//    }
+//    workers["type"] = newTypeList;
+    fileObj["workSpace"] = typeConfig;
 
     QJsonDocument writeDoc(fileObj);
     QFile::resize(configFile, 0);
@@ -359,22 +366,24 @@ void configFileHandler::SaveMachineConfig(const QString& configFile, const Machi
 
 }
 
-void configFileHandler::ParseWorkLocationTypeList(QStringList& typelist)
+void configFileHandler::ParseWorkSpaceTypeList(QJsonObject& typelist)
 {
-    typelist.clear();
-    QJsonObject workerObj = m_configFileObj["workers"].toObject();
-    int count = workerObj["count"].toInt();
-    QJsonArray types = workerObj["type"].toArray();
-    if(types.size() < count)
-    {
-        qDebug()<<"ParseWorkLocationTypeList config file error.";
-        return;
-    }
-    for(int index = 0; index < count; index++)
-    {
-        QString str = types.at(index).toString();
-        typelist.append(str);
-    }
+    typelist = m_configFileObj["workSpace"].toObject();
+
+//    typelist.clear();
+//    QJsonObject workerObj = m_configFileObj["workSpace"].toObject();
+//    int count = workerObj["count"].toInt();
+//    QJsonArray types = workerObj["type"].toArray();
+//    if(types.size() < count)
+//    {
+//        qDebug()<<"ParseWorkLocationTypeList config file error.";
+//        return;
+//    }
+//    for(int index = 0; index < count; index++)
+//    {
+//        QString str = types.at(index).toString();
+//        typelist.append(str);
+//    }
 }
 
 void configFileHandler::ParseLicense(QByteArray& encodedString)

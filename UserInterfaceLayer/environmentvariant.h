@@ -5,6 +5,7 @@
 #include <QMap>
 #include <QString>
 #include <QStringList>
+#include <QJsonArray>
 #include "workmodels.h"
 #ifdef MINDGO_ALL_IN_ONE
 #include "BussinessLayer/WorkflowProtocol/workflowprotocol.h"
@@ -30,6 +31,8 @@ public:
 
     QStringList OperationNameList();
     QStringList LogicalControlList();
+
+    QJsonArray WorkPlaceConstraint(){return m_workPlaceConstraint;}
 
     QStringList PlanList();
     QStringList StepList(int planIndex );
@@ -63,8 +66,8 @@ public:
 
     SingleOperationData defaultValue(const QString& Operationname);
 
-    QStringList getWorkLocationTypeList();
-    bool setWorkLocationType(int index, const QString& type);
+    QJsonObject getWorkLocationTypeList();
+    bool setWorkLocationType(int configIndex, int workPlaceIndex, const QString& type);
 
     bool isAdministrator(){return m_bAdministratorAccount;}
 
@@ -94,8 +97,10 @@ private:
     QString m_userConfigFile;
 
     TargetMachineObject m_machineConfig;
-    QStringList m_workLocationTypeList;
+    QJsonObject m_workLocationTypeList;
     bool m_bAdministratorAccount;
+
+    QJsonArray m_workPlaceConstraint;
 };
 
 #endif // ENVIRONMENTVARIANT_H

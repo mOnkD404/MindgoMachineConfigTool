@@ -9,6 +9,8 @@
 #include <QStringListModel>
 #include <QtMath>
 #include <QDoubleValidator>
+#include <QJsonObject>
+#include <QJsonArray>
 
 class OperationParamData
 {
@@ -458,8 +460,10 @@ public:
 
     virtual bool eventFilter(QObject *watched, QEvent *event);
 
-    Q_INVOKABLE QStringList getWorkLocationTypeList();
-    Q_INVOKABLE bool setWorkLocationType(int index, const QString& type);
+    Q_INVOKABLE QJsonObject getWorkLocationTypeList();
+    Q_INVOKABLE bool setWorkLocationType(int configIndex, int workPlaceISndex, const QString& type);
+    Q_INVOKABLE QJsonArray getWorkPlaceConstraint();
+
 
 signals:
     void statusChanged(const QJsonObject& jsobj);

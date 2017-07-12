@@ -147,17 +147,27 @@
 <context>
     <name>StepGallery</name>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="161"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="174"/>
         <source>Empty</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="161"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="174"/>
         <source>Ready</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="225"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="270"/>
+        <source>Vol.</source>
+        <translation>容量</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="281"/>
+        <source>Max volume</source>
+        <translation>最大容量</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="325"/>
         <source>Used</source>
         <translation></translation>
     </message>
@@ -192,7 +202,7 @@
     <message>
         <location filename="UserInterfaceLayer/SystemSetting.qml" line="160"/>
         <source>Work place configuration</source>
-        <translation type="unfinished">板位配置</translation>
+        <translation>板位配置</translation>
     </message>
     <message>
         <location filename="UserInterfaceLayer/SystemSetting.qml" line="462"/>

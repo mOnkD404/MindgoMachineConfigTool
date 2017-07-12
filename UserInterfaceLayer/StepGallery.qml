@@ -47,11 +47,11 @@ Item {
         refreshModel();
     }
 
-    function setWorkPlaceType(gridIndex, type){
+    function setWorkPlaceType(gridIndex, typeVal){
         var listAll = watcher.getWorkLocationTypeList();
         var configIndex = listAll.current;
-        if(listAll.config[configIndex].type[gridIndex].name != type){
-            listAll.config[configIndex].type[gridIndex].name = type;
+        if(listAll.config[configIndex].type[gridIndex].name != typeVal.type){
+            listAll.config[configIndex].type[gridIndex] = typeVal;
             watcher.updateWorkPlace(listAll);
         }
     }
@@ -91,6 +91,7 @@ Item {
                                          "type":comboItem[item].type,
                                          "readyImage":comboItem[item].image.ready,
                                          "usedImage":comboItem[item].image.used});
+                    break;
                 }
             }
         }
@@ -228,8 +229,13 @@ Item {
 
                     onCurrentIndexChanged: {
                         if(currentIndex != -1){
+                            var boardTypeVar = {
+                                name:"null"
+                            };
+
                             var newtype = comboboxModel.get(currentIndex).type;
-                            setWorkPlaceType(gridIndex, newtype);
+                            boardTypeVar.name = newtype;
+
                             //watcher.setWorkLocationType(0,gridIndex, model.get(currentIndex).type);
                             var listAll = watcher.getWorkLocationTypeList();
                             var listData = listAll.config[listAll.current].type[gridIndex];
@@ -241,12 +247,20 @@ Item {
                                     if(editVolume.visible){
                                         if(listData.hasOwnProperty("volume")){
                                             editVolume.volumeVal = listData.volume;
+                                            boardTypeVar["volume"] = listData.volume;
                                         }else{
                                             editVolume.volumeVal = constraint[ind].params.volume.default;
+                                            boardTypeVar["volume"] = constraint[ind].params.volume.default;
                                         }
-
                                     }
+                                    break;
                                 }
+                            }
+
+                            var configIndex = listAll.current;
+                            if(listAll.config[configIndex].type[gridIndex].name != newtype){
+                                listAll.config[configIndex].type[gridIndex] = boardTypeVar;
+                                watcher.updateWorkPlace(listAll);
                             }
                         }
                     }
@@ -276,23 +290,22 @@ Item {
                         }
                         TextField{
                             id: volumeInput
+                            focus: true
                             height:parent.height
                             width:65
                             placeholderText: qsTr("Max volume")
                             //horizontalAlignment: Text.AlignHCenter
                             font.pixelSize: 17
                             inputMethodHints: Qt.ImhDigitsOnly
+                            selectByMouse:true
 
                             validator:IntValidator{
                                 bottom: 0
                                 top:10000
                             }
-                            onAccepted: {
-                                setIndexParam(gridIndex, "tipBox", "volume", text);
-                            }
-
                             onEditingFinished: {
                                 setIndexParam(gridIndex, "tipBox", "volume", text);
+                                focus = false;
                             }
 
                         }

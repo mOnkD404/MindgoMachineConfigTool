@@ -221,7 +221,8 @@
                 "name": "0",
                 "type": [
                     {
-                        "name": "tipBox"
+                        "name": "tipBox",
+                        "volume": 80
                     },
                     {
                         "name": "null"
@@ -230,7 +231,7 @@
                         "name": "null"
                     },
                     {
-                        "name": "null"
+                        "name": "sbsBoard"
                     },
                     {
                         "name": "null"
@@ -239,7 +240,8 @@
                         "name": "null"
                     },
                     {
-                        "name": "null"
+                        "name": "tipBox",
+                        "volume": 250
                     },
                     {
                         "name": "null"
@@ -248,7 +250,8 @@
                         "name": "null"
                     },
                     {
-                        "name": "null"
+                        "name": "tipBox",
+                        "volume": 258
                     },
                     {
                         "name": "null"
@@ -259,7 +262,7 @@
                 ]
             }
         ],
-        "current": 1,
+        "current": 0,
         "default": {
             "count": 12,
             "name": "",

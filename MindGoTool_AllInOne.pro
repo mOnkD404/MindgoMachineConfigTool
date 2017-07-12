@@ -10,7 +10,8 @@ SOURCES += \
     UserInterfaceLayer/configfilehandler.cpp \
     UserInterfaceLayer/environmentvariant.cpp \
     UserInterfaceLayer/main.cpp \
-    UserInterfaceLayer/workmodels.cpp
+    UserInterfaceLayer/workmodels.cpp \
+    BussinessLayer/WorkflowProtocol/workflowChecker.cpp
 
 RESOURCES += \
     UserInterfaceLayer/qml.qrc
@@ -40,9 +41,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     InfrastructureLayer/Communication/communication.h \
     BussinessLayer/WorkflowProtocol/workflowprotocol.h \
+    BussinessLayer/WorkflowProtocol/workflowChecker.h\
     UserInterfaceLayer/configfilehandler.h \
     UserInterfaceLayer/environmentvariant.h \
-    UserInterfaceLayer/workmodels.h
+    UserInterfaceLayer/workmodels.h \
 
 DISTFILES += \
     UserInterfaceLayer/config/OperationParams.json \

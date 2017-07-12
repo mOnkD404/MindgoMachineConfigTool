@@ -132,7 +132,7 @@ Item {
                         }
                     }else if(str == "add"){
                         planListModel.append({"name":"NewPlan"});
-                        selector.addPlan(planListView.currentIndex, "");
+                        selector.addPlan("");
                         planListView.currentIndex = planListModel.count - 1;
                         stepListView.refreshStepListModel();
                         planListView.currentItem.inEdit = true;
@@ -1134,6 +1134,14 @@ Item {
 
                                 if (modelData.Name == "position"){
                                     positionSelected(currentIndex);
+                                    var boardIndex = selector.getBoardTypeIndexByPosition(currentIndex);
+
+                                    for(var ind = 0; ind < paramList.model.length; ind++){
+                                        if(paramList.model[ind].Name == "boardType"){
+                                            paramList.model[ind].IntegerValue = boardIndex;
+                                            break;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -1167,6 +1175,7 @@ Item {
 
                         height: parent.height
 
+                        enabled: modelData.Name != "boardType"
 
                         sourceComponent:getcomponent(modelData.Type)
 

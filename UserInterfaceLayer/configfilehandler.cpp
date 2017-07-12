@@ -93,6 +93,17 @@ QMap<QString, QString> configFileHandler::ParseMapRevertKeyValue(const QString& 
 
 QMap<QString, OperationParamData> configFileHandler::ParseParamValue(const QString& name)
 {
+    QStringList boardTypeList;
+    QList<int> boardHeightList;
+    QJsonArray workPlace = m_configFileObj["workPlace"].toArray();
+    QJsonArray::Iterator ait = workPlace.begin();
+    for(; ait != workPlace.end(); ait++)
+    {
+        boardTypeList.push_back(ait->toObject()["display"].toString());
+        boardHeightList.push_back(ait->toObject()["params"].toObject()["height"].toObject()["default"].toInt());
+    }
+
+
     QMap<QString, OperationParamData> retmap;
     QJsonValue val = m_configFileObj[name];
     QJsonObject obj= val.toObject();
@@ -164,6 +175,11 @@ QMap<QString, OperationParamData> configFileHandler::ParseParamValue(const QStri
             {
                 topVal = iter2.value().toInt();
             }
+        }
+        if(iter.key() == "boardType")
+        {
+            enums = boardTypeList;
+            valueEnum = boardHeightList;
         }
         retmap[iter.key()] = OperationParamData(iter.key(), type, strVal, enums, boolVal, intVal, floatVal, display, valueEnum, switchVal, unit, bottomVal, topVal);
     }

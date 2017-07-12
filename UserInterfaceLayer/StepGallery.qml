@@ -1,6 +1,7 @@
 ﻿import QtQuick 2.0
 import Common 1.0
 import QtQuick.Controls 2.1
+import QtQuick.Layouts 1.3
 
 Item {
     property bool activeOnClick: false
@@ -46,9 +47,22 @@ Item {
         refreshModel();
     }
 
-    function setWorkPlaceType(configIndex, gridIndex, type){
-        //var listAll = watcher.getWorkLocationTypeList();
-        //var listData = listAll.config[listAll.current].type;
+    function setWorkPlaceType(gridIndex, type){
+        var listAll = watcher.getWorkLocationTypeList();
+        var configIndex = listAll.current;
+        if(listAll.config[configIndex].type[gridIndex].name != type){
+            listAll.config[configIndex].type[gridIndex].name = type;
+            watcher.updateWorkPlace(listAll);
+        }
+    }
+
+    function setIndexParam(gridIndex, type, param, value){
+        var listAll = watcher.getWorkLocationTypeList();
+        var configIndex = listAll.current;
+        if(listAll.config[configIndex].type[gridIndex].name == type){
+            listAll.config[configIndex].type[gridIndex][param] = parseInt(value);
+            watcher.updateWorkPlace(listAll);
+        }
     }
 
     function refreshModel(){
@@ -72,8 +86,11 @@ Item {
 //            }
 
             for (var item in comboItem){
-                if(comboItem[item].type == listData[index]){
-                    displayModel.set(index, {"type":listData[index], "readyImage":comboItem[item].image.ready, "usedImage":comboItem[item].image.used});
+                if(comboItem[item].type == listData[index].name){
+                    displayModel.set(index, {
+                                         "type":comboItem[item].type,
+                                         "readyImage":comboItem[item].image.ready,
+                                         "usedImage":comboItem[item].image.used});
                 }
             }
         }
@@ -178,37 +195,124 @@ Item {
                     itemSelected(gridIndex);
                 }
             }
-            ComboBox
-            {
+            ColumnLayout{
                 visible: showCombo
-                id: combox
+                anchors.fill: parent
+                anchors.margins: 7
+                spacing: 2
+                clip: true
 
-                width: itemImage.width-4
-                height:itemImage.height/2
+                ComboBox
+                {
+                    id: combox
 
-                anchors.centerIn: parent
-                textRole: "name"
-                model:comboboxModel
-                currentIndex: {
-                    var ind = -1;
-                    for(var index = 0; index < comboboxModel.count; index++){
-                        if(comboboxModel.get(index).type == gridType){
-                            ind = index;
-                            break;
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    height:35
+
+                    //anchors.centerIn: parent
+                    textRole: "name"
+                    model:comboboxModel
+                    currentIndex: {
+                        var ind = -1;
+                        for(var index = 0; index < comboboxModel.count; index++){
+                            if(comboboxModel.get(index).type == gridType){
+                                ind = index;
+                                break;
+                            }
+                        }
+                        return ind;
+                    }
+                    focus:true
+                    activeFocusOnTab: true
+
+                    onCurrentIndexChanged: {
+                        if(currentIndex != -1){
+                            var newtype = comboboxModel.get(currentIndex).type;
+                            setWorkPlaceType(gridIndex, newtype);
+                            //watcher.setWorkLocationType(0,gridIndex, model.get(currentIndex).type);
+                            var listAll = watcher.getWorkLocationTypeList();
+                            var listData = listAll.config[listAll.current].type[gridIndex];
+                            var constraint = watcher.getWorkPlaceConstraint();
+
+                            for(var ind = 0; ind < constraint.length; ind++){
+                                if(constraint[ind].type == newtype){
+                                    editVolume.visible = constraint[ind].params.hasOwnProperty("volume");
+                                    if(editVolume.visible){
+                                        if(listData.hasOwnProperty("volume")){
+                                            editVolume.volumeVal = listData.volume;
+                                        }else{
+                                            editVolume.volumeVal = constraint[ind].params.volume.default;
+                                        }
+
+                                    }
+                                }
+                            }
                         }
                     }
-                    return ind;
                 }
-                focus:true
-                activeFocusOnTab: true
+                Rectangle{
+                    id: editVolume
+                    property alias volumeVal:volumeInput.text
+                    visible:false
+                    clip:true
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    color:"#e0e0e0"
+                    height:35
+                    Row{
+                        anchors.fill: parent
+                        anchors.centerIn: parent
+                        Text{
+                            id: volumeText
+                            width: 40
+                            height: parent.height
+                            text: qsTr("Vol.")
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            font.pixelSize: 17
+                            color: "#373839"
+                            font.bold: true
+                        }
+                        TextField{
+                            id: volumeInput
+                            height:parent.height
+                            width:65
+                            placeholderText: qsTr("Max volume")
+                            //horizontalAlignment: Text.AlignHCenter
+                            font.pixelSize: 17
+                            inputMethodHints: Qt.ImhDigitsOnly
 
-                onCurrentIndexChanged: {
-                    if(index != -1){
-                        setWorkPlaceType(0, gridIndex, comboboxModel.get(index).type);
+                            validator:IntValidator{
+                                bottom: 0
+                                top:10000
+                            }
+                            onAccepted: {
+                                setIndexParam(gridIndex, "tipBox", "volume", text);
+                            }
+
+                            onEditingFinished: {
+                                setIndexParam(gridIndex, "tipBox", "volume", text);
+                            }
+
+                        }
+                        Text{
+                            id: unitText
+                            width: 15
+                            height: parent.height
+                            text: "μL"
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignLeft
+                            font.pixelSize: 13
+                            color: "#373839"
+                            font.bold: true
+                        }
                     }
-                    //watcher.setWorkLocationType(0,gridIndex, model.get(currentIndex).type);
                 }
+
+
             }
+
 
             states:State{
                 name:"used"

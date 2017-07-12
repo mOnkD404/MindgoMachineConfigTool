@@ -335,6 +335,7 @@ public:
     Q_INVOKABLE void setSelectedOperation(int index);
     Q_INVOKABLE QObject* getSwitch(const QString& name);
     Q_INVOKABLE void onCompleteSingleOperation();
+    Q_INVOKABLE int getBoardTypeIndexByPosition(int index);
 
 
 signals:
@@ -385,11 +386,14 @@ class PlanSelector: public QObject
     Q_PROPERTY(QList<QObject*> paramListModel READ getParamListModel WRITE setParamListModel NOTIFY paramListModelChanged)
 public:
     PlanSelector(QObject* parent = 0);
+    ~PlanSelector();
 
     Q_INVOKABLE QStringList planListModel();
     Q_INVOKABLE QStringList stepListModel(int planIndex);
     Q_INVOKABLE QStringList planSelectStepListModel(int planIndex);
     Q_INVOKABLE QStringList operationListModel() {return m_operationListModel;}
+
+    Q_INVOKABLE void startCheckPlan(int planIndex);
 
     QList<QObject*> getParamListModel() {return paramListModel;}
     void setParamListModel(const QList<QObject*> &paramlist)
@@ -419,9 +423,13 @@ public:
     Q_INVOKABLE void onSave();
     Q_INVOKABLE void commitParam(int planIndex, int stepIndex, const QString& paramName, const QVariant& value);
 
+    Q_INVOKABLE int getBoardTypeIndexByPosition(int index);
 
+protected:
+    bool eventFilter(QObject *watched, QEvent *event);
 signals:
     void paramListModelChanged();
+    void planCheckStatusChanged(const QJsonObject &);
 
 private:
     QStringList m_operationListModel;
@@ -462,6 +470,7 @@ public:
 
     Q_INVOKABLE QJsonObject getWorkLocationTypeList();
     Q_INVOKABLE bool setWorkLocationType(int configIndex, int workPlaceISndex, const QString& type);
+    Q_INVOKABLE bool updateWorkPlace(const QJsonObject &jsobj);
     Q_INVOKABLE QJsonArray getWorkPlaceConstraint();
 
 

@@ -37,6 +37,8 @@ void EnvironmentVariant::parseConfigFile(const QString& str)
     m_operationDispNameMap = handler.ParseMapRevertKeyValue("Operation Display Name");
     m_paramDefaultValueMap = handler.ParseParamValue("params");
     m_workPlaceConstraint = handler.ParseWorkPlaceConstraint();
+
+    //m_workflowChecker.init(m_workPlaceConstraint);
 }
 
 void EnvironmentVariant::initProtocol(const QString &protoconConfig)
@@ -594,7 +596,13 @@ bool EnvironmentVariant::setWorkLocationType(int configIndex, int workSpaceIndex
     }
     if(list.at(configIndex).toObject()["type"].toArray()[workSpaceIndex] != type)
     {
-        m_workLocationTypeList["config"].toArray().at(configIndex).toObject()["type"].toArray()[workSpaceIndex] = type;
+        QJsonArray changeConfig = m_workLocationTypeList["config"].toArray();
+        QJsonObject changeObj = changeConfig[configIndex].toObject();
+        QJsonArray typeList = changeObj["type"].toArray();
+        typeList[workSpaceIndex] = type;
+        changeObj["type"] = typeList;
+        changeConfig[configIndex] = changeObj;
+        m_workLocationTypeList["config"] = changeConfig;
         emit workLocationTypeChanged();
         return true;
     }
@@ -602,4 +610,50 @@ bool EnvironmentVariant::setWorkLocationType(int configIndex, int workSpaceIndex
     {
         return false;
     }
+}
+
+bool EnvironmentVariant::updateWorkPlace(const QJsonObject &jsobj)
+{
+    if(m_workLocationTypeList != jsobj)
+    {
+        m_workLocationTypeList = jsobj;
+        emit workLocationTypeChanged();
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void EnvironmentVariant::startCheckPlan(int planIndex)
+{
+
+}
+
+int EnvironmentVariant::getBoardTypeIndexByPosition(int index)
+{
+    const QJsonObject& workPlace = m_workLocationTypeList;
+    const QJsonArray& workConstraint = m_workPlaceConstraint;
+
+    QJsonArray boardConfig = workPlace["config"].toArray()[workPlace["current"].toInt()].toObject()["type"].toArray();
+    if(index < 0 || index >= boardConfig.size())
+    {
+        return -1;
+    }
+
+    QString boardtype = boardConfig[index].toObject()["name"].toString();
+    int boardIndex = 0;
+    for(; boardIndex < workConstraint.size(); boardIndex++)
+    {
+        if(workConstraint[boardIndex].toObject()["type"].toString() == boardtype)
+        {
+            break;
+        }
+    }
+    if(boardIndex < workConstraint.size())
+    {
+        return boardIndex;
+    }
+    return -1;
 }

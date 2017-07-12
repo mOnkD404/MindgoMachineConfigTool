@@ -80,12 +80,12 @@
         <translation>实验流程</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="827"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="829"/>
         <source>Operation type</source>
         <translation>操作类型</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="954"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="956"/>
         <source>Operation param</source>
         <translation>操作参数</translation>
     </message>
@@ -129,17 +129,17 @@
         <translation>实验名称</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="104"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="107"/>
         <source>Start Step</source>
         <translation>开始步骤</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="152"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="155"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="175"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="178"/>
         <source>Start</source>
         <translation>开始</translation>
     </message>
@@ -147,32 +147,17 @@
 <context>
     <name>StepGallery</name>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="128"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="161"/>
         <source>Empty</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="128"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="161"/>
         <source>Ready</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="164"/>
-        <source>tips</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="165"/>
-        <source>tubes</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="166"/>
-        <source>null</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="194"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="225"/>
         <source>Used</source>
         <translation></translation>
     </message>
@@ -180,32 +165,37 @@
 <context>
     <name>SystemSetting</name>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="51"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="52"/>
         <source>Machine Address</source>
         <translation>下位机IP</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="67"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="68"/>
         <source>IP Address</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="100"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="101"/>
         <source>port</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="120"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="121"/>
         <source>Max ack waiting time</source>
         <translation>最大等待时间</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="139"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="140"/>
         <source>Wait time</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="175"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="160"/>
+        <source>Work place configuration</source>
+        <translation type="unfinished">板位配置</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="462"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>

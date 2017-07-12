@@ -44,9 +44,9 @@
         },
         "boardType":{
             "type":"enum",
-            "enum":["PCR板","Nunc深孔板"],
-            "valueEnum":[600,500],
-            "default":1,
+            "enum":[],
+            "valueEnum":[],
+            "default":0,
             "display":"耗材类型"
 
         },
@@ -199,16 +199,52 @@
             "image":{
                 "ready":"./image/3-1.png",
                 "used":"./image/3-4.png"
+            },
+            "constraint":{
+                "volume":{
+                    "comboJudge":["preSuctionVolume", "Volume", "postSuctionVolume"]
+                }
+            },
+            "params":{
+                "height":{
+                    "type":"integer",
+                    "unit":"mm",
+                    "default":400,
+                    "display":"耗材高度",
+                    "bottomValue":0,
+                    "topValue":10000,
+                    "editable":false
+                },
+                "volume":{
+                    "type":"integer",
+                    "unit":"μL",
+                    "default":250,
+                    "display":"容量",
+                    "bottomValue":0,
+                    "topValue":1000,
+                    "editable":true
+                }
             }
         },
         {
-                "type":"sbsBoard",
-                "display":"SBS板",
-                "operation":["Suction", "Dispense", "Mix"],
-                "image":{
-                    "ready":"./image/4-1.png",
-                    "used":"./image/4-4.png"
+            "type":"sbsBoard",
+            "display":"SBS板",
+            "operation":["Suction", "Dispense", "Mix"],
+            "image":{
+                "ready":"./image/4-1.png",
+                "used":"./image/4-4.png"
+            },
+            "params":{
+                "height":{
+                    "type":"integer",
+                    "unit":"mm",
+                    "default":400,
+                    "display":"耗材高度",
+                    "bottomValue":0,
+                    "topValue":10000,
+                    "editable":false
                 }
+            }
         },
         {
             "type":"megneticSeperation",
@@ -217,6 +253,17 @@
             "image":{
                 "ready":"./image/2-1.png",
                 "used":"./image/2-4.png"
+            },
+            "params":{
+                "height":{
+                    "type":"integer",
+                    "unit":"mm",
+                    "default":400,
+                    "display":"耗材高度",
+                    "bottomValue":0,
+                    "topValue":10000,
+                    "editable":false
+                }
             }
         },
         {
@@ -226,7 +273,8 @@
             "image":{
                 "ready":"",
                 "used":""
-            }
+            },
+            "params":{ }
         }
     ]
 }

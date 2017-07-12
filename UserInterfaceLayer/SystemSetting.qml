@@ -1,5 +1,6 @@
 ﻿import QtQuick 2.7
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.1
+import Common 1.0
 
 Item {
     id:systemSettingPage
@@ -149,16 +150,302 @@ Item {
                 }
             }
 
+            Row{
+                spacing: 5
+
+                Text {
+                    id: text5
+                    width: 220
+                    height: 35
+                    text: qsTr("Work place configuration")
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignLeft
+                    font.pixelSize: 20
+                    color: "#d9d9d9"
+                    font.bold: true
+                }
+
+//                ComboBox{
+//                    width: 200
+//                    height: 35
+
+//                    textRole: "name"
+
+//                    StatusViewWatcher{
+//                        id:watcher
+//                    }
+
+//                    model:ListModel{
+//                        id:comboModel
+//                    }
+
+//                    Component.onCompleted: {
+//                        var listAll = watcher.getWorkLocationTypeList();
+
+//                        comboModel.clear();
+//                        for(var item in listAll.config){
+//                            comboModel.append({"name":listAll.config[item].name});
+//                        }
+
+//                        currentIndex = listAll.current;
+//                    }
+
+//                    onCurrentIndexChanged: {
+//                        var listAll = watcher.getWorkLocationTypeList();
+
+//                        listAll.current = currentIndex;
+//                        watcher.updateWorkPlace(listAll);
+//                    }
+//                }
+//                ActionBar{
+//                    positionAction: false
+
+//                    height: 33
+//                    width: 110
+
+//                    onDoAction: {
+//                        if(str == "edit"){
+
+//                        }else if(str == "add"){
+
+//                        }else if(str == "delete"){
+
+//                        }
+//                    }
+//                }
+//                Rectangle{
+//                    height:35
+//                    width:250
+//                    clip:true
+//                    color: "#4c000000"
+
+//                    Row{
+//                        anchors.fill: parent
+//                        anchors.margins: 2
+//                        spacing: 3
+//                        TextField{
+//                            height:31
+//                            width:120
+//                        }
+//                        TextButton{
+//                            height:31
+//                            width:60
+//                            buttonradius: 0
+//                            textValue: qsTr('OK')
+//                        }
+//                        TextButton{
+//                            height:31
+//                            width:60
+//                            buttonradius: 0
+//                            textValue: qsTr('Cancel')
+//                        }
+//                    }
+//                }
+            }
         }
+        Item{
+            id:configColumn
+            anchors.top: column.bottom
+            anchors.left: parent.left
+            anchors.bottom: parent.bottom
+            anchors.leftMargin: 20
+
+            width: 220
+
+            StatusViewWatcher{
+                id:watcher
+            }
+
+            function addConfig(newname){
+                var listAll = watcher.getWorkLocationTypeList();
+
+                var defaultVal = listAll.default;
+                defaultVal.name = newname;
+
+                listAll.config.push(defaultVal);
+                watcher.updateWorkPlace(listAll);
+            }
+
+            function removeConfig(index){
+                var listAll = watcher.getWorkLocationTypeList();
+
+                if ( index >= 0 && index < listAll.config.length){
+                    listAll.config.splice(index, 1);
+                    watcher.updateWorkPlace(listAll);
+                }
+            }
+
+            function setConfigName(index, newname){
+                var listAll = watcher.getWorkLocationTypeList();
+
+                if ( index >= 0 && index < listAll.config.length){
+                    if(listAll.config[index].name != newname){
+                        listAll.config[index].name = newname;
+                        watcher.updateWorkPlace(listAll);
+                    }
+                }
+            }
+
+            function selectConfig(currentIndex){
+                var listAll = watcher.getWorkLocationTypeList();
+
+                listAll.current = currentIndex;
+                watcher.updateWorkPlace(listAll);
+            }
+
+            ActionBar{
+                id:configActionbar
+                positionAction: false
+
+                height: 27
+
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.margins: 4
+
+                onDoAction: {
+                    if(str == "edit"){
+                        if(configListView.currentIndex != -1){
+                            configListView.currentItem.inEdit = true;
+                        }
+                    }else if(str == "add"){
+                        configListModel.append({"name":"NewConfig"});
+                        configColumn.addConfig("");
+                        configListView.currentIndex = configListModel.count - 1;
+                        configListView.currentItem.inEdit = true;
+                    }else if(str == "delete"){
+                        configListModel.remove(configListView.currentIndex);
+                        configColumn.removeConfig(configListView.currentIndex);
+                    }
+                }
+            }
+
+            ListModel{
+                id:configListModel
+            }
+
+
+            ListView {
+                id: configListView
+                spacing: 0
+                anchors.top: configActionbar.bottom
+                anchors.topMargin: 4
+                anchors.right: parent.right
+                anchors.rightMargin: 4
+                anchors.left: parent.left
+                anchors.leftMargin: 4
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 8
+
+                clip: true
+                highlight: Rectangle{
+                    height: 40
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+
+                    color: "#ffb902"
+                    radius: 0
+                }
+                highlightFollowsCurrentItem: true
+                currentIndex: 0
+                interactive: false
+                model: configListModel
+
+                delegate: Item{
+                    property bool inEdit: false
+                    height: 40
+                    anchors.left:parent.left
+                    anchors.leftMargin: 0
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    focus:true
+
+                    TextInput{
+                        id:inputArea
+                        visible: inEdit
+                        selectByMouse: true
+
+                        height: 40
+                        font.italic: true
+                        verticalAlignment: Text.AlignVCenter
+                        font.pointSize: 22
+
+                        anchors.left:parent.left
+                        anchors.leftMargin: 0
+                        anchors.right: parent.right
+                        anchors.rightMargin: 0
+                        focus: true
+                        text:name
+
+                        onAccepted: {
+                            configListModel.setProperty(index, "name", text);
+                            configColumn.setConfigName(index, text);
+                            parent.inEdit = false;
+                        }
+                        onVisibleChanged: {
+                            if(visible){
+                                focus = true;
+                                selectAll();
+                                forceActiveFocus();
+                            }
+                        }
+
+                        onFocusChanged: {
+                            if(!focus){
+                                configListModel.setProperty(index, "name", text);
+                                configColumn.setConfigName(index, text);
+                                parent.inEdit = false;
+                            }
+                        }
+                    }
+
+                    TextButton {
+                        visible: !inEdit
+
+                        height: 40
+                        anchors.left:parent.left
+                        anchors.leftMargin: 0
+                        anchors.right: parent.right
+                        anchors.rightMargin: 0
+
+                        fontPixelSize: 20
+
+
+                        buttonradius: 0
+
+                        textValue: name
+                        startColor: "#4c000000"
+                        stopColor: "#2c000000"
+                        onClicked: {
+                            configListView.currentIndex = index;
+                        }
+                    }
+                }
+                onCurrentIndexChanged: {
+                    configColumn.selectConfig(currentIndex);
+                }
+                Component.onCompleted: {
+                    var listAll = watcher.getWorkLocationTypeList();
+
+                    configListModel.clear();
+                    for(var item in listAll.config){
+                        configListModel.append({"name":listAll.config[item].name});
+                    }
+
+                    configListView.currentIndex = listAll.current;
+                }
+            }
+        }
+
         StepGallery{
             //anchors.right: parent.right
-            anchors.left: parent.left
+            anchors.left: configColumn.right
             anchors.top: column.bottom
             //anchors.bottom: parent.bottom
             anchors.topMargin: 10
             anchors.leftMargin: 10
-            width: 600
-            height: 350
+            width: 650
+            height: 400
 
             showLabel: false
             showCombo: true

@@ -3,6 +3,7 @@
 #include "environmentvariant.h"
 #include <QJsonDocument>
 #include <QJsonArray>
+#include "BussinessLayer/WorkflowProtocol/workflowChecker.h"
 
 const char* operationModelName = "OperationModel";
 const char* paramModelName = "ParamModel";
@@ -263,11 +264,21 @@ void OperationParamSelector::onCompleteSingleOperation()
     EnvironmentVariant::instance()->StartTunning(opobj);
 }
 
+int OperationParamSelector::getBoardTypeIndexByPosition(int index)
+{
+    return EnvironmentVariant::instance()->getBoardTypeIndexByPosition(index);
+}
 
 PlanSelector::PlanSelector(QObject* parent )
     :QObject(parent)
 {
     m_operationListModel = EnvironmentVariant::instance()->LogicalControlList();
+    qApp->installEventFilter(this);
+}
+
+PlanSelector::~PlanSelector()
+{
+    qApp->removeEventFilter(this);
 }
 
 QStringList PlanSelector::planListModel()
@@ -371,6 +382,11 @@ void PlanSelector::commitParam(int planIndex, int stepIndex, const QString& para
     EnvironmentVariant::instance()->SetPlanStepSingleParam(planIndex, stepIndex, paramName, value);
 }
 
+int PlanSelector::getBoardTypeIndexByPosition(int index)
+{
+    return EnvironmentVariant::instance()->getBoardTypeIndexByPosition(index);
+}
+
 QObject* PlanSelector::getSwitch(const QString &name)
 {
     foreach(QObject* pObj, paramListModel)
@@ -382,6 +398,25 @@ QObject* PlanSelector::getSwitch(const QString &name)
         }
     }
     return NULL;
+}
+
+void PlanSelector::startCheckPlan(int planIndex)
+{
+    EnvironmentVariant::instance()->startCheckPlan(planIndex);
+}
+
+bool PlanSelector::eventFilter(QObject *watched, QEvent *event)
+{
+    if(event->type() == QEvent::User+3)
+    {
+        CheckStateChangeEvent* evt = dynamic_cast<CheckStateChangeEvent*>(event);
+        if(evt)
+        {
+            emit planCheckStatusChanged(evt->m_status);
+            return true;
+        }
+    }
+    return false;
 }
 
 PlanController::PlanController(QObject *parent)
@@ -468,6 +503,18 @@ bool StatusViewWatcher::setWorkLocationType(int configIndex, int workPlaceIndex,
         return true;
     }
     return false;
+}
+
+bool StatusViewWatcher::updateWorkPlace(const QJsonObject &jsobj)
+{
+    if(EnvironmentVariant::instance()->updateWorkPlace(jsobj))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 QJsonArray StatusViewWatcher::getWorkPlaceConstraint()

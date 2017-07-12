@@ -9,6 +9,7 @@
 #include "workmodels.h"
 #ifdef MINDGO_ALL_IN_ONE
 #include "BussinessLayer/WorkflowProtocol/workflowprotocol.h"
+#include "BussinessLayer/WorkflowProtocol/workflowChecker.h"
 #else
 #include "workflowprotocol.h"
 #endif
@@ -69,7 +70,13 @@ public:
     QJsonObject getWorkLocationTypeList();
     bool setWorkLocationType(int configIndex, int workPlaceIndex, const QString& type);
 
+    bool updateWorkPlace(const QJsonObject &jsobj);
+
     bool isAdministrator(){return m_bAdministratorAccount;}
+
+    void startCheckPlan(int planIndex);
+
+    int getBoardTypeIndexByPosition(int index);
 
 signals:
     void workLocationTypeChanged();
@@ -93,6 +100,7 @@ private:
     QString m_configFilename;
 
     WorkflowController m_workFlow;
+    WorkflowCheckerController m_workflowChecker;
 
     QString m_userConfigFile;
 

@@ -312,6 +312,15 @@ Item {
                                 modelData.IntegerValue = currentIndex;
                                 if (modelData.Name == "position"){
                                     positionSelected(currentIndex);
+
+                                    var boardIndex = selector.getBoardTypeIndexByPosition(currentIndex);
+
+                                    for(var ind = 0; ind < paramList.model.length; ind++){
+                                        if(paramList.model[ind].Name == "boardType"){
+                                            paramList.model[ind].IntegerValue = boardIndex;
+                                            break;
+                                        }
+                                    }
                                 }
                             }
 
@@ -342,6 +351,8 @@ Item {
                         anchors.rightMargin: 3
 
                         height: 30
+
+                        enabled: modelData.Name != "boardType"
 
 
                         anchors.leftMargin: 10

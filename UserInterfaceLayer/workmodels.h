@@ -394,6 +394,7 @@ public:
     Q_INVOKABLE QStringList operationListModel() {return m_operationListModel;}
 
     Q_INVOKABLE void startCheckPlan(int planIndex);
+    Q_INVOKABLE void stopCheckPlan();
 
     QList<QObject*> getParamListModel() {return paramListModel;}
     void setParamListModel(const QList<QObject*> &paramlist)
@@ -429,7 +430,7 @@ protected:
     bool eventFilter(QObject *watched, QEvent *event);
 signals:
     void paramListModelChanged();
-    void planCheckStatusChanged(const QJsonObject &);
+    void planCheckStatusChanged(const QJsonObject &jsObj);
 
 private:
     QStringList m_operationListModel;

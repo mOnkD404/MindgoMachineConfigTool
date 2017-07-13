@@ -75,6 +75,7 @@ public:
     bool isAdministrator(){return m_bAdministratorAccount;}
 
     void startCheckPlan(int planIndex);
+    void stopCheckPlan();
 
     int getBoardTypeIndexByPosition(int index);
 

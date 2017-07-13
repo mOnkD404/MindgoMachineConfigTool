@@ -4,6 +4,7 @@
 #include <QJsonObject>
 #include <QThread>
 #include <QEvent>
+#include <QJsonArray>
 
 #include "InfrastructureLayer/Communication/communication.h"
 
@@ -18,15 +19,22 @@ public:
 
 public slots:
     void doCheck(const QJsonObject&);
-    void configChecker(const QJsonObject&);
+    void configChecker(const QJsonArray&);
+    void forceStop();
 
 signals:
     void statusChanged(const QJsonObject& );
 
 protected:
-
+    bool CheckBoardConstraint(const QJsonObject&);
+    bool CheckParamConstraint(const QJsonObject&);
 
 private:
+    bool m_bForceStop;
+    QJsonArray m_constraint;
+    QJsonArray m_boardConfig;
+    QJsonObject m_paramComboContraint;
+    QMap<QString, int> m_paramComboConstraintTriggerState;
 };
 
 class WorkflowCheckerController: public QObject
@@ -35,7 +43,7 @@ class WorkflowCheckerController: public QObject
 public:
     WorkflowCheckerController(QObject* parent = NULL);
     ~WorkflowCheckerController();
-    void init(const QJsonObject& protocolConfig);
+    void init(const QJsonArray& protocolConfig);
 
     void checkTask(const QJsonObject & jsObj);
     void stopCurrentCheck();
@@ -43,11 +51,10 @@ public:
 signals:
     void runNewCheck(const QJsonObject&);
     void stopCheck();
-    void configChecker(const QJsonObject&);
-    void statusChanged(const QJsonObject&);
+    void configChecker(const QJsonArray&);
 
 public slots:
-    void taskStateChanged(bool running, int index);
+    void statusChanged(const QJsonObject &obj);
 
 protected:
     QThread m_thread;

@@ -202,27 +202,21 @@
             },
             "constraint":{
                 "volume":{
-                    "comboJudge":["preSuctionVolume", "Volume", "postSuctionVolume"]
+                    "comboJudge":["preSuctionVolume", "volume", "postSuctionVolume"],
+                    "startTrigger":["Load Tip"],
+                    "endTrigger":["Dump Tip"]
                 }
             },
             "params":{
                 "height":{
-                    "type":"integer",
                     "unit":"mm",
                     "default":400,
-                    "display":"耗材高度",
-                    "bottomValue":0,
-                    "topValue":10000,
-                    "editable":false
+                    "display":"耗材高度"
                 },
                 "volume":{
-                    "type":"integer",
                     "unit":"μL",
                     "default":250,
-                    "display":"容量",
-                    "bottomValue":0,
-                    "topValue":1000,
-                    "editable":true
+                    "display":"容量"
                 }
             }
         },
@@ -236,13 +230,9 @@
             },
             "params":{
                 "height":{
-                    "type":"integer",
                     "unit":"mm",
                     "default":400,
-                    "display":"耗材高度",
-                    "bottomValue":0,
-                    "topValue":10000,
-                    "editable":false
+                    "display":"耗材高度"
                 }
             }
         },
@@ -256,13 +246,9 @@
             },
             "params":{
                 "height":{
-                    "type":"integer",
                     "unit":"mm",
                     "default":400,
-                    "display":"耗材高度",
-                    "bottomValue":0,
-                    "topValue":10000,
-                    "editable":false
+                    "display":"耗材高度"
                 }
             }
         },

@@ -119,27 +119,42 @@
 <context>
     <name>StartPage</name>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="52"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="75"/>
         <source>Confirm</source>
         <translation>确定信息</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="67"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="90"/>
         <source>Test</source>
         <translation>实验名称</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="107"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="134"/>
         <source>Start Step</source>
         <translation>开始步骤</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="155"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="172"/>
+        <source>Checking plan...</source>
+        <translation>检查计划...</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="174"/>
+        <source>Ready</source>
+        <translation>检查完成</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="176"/>
+        <source>Invalid step </source>
+        <translation>错误的步骤</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="225"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="178"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="249"/>
         <source>Start</source>
         <translation>开始</translation>
     </message>
@@ -147,27 +162,27 @@
 <context>
     <name>StepGallery</name>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="174"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="175"/>
         <source>Empty</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="174"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="175"/>
         <source>Ready</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="270"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="284"/>
         <source>Vol.</source>
         <translation>容量</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="281"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="296"/>
         <source>Max volume</source>
         <translation>最大容量</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="325"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="338"/>
         <source>Used</source>
         <translation></translation>
     </message>

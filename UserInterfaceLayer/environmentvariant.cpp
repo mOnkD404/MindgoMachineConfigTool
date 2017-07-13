@@ -38,7 +38,7 @@ void EnvironmentVariant::parseConfigFile(const QString& str)
     m_paramDefaultValueMap = handler.ParseParamValue("params");
     m_workPlaceConstraint = handler.ParseWorkPlaceConstraint();
 
-    //m_workflowChecker.init(m_workPlaceConstraint);
+    m_workflowChecker.init(m_workPlaceConstraint);
 }
 
 void EnvironmentVariant::initProtocol(const QString &protoconConfig)
@@ -628,7 +628,63 @@ bool EnvironmentVariant::updateWorkPlace(const QJsonObject &jsobj)
 
 void EnvironmentVariant::startCheckPlan(int planIndex)
 {
+    if(planIndex < 0 || planIndex >= m_planList.size())
+        return;
 
+    const QList<SingleOperationData> & stepList = m_planList.at(planIndex).second;
+
+
+    QJsonObject planObj;
+    QJsonArray oparray;
+    int seq = 1;
+
+    foreach(const SingleOperationData& opData, stepList)
+    {
+        if(opData.operationName == "Group")
+        {
+            continue;
+        }
+        QJsonObject singleOperationObj;
+        singleOperationObj["operation"] = opData.operationName;
+        singleOperationObj["sequence"] = seq++;
+        QJsonObject paramobj;
+        foreach(const OperationParamData& data, opData.params)
+        {
+            if (data.Type == "enum")
+            {
+                paramobj[data.Name] = m_paramDefaultValueMap[data.Name].IntListValue[data.IntegerValue];
+            }
+            else if(data.Type == "integer")
+            {
+                paramobj[data.Name] = data.IntegerValue;
+            }
+            else if(data.Type == "float")
+            {
+                paramobj[data.Name] = qRound(data.FloatValue*10.0);
+            }
+            else if(data.Type == "string")
+            {
+                paramobj[data.Name] = data.StringValue;
+            }
+            else if(data.Type == "bool")
+            {
+                paramobj[data.Name] = data.BoolValue;
+            }
+        }
+        singleOperationObj["params"] = paramobj;
+
+        oparray.append(singleOperationObj);
+
+    }
+    planObj["operations"] = oparray;
+    planObj["boardConfig"] = m_workLocationTypeList["config"].toArray()[m_workLocationTypeList["current"].toInt()].toObject()["type"];
+
+    m_workflowChecker.checkTask(planObj);
+}
+
+void EnvironmentVariant::stopCheckPlan()
+{
+    m_workflowChecker.stopCurrentCheck();
 }
 
 int EnvironmentVariant::getBoardTypeIndexByPosition(int index)

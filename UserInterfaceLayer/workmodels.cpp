@@ -402,7 +402,13 @@ QObject* PlanSelector::getSwitch(const QString &name)
 
 void PlanSelector::startCheckPlan(int planIndex)
 {
+    EnvironmentVariant::instance()->stopCheckPlan();
     EnvironmentVariant::instance()->startCheckPlan(planIndex);
+}
+
+void PlanSelector::stopCheckPlan()
+{
+    EnvironmentVariant::instance()->stopCheckPlan();
 }
 
 bool PlanSelector::eventFilter(QObject *watched, QEvent *event)

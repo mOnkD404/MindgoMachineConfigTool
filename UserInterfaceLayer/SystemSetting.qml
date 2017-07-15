@@ -1,6 +1,8 @@
 ﻿import QtQuick 2.7
 import QtQuick.Controls 2.1
 import Common 1.0
+//import QtQuick.Dialogs 1.2
+import Qt.labs.platform 1.0
 
 Item {
     id:systemSettingPage
@@ -459,7 +461,7 @@ Item {
             anchors.right: parent.right
             anchors.rightMargin: 0
             buttonradius: 0
-            textValue: qsTr("Save")
+            textValue: qsTr("Save config")
             fontPixelSize: 20
 
             onClicked: {
@@ -473,6 +475,72 @@ Item {
                 textInput2.focus = false;
             }
         }
+        TextButton {
+            id: textButton2
+            width: 130
+            height: 60
+            anchors.top: textButton.bottom
+            anchors.topMargin: 4
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            buttonradius: 0
+            textValue: qsTr("Export config")
+            fontPixelSize: 20
 
+            onClicked: {
+                fileDialogExport.visible = true;
+            }
+        }
+        TextButton {
+            id: textButton3
+            width: 130
+            height: 60
+            anchors.top: textButton2.bottom
+            anchors.topMargin: 4
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            buttonradius: 0
+            textValue: qsTr("Import config")
+            fontPixelSize: 20
+
+            onClicked: {
+                fileDialogImport.visible = true;
+            }
+        }
+    }
+
+    FileDialog {
+        id: fileDialogExport
+        title: qsTr("Save file")
+        //folder: shortcuts.documents
+        visible: false
+        //selectMultiple:false
+        //selectExisting:false
+        fileMode: FileDialog.SaveFile
+        nameFilters: [ "CSV files (*.csv)" ]
+        onAccepted: {
+            configFileConverter.exportConfigFile(file);
+            visible = false;
+        }
+        onRejected: {
+            visible = false;
+        }
+    }
+    FileDialog {
+        id: fileDialogImport
+        title: qsTr("Select file")
+        //folder: shortcuts.documents
+        visible: false
+        //selectMultiple:false
+        //selectExisting:true
+        nameFilters: [ "CSV files (*.csv)" ]
+        fileMode: FileDialog.OpenFile
+        onAccepted: {
+            configFileConverter.importConfigFile(file);
+            visible = false;
+        }
+        onRejected: {
+            visible = false;
+        }
     }
 }

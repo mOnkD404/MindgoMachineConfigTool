@@ -79,6 +79,9 @@ public:
 
     int getBoardTypeIndexByPosition(int index);
 
+    void ImportConfig(const QString& file);
+    void ExportConfig(const QString& file);
+
 signals:
     void workLocationTypeChanged();
 private:
@@ -106,10 +109,13 @@ private:
     QString m_userConfigFile;
 
     TargetMachineObject m_machineConfig;
+    ConfigFileConverter m_configFileConverter;
     QJsonObject m_workLocationTypeList;
     bool m_bAdministratorAccount;
 
     QJsonArray m_workPlaceConstraint;
+
+    QString m_currentDir;
 };
 
 #endif // ENVIRONMENTVARIANT_H

@@ -1,48 +1,109 @@
 {
     "license": "2328-1768-0720-4852",
-    "plan": {
-        "2": [
-            {
-                "operation": "Load Tip",
-                "params": {
-                    "boardType": 0,
-                    "onBoardIndex": 1,
-                    "position": 3,
-                    "tipIndex": 1
+    "plan": [
+        {
+            "name": "2",
+            "operations": [
+                {
+                    "operation": "Load Tip",
+                    "params": {
+                        "boardType": 1,
+                        "onBoardIndex": 1,
+                        "position": 0,
+                        "tipIndex": 1
+                    },
+                    "sequenceNumber": 1
                 },
-                "sequenceNumber": 1
-            },
-            {
-                "operation": "Suction",
-                "params": {
-                    "boardType": 1,
-                    "onBoardIndex": 4,
-                    "position": 2,
-                    "postSuction": false,
-                    "postSuctionVolume": 0,
-                    "preSuction": false,
-                    "preSuctionVolume": 0,
-                    "speed": 1,
-                    "suctionHeight": 0,
-                    "tipIndex": 2,
-                    "volume": 50
+                {
+                    "operation": "Dump Tip",
+                    "params": {
+                        "boardType": 1,
+                        "onBoardIndex": 1,
+                        "position": 0,
+                        "tipIndex": 1
+                    },
+                    "sequenceNumber": 2
+                }
+            ]
+        },
+        {
+            "name": "2",
+            "operations": [
+                {
+                    "operation": "Load Tip",
+                    "params": {
+                        "boardType": 1,
+                        "onBoardIndex": 1,
+                        "position": 0,
+                        "tipIndex": 1
+                    },
+                    "sequenceNumber": 1
                 },
-                "sequenceNumber": 2
-            },
-            {
-                "operation": "Dump Tip",
-                "params": {
-                    "boardType": 0,
-                    "onBoardIndex": 1,
-                    "position": 0,
-                    "tipIndex": 1
+                {
+                    "operation": "Suction",
+                    "params": {
+                        "boardType": 1,
+                        "onBoardIndex": 1,
+                        "position": 0,
+                        "postSuction": false,
+                        "postSuctionVolume": 0,
+                        "preSuction": false,
+                        "preSuctionVolume": 0,
+                        "speed": 1,
+                        "suctionHeight": 0,
+                        "tipIndex": 1,
+                        "volume": 0
+                    },
+                    "sequenceNumber": 2
                 },
-                "sequenceNumber": 3
-            }
-        ]
-    },
+                {
+                    "operation": "Dispense",
+                    "params": {
+                        "boardType": 1,
+                        "drain": false,
+                        "drainHeight": 0,
+                        "drainVolume": 0,
+                        "onBoardIndex": 1,
+                        "position": 0,
+                        "speed": 1,
+                        "tipIndex": 1
+                    },
+                    "sequenceNumber": 3
+                },
+                {
+                    "operation": "Mix",
+                    "params": {
+                        "boardType": 1,
+                        "cycleCount": 1,
+                        "drainHeight": 0,
+                        "onBoardIndex": 1,
+                        "position": 0,
+                        "postSuction": false,
+                        "postSuctionVolume": 0,
+                        "preSuction": false,
+                        "preSuctionVolume": 0,
+                        "speed": 1,
+                        "suctionHeight": 0,
+                        "tipIndex": 1,
+                        "volume": 0
+                    },
+                    "sequenceNumber": 4
+                },
+                {
+                    "operation": "Dump Tip",
+                    "params": {
+                        "boardType": 1,
+                        "onBoardIndex": 1,
+                        "position": 0,
+                        "tipIndex": 1
+                    },
+                    "sequenceNumber": 5
+                }
+            ]
+        }
+    ],
     "target": {
-        "IP": "127.0.0.1",
+        "IP": "127.0.0.44",
         "maxReceiveTime": 30,
         "port": 20000
     },
@@ -50,7 +111,7 @@
         "config": [
             {
                 "count": 12,
-                "name": "1",
+                "name": "999",
                 "type": [
                     {
                         "name": "tipBox",
@@ -94,7 +155,7 @@
             },
             {
                 "count": 12,
-                "name": "0",
+                "name": "asdf",
                 "type": [
                     {
                         "name": "sbsBoard"
@@ -135,9 +196,53 @@
                         "name": "null"
                     }
                 ]
+            },
+            {
+                "count": 12,
+                "name": "asdf",
+                "type": [
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "tipBox",
+                        "volume": "250"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "tipBox",
+                        "volume": "258"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    }
+                ]
             }
         ],
-        "current": 0,
+        "current": 2,
         "default": {
             "count": 12,
             "name": "",

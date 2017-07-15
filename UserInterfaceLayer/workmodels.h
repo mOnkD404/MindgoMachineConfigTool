@@ -584,5 +584,15 @@ public:
     }
 };
 
+class ConfigFileConverter:public QObject
+{
+    Q_OBJECT
+public:
+    ConfigFileConverter(QObject* parent = NULL): QObject(parent){}
+
+    Q_INVOKABLE void importConfigFile(const QUrl& filename);
+    Q_INVOKABLE void exportConfigFile(const QUrl& filename);
+};
+
 
 #endif // WORKMODELS_H

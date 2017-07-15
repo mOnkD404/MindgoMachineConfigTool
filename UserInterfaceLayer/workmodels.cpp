@@ -532,3 +532,12 @@ void TargetMachineObject::onMachineConfigChanged()
 {
     EnvironmentVariant::instance()->SaveMachineConfig(MachineConfigData(IpAddress, port, maxReceiveTime));
 }
+
+void ConfigFileConverter::importConfigFile(const QUrl& filename)
+{
+    EnvironmentVariant::instance()->ImportConfig(filename.toLocalFile());
+}
+void ConfigFileConverter::exportConfigFile(const QUrl& filename)
+{
+    EnvironmentVariant::instance()->ExportConfig(filename.toLocalFile());
+}

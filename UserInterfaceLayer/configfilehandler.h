@@ -31,6 +31,16 @@ public:
     void ParseWorkSpaceTypeList(QJsonObject& typelist);
     void ParseLicense(QByteArray& encodedString);
 
+    void ConvertCSVtoJSON(const QString &csvFile, const QString& jsonFile);
+    void ConvertJSONtoCSV(const QString &jsonFile, const QString& csvFile);
+
+    QString ParsePlan(const QJsonArray& obj);
+    QString ParseWorkSpace(const QJsonObject& obj);
+
+    bool ImportConfig(QJsonObject& fileObj, const QByteArray&importdata);
+    bool ImportWorkSpace(const QList<QByteArray> & filelines, QJsonObject& fileObj);
+    bool ImportPlan(const QList<QByteArray> & filelines, QJsonObject& fileObj);
+
 signals:
 
 public slots:

@@ -4,6 +4,7 @@
 #include "workmodels.h"
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QDir>
 
 EnvironmentVariant* EnvironmentVariant::m_instance = 0;
 
@@ -77,8 +78,11 @@ void EnvironmentVariant::initUserConfig(const QString &str)
 void EnvironmentVariant::initModels(QQmlContext* context)
 {
     m_context = context;
+    m_currentDir = QDir::currentPath();
     context->setContextProperty("IPAddressObject", &m_machineConfig);
     context->setContextProperty("isAdministratorAccount", m_bAdministratorAccount);
+    context->setContextProperty("currentDirectory", m_currentDir);
+    context->setContextProperty("configFileConverter", &m_configFileConverter);
     //m_singleStepPageModel.init(context, m_operationList, m_operationNameDispMap);
 }
 
@@ -617,6 +621,7 @@ bool EnvironmentVariant::updateWorkPlace(const QJsonObject &jsobj)
     if(m_workLocationTypeList != jsobj)
     {
         m_workLocationTypeList = jsobj;
+        SaveMachineConfig(m_machineConfig);
         emit workLocationTypeChanged();
         return true;
     }
@@ -712,4 +717,19 @@ int EnvironmentVariant::getBoardTypeIndexByPosition(int index)
         return boardIndex;
     }
     return -1;
+}
+
+void EnvironmentVariant::ImportConfig(const QString& file)
+{
+    qDebug()<<"Import config file "<<file;
+    configFileHandler handler(NULL);
+    handler.ConvertCSVtoJSON(file, m_userConfigFile);
+}
+
+void EnvironmentVariant::ExportConfig(const QString& file)
+{
+    qDebug()<<"Export config file "<<file;
+
+    configFileHandler handler(NULL);
+    handler.ConvertJSONtoCSV(m_userConfigFile, file);
 }

@@ -4,6 +4,7 @@
 
 Item {
     property var positionAction;
+    property bool disableDelete: false
     signal doAction(var str);
 
     positionAction: true
@@ -60,7 +61,14 @@ Item {
         id: iconArea
 
         Rectangle{
-
+            enabled: {
+                if(disableDelete && name == "delete"){
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+            opacity: enabled?1.0:0.3;
 
             width: height
             height: parent.height

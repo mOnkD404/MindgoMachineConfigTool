@@ -125,6 +125,8 @@ Item {
                 anchors.right: parent.right
                 anchors.margins: 4
 
+                disableDelete: planListModel.count == 1
+
                 onDoAction: {
                     if(str == "edit"){
                         if(planListView.currentIndex != -1){

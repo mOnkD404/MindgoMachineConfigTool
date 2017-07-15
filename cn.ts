@@ -102,6 +102,16 @@
         <source>Save</source>
         <translation>保存</translation>
     </message>
+    <message>
+        <location filename="UserInterfaceLayer/PlanSetting.qml" line="47"/>
+        <source>save succeed</source>
+        <translation>保存成功</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/PlanSetting.qml" line="47"/>
+        <source>save failed</source>
+        <translation>保存失败</translation>
+    </message>
 </context>
 <context>
     <name>SingleStepPage</name>
@@ -190,39 +200,93 @@
 <context>
     <name>SystemSetting</name>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="52"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="54"/>
         <source>Machine Address</source>
         <translation>下位机IP</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="68"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="70"/>
         <source>IP Address</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="101"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="103"/>
         <source>port</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="121"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="123"/>
         <source>Max ack waiting time</source>
         <translation>最大等待时间</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="140"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="142"/>
         <source>Wait time</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="160"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="162"/>
         <source>Work place configuration</source>
         <translation>板位配置</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="462"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="473"/>
+        <source>Save config</source>
+        <translation>保存配置</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="480"/>
+        <source>save succeed</source>
+        <translation>保存成功</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="480"/>
+        <source>save failed</source>
+        <translation>保存失败</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="498"/>
+        <source>Export config</source>
+        <translation>导出配置</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="515"/>
+        <source>Import config</source>
+        <translation>导入配置</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="527"/>
+        <source>Save file</source>
+        <translation>保存文件</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="535"/>
+        <source>export succeed</source>
+        <translation>导出成功</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="535"/>
+        <source>export failed</source>
+        <translation>导出失败</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="545"/>
+        <source>Select file</source>
+        <translation>选择文件</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="555"/>
+        <source>import succeed</source>
+        <translation>导入成功</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="557"/>
+        <source>import failed</source>
+        <translation>导入失败</translation>
+    </message>
+    <message>
         <source>Save</source>
-        <translation>保存</translation>
+        <translation type="vanished">保存</translation>
     </message>
 </context>
 </TS>

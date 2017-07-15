@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2017 The Qt Company Ltd.
+** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
 ** This file is part of the Qt Quick Controls 2 module of the Qt Toolkit.
@@ -34,10 +34,10 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.9
-import QtQuick.Templates 2.2 as T
-import QtQuick.Controls.Universal 2.2
-import QtQuick.Controls.Universal.impl 2.2
+import QtQuick 2.8
+import QtQuick.Templates 2.1 as T
+import QtQuick.Controls.Universal 2.1
+import QtQuick.Controls.Universal.impl 2.1
 
 T.BusyIndicator {
     id: control
@@ -45,7 +45,9 @@ T.BusyIndicator {
     implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
     implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
 
-    contentItem: BusyIndicatorImpl {
+    contentItem: ProgressRing {
+        id: ring
+
         implicitWidth: 20
         implicitHeight: 20
 
@@ -53,6 +55,10 @@ T.BusyIndicator {
 
         count: size < 60 ? 5 : 6 // "Small" vs. "Large"
         color: control.Universal.accent
-        visible: control.running
+
+        ProgressRingAnimator {
+            target: ring
+            running: control.visible && control.running
+        }
     }
 }

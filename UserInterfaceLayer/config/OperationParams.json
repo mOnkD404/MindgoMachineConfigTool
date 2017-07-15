@@ -180,15 +180,15 @@
             "type":"integer",
             "default":1,
             "display":"吸液头编号",
-            "bottomValue":1,
-            "topValue":96
+            "bottomValue":0,
+            "topValue":95
         },
         "onBoardIndex":{
             "type":"integer",
             "default":1,
             "display":"板位内编号",
-            "bottomValue":1,
-            "topValue":96
+            "bottomValue":0,
+            "topValue":95
         }
     },
     "workPlace":[

@@ -23,7 +23,10 @@ Item {
                 }else{
                     checkingState = "invalid";
                 }
+            }else{
+                checkingState = "checking";
             }
+
             errorStep =  jsObj.errorStep;
         }
     }

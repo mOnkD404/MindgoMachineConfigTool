@@ -6,7 +6,7 @@ import QtQuick.Dialogs 1.2
 
 Item {
     id:systemSettingPage
-    property string versionVal: "1.5.1"
+    property string versionVal: "1.6"
 
     //    MouseArea{
     //        anchors.fill: parent
@@ -304,7 +304,7 @@ Item {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.margins: 4
-
+                disableDelete:configListModel.count == 1
                 onDoAction: {
                     if(str == "edit"){
                         if(configListView.currentIndex != -1){
@@ -316,8 +316,10 @@ Item {
                         configListView.currentIndex = configListModel.count - 1;
                         configListView.currentItem.inEdit = true;
                     }else if(str == "delete"){
-                        configListModel.remove(configListView.currentIndex);
-                        configColumn.removeConfig(configListView.currentIndex);
+                        if(configListModel.count > 1){
+                            configListModel.remove(configListView.currentIndex);
+                            configColumn.removeConfig(configListView.currentIndex);
+                        }
                     }
                 }
             }
@@ -459,6 +461,8 @@ Item {
 
             showLabel: false
             showCombo: true
+
+            visible:configListModel.count>0
         }
         TextButton {
             id: textButton

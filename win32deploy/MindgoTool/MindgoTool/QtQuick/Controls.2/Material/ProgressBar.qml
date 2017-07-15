@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2017 The Qt Company Ltd.
+** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
 ** This file is part of the Qt Quick Controls 2 module of the Qt Toolkit.
@@ -34,10 +34,10 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.9
-import QtQuick.Templates 2.2 as T
-import QtQuick.Controls.Material 2.2
-import QtQuick.Controls.Material.impl 2.2
+import QtQuick 2.8
+import QtQuick.Templates 2.1 as T
+import QtQuick.Controls.Material 2.1
+import QtQuick.Controls.Material.impl 2.1
 
 T.ProgressBar {
     id: control
@@ -47,13 +47,19 @@ T.ProgressBar {
     implicitHeight: Math.max(background ? background.implicitHeight : 0,
                              contentItem.implicitHeight + topPadding + bottomPadding)
 
-    contentItem: ProgressBarImpl {
+    contentItem: ProgressStrip {
+        id: strip
         implicitHeight: 4
 
         scale: control.mirrored ? -1 : 1
+        indeterminate: control.indeterminate
         color: control.Material.accentColor
         progress: control.position
-        indeterminate: control.visible && control.indeterminate
+
+        StripAnimator {
+            target: strip
+            running: control.visible && control.indeterminate
+        }
     }
 
     background: Rectangle {

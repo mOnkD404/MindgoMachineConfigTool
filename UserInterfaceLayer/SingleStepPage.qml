@@ -41,7 +41,8 @@ Item {
                 textValue: qsTr("Execute")
                 anchors.right: parent.right
                 anchors.rightMargin: 0
-                buttonradius: 0
+                buttonradius: 3
+                borderColor: "#4c5cc5ff"
                 fontPixelSize: 25
                 onClicked: {
                     singleStepOperation.commitData();

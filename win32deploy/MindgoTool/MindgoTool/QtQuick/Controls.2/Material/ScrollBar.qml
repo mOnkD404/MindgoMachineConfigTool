@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2017 The Qt Company Ltd.
+** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
 ** This file is part of the Qt Quick Controls 2 module of the Qt Toolkit.
@@ -34,9 +34,9 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.9
-import QtQuick.Templates 2.2 as T
-import QtQuick.Controls.Material 2.2
+import QtQuick 2.8
+import QtQuick.Templates 2.1 as T
+import QtQuick.Controls.Material 2.1
 
 T.ScrollBar {
     id: control
@@ -46,31 +46,30 @@ T.ScrollBar {
     implicitHeight: Math.max(background ? background.implicitHeight : 0,
                              contentItem.implicitHeight + topPadding + bottomPadding)
 
-    padding: control.interactive ? 1 : 2
-    visible: control.policy !== T.ScrollBar.AlwaysOff
+    padding: 1
 
     contentItem: Rectangle {
         id: handle
 
-        implicitWidth: control.interactive ? 13 : 4
-        implicitHeight: control.interactive ? 13 : 4
+        implicitWidth: 13
+        implicitHeight: 13
 
         color: control.pressed ? control.Material.scrollBarPressedColor :
-               control.interactive && control.hovered ? control.Material.scrollBarHoveredColor : control.Material.scrollBarColor
+               control.hovered ? control.Material.scrollBarHoveredColor : control.Material.scrollBarColor
+        visible: control.size < 1.0
         opacity: 0.0
     }
 
     background: Rectangle {
-        implicitWidth: control.interactive ? 16 : 4
-        implicitHeight: control.interactive ? 16 : 4
+        implicitWidth: 16
+        implicitHeight: 16
         color: "#0e000000"
         opacity: 0.0
-        visible: control.interactive
     }
 
     states: State {
         name: "active"
-        when: control.policy === T.ScrollBar.AlwaysOn || (control.active && control.size < 1.0)
+        when: control.active
     }
 
     transitions: [
@@ -81,7 +80,6 @@ T.ScrollBar {
         Transition {
             from: "active"
             SequentialAnimation {
-                PropertyAction{ targets: [contentItem, background]; property: "opacity"; value: 1.0 }
                 PauseAnimation { duration: 2450 }
                 NumberAnimation { targets: [contentItem, background]; property: "opacity"; to: 0.0 }
             }

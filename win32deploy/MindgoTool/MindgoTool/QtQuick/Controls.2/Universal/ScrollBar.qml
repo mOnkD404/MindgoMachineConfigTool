@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2017 The Qt Company Ltd.
+** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
 ** This file is part of the Qt Quick Controls 2 module of the Qt Toolkit.
@@ -34,9 +34,9 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.9
-import QtQuick.Templates 2.2 as T
-import QtQuick.Controls.Universal 2.2
+import QtQuick 2.8
+import QtQuick.Templates 2.1 as T
+import QtQuick.Controls.Universal 2.1
 
 T.ScrollBar {
     id: control
@@ -46,22 +46,21 @@ T.ScrollBar {
     implicitHeight: Math.max(background ? background.implicitHeight : 0,
                              contentItem.implicitHeight + topPadding + bottomPadding)
 
-    visible: control.policy !== T.ScrollBar.AlwaysOff
-
     // TODO: arrows
 
     contentItem: Rectangle {
-        implicitWidth: control.interactive ? 12 : 6
-        implicitHeight: control.interactive ? 12: 6
+        implicitWidth: 12
+        implicitHeight: 12
 
         color: control.pressed ? control.Universal.baseMediumColor :
-               control.interactive && control.hovered ? control.Universal.baseMediumLowColor : control.Universal.chromeHighColor
+               control.hovered ? control.Universal.baseMediumLowColor : control.Universal.chromeHighColor
+        visible: control.size < 1.0
         opacity: 0.0
     }
 
     background: Rectangle {
-        implicitWidth: control.interactive ? 12 : 6
-        implicitHeight: control.interactive ? 12: 6
+        implicitWidth: 12
+        implicitHeight: 12
 
         color: control.Universal.chromeLowColor
         visible: control.size < 1.0
@@ -71,7 +70,7 @@ T.ScrollBar {
     states: [
         State {
             name: "active"
-            when: control.policy === T.ScrollBar.AlwaysOn || (control.active && control.size < 1.0)
+            when: control.active
         }
     ]
 
@@ -83,7 +82,6 @@ T.ScrollBar {
         Transition {
             from: "active"
             SequentialAnimation {
-                PropertyAction{ targets: [contentItem, background]; property: "opacity"; value: 1.0 }
                 PauseAnimation { duration: 3000 }
                 NumberAnimation { targets: [contentItem, background]; property: "opacity"; to: 0.0 }
             }

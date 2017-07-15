@@ -53,6 +53,7 @@ void SubThreadCheckWorker::doCheck(const QJsonObject&jsObj)
             retObj["progress"] = 100*currentIndex / (opList.size()-1);
         }
         emit statusChanged(retObj);
+        QThread::msleep(10);
     }
 
     if(retObj["progress"] == 100)

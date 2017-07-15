@@ -174,7 +174,7 @@ Item {
                 id: paramList
                 anchors.leftMargin: 5
                 clip:true
-                spacing: 4
+                spacing: 2
                 anchors.top: operationParam.bottom
                 anchors.topMargin: 4
                 anchors.right: parent.right
@@ -197,7 +197,7 @@ Item {
 
                 delegate: Item {
                     property int paramIndex: index
-                    height:38
+                    height:35
                     anchors.left: parent.left
                     anchors.right: parent.right
 

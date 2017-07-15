@@ -142,7 +142,7 @@ Item {
                 stopColor:"#6e6d71"
                 borderColor:"#cecece"
 
-                onClicked: subPage.subPageUrl = Qt.resolvedUrl("SingleStepPage.qml")
+                onClicked: subPageRect.state = "showSingleStep"//subPage.subPageUrl = Qt.resolvedUrl("SingleStepPage.qml")
             }
 
             TextButton{
@@ -154,7 +154,7 @@ Item {
                 stopColor:"#6e6d71"
                 borderColor:"#cecece"
 
-                onClicked: subPage.subPageUrl = Qt.resolvedUrl("SystemSetting.qml")
+                onClicked: subPageRect.state = "showSystemSetting"//subPage.subPageUrl = Qt.resolvedUrl("SystemSetting.qml")
             }
 
             TextButton{
@@ -166,7 +166,7 @@ Item {
                 stopColor:"#6e6d71"
                 borderColor:"#cecece"                
 
-                onClicked: subPage.subPageUrl = Qt.resolvedUrl("PlanSetting.qml")
+                onClicked: subPageRect.state = "showPlan"//subPage.subPageUrl = Qt.resolvedUrl("PlanSetting.qml")
             }
 
             TextButton{
@@ -311,14 +311,14 @@ Item {
     }
 
     Rectangle{
-        property url subPageUrl
+        //property url subPageUrl
         //onSubPageUrlChanged: visible = (subPageUrl == ''?false:true);
 
         id:subPage
         anchors.fill: parent
         color:"transparent"
 
-        visible: subPageUrl == ''?false:true
+        visible: subPageRect.state != ""//subPageUrl == ''?false:true
 
         Rectangle{
             id:subPageheader
@@ -350,27 +350,65 @@ Item {
                 startColor: "#1f1f1f"
                 stopColor: "#1f1f1f"
 
-                onClicked:subPage.subPageUrl = ""
+                onClicked: subPageRect.state = ""//subPage.subPageUrl = ""
             }
         }
 
 
         Rectangle{
+            id: subPageRect
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.bottom: parent.bottom
             anchors.top:subPageheader.bottom
             color: "#414141"
 
-            Loader{
-                id:subLoader
-                focus: true
-                source: subPage.subPageUrl
+//            Loader{
+//                id:subLoader
+//                focus: true
+//                source: subPage.subPageUrl
 
 
+//                anchors.fill: parent
+//            }
+            PlanSetting{
+                id:planPage
                 anchors.fill: parent
+                visible: false
             }
-
+            SingleStepPage{
+                id:singleStepPage
+                anchors.fill: parent
+                visible: false
+            }
+            SystemSetting{
+                id:systemSettingPage
+                anchors.fill: parent
+                visible: false
+            }
+            states:[
+                State{
+                    name:"showSingleStep"
+                    PropertyChanges {
+                        target: singleStepPage
+                        visible:true
+                    }
+                },
+                State{
+                    name:"showSystemSetting"
+                    PropertyChanges {
+                        target: systemSettingPage
+                        visible: true
+                    }
+                },
+                State{
+                    name:"showPlan"
+                    PropertyChanges {
+                        target: planPage
+                        visible: true
+                    }
+                }
+            ]
         }
     }
 

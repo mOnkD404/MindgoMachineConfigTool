@@ -6,7 +6,7 @@ import QtQuick.Dialogs 1.2
 
 Item {
     id:systemSettingPage
-    property string versionVal: "1.6"
+    property string versionVal: "1.6.1"
 
     //    MouseArea{
     //        anchors.fill: parent
@@ -351,7 +351,7 @@ Item {
                     radius: 0
                 }
                 highlightFollowsCurrentItem: true
-                highlightMoveDuration: 200
+                //highlightMoveDuration: 200
                 currentIndex: 0
                 interactive: true
                 model: configListModel

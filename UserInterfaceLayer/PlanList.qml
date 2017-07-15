@@ -252,8 +252,15 @@ Item {
 
                 }
                 Component.onCompleted: {
-                    refreshPlanListModel();
-                    stepListView.refreshStepListModel();
+//                    refreshPlanListModel();
+//                    stepListView.refreshStepListModel();
+                }
+                onVisibleChanged: {
+                    if(visible){
+                        refreshPlanListModel();
+                        stepListView.refreshStepListModel()
+
+                    }
                 }
 
                 function refreshPlanListModel(){

@@ -20,6 +20,10 @@ Item {
     StatusViewWatcher{
         id:watcher
         onStatusChanged: {
+            if(showCombo){
+                return;
+            }
+
             if(displayModel.count > 0 && jsobj.position > 0){
                 if (gridView.currentIndex == jsobj.position - 1 ){
                     if( jsobj.ack == true && gridView.currentItem.gridType != "null" && showLabel){
@@ -75,6 +79,10 @@ Item {
 //        var tubesUsedImage = "./image/4-4.png";
 
         var listAll = watcher.getWorkLocationTypeList();
+        if(listAll.current < 0 || listAll.current >= listAll.config.length){
+            return;
+        }
+
         var listData = listAll.config[listAll.current].type;
         for(var index = 0; index < listData.length; index++){
 //            if(listData[index]=="tips"){
@@ -243,8 +251,8 @@ Item {
 
                             for(var ind = 0; ind < constraint.length; ind++){
                                 if(constraint[ind].type == newtype){
-                                    editVolume.visible = constraint[ind].params.hasOwnProperty("volume");
-                                    if(editVolume.visible){
+                                    var showVolume = constraint[ind].params.hasOwnProperty("volume");
+                                    if(showVolume){
                                         if(listData.hasOwnProperty("volume")){
                                             editVolume.volumeVal = listData.volume;
                                             boardTypeVar["volume"] = listData.volume;
@@ -253,6 +261,7 @@ Item {
                                             boardTypeVar["volume"] = constraint[ind].params.volume.default;
                                         }
                                     }
+                                    editVolume.visible = showVolume;
                                     break;
                                 }
                             }

@@ -372,9 +372,9 @@ void PlanSelector::onComplete()
 {
 }
 
-void PlanSelector::onSave()
+bool PlanSelector::onSave()
 {
-    EnvironmentVariant::instance()->SavePlan();
+    return EnvironmentVariant::instance()->SavePlan();
 }
 
 void PlanSelector::commitParam(int planIndex, int stepIndex, const QString& paramName, const QVariant& value)
@@ -528,16 +528,16 @@ QJsonArray StatusViewWatcher::getWorkPlaceConstraint()
     return EnvironmentVariant::instance()->WorkPlaceConstraint();
 }
 
-void TargetMachineObject::onMachineConfigChanged()
+bool TargetMachineObject::onMachineConfigChanged()
 {
-    EnvironmentVariant::instance()->SaveMachineConfig(MachineConfigData(IpAddress, port, maxReceiveTime));
+    return EnvironmentVariant::instance()->SaveMachineConfig(MachineConfigData(IpAddress, port, maxReceiveTime));
 }
 
-void ConfigFileConverter::importConfigFile(const QUrl& filename)
+bool ConfigFileConverter::importConfigFile(const QUrl& filename)
 {
-    EnvironmentVariant::instance()->ImportConfig(filename.toLocalFile());
+    return EnvironmentVariant::instance()->ImportConfig(filename.toLocalFile());
 }
-void ConfigFileConverter::exportConfigFile(const QUrl& filename)
+bool ConfigFileConverter::exportConfigFile(const QUrl& filename)
 {
-    EnvironmentVariant::instance()->ExportConfig(filename.toLocalFile());
+    return EnvironmentVariant::instance()->ExportConfig(filename.toLocalFile());
 }

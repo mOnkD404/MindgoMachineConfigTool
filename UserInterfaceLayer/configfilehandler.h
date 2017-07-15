@@ -24,15 +24,15 @@ public:
     qint16 ParseHostPort();
     qint32 ParseHostSingleOperationThreshold();
     void ParsePlanList(QList<QPair<QString, QList<SingleOperationData> > >& planMap, const QMap<QString, OperationParamData> &);
-    void SavePlanList(const QString& configFile, const QList<QPair<QString, QList<SingleOperationData> > > & planData, const QMap<QString, QStringList> &);
+    bool SavePlanList(const QString& configFile, const QList<QPair<QString, QList<SingleOperationData> > > & planData, const QMap<QString, QStringList> &);
 
-    void SaveMachineConfig(const QString& configFile, const MachineConfigData&, const QJsonObject& );
+    bool SaveMachineConfig(const QString& configFile, const MachineConfigData&, const QJsonObject& );
 
     void ParseWorkSpaceTypeList(QJsonObject& typelist);
     void ParseLicense(QByteArray& encodedString);
 
-    void ConvertCSVtoJSON(const QString &csvFile, const QString& jsonFile);
-    void ConvertJSONtoCSV(const QString &jsonFile, const QString& csvFile);
+    bool ConvertCSVtoJSON(const QString &csvFile, const QString& jsonFile);
+    bool ConvertJSONtoCSV(const QString &jsonFile, const QString& csvFile);
 
     QString ParsePlan(const QJsonArray& obj);
     QString ParseWorkSpace(const QJsonObject& obj);

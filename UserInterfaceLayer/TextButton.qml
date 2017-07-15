@@ -32,9 +32,85 @@ Item{
     buttonradius: 8
 
 
+    Rectangle{
+        id:promptLabel
+        height: buttonRect.height
+        anchors.right: buttonRect.left
+        anchors.margins: 2
+        visible: false
+        property alias text: promptText.text
 
+        color: "#4c000000"
+        radius: 3
+        border.width: 2
+        border.color: "#dc000000"
+        clip:true
+
+        Text{
+            id:promptText
+            anchors.fill: parent
+            horizontalAlignment: Text.AlignHCenter
+
+            text:textValue
+            color:textColor
+
+            font.pixelSize: fontPixelSize
+            font.bold: true
+            verticalAlignment: Text.AlignVCenter
+            styleColor: "#3a3a3a"
+            style: Text.Raised
+        }
+
+        states:[
+            State{
+                name:"showOnce"
+                PropertyChanges {
+                    target: promptLabel
+                    visible: true
+                }
+                PropertyChanges {
+                    target: animatePrompt
+                    running: true
+                }
+            }
+
+        ]
+    }
+
+    function showPrompt(prompt){
+        promptLabel.text = prompt;
+        promptLabel.state = "showOnce";
+    }
+
+    SequentialAnimation{
+        id: animatePrompt
+        running: false
+        alwaysRunToEnd: true
+
+        PropertyAnimation{
+            target:promptLabel
+            property: "width"
+            to: buttonRect.width*1.5
+            duration: 100
+        }
+
+        PauseAnimation {
+            duration: 1000
+        }
+        PropertyAnimation{
+            target:promptLabel
+            property: "width"
+            to: 0
+            duration: 100
+        }
+
+        onStopped: {
+            promptLabel.state = "";
+        }
+    }
 
     Rectangle{
+        id:buttonRect
         anchors.fill: parent
         clip:true
 

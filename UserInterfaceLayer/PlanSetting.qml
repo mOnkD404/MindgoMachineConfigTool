@@ -41,9 +41,11 @@ Item {
                 anchors.right: parent.right
                 anchors.rightMargin: 0
                 fontPixelSize: 20
-                buttonradius: 0
+                buttonradius: 3
+                borderColor: "#4c5cc5ff"
                 onClicked: {
-                    planList.savePlan();
+                    var result = planList.savePlan()?qsTr("save succeed"):qsTr("save failed");
+                    showPrompt(result);
                 }
             }
         }

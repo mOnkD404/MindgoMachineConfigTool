@@ -9,7 +9,7 @@ Item {
     id: root    
     clip:true
     function savePlan(){
-        selector.onSave();
+        return selector.onSave();
     }
 
     function setPosition(index){

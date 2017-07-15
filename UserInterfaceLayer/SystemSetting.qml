@@ -1,8 +1,8 @@
 ﻿import QtQuick 2.7
 import QtQuick.Controls 2.1
 import Common 1.0
-//import QtQuick.Dialogs 1.2
-import Qt.labs.platform 1.0
+import QtQuick.Dialogs 1.2
+//import Qt.labs.platform 1.0
 
 Item {
     id:systemSettingPage
@@ -349,9 +349,12 @@ Item {
                     radius: 0
                 }
                 highlightFollowsCurrentItem: true
+                highlightMoveDuration: 200
                 currentIndex: 0
-                interactive: false
+                interactive: true
                 model: configListModel
+
+                ScrollBar.vertical: ScrollBar{}
 
                 delegate: Item{
                     property bool inEdit: false
@@ -427,6 +430,9 @@ Item {
                     configColumn.selectConfig(currentIndex);
                 }
                 Component.onCompleted: {
+                    refreshModel();
+                }
+                function refreshModel(){
                     var listAll = watcher.getWorkLocationTypeList();
 
                     configListModel.clear();
@@ -435,8 +441,10 @@ Item {
                     }
 
                     configListView.currentIndex = listAll.current;
+
                 }
             }
+
         }
 
         StepGallery{
@@ -460,7 +468,8 @@ Item {
             anchors.topMargin: 0
             anchors.right: parent.right
             anchors.rightMargin: 0
-            buttonradius: 0
+            buttonradius: 3
+            borderColor: "#4c5cc5ff"
             textValue: qsTr("Save config")
             fontPixelSize: 20
 
@@ -468,7 +477,8 @@ Item {
                 IPAddressObject.IpAddress = textInput.text;
                 IPAddressObject.port = textInput1.text;
                 IPAddressObject.maxReceiveTime = textInput2.text;
-                IPAddressObject.onMachineConfigChanged();
+                var result = IPAddressObject.onMachineConfigChanged()?qsTr("save succeed"):qsTr("save failed");
+                textButton.showPrompt(result);
 
                 textInput.focus = false;
                 textInput1.focus = false;
@@ -483,7 +493,8 @@ Item {
             anchors.topMargin: 4
             anchors.right: parent.right
             anchors.rightMargin: 0
-            buttonradius: 0
+            buttonradius: 3
+            borderColor: "#4c5cc5ff"
             textValue: qsTr("Export config")
             fontPixelSize: 20
 
@@ -499,7 +510,8 @@ Item {
             anchors.topMargin: 4
             anchors.right: parent.right
             anchors.rightMargin: 0
-            buttonradius: 0
+            buttonradius: 3
+            borderColor: "#4c5cc5ff"
             textValue: qsTr("Import config")
             fontPixelSize: 20
 
@@ -509,17 +521,19 @@ Item {
         }
     }
 
+
     FileDialog {
         id: fileDialogExport
         title: qsTr("Save file")
-        //folder: shortcuts.documents
+        folder: shortcuts.documents
         visible: false
-        //selectMultiple:false
-        //selectExisting:false
-        fileMode: FileDialog.SaveFile
+        selectMultiple:false
+        selectExisting:false
+        //fileMode: FileDialog.SaveFile
         nameFilters: [ "CSV files (*.csv)" ]
         onAccepted: {
-            configFileConverter.exportConfigFile(file);
+            var result = configFileConverter.exportConfigFile(fileUrl)?qsTr("export succeed"):qsTr("export failed");
+            textButton2.showPrompt(result);
             visible = false;
         }
         onRejected: {
@@ -529,14 +543,20 @@ Item {
     FileDialog {
         id: fileDialogImport
         title: qsTr("Select file")
-        //folder: shortcuts.documents
+        folder: shortcuts.documents
         visible: false
-        //selectMultiple:false
-        //selectExisting:true
+        selectMultiple:false
+        selectExisting:true
         nameFilters: [ "CSV files (*.csv)" ]
-        fileMode: FileDialog.OpenFile
+        //fileMode: FileDialog.OpenFile
         onAccepted: {
-            configFileConverter.importConfigFile(file);
+            if(configFileConverter.importConfigFile(fileUrl)){
+                configListView.refreshModel();
+                textButton3.showPrompt(qsTr("import succeed"));
+            }else {
+                textButton3.showPrompt(qsTr("import failed"));
+            }
+
             visible = false;
         }
         onRejected: {

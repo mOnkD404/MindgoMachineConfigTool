@@ -485,21 +485,23 @@ void EnvironmentVariant::RemovePlan(int planIndex)
     m_planList.removeAt(planIndex);
 }
 
-void EnvironmentVariant::SavePlan()
+bool EnvironmentVariant::SavePlan()
 {
     configFileHandler handler(NULL);
-    handler.SavePlanList(m_userConfigFile, m_planList, m_operationParamMap);
+    return handler.SavePlanList(m_userConfigFile, m_planList, m_operationParamMap);
 }
 
-void EnvironmentVariant::SaveMachineConfig(const MachineConfigData& data)
+bool EnvironmentVariant::SaveMachineConfig(const MachineConfigData& data)
 {
     configFileHandler handler(NULL);
-    handler.SaveMachineConfig(m_userConfigFile, data, m_workLocationTypeList);
+    bool ret = handler.SaveMachineConfig(m_userConfigFile, data, m_workLocationTypeList);
 
     //todo
     m_machineConfig.setIpAddress(data.IpAddress);
     m_machineConfig.setPort(data.port);
     m_machineConfig.setMaxReceiveTime(data.maxReceiveTime);
+
+    return ret;
 }
 
 void EnvironmentVariant::StartPlan(int planIndex, int stepIndex)
@@ -719,17 +721,29 @@ int EnvironmentVariant::getBoardTypeIndexByPosition(int index)
     return -1;
 }
 
-void EnvironmentVariant::ImportConfig(const QString& file)
+bool EnvironmentVariant::ImportConfig(const QString& file)
 {
     qDebug()<<"Import config file "<<file;
     configFileHandler handler(NULL);
-    handler.ConvertCSVtoJSON(file, m_userConfigFile);
+    bool ret =  handler.ConvertCSVtoJSON(file, m_userConfigFile);
+    if(ret)
+    {
+        //reload config
+        reloadUserConfig();
+    }
+    return ret;
 }
 
-void EnvironmentVariant::ExportConfig(const QString& file)
+bool EnvironmentVariant::ExportConfig(const QString& file)
 {
     qDebug()<<"Export config file "<<file;
 
     configFileHandler handler(NULL);
-    handler.ConvertJSONtoCSV(m_userConfigFile, file);
+    return handler.ConvertJSONtoCSV(m_userConfigFile, file);
+}
+
+
+void EnvironmentVariant::reloadUserConfig()
+{
+    initUserConfig(m_userConfigFile);
 }

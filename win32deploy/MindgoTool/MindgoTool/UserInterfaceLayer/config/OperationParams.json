@@ -1,12 +1,12 @@
 ﻿{
     "OperationEnum":["Load Tip", "Dump Tip", "Suction", "Dispense", "Mix", "Magnetic Separation", "Relative Motion", "Absolute Motion", "Reset"],
-    "LogicalControlEnum":["WaitArray","Loop", "EndLoop"],
+    "LogicalControlEnum":["WaitArray","Loop", "EndLoop", "Group"],
     "NormalOperation":{
-        "Load Tip":[         "boardType", "position"],
-        "Suction": ["speed", "boardType", "position", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume",                        "suctionHeight"],
-        "Dispense":["speed", "boardType", "position",                                                                                 "drain", "drainVolume",                 "drainHeight"],
-        "Mix":["speed", "boardType", "position", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume",                         "suctionHeight","drainHeight","cycleCount"],
-        "Dump Tip":[         "boardType", "position"],
+        "Load Tip":[         "boardType", "position", "tipIndex", "onBoardIndex"],
+        "Suction": ["speed", "boardType", "position", "tipIndex", "onBoardIndex", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume",                        "suctionHeight"],
+        "Dispense":["speed", "boardType", "position", "tipIndex", "onBoardIndex","drain", "drainVolume",                 "drainHeight"],
+        "Mix":["speed", "boardType", "position", "tipIndex", "onBoardIndex", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume",                         "suctionHeight","drainHeight","cycleCount"],
+        "Dump Tip":[         "boardType", "position", "tipIndex", "onBoardIndex"],
         "Magnetic Separation":["position", "boardMotion"],
         "Relative Motion":["spindleIndex","motionDistance", "motionSpeed"],
         "Absolute Motion":["spindleIndex","motionDistance", "motionSpeed"],
@@ -15,7 +15,8 @@
     "logicalControl":{
         "WaitArray":["waitTime"],
         "Loop":[ "cycleCount"],
-        "EndLoop":[]
+        "EndLoop":[],
+        "Group":["GroupName"]
     },
     "Operation Display Name":{
         "Load Tip":"装载针头",
@@ -29,7 +30,8 @@
         "Magnetic Separation":"磁分离位置",
         "Relative Motion":"单轴相对运动",
         "Absolute Motion":"单轴绝对运动",
-        "Reset":"单轴复位"
+        "Reset":"单轴复位",
+        "Group":"分组"
     },
 
     "params":{
@@ -42,9 +44,9 @@
         },
         "boardType":{
             "type":"enum",
-            "enum":["PCR板","Nunc深孔板"],
-            "valueEnum":[600,500],
-            "default":1,
+            "enum":[],
+            "valueEnum":[],
+            "default":0,
             "display":"耗材类型"
 
         },
@@ -166,6 +168,99 @@
             "unit":"mm",
             "bottomValue":0,
             "topValue":1000
+        },
+        "GroupName":{
+            "type":"string",
+            "default":"",
+            "display":"分组名",
+            "unit":""
+        },
+
+        "tipIndex":{
+            "type":"integer",
+            "default":1,
+            "display":"吸液头编号",
+            "bottomValue":1,
+            "topValue":96
+        },
+        "onBoardIndex":{
+            "type":"integer",
+            "default":1,
+            "display":"板位内编号",
+            "bottomValue":1,
+            "topValue":96
         }
-    }
+    },
+    "workPlace":[
+        {
+            "type":"tipBox",
+            "display":"tip盒",
+            "operation":["Load Tip", "Dump Tip"],
+            "image":{
+                "ready":"./image/3-1.png",
+                "used":"./image/3-4.png"
+            },
+            "constraint":{
+                "volume":{
+                    "comboJudge":["preSuctionVolume", "volume", "postSuctionVolume"],
+                    "startTrigger":["Load Tip"],
+                    "endTrigger":["Dump Tip"]
+                }
+            },
+            "params":{
+                "height":{
+                    "unit":"mm",
+                    "default":400,
+                    "display":"耗材高度"
+                },
+                "volume":{
+                    "unit":"μL",
+                    "default":250,
+                    "display":"容量"
+                }
+            }
+        },
+        {
+            "type":"sbsBoard",
+            "display":"SBS板",
+            "operation":["Suction", "Dispense", "Mix"],
+            "image":{
+                "ready":"./image/4-1.png",
+                "used":"./image/4-4.png"
+            },
+            "params":{
+                "height":{
+                    "unit":"mm",
+                    "default":400,
+                    "display":"耗材高度"
+                }
+            }
+        },
+        {
+            "type":"megneticSeperation",
+            "display":"磁分离位置",
+            "operation":["Suction", "Dispense", "Mix", "Magnetic Separation"],
+            "image":{
+                "ready":"./image/2-1.png",
+                "used":"./image/2-4.png"
+            },
+            "params":{
+                "height":{
+                    "unit":"mm",
+                    "default":400,
+                    "display":"耗材高度"
+                }
+            }
+        },
+        {
+            "type":"null",
+            "display":"空",
+            "operation":[],
+            "image":{
+                "ready":"",
+                "used":""
+            },
+            "params":{ }
+        }
+    ]
 }

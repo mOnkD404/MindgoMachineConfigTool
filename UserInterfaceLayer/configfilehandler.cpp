@@ -276,13 +276,13 @@ void configFileHandler::ParsePlanList(QList<QPair<QString, QList<SingleOperation
 
 }
 
-void configFileHandler::SavePlanList(const QString& configFile, const QList<QPair<QString, QList<SingleOperationData> > > & planData, const QMap<QString, QStringList> &paramMap)
+bool configFileHandler::SavePlanList(const QString& configFile, const QList<QPair<QString, QList<SingleOperationData> > > & planData, const QMap<QString, QStringList> &paramMap)
 {
     QFile loadFile(configFile);
     if(!loadFile.open(QIODevice::ReadWrite))
     {
-        qFatal("configFile error");
-        return;
+        qWarning("configFile error");
+        return false;
     }
     QByteArray data = loadFile.readAll();
     loadFile.close();
@@ -346,15 +346,17 @@ void configFileHandler::SavePlanList(const QString& configFile, const QList<QPai
     loadFile.open(QIODevice::ReadWrite);
     loadFile.write(writeDoc.toJson());
     loadFile.close();
+
+    return true;
 }
 
-void configFileHandler::SaveMachineConfig(const QString& configFile, const MachineConfigData& cfgData, const QJsonObject& typeConfig)
+bool configFileHandler::SaveMachineConfig(const QString& configFile, const MachineConfigData& cfgData, const QJsonObject& typeConfig)
 {
     QFile loadFile(configFile);
     if(!loadFile.open(QIODevice::ReadWrite))
     {
-        qFatal("configFile error");
-        return;
+        qWarning("configFile error");
+        return false;
     }
     QByteArray data = loadFile.readAll();
     loadFile.close();
@@ -386,6 +388,7 @@ void configFileHandler::SaveMachineConfig(const QString& configFile, const Machi
     loadFile.write(writeDoc.toJson());
     loadFile.close();
 
+    return true;
 }
 
 void configFileHandler::ParseWorkSpaceTypeList(QJsonObject& typelist)
@@ -416,13 +419,13 @@ void configFileHandler::ParseLicense(QByteArray& encodedString)
     QCryptographicHash hash(QCryptographicHash::Sha1);
     encodedString = hash.hash(licenseStr, QCryptographicHash::Sha1);
 }
-void configFileHandler::ConvertCSVtoJSON(const QString &csvFile, const QString& jsonFile)
+bool configFileHandler::ConvertCSVtoJSON(const QString &csvFile, const QString& jsonFile)
 {
     QFile loadFile(csvFile);
     if(!loadFile.open(QIODevice::ReadWrite))
     {
         qWarning("configFile error");
-        return;
+        return false;
     }
     QByteArray importdata = loadFile.readAll();
     loadFile.close();
@@ -430,30 +433,36 @@ void configFileHandler::ConvertCSVtoJSON(const QString &csvFile, const QString& 
     QFile imFile(jsonFile);
     if(!imFile.open(QIODevice::ReadWrite))
     {
-        qWarning("export file error");
-        return;
+        qWarning("import file error");
+        return false;
     }
     QByteArray olddata = imFile.readAll();
 
     QJsonDocument loadDoc(QJsonDocument::fromJson(olddata));
     QJsonObject fileObj = loadDoc.object();
 
-    ImportConfig(fileObj, importdata);
+    if(!ImportConfig(fileObj, importdata))
+    {
+        qWarning("import config error");
+        return false;
+    }
 
 
     QJsonDocument writeDoc(fileObj);
     imFile.resize(0);
     imFile.write(writeDoc.toJson());
     imFile.close();
+
+    return true;
 }
 
-void configFileHandler::ConvertJSONtoCSV(const QString &jsonFile, const QString& csvFile)
+bool configFileHandler::ConvertJSONtoCSV(const QString &jsonFile, const QString& csvFile)
 {
     QFile loadFile(jsonFile);
     if(!loadFile.open(QIODevice::ReadWrite))
     {
         qWarning("configFile error");
-        return;
+        return false;
     }
     QByteArray data = loadFile.readAll();
     loadFile.close();
@@ -476,11 +485,12 @@ void configFileHandler::ConvertJSONtoCSV(const QString &jsonFile, const QString&
     if(!exFile.open(QIODevice::ReadWrite))
     {
         qWarning("export file error");
-        return;
+        return false;
     }
     exFile.resize(0);
     exFile.write(fileData.toLocal8Bit());
     exFile.close();
+    return true;
 }
 QString configFileHandler::ParsePlan(const QJsonArray& obj)
 {

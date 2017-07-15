@@ -421,7 +421,7 @@ public:
     Q_INVOKABLE QObject* getSwitch(const QString& name);
 
     Q_INVOKABLE void onComplete();
-    Q_INVOKABLE void onSave();
+    Q_INVOKABLE bool onSave();
     Q_INVOKABLE void commitParam(int planIndex, int stepIndex, const QString& paramName, const QVariant& value);
 
     Q_INVOKABLE int getBoardTypeIndexByPosition(int index);
@@ -545,7 +545,7 @@ signals:
     void MachineConfigChanged();
 
 public slots:
-    void onMachineConfigChanged();
+    bool onMachineConfigChanged();
 
 
 private:
@@ -590,8 +590,8 @@ class ConfigFileConverter:public QObject
 public:
     ConfigFileConverter(QObject* parent = NULL): QObject(parent){}
 
-    Q_INVOKABLE void importConfigFile(const QUrl& filename);
-    Q_INVOKABLE void exportConfigFile(const QUrl& filename);
+    Q_INVOKABLE bool importConfigFile(const QUrl& filename);
+    Q_INVOKABLE bool exportConfigFile(const QUrl& filename);
 };
 
 

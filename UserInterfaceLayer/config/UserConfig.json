@@ -7,20 +7,20 @@
                 {
                     "operation": "Load Tip",
                     "params": {
-                        "boardType": 1,
-                        "onBoardIndex": 1,
-                        "position": 0,
-                        "tipIndex": 1
+                        "boardType": 0,
+                        "onBoardIndex": 0,
+                        "position": 6,
+                        "tipIndex": 0
                     },
                     "sequenceNumber": 1
                 },
                 {
                     "operation": "Dump Tip",
                     "params": {
-                        "boardType": 1,
-                        "onBoardIndex": 1,
-                        "position": 0,
-                        "tipIndex": 1
+                        "boardType": 0,
+                        "onBoardIndex": 0,
+                        "position": 6,
+                        "tipIndex": 0
                     },
                     "sequenceNumber": 2
                 }
@@ -32,10 +32,10 @@
                 {
                     "operation": "Load Tip",
                     "params": {
-                        "boardType": 1,
-                        "onBoardIndex": 1,
-                        "position": 0,
-                        "tipIndex": 1
+                        "boardType": 0,
+                        "onBoardIndex": 0,
+                        "position": 6,
+                        "tipIndex": 0
                     },
                     "sequenceNumber": 1
                 },
@@ -43,15 +43,15 @@
                     "operation": "Suction",
                     "params": {
                         "boardType": 1,
-                        "onBoardIndex": 1,
+                        "onBoardIndex": 0,
                         "position": 0,
                         "postSuction": false,
                         "postSuctionVolume": 0,
                         "preSuction": false,
                         "preSuctionVolume": 0,
-                        "speed": 1,
+                        "speed": 0,
                         "suctionHeight": 0,
-                        "tipIndex": 1,
+                        "tipIndex": 0,
                         "volume": 0
                     },
                     "sequenceNumber": 2
@@ -63,10 +63,10 @@
                         "drain": false,
                         "drainHeight": 0,
                         "drainVolume": 0,
-                        "onBoardIndex": 1,
+                        "onBoardIndex": 0,
                         "position": 0,
-                        "speed": 1,
-                        "tipIndex": 1
+                        "speed": 0,
+                        "tipIndex": 0
                     },
                     "sequenceNumber": 3
                 },
@@ -74,17 +74,17 @@
                     "operation": "Mix",
                     "params": {
                         "boardType": 1,
-                        "cycleCount": 1,
+                        "cycleCount": 0,
                         "drainHeight": 0,
-                        "onBoardIndex": 1,
+                        "onBoardIndex": 0,
                         "position": 0,
                         "postSuction": false,
                         "postSuctionVolume": 0,
                         "preSuction": false,
                         "preSuctionVolume": 0,
-                        "speed": 1,
+                        "speed": 0,
                         "suctionHeight": 0,
-                        "tipIndex": 1,
+                        "tipIndex": 0,
                         "volume": 0
                     },
                     "sequenceNumber": 4
@@ -92,10 +92,10 @@
                 {
                     "operation": "Dump Tip",
                     "params": {
-                        "boardType": 1,
-                        "onBoardIndex": 1,
-                        "position": 0,
-                        "tipIndex": 1
+                        "boardType": 0,
+                        "onBoardIndex": 0,
+                        "position": 6,
+                        "tipIndex": 0
                     },
                     "sequenceNumber": 5
                 }
@@ -107,20 +107,20 @@
                 {
                     "operation": "Load Tip",
                     "params": {
-                        "boardType": "1",
-                        "onBoardIndex": "1",
-                        "position": "0",
-                        "tipIndex": "1"
+                        "boardType": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "tipIndex": 0
                     },
                     "sequenceNumber": 1
                 },
                 {
                     "operation": "Dump Tip",
                     "params": {
-                        "boardType": "1",
-                        "onBoardIndex": "1",
-                        "position": "0",
-                        "tipIndex": "1"
+                        "boardType": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "tipIndex": 0
                     },
                     "sequenceNumber": 2
                 }
@@ -132,70 +132,270 @@
                 {
                     "operation": "Load Tip",
                     "params": {
-                        "boardType": "1",
-                        "onBoardIndex": "1",
-                        "position": "0",
-                        "tipIndex": "1"
+                        "boardType": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "tipIndex": 0
                     },
                     "sequenceNumber": 1
                 },
                 {
                     "operation": "Suction",
                     "params": {
-                        "boardType": "1",
-                        "onBoardIndex": "1",
-                        "position": "0",
-                        "postSuction": "0",
-                        "postSuctionVolume": "0",
-                        "preSuction": "0",
-                        "preSuctionVolume": "0",
-                        "speed": "1",
-                        "suctionHeight": "0",
-                        "tipIndex": "1",
-                        "volume": "0"
+                        "boardType": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "postSuction": false,
+                        "postSuctionVolume": 0,
+                        "preSuction": false,
+                        "preSuctionVolume": 0,
+                        "speed": 0,
+                        "suctionHeight": 0,
+                        "tipIndex": 0,
+                        "volume": 0
                     },
                     "sequenceNumber": 2
                 },
                 {
                     "operation": "Dispense",
                     "params": {
-                        "boardType": "1",
-                        "drain": "0",
-                        "drainHeight": "0",
-                        "drainVolume": "0",
-                        "onBoardIndex": "1",
-                        "position": "0",
-                        "speed": "1",
-                        "tipIndex": "1"
+                        "boardType": 0,
+                        "drain": false,
+                        "drainHeight": 0,
+                        "drainVolume": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "speed": 0,
+                        "tipIndex": 0
                     },
                     "sequenceNumber": 3
                 },
                 {
                     "operation": "Mix",
                     "params": {
-                        "boardType": "1",
-                        "cycleCount": "1",
-                        "drainHeight": "0",
-                        "onBoardIndex": "1",
-                        "position": "0",
-                        "postSuction": "0",
-                        "postSuctionVolume": "0",
-                        "preSuction": "0",
-                        "preSuctionVolume": "0",
-                        "speed": "1",
-                        "suctionHeight": "0",
-                        "tipIndex": "1",
-                        "volume": "0"
+                        "boardType": 0,
+                        "cycleCount": 0,
+                        "drainHeight": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "postSuction": false,
+                        "postSuctionVolume": 0,
+                        "preSuction": false,
+                        "preSuctionVolume": 0,
+                        "speed": 0,
+                        "suctionHeight": 0,
+                        "tipIndex": 0,
+                        "volume": 0
                     },
                     "sequenceNumber": 4
                 },
                 {
                     "operation": "Dump Tip",
                     "params": {
-                        "boardType": "1",
-                        "onBoardIndex": "1",
-                        "position": "0",
-                        "tipIndex": "1"
+                        "boardType": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "tipIndex": 0
+                    },
+                    "sequenceNumber": 5
+                }
+            ]
+        },
+        {
+            "name": "2",
+            "operations": [
+                {
+                    "operation": "Load Tip",
+                    "params": {
+                        "boardType": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "tipIndex": 0
+                    },
+                    "sequenceNumber": 1
+                },
+                {
+                    "operation": "Dump Tip",
+                    "params": {
+                        "boardType": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "tipIndex": 0
+                    },
+                    "sequenceNumber": 2
+                }
+            ]
+        },
+        {
+            "name": "2",
+            "operations": [
+                {
+                    "operation": "Load Tip",
+                    "params": {
+                        "boardType": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "tipIndex": 0
+                    },
+                    "sequenceNumber": 1
+                },
+                {
+                    "operation": "Suction",
+                    "params": {
+                        "boardType": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "postSuction": false,
+                        "postSuctionVolume": 0,
+                        "preSuction": false,
+                        "preSuctionVolume": 0,
+                        "speed": 0,
+                        "suctionHeight": 0,
+                        "tipIndex": 0,
+                        "volume": 0
+                    },
+                    "sequenceNumber": 2
+                },
+                {
+                    "operation": "Dispense",
+                    "params": {
+                        "boardType": 0,
+                        "drain": false,
+                        "drainHeight": 0,
+                        "drainVolume": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "speed": 0,
+                        "tipIndex": 0
+                    },
+                    "sequenceNumber": 3
+                },
+                {
+                    "operation": "Mix",
+                    "params": {
+                        "boardType": 0,
+                        "cycleCount": 0,
+                        "drainHeight": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "postSuction": false,
+                        "postSuctionVolume": 0,
+                        "preSuction": false,
+                        "preSuctionVolume": 0,
+                        "speed": 0,
+                        "suctionHeight": 0,
+                        "tipIndex": 0,
+                        "volume": 0
+                    },
+                    "sequenceNumber": 4
+                },
+                {
+                    "operation": "Dump Tip",
+                    "params": {
+                        "boardType": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "tipIndex": 0
+                    },
+                    "sequenceNumber": 5
+                }
+            ]
+        },
+        {
+            "name": "2",
+            "operations": [
+                {
+                    "operation": "Load Tip",
+                    "params": {
+                        "boardType": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "tipIndex": 0
+                    },
+                    "sequenceNumber": 1
+                },
+                {
+                    "operation": "Dump Tip",
+                    "params": {
+                        "boardType": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "tipIndex": 0
+                    },
+                    "sequenceNumber": 2
+                }
+            ]
+        },
+        {
+            "name": "2",
+            "operations": [
+                {
+                    "operation": "Load Tip",
+                    "params": {
+                        "boardType": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "tipIndex": 0
+                    },
+                    "sequenceNumber": 1
+                },
+                {
+                    "operation": "Suction",
+                    "params": {
+                        "boardType": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "postSuction": false,
+                        "postSuctionVolume": 0,
+                        "preSuction": false,
+                        "preSuctionVolume": 0,
+                        "speed": 0,
+                        "suctionHeight": 0,
+                        "tipIndex": 0,
+                        "volume": 0
+                    },
+                    "sequenceNumber": 2
+                },
+                {
+                    "operation": "Dispense",
+                    "params": {
+                        "boardType": 0,
+                        "drain": false,
+                        "drainHeight": 0,
+                        "drainVolume": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "speed": 0,
+                        "tipIndex": 0
+                    },
+                    "sequenceNumber": 3
+                },
+                {
+                    "operation": "Mix",
+                    "params": {
+                        "boardType": 0,
+                        "cycleCount": 0,
+                        "drainHeight": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "postSuction": false,
+                        "postSuctionVolume": 0,
+                        "preSuction": false,
+                        "preSuctionVolume": 0,
+                        "speed": 0,
+                        "suctionHeight": 0,
+                        "tipIndex": 0,
+                        "volume": 0
+                    },
+                    "sequenceNumber": 4
+                },
+                {
+                    "operation": "Dump Tip",
+                    "params": {
+                        "boardType": 0,
+                        "onBoardIndex": 0,
+                        "position": 0,
+                        "tipIndex": 0
                     },
                     "sequenceNumber": 5
                 }
@@ -204,7 +404,7 @@
     ],
     "target": {
         "IP": "127.0.0.44",
-        "maxReceiveTime": 30,
+        "maxReceiveTime": 20,
         "port": 20000
     },
     "workSpace": {
@@ -384,9 +584,141 @@
                         "name": "null"
                     }
                 ]
+            },
+            {
+                "count": 12,
+                "name": "999",
+                "type": [
+                    {
+                        "name": "tipBox",
+                        "volume": "20"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "tipBox",
+                        "volume": "500"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "tipBox"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "megneticSeperation"
+                    }
+                ]
+            },
+            {
+                "count": 12,
+                "name": "999",
+                "type": [
+                    {
+                        "name": "tipBox",
+                        "volume": "20"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "tipBox",
+                        "volume": "500"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "tipBox"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "megneticSeperation"
+                    }
+                ]
+            },
+            {
+                "count": 12,
+                "name": "asdf",
+                "type": [
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "tipBox",
+                        "volume": "250"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "tipBox",
+                        "volume": "258"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    }
+                ]
             }
         ],
-        "current": 3,
+        "current": 6,
         "default": {
             "count": 12,
             "name": "",

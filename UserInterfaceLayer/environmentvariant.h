@@ -49,12 +49,12 @@ public:
     void SetPlanName(int planIndex, const QString& name);
     void AddPlan(const QString& name);
     void RemovePlan(int planIndex);
-    void SavePlan();
+    bool SavePlan();
 
     void StartPlan(int planIndex, int stepIndex);
     void StopPlan();
 
-    void SaveMachineConfig(const MachineConfigData& data);
+    bool SaveMachineConfig(const MachineConfigData& data);
 
 
     QJsonObject formatSingleOperationParam(const SingleOperationData & obj);
@@ -79,8 +79,10 @@ public:
 
     int getBoardTypeIndexByPosition(int index);
 
-    void ImportConfig(const QString& file);
-    void ExportConfig(const QString& file);
+    bool ImportConfig(const QString& file);
+    bool ExportConfig(const QString& file);
+
+    void reloadUserConfig();
 
 signals:
     void workLocationTypeChanged();

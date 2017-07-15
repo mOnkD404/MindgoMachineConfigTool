@@ -490,11 +490,12 @@ QString configFileHandler::ParsePlan(const QJsonArray& obj)
         QJsonObject planObj = iter->toObject();
         //plan header
         QString headerString;
-        headerString += "Plan name,";
+        headerString += "plan name,";
         headerString += planObj["name"].toString();
         headerString += ',';
-        headerString += "\r\n,";
+        headerString += "\r\n";
         //param header
+        headerString += "params,";
         QStringList paramList;
 
         QJsonArray opArray = planObj["operations"].toArray();
@@ -535,6 +536,7 @@ QString configFileHandler::ParsePlan(const QJsonArray& obj)
 
             retString += opString;
         }
+        retString += "plan end\r\n";
         retString+="\r\n";
     }
     retString += "\r\n";
@@ -542,54 +544,57 @@ QString configFileHandler::ParsePlan(const QJsonArray& obj)
 }
 QString configFileHandler::ParseWorkSpace(const QJsonObject& obj)
 {
-    int currentIndex = obj["current"].toInt();
+//    int currentIndex = obj["current"].toInt();
     QJsonArray wkConfig = obj["config"].toArray();
-    if(currentIndex < 0 || currentIndex >= wkConfig.size())
-        return QString();
+//    if(currentIndex < 0 || currentIndex >= wkConfig.size())
+//        return QString();
 
-    QJsonObject convertObj = wkConfig.at(currentIndex).toObject();
     QString retString;
-    //header
-    retString += "work space name,"+convertObj["name"].toString()+"\r\n";
-    //paramheader
-    QString paramHeaderString(",");
-    QString boardString;
-    QStringList paramList;
-    QJsonArray typeArray = convertObj["type"].toArray();
-    for(QJsonArray::Iterator iter = typeArray.begin(); iter != typeArray.end(); iter++)
+    for(QJsonArray::iterator iter = wkConfig.begin(); iter != wkConfig.end(); iter++)
     {
-        QJsonObject board = iter->toObject();
-
-        boardString += board["name"].toString();
-        boardString += ',';
-
-        for(QJsonObject::Iterator iter2 = board.begin(); iter2 != board.end(); iter2++)
+        QJsonObject convertObj = iter->toObject();
+        //header
+        retString += "work space name,"+convertObj["name"].toString()+"\r\n";
+        //paramheader
+        QString paramHeaderString("params,");
+        QString boardString;
+        QStringList paramList;
+        QJsonArray typeArray = convertObj["type"].toArray();
+        for(QJsonArray::Iterator iter = typeArray.begin(); iter != typeArray.end(); iter++)
         {
-            if(iter2.key() != "name")
+            QJsonObject board = iter->toObject();
+
+            boardString += board["name"].toString();
+            boardString += ',';
+
+            for(QJsonObject::Iterator iter2 = board.begin(); iter2 != board.end(); iter2++)
             {
-                if(!paramList.contains(iter2.key()))
+                if(iter2.key() != "name")
                 {
-                    paramList.push_back(iter2.key());
-                    paramHeaderString+=(iter2.key() + ',');
+                    if(!paramList.contains(iter2.key()))
+                    {
+                        paramList.push_back(iter2.key());
+                        paramHeaderString+=(iter2.key() + ',');
+                    }
                 }
             }
-        }
 
-        for(int index = 0; index < paramList.size(); index++)
-        {
-            if(board.contains(paramList[index]))
+            for(int index = 0; index < paramList.size(); index++)
             {
-                boardString+=QString::number(board[paramList[index]].toInt());
+                if(board.contains(paramList[index]))
+                {
+                    boardString+=QString::number(board[paramList[index]].toInt());
+                }
+                boardString+=',';
             }
-            boardString+=',';
+
+            boardString+="\r\n";
         }
-
-        boardString+="\r\n";
+        retString += paramHeaderString;
+        retString += "\r\n";
+        retString += boardString;
+        retString += "work space end\r\n\r\n";
     }
-    retString += paramHeaderString;
-    retString += "\r\n";
-    retString += boardString;
-
     return retString;
 }
 
@@ -616,6 +621,9 @@ bool configFileHandler::ImportConfig(QJsonObject& fileObj, const QByteArray&impo
 
 bool configFileHandler::ImportWorkSpace(const QList<QByteArray> & lines, QJsonObject& fileObj)
 {
+    QJsonObject workSpaceOld = fileObj["workSpace"].toObject();
+    QJsonArray configArray = workSpaceOld["config"].toArray();
+
     QJsonObject workSpaceObj;
 
     bool header = false;
@@ -643,7 +651,7 @@ bool configFileHandler::ImportWorkSpace(const QList<QByteArray> & lines, QJsonOb
             QList<QByteArray> words = iter->split(',');
             for(QList<QByteArray>::iterator iter2 = words.begin(); iter2 != words.end(); iter2++)
             {
-                if(!QString(*iter2).isEmpty() && iter2->at(0) != '\r')
+                if(!QString(*iter2).isEmpty() && iter2->at(0) != '\r'&& *iter2!= "params")
                     paramList.push_back(*iter2);
             }
             params = true;
@@ -653,7 +661,21 @@ bool configFileHandler::ImportWorkSpace(const QList<QByteArray> & lines, QJsonOb
             QList<QByteArray> words = iter->split(',');
             if(words.isEmpty() || words[0]=="")
             {
-                break;
+                continue;
+            }
+            if(words[0] == "work space end")
+            {
+                workSpaceObj["type"] = typeArray;
+                workSpaceObj["count"] = count;
+                configArray.append(workSpaceObj);
+
+                header = false;
+                params = false;
+                paramList.clear();
+                count = 0;
+                typeArray = QJsonArray();
+
+                continue;
             }
             QJsonObject singleSpace;
             singleSpace["name"] = QString(words[0]);
@@ -669,12 +691,7 @@ bool configFileHandler::ImportWorkSpace(const QList<QByteArray> & lines, QJsonOb
             count++;
         }
     }
-    workSpaceObj["type"] = typeArray;
-    workSpaceObj["count"] = count;
 
-    QJsonObject workSpaceOld = fileObj["workSpace"].toObject();
-    QJsonArray configArray = workSpaceOld["config"].toArray();
-    configArray.append(workSpaceObj);
     workSpaceOld["config"] = configArray;
     workSpaceOld["current"] = configArray.size()-1;
     fileObj.remove("workSpace");
@@ -685,11 +702,11 @@ bool configFileHandler::ImportWorkSpace(const QList<QByteArray> & lines, QJsonOb
 
 bool configFileHandler::ImportPlan(const QList<QByteArray> & lines, QJsonObject& fileObj)
 {
-    QJsonArray planListObj;
+    QJsonArray planArray = fileObj["plan"].toArray();
 
     bool header = false;
     bool params = false;
-    const char* workHeaderName = "Plan name";
+    const char* workHeaderName = "plan name";
     QStringList paramList;
     int seq = 1;
     QJsonArray singlePlan;
@@ -714,7 +731,7 @@ bool configFileHandler::ImportPlan(const QList<QByteArray> & lines, QJsonObject&
             QList<QByteArray> words = iter->split(',');
             for(QList<QByteArray>::iterator iter2 = words.begin(); iter2 != words.end(); iter2++)
             {
-                if(!QString(*iter2).isEmpty() && iter2->at(0) != '\r')
+                if(!QString(*iter2).isEmpty() && iter2->at(0) != '\r' && *iter2!= "params")
                     paramList.push_back(*iter2);
             }
             params = true;
@@ -724,10 +741,14 @@ bool configFileHandler::ImportPlan(const QList<QByteArray> & lines, QJsonObject&
             QList<QByteArray> words = iter->split(',');
             if(words.isEmpty() || words[0]=="")
             {
+                continue;
+            }
+            if(words[0] == "plan end")
+            {
                 QJsonObject planObj;
                 planObj["name"] = planName;
                 planObj["operations"] = singlePlan;
-                planListObj.append(planObj);
+                planArray.append(planObj);
 
                 header = false;
                 params = false;
@@ -740,14 +761,15 @@ bool configFileHandler::ImportPlan(const QList<QByteArray> & lines, QJsonObject&
             }
             QJsonObject operation;
             operation["operation"] = QString(words[0]);
+            QJsonObject paramObj;
             for(int index = 0; index < words.size(); index++)
             {
                 if(index > 0 && !words.at(index).isEmpty() && words.at(index)!="\r" && paramList.size() > index-1)
                 {
-                    operation[paramList.at(index-1)] = QString::number(words.at(index).toInt());
-
+                    paramObj[paramList.at(index-1)] = QString::number(words.at(index).toInt());
                 }
             }
+            operation["params"] =paramObj;
             operation["sequenceNumber"] = seq;
             singlePlan.append(operation);
             seq++;
@@ -755,7 +777,7 @@ bool configFileHandler::ImportPlan(const QList<QByteArray> & lines, QJsonObject&
     }
 
     fileObj.remove("plan");
-    fileObj["plan"] = planListObj;
+    fileObj["plan"] = planArray;
 
     return true;
 }

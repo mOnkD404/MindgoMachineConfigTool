@@ -100,6 +100,106 @@
                     "sequenceNumber": 5
                 }
             ]
+        },
+        {
+            "name": "2",
+            "operations": [
+                {
+                    "operation": "Load Tip",
+                    "params": {
+                        "boardType": "1",
+                        "onBoardIndex": "1",
+                        "position": "0",
+                        "tipIndex": "1"
+                    },
+                    "sequenceNumber": 1
+                },
+                {
+                    "operation": "Dump Tip",
+                    "params": {
+                        "boardType": "1",
+                        "onBoardIndex": "1",
+                        "position": "0",
+                        "tipIndex": "1"
+                    },
+                    "sequenceNumber": 2
+                }
+            ]
+        },
+        {
+            "name": "2",
+            "operations": [
+                {
+                    "operation": "Load Tip",
+                    "params": {
+                        "boardType": "1",
+                        "onBoardIndex": "1",
+                        "position": "0",
+                        "tipIndex": "1"
+                    },
+                    "sequenceNumber": 1
+                },
+                {
+                    "operation": "Suction",
+                    "params": {
+                        "boardType": "1",
+                        "onBoardIndex": "1",
+                        "position": "0",
+                        "postSuction": "0",
+                        "postSuctionVolume": "0",
+                        "preSuction": "0",
+                        "preSuctionVolume": "0",
+                        "speed": "1",
+                        "suctionHeight": "0",
+                        "tipIndex": "1",
+                        "volume": "0"
+                    },
+                    "sequenceNumber": 2
+                },
+                {
+                    "operation": "Dispense",
+                    "params": {
+                        "boardType": "1",
+                        "drain": "0",
+                        "drainHeight": "0",
+                        "drainVolume": "0",
+                        "onBoardIndex": "1",
+                        "position": "0",
+                        "speed": "1",
+                        "tipIndex": "1"
+                    },
+                    "sequenceNumber": 3
+                },
+                {
+                    "operation": "Mix",
+                    "params": {
+                        "boardType": "1",
+                        "cycleCount": "1",
+                        "drainHeight": "0",
+                        "onBoardIndex": "1",
+                        "position": "0",
+                        "postSuction": "0",
+                        "postSuctionVolume": "0",
+                        "preSuction": "0",
+                        "preSuctionVolume": "0",
+                        "speed": "1",
+                        "suctionHeight": "0",
+                        "tipIndex": "1",
+                        "volume": "0"
+                    },
+                    "sequenceNumber": 4
+                },
+                {
+                    "operation": "Dump Tip",
+                    "params": {
+                        "boardType": "1",
+                        "onBoardIndex": "1",
+                        "position": "0",
+                        "tipIndex": "1"
+                    },
+                    "sequenceNumber": 5
+                }
+            ]
         }
     ],
     "target": {
@@ -199,6 +299,50 @@
             },
             {
                 "count": 12,
+                "name": "999",
+                "type": [
+                    {
+                        "name": "tipBox",
+                        "volume": "20"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "tipBox",
+                        "volume": "500"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "tipBox"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "megneticSeperation"
+                    }
+                ]
+            },
+            {
+                "count": 12,
                 "name": "asdf",
                 "type": [
                     {
@@ -242,7 +386,7 @@
                 ]
             }
         ],
-        "current": 2,
+        "current": 3,
         "default": {
             "count": 12,
             "name": "",

@@ -136,45 +136,44 @@ Item {
             TextButton{
                 id:singleStepButton
                 height: 55
-                fontPixelSize: 25
+                fontPixelSize: 22
                 textValue: qsTr("Single step")
                 startColor:"#a9aaac"
                 stopColor:"#6e6d71"
                 borderColor:"#cecece"
 
-                onClicked: subPage.subPageUrl = Qt.resolvedUrl("SingleStepPage.qml")
+                onClicked: subPageRect.state = "showSingleStep"//subPage.subPageUrl = Qt.resolvedUrl("SingleStepPage.qml")
             }
 
             TextButton{
                 id:systemSettingButton
-                height: 55
-                fontPixelSize: 25
+                height: isAdministratorAccount?55:0
+                fontPixelSize: 22
                 textValue: qsTr("System settings")
                 startColor:"#a9aaac"
                 stopColor:"#6e6d71"
                 borderColor:"#cecece"
 
-                onClicked: subPage.subPageUrl = Qt.resolvedUrl("SystemSetting.qml")
+                onClicked: subPageRect.state = "showSystemSetting"//subPage.subPageUrl = Qt.resolvedUrl("SystemSetting.qml")
             }
 
             TextButton{
                 id:planSettingButton
-                height: 55
-                fontPixelSize: 25
+                height: isAdministratorAccount?55:0
+                fontPixelSize: 22
                 textValue: qsTr("Plan settings")
                 startColor:"#a9aaac"
                 stopColor:"#6e6d71"
-                borderColor:"#cecece"
-                enabled: isAdministratorAccount
+                borderColor:"#cecece"                
 
-                onClicked: subPage.subPageUrl = Qt.resolvedUrl("PlanSetting.qml")
+                onClicked: subPageRect.state = "showPlan"//subPage.subPageUrl = Qt.resolvedUrl("PlanSetting.qml")
             }
 
             TextButton{
                 id:startButton
                 textValue: qsTr("Start test")
                 height: 65
-                fontPixelSize: 25
+                fontPixelSize: 22
                 startColor:"#cffe9e"
                 stopColor:"#92d456"
                 borderColor:"#99da73"
@@ -191,7 +190,7 @@ Item {
                 id:stopButton
                 textValue: qsTr("Stop test")
                 height: 65
-                fontPixelSize: 25
+                fontPixelSize: 22
                 startColor:"#cffe9e"
                 stopColor:"#92d456"
                 borderColor:"#99da73"
@@ -211,7 +210,7 @@ Item {
                 id:pauseButton
                 textValue: qsTr("Pause test")
                 height: 65
-                fontPixelSize: 25
+                fontPixelSize: 22
                 startColor:"#cffe9e"
                 stopColor:"#92d456"
                 borderColor:"#99da73"
@@ -226,7 +225,7 @@ Item {
                 id:resumeButton
                 textValue: qsTr("Resume test")
                 height: 65
-                fontPixelSize: 25
+                fontPixelSize: 22
                 startColor:"#a9aaac"
                 stopColor:"#6e6d71"
                 borderColor:"#99da73"
@@ -312,14 +311,14 @@ Item {
     }
 
     Rectangle{
-        property url subPageUrl
+        //property url subPageUrl
         //onSubPageUrlChanged: visible = (subPageUrl == ''?false:true);
 
         id:subPage
         anchors.fill: parent
         color:"transparent"
 
-        visible: subPageUrl == ''?false:true
+        visible: subPageRect.state != ""//subPageUrl == ''?false:true
 
         Rectangle{
             id:subPageheader
@@ -351,27 +350,65 @@ Item {
                 startColor: "#1f1f1f"
                 stopColor: "#1f1f1f"
 
-                onClicked:subPage.subPageUrl = ""
+                onClicked: subPageRect.state = ""//subPage.subPageUrl = ""
             }
         }
 
 
         Rectangle{
+            id: subPageRect
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.bottom: parent.bottom
             anchors.top:subPageheader.bottom
             color: "#414141"
 
-            Loader{
-                id:subLoader
-                focus: true
-                source: subPage.subPageUrl
+//            Loader{
+//                id:subLoader
+//                focus: true
+//                source: subPage.subPageUrl
 
 
+//                anchors.fill: parent
+//            }
+            PlanSetting{
+                id:planPage
                 anchors.fill: parent
+                visible: false
             }
-
+            SingleStepPage{
+                id:singleStepPage
+                anchors.fill: parent
+                visible: false
+            }
+            SystemSetting{
+                id:systemSettingPage
+                anchors.fill: parent
+                visible: false
+            }
+            states:[
+                State{
+                    name:"showSingleStep"
+                    PropertyChanges {
+                        target: singleStepPage
+                        visible:true
+                    }
+                },
+                State{
+                    name:"showSystemSetting"
+                    PropertyChanges {
+                        target: systemSettingPage
+                        visible: true
+                    }
+                },
+                State{
+                    name:"showPlan"
+                    PropertyChanges {
+                        target: planPage
+                        visible: true
+                    }
+                }
+            ]
         }
     }
 

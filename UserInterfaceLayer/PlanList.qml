@@ -1,4 +1,4 @@
-import QtQuick 2.7
+﻿import QtQuick 2.7
 import QtQuick.Controls 2.1
 import Common 1.0
 import QtQml.Models 2.2
@@ -9,7 +9,7 @@ Item {
     id: root    
     clip:true
     function savePlan(){
-        selector.onSave();
+        return selector.onSave();
     }
 
     function setPosition(index){
@@ -27,13 +27,16 @@ Item {
 
     property var columnWidth;
 
-    columnWidth: 135
+    columnWidth: 165
     width: row.width
+    Component.onCompleted: {
+        planColumn.state = "expandPlan"
+    }
 
 
     Row {
         id: row
-        spacing: 4
+        spacing: 10
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left: parent.left
@@ -45,7 +48,7 @@ Item {
             anchors.topMargin: 0
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
-            clip: true
+            clip: true            
 
 
             Behavior on width{
@@ -58,8 +61,15 @@ Item {
                 name:"expandPlan"
                 PropertyChanges {
                     target: planColumn
-                    width: columnWidth*0.8
+                    width: columnWidth
                 }
+            }
+
+            Rectangle{
+                anchors.fill: parent
+                anchors.bottomMargin: 8
+                radius:8
+                color: "#3c747474"
             }
 
             Rectangle{
@@ -70,7 +80,7 @@ Item {
                 anchors.leftMargin: 0
                 anchors.top: parent.top
                 color:"#747474"
-                height: 35
+                height: 40
 
                 Text {
                     text: qsTr("Plan list")
@@ -81,7 +91,7 @@ Item {
                     anchors.bottom: parent.bottom
                     anchors.left: parent.left
                     anchors.right: hideButton.left
-                    font.pixelSize: 17
+                    font.pixelSize: 20
                     font.bold: true
                     width: 120
                     color:"#d9d9d9"
@@ -92,7 +102,7 @@ Item {
                     anchors.right: parent.right
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
-                    anchors.margins: 1
+                    anchors.margins: 3
                     width: height
                     buttonradius: 0
 
@@ -108,12 +118,14 @@ Item {
                 id:planActionbar
                 positionAction: false
 
-                height: 28
+                height: 27
 
                 anchors.top: userPlanSelect.bottom
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.margins: 4
+
+                disableDelete: planListModel.count == 1
 
                 onDoAction: {
                     if(str == "edit"){
@@ -122,7 +134,7 @@ Item {
                         }
                     }else if(str == "add"){
                         planListModel.append({"name":"NewPlan"});
-                        selector.addPlan(planListView.currentIndex, "");
+                        selector.addPlan("");
                         planListView.currentIndex = planListModel.count - 1;
                         stepListView.refreshStepListModel();
                         planListView.currentItem.inEdit = true;
@@ -149,11 +161,11 @@ Item {
                 anchors.left: parent.left
                 anchors.leftMargin: 4
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 4
+                anchors.bottomMargin: 8
 
                 clip: true
                 highlight: Rectangle{
-                    height: 30
+                    height: 40
                     anchors.left: parent.left
                     anchors.right: parent.right
 
@@ -167,7 +179,7 @@ Item {
 
                 delegate: Item{
                     property bool inEdit: false
-                    height: 30
+                    height: 40
                     anchors.left:parent.left
                     anchors.leftMargin: 0
                     anchors.right: parent.right
@@ -178,10 +190,10 @@ Item {
                         id:inputArea
                         visible: inEdit
 
-                        height: 30
+                        height: 40
                         font.italic: true
                         verticalAlignment: Text.AlignVCenter
-                        font.pointSize: 20
+                        font.pointSize: 22
 
                         anchors.left:parent.left
                         anchors.leftMargin: 0
@@ -215,13 +227,13 @@ Item {
                     TextButton {
                         visible: !inEdit
 
-                        height: 30
+                        height: 40
                         anchors.left:parent.left
                         anchors.leftMargin: 0
                         anchors.right: parent.right
                         anchors.rightMargin: 0
 
-                        fontPixelSize: 17
+                        fontPixelSize: 20
 
 
                         buttonradius: 0
@@ -240,8 +252,15 @@ Item {
 
                 }
                 Component.onCompleted: {
-                    refreshPlanListModel();
-                    stepListView.refreshStepListModel();
+//                    refreshPlanListModel();
+//                    stepListView.refreshStepListModel();
+                }
+                onVisibleChanged: {
+                    if(visible){
+                        refreshPlanListModel();
+                        stepListView.refreshStepListModel()
+
+                    }
                 }
 
                 function refreshPlanListModel(){
@@ -258,11 +277,18 @@ Item {
 
         Item {
             id: stepColumn
-            width: columnWidth
+            width: columnWidth*1.2
             anchors.top: parent.top
             anchors.topMargin: 0
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
+
+            Rectangle{
+                anchors.fill: parent
+                anchors.bottomMargin: 8
+                radius:8
+                color: "#3c747474"
+            }
 
             Rectangle{
                 id: stepList
@@ -272,14 +298,14 @@ Item {
                 anchors.leftMargin: 0
                 anchors.top: parent.top
                 color:"#747474"
-                height: 35
+                height: 40
 
                 TextButton{
                     id: expandButton
                     anchors.left: parent.left
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
-                    anchors.margins: 1
+                    anchors.margins: 3
                     width: height
                     buttonradius: 0
 
@@ -300,7 +326,7 @@ Item {
                     anchors.bottom: parent.bottom
                     anchors.right: parent.right
                     anchors.left: expandButton.visible?expandButton.right:parent.left
-                    font.pixelSize: 17
+                    font.pixelSize: 20
                     font.bold: true
                     //width: 120
                     color:"#d9d9d9"
@@ -310,15 +336,16 @@ Item {
             ActionBar{
                 id:stepActionBar
 
-                height: 28
+                height: 27
 
-                positionAction: false
+                //positionAction: false
                 anchors.top: stepList.bottom
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.margins: 4
 
                 onDoAction: {
+                    stepListView.expandAll();
                     if (str == "add"){
                         operationColumn.changeOperation = "add"
                         operationColumn.state = "expandOperation";
@@ -350,12 +377,12 @@ Item {
                 id:stepListModel
             }
 
-            DelegateModel{
-                id:stepVisualModel
+//            DelegateModel{
+//                id:stepVisualModel
 
-                model: stepListModel
-                delegate:stepDelegate
-            }
+//                model: stepListModel
+//                delegate:stepDelegate
+//            }
 
             ListView {
                 id: stepListView
@@ -376,7 +403,7 @@ Item {
                     var list = selector.stepListModel(planListView.currentIndex);
                     stepListModel.clear();
                     for(var ind = 0; ind < list.length; ind++){
-                        stepListModel.append({"name":list[ind]});
+                        stepListModel.append({"name":list[ind],"showStep":true});
                     }
                     if(stepListModel.count > 0){
                         currentIndex = 0;
@@ -386,9 +413,33 @@ Item {
                         currentIndex = -1;
                     }
                 }
+                
+                //return visible status
+                function toggleGroup(index){
+                    var retVal = true;
+                    for(var cur = index+1; cur < stepListModel.count; cur++){
+                        if( stepListModel.get(cur).name.substring(0,2)=="分组"){
+                            break;
+                        }else{
+                            var vi = stepListModel.get(cur).showStep;
+                            stepListModel.setProperty(cur, "showStep", !vi);
+                            retVal = !vi;
+                        }
+                    }
+                    return retVal;
+                }
+
+                function expandAll(){
+                    for(var cur = 0; cur < stepListModel.count; cur++){
+                        if( stepListModel.get(cur).name.substring(0,2)!="分组"){
+                            var vi = stepListModel.get(cur).showStep;
+                            stepListModel.setProperty(cur, "showStep", true);
+                        }
+                    }
+                }
 
                 cacheBuffer: 1000
-                spacing: 2
+                spacing: 0
                 anchors.top: stepActionBar.bottom
                 anchors.topMargin: 4
                 anchors.right: parent.right
@@ -396,18 +447,16 @@ Item {
                 anchors.left: parent.left
                 anchors.leftMargin: 4
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 4
-                model: stepVisualModel
-                //delegate: stepDelegate
-                highlightMoveDuration:200
+                anchors.bottomMargin: 10
+                model: stepListModel
+                delegate: stepDelegate
+                highlightMoveDuration:100
                 //highlightRangeMode: ListView.ApplyRange
                 snapMode: ListView.SnapToItem
 
-
-
                 clip: true
                 highlight: Rectangle{
-                    height: 30
+                    height: 40
 
                     color: "#5cc5ff"
                     radius: 0
@@ -468,7 +517,15 @@ Item {
                     holding:false
 
                     width: parent.width
-                    height: 35
+                    height: showStep?40:0
+
+                    Behavior on height {
+                        PropertyAnimation{
+                            easing.type: Easing.InOutSine
+                            duration:200
+                        }
+                    }
+
                     anchors.left:parent.left
                     anchors.leftMargin: 0
                     anchors.right: parent.right
@@ -483,7 +540,7 @@ Item {
 
 
                         width: stepContent.width
-                        height: 35
+                        height: 40
                         anchors {
                             horizontalCenter: parent.horizontalCenter
                             verticalCenter: parent.verticalCenter
@@ -500,12 +557,13 @@ Item {
                         Text{
                             id:textItem
                             anchors.fill: parent
-                            horizontalAlignment: Text.AlignHCenter
+                            anchors.leftMargin: 18
+                            horizontalAlignment: Text.AlignLeft//Text.AlignHCenter
 
                             text:(index+1) + ". " + name
                             color:"#e1e8e2"
 
-                            font.pixelSize: 17
+                            font.pixelSize: 20
                             font.bold: true
                             verticalAlignment: Text.AlignVCenter
                             styleColor: "#3a3a3a"
@@ -513,10 +571,61 @@ Item {
 
                         }
 
+                        Rectangle{
+                            id:collapseContent
+                            property bool collapsed: false
+                            anchors.top: parent.top
+                            anchors.right: parent.right
+                            anchors.bottom: parent.bottom
+                            anchors.margins: 5
+                            radius: 4
+                            width: height
+                            color: collapseButton.pressed?"lightblue":"transparent"
+                            border.color: "#e1e8e2"
+                            border.width: 1
+                            visible:(name.substring(0,2) == "分组")
+                            clip:true
+                            rotation: collapseContent.collapsed?0:-90
+
+                            Behavior on rotation{
+                                PropertyAnimation{
+                                    duration: 100
+                                }
+                            }
+
+                            Text{
+                                anchors.fill: parent
+                                anchors.margins: 4
+                                text:"<"
+                                color:"#e1e8e2"
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+
+                            }
+
+                            MouseArea{
+                                id: collapseButton
+                                anchors.fill: parent
+
+                                onClicked: {
+                                    stepContent.clicked(mouse);
+                                    if(name.substring(0,2) == "分组"){
+                                        if (stepListView.toggleGroup(stepContent.DelegateModel.itemsIndex)){
+                                            collapseContent.collapsed = false;
+                                        }else{
+                                            collapseContent.collapsed = true;
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+
                         Drag.active: stepContent.holding
                         Drag.source: stepContent
                         Drag.hotSpot.x: width / 2
                         Drag.hotSpot.y: height / 2
+                        Drag.keys: "reorder"
 
                         states: State {
                             when: stepContent.holding
@@ -625,12 +734,14 @@ Item {
                             stepListView.highlightMoveDuration = 0;
                             stepListView.currentIndex = stepContent.DelegateModel.itemsIndex;
                             stepListView.highlightMoveDuration = 200;
+                        }else{
                         }
                     }
 
                     onPressAndHold: {
                         stepListView.currentIndex = -1;
                         holding = true;
+                        stepListView.expandAll();
                     }
                     drag.target: holding ? content : undefined
                     drag.axis: Drag.YAxis
@@ -638,18 +749,23 @@ Item {
                     DropArea {
                         id: dropDelegate
                         anchors { fill: parent; margins: 2 }
+                        keys: ["reorder","add"]
 
                         onEntered: {
-                            if(stepListView.scrollingDirection == 0){
-                                if(drag.source.DelegateModel.itemsIndex != stepContent.DelegateModel.itemsIndex){
-                                    console.debug("drag index "+drag.source.DelegateModel.itemsIndex+" drop index "+stepContent.DelegateModel.itemsIndex);
-                                    selector.moveStep(planListView.currentIndex, drag.source.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex);
-                                    stepListModel.move(drag.source.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex, 1);
-                                    //stepVisualModel.items.move(drag.source.DelegateModel.itemsIndex,stepContent.DelegateModel.itemsIndex);
-                                    //judgeListScroll(drag.x, drag.y);
+                            console.debug("drag enter "+drag.keys);
+                            if(drag.keys == "reorder"){
+                                if(stepListView.scrollingDirection == 0){
+                                    if(drag.source.DelegateModel.itemsIndex != stepContent.DelegateModel.itemsIndex){
+                                        console.debug("drag index "+drag.source.DelegateModel.itemsIndex+" drop index "+stepContent.DelegateModel.itemsIndex);
+                                        selector.moveStep(planListView.currentIndex, drag.source.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex);
+                                        stepListModel.move(drag.source.DelegateModel.itemsIndex, stepContent.DelegateModel.itemsIndex, 1);
+                                        //stepVisualModel.items.move(drag.source.DelegateModel.itemsIndex,stepContent.DelegateModel.itemsIndex);
+                                        //judgeListScroll(drag.x, drag.y);
+                                    }
                                 }
-                            }
+                            }else if(drag.keys == "add"){
 
+                            }
                         }
 //                        onPositionChanged: {
 //                            judgeListScroll(drag.x, drag.y);
@@ -701,6 +817,12 @@ Item {
                     duration: 200
                 }
             }
+            Rectangle{
+                anchors.fill: parent
+                anchors.bottomMargin: 8
+                radius:8
+                color: "#3c747474"
+            }
 
             Rectangle{
                 id: operationType
@@ -710,14 +832,14 @@ Item {
                 anchors.leftMargin: 0
                 anchors.top: parent.top
                 color:"#747474"
-                height: 35
+                height: 40
 
                 Text {
                     text: qsTr("Operation type")
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     anchors.fill: parent
-                    font.pixelSize: 17
+                    font.pixelSize: 20
                     font.bold: true
                     width: 120
                     color:"#d9d9d9"
@@ -736,12 +858,13 @@ Item {
                 anchors.right: parent.right
                 anchors.rightMargin: 10
                 anchors.left: parent.left
-                anchors.leftMargin: 10                anchors.bottom: parent.bottom
+                anchors.leftMargin: 10
+                anchors.bottom: parent.bottom
                 anchors.bottomMargin: 10
 
                 clip: true
                 highlight: Rectangle{
-                    height: 30
+                    height: 40
 
                     color: "#5cc5ff"
                     radius: 0
@@ -757,14 +880,14 @@ Item {
                 interactive: false
 
                 delegate: TextButton {
-                    height: 30
+                    height: 40
 
                     anchors.left:parent.left
                     anchors.leftMargin: 0
                     anchors.right: parent.right
                     anchors.rightMargin: 0
 
-                    fontPixelSize:18
+                    fontPixelSize:20
 
 
                     buttonradius: 0
@@ -780,7 +903,7 @@ Item {
 
                         if(operationColumn.changeOperation == "add"){
                             selector.addStep(planListView.currentIndex, stepListView.count, index);
-                            stepListModel.append({"name":textValue});
+                            stepListModel.append({"name":textValue, "showStep":true});
 
                             //paramList.model = selector.paramListModel();
 
@@ -822,6 +945,13 @@ Item {
             }
 
             Rectangle{
+                anchors.fill: parent
+                anchors.bottomMargin: 8
+                radius:8
+                color: "#3c747474"
+            }
+
+            Rectangle{
                 id: operationParam
                 anchors.right: parent.right
                 anchors.rightMargin: 0
@@ -829,14 +959,14 @@ Item {
                 anchors.leftMargin: 0
                 anchors.top: parent.top
                 color:"#747474"
-                height: 35
+                height: 40
 
                 Text {
                     text: qsTr("Operation param")
                     anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
-                    font.pixelSize: 17
+                    font.pixelSize: 20
                     font.bold: true
 
                     color:"#d9d9d9"
@@ -845,7 +975,6 @@ Item {
 
             ListView {
                 id: paramList
-                anchors.leftMargin: 0
                 clip:true
                 spacing: 2
                 anchors.top: operationParam.bottom
@@ -853,6 +982,8 @@ Item {
                 anchors.right: parent.right
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
+                anchors.leftMargin: 5
+                anchors.rightMargin: 5
                 interactive: false
                 model: selector.paramListModel
                 //highlightRangeMode: ListView.StrictlyEnforceRange
@@ -862,7 +993,7 @@ Item {
 
                 delegate: Item {
                     property int paramIndex: index
-                    height:38
+                    height:40
                     anchors.left: parent.left
                     anchors.right: parent.right
 
@@ -884,13 +1015,13 @@ Item {
                         id: paramName
 
                         height:parent.height
-                        width:105
+                        width:135
 
                         text: modelData.Display
                         horizontalAlignment: Text.AlignRight
                         verticalAlignment: Text.AlignVCenter
                         color:"#d9d9d9"
-                        font.pixelSize: 17
+                        font.pixelSize: 20
                         font.bold: true
                     }
 
@@ -978,6 +1109,11 @@ Item {
                                         }
 
                                         selector.commitParam(planListView.currentIndex, stepListView.currentIndex, modelData.Name, text);
+
+                                        if(modelData.Name=="GroupName"){
+                                            var list = selector.stepListModel(planListView.currentIndex);
+                                            stepListModel.setProperty(stepListView.currentIndex, "name", list[stepListView.currentIndex]);
+                                        }
                                     }
                                 }
                                 onEnabledChanged: {
@@ -1007,6 +1143,14 @@ Item {
 
                                 if (modelData.Name == "position"){
                                     positionSelected(currentIndex);
+                                    var boardIndex = selector.getBoardTypeIndexByPosition(currentIndex);
+
+                                    for(var ind = 0; ind < paramList.model.length; ind++){
+                                        if(paramList.model[ind].Name == "boardType"){
+                                            paramList.model[ind].IntegerValue = boardIndex;
+                                            break;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -1040,6 +1184,7 @@ Item {
 
                         height: parent.height
 
+                        enabled: modelData.Name != "boardType"
 
                         sourceComponent:getcomponent(modelData.Type)
 
@@ -1065,7 +1210,7 @@ Item {
                         horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter
                         color:"#d9d9d9"
-                        font.pixelSize: 17
+                        font.pixelSize: 20
                         font.bold: true
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom

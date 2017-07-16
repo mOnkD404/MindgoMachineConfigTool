@@ -1,9 +1,10 @@
-import QtQuick 2.7
+﻿import QtQuick 2.7
 //import QtGraphicalEffects 1.0
 
 
 Item {
     property var positionAction;
+    property bool disableDelete: false
     signal doAction(var str);
 
     positionAction: true
@@ -60,10 +61,17 @@ Item {
         id: iconArea
 
         Rectangle{
+            enabled: {
+                if(disableDelete && name == "delete"){
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+            opacity: enabled?1.0:0.3;
 
-
-            width: 25
-            height: 25
+            width: height
+            height: parent.height
 
             color:mouse.pressed?"lightblue":colorVal
 
@@ -103,8 +111,8 @@ Item {
         interactive: false
         clip: false
 
-        contentWidth: 25
-        contentHeight: 25
+        contentWidth: height
+        contentHeight: height
 
         orientation: Qt.Horizontal
         layoutDirection: Qt.LeftToRight

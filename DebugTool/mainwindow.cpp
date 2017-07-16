@@ -91,11 +91,11 @@ void WorkerObject::newConnection()
 bool WorkerObject::handleData(const QByteArray& array)
 {
     const char* command[] = {
-        "\x02\x00\x08\x80\x01",//load tip
-        "\x02\x00\x08\x80\x02",//dump tip
-        "\x02\x00\x12\x80\x03",//suction
-        "\x02\x00\x10\x80\x04",//dispense
-        "\x02\x00\x16\x80\x05",//mix
+        "\x02\x00\x0c\x80\x01",//load tip
+        "\x02\x00\x0c\x80\x02",//dump tip
+        "\x02\x00\x16\x80\x03",//suction
+        "\x02\x00\x14\x80\x04",//dispense
+        "\x02\x00\x1a\x80\x05",//mix
         "\x02\x00\x0A\x80\x06",//magnetic sep
         "\x02\x00\x0A\x81\x01",//rel
         "\x02\x00\x0A\x81\x02",//abs
@@ -139,6 +139,7 @@ bool WorkerObject::handleData(const QByteArray& array)
 
         memcpy(ack+3, array.data()+3, 4);
         m_ackData = QByteArray(ack,9);
+        m_ackData[8] = 1;
     }
     else if(memcmp(array.data(), command[5], 5) == 0)
     {

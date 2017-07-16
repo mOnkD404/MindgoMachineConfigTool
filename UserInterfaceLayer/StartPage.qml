@@ -3,6 +3,8 @@ import Common 1.0
 import QtQuick.Controls 2.1
 
 Item {
+    property string checkingState: "checking"
+    property int errorStep: -1
     signal okClicked(int index);
 
     function updatePlanList(){
@@ -12,11 +14,35 @@ Item {
 
     PlanSelector{
         id:selector
+
+        onPlanCheckStatusChanged: {
+            progressBar.setValue(jsObj.progress);
+            if(jsObj.end == true){
+                if(jsObj.allow){
+                    checkingState = "ready";
+                }else{
+                    checkingState = "invalid";
+                }
+            }else{
+                checkingState = "checking";
+            }
+
+            errorStep =  jsObj.errorStep;
+        }
     }
 
 
     id:root
     anchors.fill: parent
+
+    onVisibleChanged: {
+        if(visible){
+            state = "";
+        }else{
+            selector.stopCheckPlan();
+        }
+    }
+
     Rectangle{
         anchors.fill: parent
         color:"#99000000"
@@ -63,7 +89,7 @@ Item {
         Text {
             id: text4
             width: 130
-            height: 25
+            height: 35
             text: qsTr("Test")
             anchors.top: parent.top
             anchors.topMargin: 75
@@ -85,10 +111,103 @@ Item {
             anchors.topMargin: 75
             font.pixelSize: 25
 
-            model: selector.planListModel()
+            //model: selector.planListModel()
             currentIndex: 0
             focus:true
             activeFocusOnTab: true
+
+            onVisibleChanged: {
+                if(visible){
+                    model = selector.planListModel();
+                    if(currentIndex >=0){
+                        selector.startCheckPlan(plancomboBox.currentIndex);
+                    }
+                }
+            }
+            onCurrentIndexChanged: {
+                stepcomboBox.model = selector.planSelectStepListModel(plancomboBox.currentIndex);
+                selector.startCheckPlan(plancomboBox.currentIndex);
+            }
+        }
+
+        Text{
+            id: text5
+            width: 130
+            height: 35
+            text: qsTr("Start Step")
+            anchors.top: text4.bottom
+            anchors.topMargin: 10
+            anchors.left: parent.left
+            anchors.leftMargin: 21
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: 25
+            color: "#b5b7b6"
+        }
+
+        ComboBox {
+            id: stepcomboBox
+            width: 200
+            height: 35
+            anchors.left: text5.right
+            anchors.leftMargin: 10
+            anchors.top:plancomboBox.bottom
+            anchors.topMargin: 10
+            font.pixelSize: 25
+
+            //model: selector.planSelectStepListModel(plancomboBox.currentIndex)
+            currentIndex: 0
+            focus:true
+            activeFocusOnTab: true
+
+            onVisibleChanged: {
+                if(visible){
+                    model = selector.planSelectStepListModel(plancomboBox.currentIndex)
+                }
+            }
+        }
+
+        Text{
+            id: checkText
+            height: 35
+            text: {
+                if(checkingState == "checking"){
+                    return qsTr("Checking plan...");
+                }else if(checkingState == "ready"){
+                    return qsTr("Ready");
+                }else if(checkingState == "invalid"){
+                    return qsTr("Invalid step ") + errorStep;
+                }
+            }
+            anchors.bottom: progressBar.top
+            anchors.bottomMargin: 10
+            anchors.left: parent.left
+            anchors.right: parent.right
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: 25
+            color: "#b5b7b6"
+        }
+
+        Progressbar{
+            id:progressBar
+            anchors.bottom:textButton.top
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.margins: 2
+
+            maximumValue : 100
+            minimumValue : 0
+            //indeterminate: true
+
+            value:0
+            function setValue(prog){
+                value = prog;
+            }
+            onValueChanged:{
+                console.debug(value);
+            }
+
         }
 
         TextButton {
@@ -128,6 +247,7 @@ Item {
             anchors.bottomMargin: 0
             buttonradius: 0
             fontPixelSize: 30
+            enabled: checkingState == "ready"
 
             textValue: qsTr("Start")
             onClicked: {
@@ -137,4 +257,5 @@ Item {
         }
 
     }
+
 }

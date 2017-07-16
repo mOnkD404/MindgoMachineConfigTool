@@ -1,6 +1,6 @@
  Communication
 
- Timestamp is 594004dd (Tue Jun 13 23:29:33 2017)
+ Timestamp is 595509ff (Thu Jun 29 22:09:03 2017)
 
  Preferred load address is 10000000
 
@@ -19,17 +19,17 @@
  0002:000000dc 00000004H .CRT$XTZ                DATA
  0002:000000e0 00000100H .rdata                  DATA
  0002:000001e0 00000008H .rdata$sxdata           DATA
- 0002:000001e8 000002ecH .rdata$zzzdbg           DATA
- 0002:000004d4 00000004H .rtc$IAA                DATA
- 0002:000004d8 00000004H .rtc$IZZ                DATA
- 0002:000004dc 00000004H .rtc$TAA                DATA
- 0002:000004e0 00000008H .rtc$TZZ                DATA
- 0002:000004e8 000000d8H .xdata$x                DATA
- 0002:000005c0 00000188H .edata                  DATA
- 0002:00000748 00000064H .idata$2                DATA
- 0002:000007ac 00000014H .idata$3                DATA
- 0002:000007c0 000000bcH .idata$4                DATA
- 0002:0000087c 000004d8H .idata$6                DATA
+ 0002:000001e8 000002d8H .rdata$zzzdbg           DATA
+ 0002:000004c0 00000004H .rtc$IAA                DATA
+ 0002:000004c4 00000004H .rtc$IZZ                DATA
+ 0002:000004c8 00000004H .rtc$TAA                DATA
+ 0002:000004cc 00000004H .rtc$TZZ                DATA
+ 0002:000004d0 000000d0H .xdata$x                DATA
+ 0002:000005a0 00000188H .edata                  DATA
+ 0002:00000728 00000064H .idata$2                DATA
+ 0002:0000078c 00000014H .idata$3                DATA
+ 0002:000007a0 000000bcH .idata$4                DATA
+ 0002:0000085c 000004d8H .idata$6                DATA
  0003:00000000 00000018H .data                   DATA
  0003:00000018 00000370H .bss                    DATA
  0004:00000000 00000014H .gfids$y                DATA
@@ -187,16 +187,16 @@
  0002:00000108       __pRawDllMain              10002108     MSVCRT:dll_dllmain.obj
  0002:00000178       __load_config_used         10002178     MSVCRT:loadcfg.obj
  0002:000001e0       ___safe_se_handler_table   100021e0     <linker-defined>
- 0002:000004d4       ___rtc_iaa                 100024d4     MSVCRT:_initsect_.obj
- 0002:000004d8       ___rtc_izz                 100024d8     MSVCRT:_initsect_.obj
- 0002:000004dc       ___rtc_taa                 100024dc     MSVCRT:_initsect_.obj
- 0002:000004e0       ___rtc_tzz                 100024e0     MSVCRT:_initsect_.obj
- 0002:00000748       __IMPORT_DESCRIPTOR_Qt5Network 10002748     Qt5Network:Qt5Network.dll
- 0002:0000075c       __IMPORT_DESCRIPTOR_Qt5Core 1000275c     Qt5Core:Qt5Core.dll
- 0002:00000770       __IMPORT_DESCRIPTOR_KERNEL32 10002770     kernel32:KERNEL32.dll
- 0002:00000784       __IMPORT_DESCRIPTOR_VCRUNTIME140 10002784     vcruntime:VCRUNTIME140.dll
- 0002:00000798       __IMPORT_DESCRIPTOR_api-ms-win-crt-runtime-l1-1-0 10002798     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
- 0002:000007ac       __NULL_IMPORT_DESCRIPTOR   100027ac     Qt5Network:Qt5Network.dll
+ 0002:000004c0       ___rtc_iaa                 100024c0     MSVCRT:_initsect_.obj
+ 0002:000004c4       ___rtc_izz                 100024c4     MSVCRT:_initsect_.obj
+ 0002:000004c8       ___rtc_taa                 100024c8     MSVCRT:_initsect_.obj
+ 0002:000004cc       ___rtc_tzz                 100024cc     MSVCRT:_initsect_.obj
+ 0002:00000728       __IMPORT_DESCRIPTOR_Qt5Network 10002728     Qt5Network:Qt5Network.dll
+ 0002:0000073c       __IMPORT_DESCRIPTOR_Qt5Core 1000273c     Qt5Core:Qt5Core.dll
+ 0002:00000750       __IMPORT_DESCRIPTOR_KERNEL32 10002750     kernel32:KERNEL32.dll
+ 0002:00000764       __IMPORT_DESCRIPTOR_VCRUNTIME140 10002764     vcruntime:VCRUNTIME140.dll
+ 0002:00000778       __IMPORT_DESCRIPTOR_api-ms-win-crt-runtime-l1-1-0 10002778     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:0000078c       __NULL_IMPORT_DESCRIPTOR   1000278c     Qt5Network:Qt5Network.dll
  0003:00000000       ___security_cookie_complement 10003000     MSVCRT:gs_cookie.obj
  0003:00000004       ___security_cookie         10003004     MSVCRT:gs_cookie.obj
  0003:00000008       ___scrt_native_dllmain_reason 10003008     MSVCRT:utility.obj
@@ -277,29 +277,29 @@
  0001:00000f14       __unwindfunclet$?connectToServer@Communication@@QAE_NABVQString@@G@Z$4 10001f14 f   communication.obj
  0001:00000f1d       __ehhandler$?connectToServer@Communication@@QAE_NABVQString@@G@Z 10001f1d f   communication.obj
  0002:0000010c       _GS_ExceptionPointers      1000210c     MSVCRT:gs_report.obj
- 0002:000004e8       __ehfuncinfo$?connectToServer@Communication@@QAE_NABVQString@@G@Z 100024e8     communication.obj
- 0002:0000050c       __unwindtable$?connectToServer@Communication@@QAE_NABVQString@@G@Z 1000250c     communication.obj
- 0002:00000538       __sehtable$?dllmain_crt_process_attach@@YAHQAUHINSTANCE__@@QAX@Z 10002538     MSVCRT:dll_dllmain.obj
- 0002:00000558       __sehtable$?dllmain_crt_process_detach@@YAH_N@Z 10002558     MSVCRT:dll_dllmain.obj
- 0002:00000578       __sehtable$?dllmain_dispatch@@YAHQAUHINSTANCE__@@KQAX@Z 10002578     MSVCRT:dll_dllmain.obj
- 0002:00000598       __sehtable$___scrt_is_nonwritable_in_current_image 10002598     MSVCRT:utility.obj
- 0002:000005c0       .edata                     100025c0     Communication.exp
- 0002:000005e8       rgpv                       100025e8     Communication.exp
- 0002:00000604       rgszName                   10002604     Communication.exp
- 0002:00000620       rgwOrd                     10002620     Communication.exp
- 0002:0000062e       szName                     1000262e     Communication.exp
- 0002:00000640       $N00001                    10002640     Communication.exp
- 0002:00000659       $N00002                    10002659     Communication.exp
- 0002:00000672       $N00003                    10002672     Communication.exp
- 0002:000006a7       $N00004                    100026a7     Communication.exp
- 0002:000006c9       $N00005                    100026c9     Communication.exp
- 0002:000006eb       $N00006                    100026eb     Communication.exp
- 0002:0000071a       $N00007                    1000271a     Communication.exp
- 0002:00000982       .idata$6                   10002982     Qt5Network:Qt5Network.dll
- 0002:00000ab8       .idata$6                   10002ab8     Qt5Core:Qt5Core.dll
- 0002:00000be8       .idata$6                   10002be8     kernel32:KERNEL32.dll
- 0002:00000c50       .idata$6                   10002c50     vcruntime:VCRUNTIME140.dll
- 0002:00000d32       .idata$6                   10002d32     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
+ 0002:000004d0       __ehfuncinfo$?connectToServer@Communication@@QAE_NABVQString@@G@Z 100024d0     communication.obj
+ 0002:000004f4       __unwindtable$?connectToServer@Communication@@QAE_NABVQString@@G@Z 100024f4     communication.obj
+ 0002:00000520       __sehtable$?dllmain_crt_process_attach@@YAHQAUHINSTANCE__@@QAX@Z 10002520     MSVCRT:dll_dllmain.obj
+ 0002:00000540       __sehtable$?dllmain_crt_process_detach@@YAH_N@Z 10002540     MSVCRT:dll_dllmain.obj
+ 0002:00000560       __sehtable$?dllmain_dispatch@@YAHQAUHINSTANCE__@@KQAX@Z 10002560     MSVCRT:dll_dllmain.obj
+ 0002:00000580       __sehtable$___scrt_is_nonwritable_in_current_image 10002580     MSVCRT:utility.obj
+ 0002:000005a0       .edata                     100025a0     Communication.exp
+ 0002:000005c8       rgpv                       100025c8     Communication.exp
+ 0002:000005e4       rgszName                   100025e4     Communication.exp
+ 0002:00000600       rgwOrd                     10002600     Communication.exp
+ 0002:0000060e       szName                     1000260e     Communication.exp
+ 0002:00000620       $N00001                    10002620     Communication.exp
+ 0002:00000639       $N00002                    10002639     Communication.exp
+ 0002:00000652       $N00003                    10002652     Communication.exp
+ 0002:00000687       $N00004                    10002687     Communication.exp
+ 0002:000006a9       $N00005                    100026a9     Communication.exp
+ 0002:000006cb       $N00006                    100026cb     Communication.exp
+ 0002:000006fa       $N00007                    100026fa     Communication.exp
+ 0002:00000962       .idata$6                   10002962     Qt5Network:Qt5Network.dll
+ 0002:00000a98       .idata$6                   10002a98     Qt5Core:Qt5Core.dll
+ 0002:00000bc8       .idata$6                   10002bc8     kernel32:KERNEL32.dll
+ 0002:00000c30       .idata$6                   10002c30     vcruntime:VCRUNTIME140.dll
+ 0002:00000d12       .idata$6                   10002d12     ucrt:api-ms-win-crt-runtime-l1-1-0.dll
  0003:00000018       ?__proc_attached@@3HA      10003018     MSVCRT:dll_dllmain.obj
  0003:00000020       _GS_ExceptionRecord        10003020     MSVCRT:gs_report.obj
  0003:00000070       _GS_ContextRecord          10003070     MSVCRT:gs_report.obj

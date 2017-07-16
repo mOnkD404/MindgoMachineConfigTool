@@ -5,9 +5,11 @@
 #include <QMap>
 #include <QString>
 #include <QStringList>
+#include <QJsonArray>
 #include "workmodels.h"
 #ifdef MINDGO_ALL_IN_ONE
 #include "BussinessLayer/WorkflowProtocol/workflowprotocol.h"
+#include "BussinessLayer/WorkflowProtocol/workflowChecker.h"
 #else
 #include "workflowprotocol.h"
 #endif
@@ -31,8 +33,11 @@ public:
     QStringList OperationNameList();
     QStringList LogicalControlList();
 
+    QJsonArray WorkPlaceConstraint(){return m_workPlaceConstraint;}
+
     QStringList PlanList();
     QStringList StepList(int planIndex );
+    QStringList planSelectStepListModel(int planIndex);
     SingleOperationData planStepParam(int planIndex, int stepIndex);
 
     void AddPlanStep(int planIndex, int before, int operationIndex);
@@ -44,12 +49,12 @@ public:
     void SetPlanName(int planIndex, const QString& name);
     void AddPlan(const QString& name);
     void RemovePlan(int planIndex);
-    void SavePlan();
+    bool SavePlan();
 
     void StartPlan(int planIndex, int stepIndex);
     void StopPlan();
 
-    void SaveMachineConfig(const MachineConfigData& data);
+    bool SaveMachineConfig(const MachineConfigData& data);
 
 
     QJsonObject formatSingleOperationParam(const SingleOperationData & obj);
@@ -62,10 +67,22 @@ public:
 
     SingleOperationData defaultValue(const QString& Operationname);
 
-    QStringList getWorkLocationTypeList();
-    bool setWorkLocationType(int index, const QString& type);
+    QJsonObject getWorkLocationTypeList();
+    bool setWorkLocationType(int configIndex, int workPlaceIndex, const QString& type);
+
+    bool updateWorkPlace(const QJsonObject &jsobj);
 
     bool isAdministrator(){return m_bAdministratorAccount;}
+
+    void startCheckPlan(int planIndex);
+    void stopCheckPlan();
+
+    int getBoardTypeIndexByPosition(int index);
+
+    bool ImportConfig(const QString& file);
+    bool ExportConfig(const QString& file);
+
+    void reloadUserConfig();
 
 signals:
     void workLocationTypeChanged();
@@ -89,12 +106,18 @@ private:
     QString m_configFilename;
 
     WorkflowController m_workFlow;
+    WorkflowCheckerController m_workflowChecker;
 
     QString m_userConfigFile;
 
     TargetMachineObject m_machineConfig;
-    QStringList m_workLocationTypeList;
+    ConfigFileConverter m_configFileConverter;
+    QJsonObject m_workLocationTypeList;
     bool m_bAdministratorAccount;
+
+    QJsonArray m_workPlaceConstraint;
+
+    QString m_currentDir;
 };
 
 #endif // ENVIRONMENTVARIANT_H

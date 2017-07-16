@@ -9,6 +9,8 @@
 #include <QStringListModel>
 #include <QtMath>
 #include <QDoubleValidator>
+#include <QJsonObject>
+#include <QJsonArray>
 
 class OperationParamData
 {
@@ -333,6 +335,7 @@ public:
     Q_INVOKABLE void setSelectedOperation(int index);
     Q_INVOKABLE QObject* getSwitch(const QString& name);
     Q_INVOKABLE void onCompleteSingleOperation();
+    Q_INVOKABLE int getBoardTypeIndexByPosition(int index);
 
 
 signals:
@@ -383,10 +386,15 @@ class PlanSelector: public QObject
     Q_PROPERTY(QList<QObject*> paramListModel READ getParamListModel WRITE setParamListModel NOTIFY paramListModelChanged)
 public:
     PlanSelector(QObject* parent = 0);
+    ~PlanSelector();
 
     Q_INVOKABLE QStringList planListModel();
     Q_INVOKABLE QStringList stepListModel(int planIndex);
+    Q_INVOKABLE QStringList planSelectStepListModel(int planIndex);
     Q_INVOKABLE QStringList operationListModel() {return m_operationListModel;}
+
+    Q_INVOKABLE void startCheckPlan(int planIndex);
+    Q_INVOKABLE void stopCheckPlan();
 
     QList<QObject*> getParamListModel() {return paramListModel;}
     void setParamListModel(const QList<QObject*> &paramlist)
@@ -413,12 +421,16 @@ public:
     Q_INVOKABLE QObject* getSwitch(const QString& name);
 
     Q_INVOKABLE void onComplete();
-    Q_INVOKABLE void onSave();
+    Q_INVOKABLE bool onSave();
     Q_INVOKABLE void commitParam(int planIndex, int stepIndex, const QString& paramName, const QVariant& value);
 
+    Q_INVOKABLE int getBoardTypeIndexByPosition(int index);
 
+protected:
+    bool eventFilter(QObject *watched, QEvent *event);
 signals:
     void paramListModelChanged();
+    void planCheckStatusChanged(const QJsonObject &jsObj);
 
 private:
     QStringList m_operationListModel;
@@ -457,8 +469,11 @@ public:
 
     virtual bool eventFilter(QObject *watched, QEvent *event);
 
-    Q_INVOKABLE QStringList getWorkLocationTypeList();
-    Q_INVOKABLE bool setWorkLocationType(int index, const QString& type);
+    Q_INVOKABLE QJsonObject getWorkLocationTypeList();
+    Q_INVOKABLE bool setWorkLocationType(int configIndex, int workPlaceISndex, const QString& type);
+    Q_INVOKABLE bool updateWorkPlace(const QJsonObject &jsobj);
+    Q_INVOKABLE QJsonArray getWorkPlaceConstraint();
+
 
 signals:
     void statusChanged(const QJsonObject& jsobj);
@@ -530,7 +545,7 @@ signals:
     void MachineConfigChanged();
 
 public slots:
-    void onMachineConfigChanged();
+    bool onMachineConfigChanged();
 
 
 private:
@@ -567,6 +582,16 @@ public:
         }
         return QValidator::Invalid;
     }
+};
+
+class ConfigFileConverter:public QObject
+{
+    Q_OBJECT
+public:
+    ConfigFileConverter(QObject* parent = NULL): QObject(parent){}
+
+    Q_INVOKABLE bool importConfigFile(const QUrl& filename);
+    Q_INVOKABLE bool exportConfigFile(const QUrl& filename);
 };
 
 

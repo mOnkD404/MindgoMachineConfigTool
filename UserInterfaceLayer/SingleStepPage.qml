@@ -1,4 +1,4 @@
-import QtQuick 2.7
+﻿import QtQuick 2.7
 
 Item {
     id:singleStepPage
@@ -18,14 +18,14 @@ Item {
             anchors.right: parent.right
             anchors.top: parent.top
 
-            height: 40
+            height: 60
 
 
             Text{
                 text:qsTr("Single step operation")
                 verticalAlignment: Text.AlignVCenter
                 font.bold: true
-                font.pixelSize: 20
+                font.pixelSize: 30
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 30
@@ -41,8 +41,9 @@ Item {
                 textValue: qsTr("Execute")
                 anchors.right: parent.right
                 anchors.rightMargin: 0
-                buttonradius: 0
-                fontPixelSize: 20
+                buttonradius: 3
+                borderColor: "#4c5cc5ff"
+                fontPixelSize: 25
                 onClicked: {
                     singleStepOperation.commitData();
                     console.debug("Execute single step operation.");
@@ -54,7 +55,7 @@ Item {
             id:singleStepOperation
 
 
-            columnWidth: 160
+            columnWidth: 200
 
             anchors.top: row.bottom
             anchors.left: parent.left
@@ -71,31 +72,22 @@ Item {
             }
         }
 
-        StatusListView{
-            id: singleStepStatus
-            anchors.top: row.bottom
-            anchors.topMargin: 5
-            anchors.left: singleStepOperation.right
 
-            anchors.leftMargin: 5
-            anchors.right: parent.right
-            anchors.rightMargin: 5
-            height:85
-
-
-            height: 400
-        }
         StepGallery{
             //height: 480
             //width: 1000
             id:stepGallery
 
             anchors.top: row.bottom
-            anchors.left: singleStepStatus.right
-            anchors.right: parent.right
+            anchors.left: singleStepOperation.right
+            anchors.right: singleStepStatus.left
             anchors.bottom: parent.bottom
 
-            anchors.margins: 20
+            //anchors.margins: 20
+            anchors.leftMargin: 10
+            anchors.topMargin: 20
+            anchors.bottomMargin: 20
+            anchors.rightMargin: 0
 
             activeOnClick: true
             showLabel: false
@@ -105,7 +97,22 @@ Item {
                 singleStepOperation.setPosition(index);
             }
         }
+        StatusListView{
+            id: singleStepStatus
+            anchors.top: row.bottom
+            anchors.topMargin: 5
+            //anchors.left: singleStepOperation.right
 
+            //anchors.leftMargin: 5
+            anchors.right: parent.right
+            anchors.rightMargin: 5
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 5
+
+
+            //height: 400
+            width: 200
+        }
     }
 
 }

@@ -3,6 +3,7 @@
 #include "environmentvariant.h"
 #include <QJsonDocument>
 #include <QJsonArray>
+#include "BussinessLayer/WorkflowProtocol/workflowChecker.h"
 
 const char* operationModelName = "OperationModel";
 const char* paramModelName = "ParamModel";
@@ -263,11 +264,21 @@ void OperationParamSelector::onCompleteSingleOperation()
     EnvironmentVariant::instance()->StartTunning(opobj);
 }
 
+int OperationParamSelector::getBoardTypeIndexByPosition(int index)
+{
+    return EnvironmentVariant::instance()->getBoardTypeIndexByPosition(index);
+}
 
 PlanSelector::PlanSelector(QObject* parent )
     :QObject(parent)
 {
     m_operationListModel = EnvironmentVariant::instance()->LogicalControlList();
+    qApp->installEventFilter(this);
+}
+
+PlanSelector::~PlanSelector()
+{
+    qApp->removeEventFilter(this);
 }
 
 QStringList PlanSelector::planListModel()
@@ -278,6 +289,11 @@ QStringList PlanSelector::planListModel()
 QStringList PlanSelector::stepListModel(int planIndex)
 {
     return EnvironmentVariant::instance()->StepList(planIndex);
+}
+
+QStringList PlanSelector::planSelectStepListModel(int planIndex)
+{
+    return EnvironmentVariant::instance()->planSelectStepListModel(planIndex);
 }
 
 void PlanSelector::setSelectedStep(int planIndex, int stepIndex)
@@ -356,14 +372,19 @@ void PlanSelector::onComplete()
 {
 }
 
-void PlanSelector::onSave()
+bool PlanSelector::onSave()
 {
-    EnvironmentVariant::instance()->SavePlan();
+    return EnvironmentVariant::instance()->SavePlan();
 }
 
 void PlanSelector::commitParam(int planIndex, int stepIndex, const QString& paramName, const QVariant& value)
 {
     EnvironmentVariant::instance()->SetPlanStepSingleParam(planIndex, stepIndex, paramName, value);
+}
+
+int PlanSelector::getBoardTypeIndexByPosition(int index)
+{
+    return EnvironmentVariant::instance()->getBoardTypeIndexByPosition(index);
 }
 
 QObject* PlanSelector::getSwitch(const QString &name)
@@ -377,6 +398,31 @@ QObject* PlanSelector::getSwitch(const QString &name)
         }
     }
     return NULL;
+}
+
+void PlanSelector::startCheckPlan(int planIndex)
+{
+    EnvironmentVariant::instance()->stopCheckPlan();
+    EnvironmentVariant::instance()->startCheckPlan(planIndex);
+}
+
+void PlanSelector::stopCheckPlan()
+{
+    EnvironmentVariant::instance()->stopCheckPlan();
+}
+
+bool PlanSelector::eventFilter(QObject *watched, QEvent *event)
+{
+    if(event->type() == QEvent::User+3)
+    {
+        CheckStateChangeEvent* evt = dynamic_cast<CheckStateChangeEvent*>(event);
+        if(evt)
+        {
+            emit planCheckStatusChanged(evt->m_status);
+            return true;
+        }
+    }
+    return false;
 }
 
 PlanController::PlanController(QObject *parent)
@@ -451,21 +497,47 @@ bool StatusViewWatcher::eventFilter(QObject *watched, QEvent *event)
     return false;
 }
 
-QStringList StatusViewWatcher::getWorkLocationTypeList()
+QJsonObject StatusViewWatcher::getWorkLocationTypeList()
 {
     return EnvironmentVariant::instance()->getWorkLocationTypeList();
 }
 
-bool StatusViewWatcher::setWorkLocationType(int index, const QString& type)
+bool StatusViewWatcher::setWorkLocationType(int configIndex, int workPlaceIndex, const QString& type)
 {
-    if(EnvironmentVariant::instance()->setWorkLocationType(index, type))
+    if(EnvironmentVariant::instance()->setWorkLocationType(configIndex, workPlaceIndex, type))
     {
         return true;
     }
     return false;
 }
 
-void TargetMachineObject::onMachineConfigChanged()
+bool StatusViewWatcher::updateWorkPlace(const QJsonObject &jsobj)
 {
-    EnvironmentVariant::instance()->SaveMachineConfig(MachineConfigData(IpAddress, port, maxReceiveTime));
+    if(EnvironmentVariant::instance()->updateWorkPlace(jsobj))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+QJsonArray StatusViewWatcher::getWorkPlaceConstraint()
+{
+    return EnvironmentVariant::instance()->WorkPlaceConstraint();
+}
+
+bool TargetMachineObject::onMachineConfigChanged()
+{
+    return EnvironmentVariant::instance()->SaveMachineConfig(MachineConfigData(IpAddress, port, maxReceiveTime));
+}
+
+bool ConfigFileConverter::importConfigFile(const QUrl& filename)
+{
+    return EnvironmentVariant::instance()->ImportConfig(filename.toLocalFile());
+}
+bool ConfigFileConverter::exportConfigFile(const QUrl& filename)
+{
+    return EnvironmentVariant::instance()->ExportConfig(filename.toLocalFile());
 }

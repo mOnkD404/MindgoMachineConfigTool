@@ -4,6 +4,7 @@
 #include "workmodels.h"
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QDir>
 
 EnvironmentVariant* EnvironmentVariant::m_instance = 0;
 
@@ -36,6 +37,9 @@ void EnvironmentVariant::parseConfigFile(const QString& str)
     m_operationNameDispMap = handler.ParseMap("Operation Display Name");
     m_operationDispNameMap = handler.ParseMapRevertKeyValue("Operation Display Name");
     m_paramDefaultValueMap = handler.ParseParamValue("params");
+    m_workPlaceConstraint = handler.ParseWorkPlaceConstraint();
+
+    m_workflowChecker.init(m_workPlaceConstraint);
 }
 
 void EnvironmentVariant::initProtocol(const QString &protoconConfig)
@@ -52,7 +56,7 @@ void EnvironmentVariant::initUserConfig(const QString &str)
     m_machineConfig.init(handler.ParseHostIP(), handler.ParseHostPort(), handler.ParseHostSingleOperationThreshold());
 
     handler.ParsePlanList(m_planList, m_paramDefaultValueMap);
-    handler.ParseWorkLocationTypeList(m_workLocationTypeList);
+    handler.ParseWorkSpaceTypeList(m_workLocationTypeList);
 
     //2328-1768-0720-4852
     const uchar preCalculatedSha1[20] = {
@@ -74,8 +78,11 @@ void EnvironmentVariant::initUserConfig(const QString &str)
 void EnvironmentVariant::initModels(QQmlContext* context)
 {
     m_context = context;
+    m_currentDir = QDir::currentPath();
     context->setContextProperty("IPAddressObject", &m_machineConfig);
     context->setContextProperty("isAdministratorAccount", m_bAdministratorAccount);
+    context->setContextProperty("currentDirectory", m_currentDir);
+    context->setContextProperty("configFileConverter", &m_configFileConverter);
     //m_singleStepPageModel.init(context, m_operationList, m_operationNameDispMap);
 }
 
@@ -178,7 +185,59 @@ QStringList EnvironmentVariant::StepList(int planIndex)
         {
             if(m_operationNameDispMap.contains(pda.operationName))
             {
-                steplist.append(m_operationNameDispMap[pda.operationName]);
+                if(pda.operationName == "Group")
+                {
+                    QString groupName;
+                    foreach( const OperationParamData& param, pda.params)
+                    {
+                        if(param.Name == "GroupName")
+                        {
+                            groupName = param.StringValue;
+                            break;
+                        }
+                    }
+                    steplist.append(m_operationNameDispMap[pda.operationName]+"["+groupName+"]");
+                }
+                else
+                {
+                    steplist.append(m_operationNameDispMap[pda.operationName]);
+                }
+            }
+        }
+    }
+    return steplist;
+}
+
+QStringList EnvironmentVariant::planSelectStepListModel(int planIndex)
+{
+    QStringList steplist;
+    int loopStack = 0;
+    int currentIndex = 0;
+    if(planIndex >= 0 && planIndex < m_planList.size())
+    {
+        const QList<SingleOperationData> & data = m_planList[planIndex].second;
+        foreach (const SingleOperationData& pda, data)
+        {
+            if(m_operationNameDispMap.contains(pda.operationName))
+            {
+                if(pda.operationName != "Group" )
+                {
+                    if ( loopStack == 0)
+                    {
+                        steplist.append(QString::number(currentIndex+1) + ". "+m_operationNameDispMap[pda.operationName]);
+                    }
+                    currentIndex++;
+                }
+
+                if(pda.operationName == "Loop")
+                {
+                    loopStack ++;
+                }
+                else if(pda.operationName == "EndLoop" && loopStack > 0)
+                {
+                    loopStack--;
+                }
+
             }
         }
     }
@@ -393,6 +452,10 @@ void EnvironmentVariant::SetPlanStepSingleParam(int planIndex, int stepIndex, co
             {
                 iterdata->BoolValue = value.toBool();
             }
+            else if(iterdata->Type == "string")
+            {
+                iterdata->StringValue = value.toString();
+            }
 
             break;
         }
@@ -422,21 +485,23 @@ void EnvironmentVariant::RemovePlan(int planIndex)
     m_planList.removeAt(planIndex);
 }
 
-void EnvironmentVariant::SavePlan()
+bool EnvironmentVariant::SavePlan()
 {
     configFileHandler handler(NULL);
-    handler.SavePlanList(m_userConfigFile, m_planList, m_operationParamMap);
+    return handler.SavePlanList(m_userConfigFile, m_planList, m_operationParamMap);
 }
 
-void EnvironmentVariant::SaveMachineConfig(const MachineConfigData& data)
+bool EnvironmentVariant::SaveMachineConfig(const MachineConfigData& data)
 {
     configFileHandler handler(NULL);
-    handler.SaveMachineConfig(m_userConfigFile, data, m_workLocationTypeList);
+    bool ret = handler.SaveMachineConfig(m_userConfigFile, data, m_workLocationTypeList);
 
     //todo
     m_machineConfig.setIpAddress(data.IpAddress);
     m_machineConfig.setPort(data.port);
     m_machineConfig.setMaxReceiveTime(data.maxReceiveTime);
+
+    return ret;
 }
 
 void EnvironmentVariant::StartPlan(int planIndex, int stepIndex)
@@ -450,8 +515,13 @@ void EnvironmentVariant::StartPlan(int planIndex, int stepIndex)
     QJsonObject planObj;
     QJsonArray oparray;
     int seq = 1;
+
     foreach(const SingleOperationData& opData, stepList)
     {
+        if(opData.operationName == "Group")
+        {
+            continue;
+        }
         QJsonObject singleOperationObj;
         singleOperationObj["operation"] = opData.operationName;
         singleOperationObj["sequence"] = seq++;
@@ -516,23 +586,164 @@ SingleOperationData EnvironmentVariant::defaultValue(const QString& Operationnam
     return SingleOperationData();
 }
 
-QStringList EnvironmentVariant::getWorkLocationTypeList()
+QJsonObject EnvironmentVariant::getWorkLocationTypeList()
 {
     return m_workLocationTypeList;
 }
 
-bool EnvironmentVariant::setWorkLocationType(int index, const QString& type)
+bool EnvironmentVariant::setWorkLocationType(int configIndex, int workSpaceIndex, const QString& type)
 {
-    if(index < 0 || index >= m_workLocationTypeList.size())
+    QJsonArray list = m_workLocationTypeList["config"].toArray();
+    if(configIndex < 0 || configIndex >= list.size())
         return false;
-    if(m_workLocationTypeList[index] == type)
+    if(workSpaceIndex < 0 || workSpaceIndex >= list.at(configIndex).toObject()["type"].toArray().size())
     {
         return false;
     }
-    else
+    if(list.at(configIndex).toObject()["type"].toArray()[workSpaceIndex] != type)
     {
-        m_workLocationTypeList[index] = type;
+        QJsonArray changeConfig = m_workLocationTypeList["config"].toArray();
+        QJsonObject changeObj = changeConfig[configIndex].toObject();
+        QJsonArray typeList = changeObj["type"].toArray();
+        typeList[workSpaceIndex] = type;
+        changeObj["type"] = typeList;
+        changeConfig[configIndex] = changeObj;
+        m_workLocationTypeList["config"] = changeConfig;
         emit workLocationTypeChanged();
         return true;
     }
+    else
+    {
+        return false;
+    }
+}
+
+bool EnvironmentVariant::updateWorkPlace(const QJsonObject &jsobj)
+{
+    if(m_workLocationTypeList != jsobj)
+    {
+        m_workLocationTypeList = jsobj;
+        SaveMachineConfig(m_machineConfig);
+        emit workLocationTypeChanged();
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void EnvironmentVariant::startCheckPlan(int planIndex)
+{
+    if(planIndex < 0 || planIndex >= m_planList.size())
+        return;
+
+    const QList<SingleOperationData> & stepList = m_planList.at(planIndex).second;
+
+
+    QJsonObject planObj;
+    QJsonArray oparray;
+    int seq = 1;
+
+    foreach(const SingleOperationData& opData, stepList)
+    {
+        if(opData.operationName == "Group")
+        {
+            continue;
+        }
+        QJsonObject singleOperationObj;
+        singleOperationObj["operation"] = opData.operationName;
+        singleOperationObj["sequence"] = seq++;
+        QJsonObject paramobj;
+        foreach(const OperationParamData& data, opData.params)
+        {
+            if (data.Type == "enum")
+            {
+                paramobj[data.Name] = m_paramDefaultValueMap[data.Name].IntListValue[data.IntegerValue];
+            }
+            else if(data.Type == "integer")
+            {
+                paramobj[data.Name] = data.IntegerValue;
+            }
+            else if(data.Type == "float")
+            {
+                paramobj[data.Name] = qRound(data.FloatValue*10.0);
+            }
+            else if(data.Type == "string")
+            {
+                paramobj[data.Name] = data.StringValue;
+            }
+            else if(data.Type == "bool")
+            {
+                paramobj[data.Name] = data.BoolValue;
+            }
+        }
+        singleOperationObj["params"] = paramobj;
+
+        oparray.append(singleOperationObj);
+
+    }
+    planObj["operations"] = oparray;
+    planObj["boardConfig"] = m_workLocationTypeList["config"].toArray()[m_workLocationTypeList["current"].toInt()].toObject()["type"];
+
+    m_workflowChecker.checkTask(planObj);
+}
+
+void EnvironmentVariant::stopCheckPlan()
+{
+    m_workflowChecker.stopCurrentCheck();
+}
+
+int EnvironmentVariant::getBoardTypeIndexByPosition(int index)
+{
+    const QJsonObject& workPlace = m_workLocationTypeList;
+    const QJsonArray& workConstraint = m_workPlaceConstraint;
+
+    QJsonArray boardConfig = workPlace["config"].toArray()[workPlace["current"].toInt()].toObject()["type"].toArray();
+    if(index < 0 || index >= boardConfig.size())
+    {
+        return -1;
+    }
+
+    QString boardtype = boardConfig[index].toObject()["name"].toString();
+    int boardIndex = 0;
+    for(; boardIndex < workConstraint.size(); boardIndex++)
+    {
+        if(workConstraint[boardIndex].toObject()["type"].toString() == boardtype)
+        {
+            break;
+        }
+    }
+    if(boardIndex < workConstraint.size())
+    {
+        return boardIndex;
+    }
+    return -1;
+}
+
+bool EnvironmentVariant::ImportConfig(const QString& file)
+{
+    qDebug()<<"Import config file "<<file;
+    configFileHandler handler(NULL);
+    bool ret =  handler.ConvertCSVtoJSON(file, m_userConfigFile);
+    if(ret)
+    {
+        //reload config
+        reloadUserConfig();
+    }
+    return ret;
+}
+
+bool EnvironmentVariant::ExportConfig(const QString& file)
+{
+    qDebug()<<"Export config file "<<file;
+
+    configFileHandler handler(NULL);
+    return handler.ConvertJSONtoCSV(m_userConfigFile, file);
+}
+
+
+void EnvironmentVariant::reloadUserConfig()
+{
+    initUserConfig(m_userConfigFile);
 }

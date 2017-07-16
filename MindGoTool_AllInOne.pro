@@ -10,7 +10,8 @@ SOURCES += \
     UserInterfaceLayer/configfilehandler.cpp \
     UserInterfaceLayer/environmentvariant.cpp \
     UserInterfaceLayer/main.cpp \
-    UserInterfaceLayer/workmodels.cpp
+    UserInterfaceLayer/workmodels.cpp \
+    BussinessLayer/WorkflowProtocol/workflowChecker.cpp
 
 RESOURCES += \
     UserInterfaceLayer/qml.qrc
@@ -25,7 +26,7 @@ QML_DESIGNER_IMPORT_PATH =
 # any feature of Qt which as been marked deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
-DEFINES += QT_DEPRECATED_WARNINGS MINDGO_ALL_IN_ONE
+DEFINES += QT_DEPRECATED_WARNINGS MINDGO_ALL_IN_ONE NO_VIRTUAL_KEYBOARD
 
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -40,15 +41,18 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     InfrastructureLayer/Communication/communication.h \
     BussinessLayer/WorkflowProtocol/workflowprotocol.h \
+    BussinessLayer/WorkflowProtocol/workflowChecker.h\
     UserInterfaceLayer/configfilehandler.h \
     UserInterfaceLayer/environmentvariant.h \
-    UserInterfaceLayer/workmodels.h
+    UserInterfaceLayer/workmodels.h \
 
 DISTFILES += \
     UserInterfaceLayer/config/OperationParams.json \
     UserInterfaceLayer/config/Protocol.json \
     UserInterfaceLayer/config/UserConfig.json \
     UserInterfaceLayer/config/cn.qm
+
+TRANSLATIONS+=cn.ts
 
 win32: {LIBS += -lDbgHelp
 QMAKE_LFLAGS_RELEASE += /MAP

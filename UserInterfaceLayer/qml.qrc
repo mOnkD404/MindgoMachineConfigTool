@@ -25,5 +25,8 @@
         <file>image/4-1.png</file>
         <file>MainNoKeyboard.qml</file>
         <file>DragDropButton.qml</file>
+        <file>image/3-1.png</file>
+        <file>image/3-4.png</file>
+        <file>Progressbar.qml</file>
     </qresource>
 </RCC>

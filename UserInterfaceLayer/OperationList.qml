@@ -1,4 +1,4 @@
-import QtQuick 2.7
+﻿import QtQuick 2.7
 import QtQuick.Controls 2.1
 import Common 1.0
 
@@ -25,9 +25,10 @@ Item {
         selector.onCompleteSingleOperation();
     }
 
+    property int columnWidth
 
     columnWidth: 150
-    width: columnWidth *2.7+10
+    width: column.width+column1.width+10
 
 
 
@@ -46,6 +47,13 @@ Item {
             anchors.bottomMargin: 0
 
             Rectangle{
+                anchors.fill: parent
+                anchors.bottomMargin: 8
+                radius:8
+                color: "#3c747474"
+            }
+
+            Rectangle{
                 id: operationType
                 anchors.right: parent.right
                 anchors.rightMargin: 0
@@ -53,14 +61,14 @@ Item {
                 anchors.leftMargin: 0
                 anchors.top: parent.top
                 color:"#747474"
-                height: 30
+                height: 40
 
                 Text {
                     text: qsTr("Operation type")
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     anchors.fill: parent
-                    font.pixelSize: 17
+                    font.pixelSize: 20
                     font.bold: true
                     width: 120
                     color:"#d9d9d9"
@@ -78,7 +86,7 @@ Item {
                 anchors.left: parent.left
                 anchors.leftMargin: 4
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 4
+                anchors.bottomMargin: 10
 
                 clip: true
                 highlight: Rectangle{
@@ -90,11 +98,12 @@ Item {
                     radius: 0
                 }
                 highlightFollowsCurrentItem: true
+                highlightMoveDuration: 150
                 currentIndex: 0
                 interactive: false
 
                 delegate: TextButton {
-                    height: 30
+                    height: 40
 
                     anchors.left:parent.left
                     anchors.leftMargin: 0
@@ -102,6 +111,7 @@ Item {
                     anchors.rightMargin: 0
 
                     buttonradius: 0
+                    fontPixelSize: 20
 
                     textValue: modelData
                     startColor: "transparent"
@@ -133,6 +143,13 @@ Item {
             anchors.top: parent.top
 
             Rectangle{
+                anchors.fill: parent
+                anchors.bottomMargin: 8
+                radius:8
+                color: "#3c747474"
+            }
+
+            Rectangle{
                 id: operationParam
                 anchors.right: parent.right
                 anchors.rightMargin: 0
@@ -140,14 +157,14 @@ Item {
                 anchors.leftMargin: 0
                 anchors.top: parent.top
                 color:"#747474"
-                height: 30
+                height: 40
 
                 Text {
                     text: qsTr("Operation param")
                     anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
-                    font.pixelSize: 17
+                    font.pixelSize: 20
                     font.bold: true
                     color:"#d9d9d9"
                 }
@@ -155,12 +172,13 @@ Item {
 
             ListView {
                 id: paramList
-                anchors.leftMargin: 0
+                anchors.leftMargin: 5
                 clip:true
                 spacing: 2
                 anchors.top: operationParam.bottom
                 anchors.topMargin: 4
                 anchors.right: parent.right
+                anchors.rightMargin: 10
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
                 interactive: false
@@ -179,7 +197,7 @@ Item {
 
                 delegate: Item {
                     property int paramIndex: index
-                    height:38
+                    height:35
                     anchors.left: parent.left
                     anchors.right: parent.right
 
@@ -198,7 +216,7 @@ Item {
                     Text {
                         id: paramName
                         height:30
-                        width:100
+                        width:120
                         text: modelData.Display
                         horizontalAlignment: Text.AlignRight
                         verticalAlignment: Text.AlignVCenter
@@ -294,6 +312,15 @@ Item {
                                 modelData.IntegerValue = currentIndex;
                                 if (modelData.Name == "position"){
                                     positionSelected(currentIndex);
+
+                                    var boardIndex = selector.getBoardTypeIndexByPosition(currentIndex);
+
+                                    for(var ind = 0; ind < paramList.model.length; ind++){
+                                        if(paramList.model[ind].Name == "boardType"){
+                                            paramList.model[ind].IntegerValue = boardIndex;
+                                            break;
+                                        }
+                                    }
                                 }
                             }
 
@@ -324,6 +351,8 @@ Item {
                         anchors.rightMargin: 3
 
                         height: 30
+
+                        enabled: modelData.Name != "boardType"
 
 
                         anchors.leftMargin: 10

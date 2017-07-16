@@ -1,4 +1,4 @@
-import QtQuick 2.7
+﻿import QtQuick 2.7
 
 Item {
     property bool showHeader: false
@@ -41,9 +41,11 @@ Item {
                 anchors.right: parent.right
                 anchors.rightMargin: 0
                 fontPixelSize: 20
-                buttonradius: 0
+                buttonradius: 3
+                borderColor: "#4c5cc5ff"
                 onClicked: {
-                    planList.savePlan();
+                    var result = planList.savePlan()?qsTr("save succeed"):qsTr("save failed");
+                    showPrompt(result);
                 }
             }
         }
@@ -79,10 +81,10 @@ Item {
             anchors.left: planList.right
             //x:planList.x + planList.width
             anchors.right: parent.right
-            //anchors.bottom: parent.bottom
+            anchors.bottom: parent.bottom
 
-            anchors.topMargin: 20
-            anchors.leftMargin: 7
+            anchors.topMargin: 35
+            anchors.leftMargin: 20
 
             visible: (planList.operationState != "expandOperation")
 

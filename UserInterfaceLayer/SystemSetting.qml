@@ -12,6 +12,7 @@ Item {
     //        anchors.fill: parent
     //    }
 
+
     Rectangle{
         anchors.fill: parent
         anchors.margins: 10
@@ -19,450 +20,402 @@ Item {
         MouseArea{
             anchors.fill: parent
         }
-        Column {
-            id: column
-            spacing: 5
 
-            anchors.top:parent.top
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.topMargin: 20
-            anchors.leftMargin: 20
-            anchors.rightMargin: 20
-
-            Text {
-                id: text3
-                text: qsTr("Version "+versionVal)
-
-                width: 220
-                height: 30
-                color: "#d9d9d9"
-                font.bold: true
-                verticalAlignment: Text.AlignVCenter
-                elide: Text.ElideNone
-                font.pixelSize: 20
-            }
-
-            Row{
-                spacing: 5
-
-                Text {
-                    id: text1
-                    width: 220
-                    height: 30
-                    color: "#d9d9d9"
-                    text: qsTr("Machine Address")
-                    font.bold: true
-                    verticalAlignment: Text.AlignVCenter
-                    elide: Text.ElideNone
-                    font.pixelSize: 20
-                }
-
-                Rectangle{
-                    width: 200
-                    height: 30
-                    border.width: 2
-                    border.color: "#ffffff"
-                    radius: 4
-                    TextField {
-                        id: textInput
-                        anchors.fill: parent
-                        placeholderText: qsTr("IP Address")
-                        text: IPAddressObject.IpAddress
-                        horizontalAlignment: Text.AlignHCenter
-                        font.pixelSize: 20
-                        inputMethodHints: Qt.ImhDigitsOnly
-
-                        validator: RegExpValidator{regExp: /^(([01]?[0-9]?[0-9]|2([0-4][0-9]|5[0-5]))\.){3}([01]?[0-9]?[0-9]|2([0-4][0-9]|5[0-5]))$/}
-                        //inputMask: "000.000.000.000;_"
-                    }
-                }
-
-
-                Text {
-                    id: text4
-                    text: ":"
-                    width: 5
-                    height: 30
-                    color: "#d9d9d9"
-                    font.bold: true
-                    verticalAlignment: Text.AlignVCenter
-                    elide: Text.ElideNone
-                    font.pixelSize: 20
-                }
-                Rectangle{
-                    width: 82
-                    height: 30
-                    border.width: 2
-                    border.color: "#ffffff"
-                    radius: 4
-                    TextField {
-                        id: textInput1
-                        anchors.fill: parent
-                        text: IPAddressObject.port
-                        placeholderText: qsTr("port")
-                        horizontalAlignment: Text.AlignHCenter
-                        font.pixelSize: 20
-                        inputMethodHints: Qt.ImhDigitsOnly
-
-                        validator:IntValidator{
-                            bottom: 0
-                            top:65535
-                        }
-                    }
-                }
-            }
-
-            Row{
-                spacing: 5
-
-                Text {
-                    id: text2
-                    width: 220
-                    height: 30
-                    text: qsTr("Max ack waiting time")
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignLeft
-                    font.pixelSize: 20
-                    color: "#d9d9d9"
-                    font.bold: true
-                }
-
-
-                Rectangle{
-                    width: 200
-                    height: 30
-                    border.width: 2
-                    border.color: "#ffffff"
-                    radius: 4
-                    TextField {
-                        id: textInput2
-                        anchors.fill: parent
-                        text: IPAddressObject.maxReceiveTime
-                        placeholderText: qsTr("Wait time")
-                        horizontalAlignment: Text.AlignHCenter
-                        font.pixelSize: 20
-                        inputMethodHints: Qt.ImhDigitsOnly
-
-                        validator:IntValidator{
-                            bottom: 0
-                            top:65535
-                        }
-                    }
-                }
-            }
-
-            Row{
-                spacing: 5
-
-                Text {
-                    id: text5
-                    width: 220
-                    height: 35
-                    text: qsTr("Work place configuration")
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignLeft
-                    font.pixelSize: 20
-                    color: "#d9d9d9"
-                    font.bold: true
-                }
-
-//                ComboBox{
-//                    width: 200
-//                    height: 35
-
-//                    textRole: "name"
-
-//                    StatusViewWatcher{
-//                        id:watcher
-//                    }
-
-//                    model:ListModel{
-//                        id:comboModel
-//                    }
-
-//                    Component.onCompleted: {
-//                        var listAll = watcher.getWorkLocationTypeList();
-
-//                        comboModel.clear();
-//                        for(var item in listAll.config){
-//                            comboModel.append({"name":listAll.config[item].name});
-//                        }
-
-//                        currentIndex = listAll.current;
-//                    }
-
-//                    onCurrentIndexChanged: {
-//                        var listAll = watcher.getWorkLocationTypeList();
-
-//                        listAll.current = currentIndex;
-//                        watcher.updateWorkPlace(listAll);
-//                    }
-//                }
-//                ActionBar{
-//                    positionAction: false
-
-//                    height: 33
-//                    width: 110
-
-//                    onDoAction: {
-//                        if(str == "edit"){
-
-//                        }else if(str == "add"){
-
-//                        }else if(str == "delete"){
-
-//                        }
-//                    }
-//                }
-//                Rectangle{
-//                    height:35
-//                    width:250
-//                    clip:true
-//                    color: "#4c000000"
-
-//                    Row{
-//                        anchors.fill: parent
-//                        anchors.margins: 2
-//                        spacing: 3
-//                        TextField{
-//                            height:31
-//                            width:120
-//                        }
-//                        TextButton{
-//                            height:31
-//                            width:60
-//                            buttonradius: 0
-//                            textValue: qsTr('OK')
-//                        }
-//                        TextButton{
-//                            height:31
-//                            width:60
-//                            buttonradius: 0
-//                            textValue: qsTr('Cancel')
-//                        }
-//                    }
-//                }
-            }
-        }
-        Item{
-            id:configColumn
-            anchors.top: column.bottom
-            anchors.left: parent.left
-            anchors.bottom: parent.bottom
-            anchors.leftMargin: 20
-
-            width: 220
-
-            StatusViewWatcher{
-                id:watcher
-            }
-
-            function addConfig(newname){
-                var listAll = watcher.getWorkLocationTypeList();
-
-                var defaultVal = listAll.default;
-                defaultVal.name = newname;
-
-                listAll.config.push(defaultVal);
-                watcher.updateWorkPlace(listAll);
-            }
-
-            function removeConfig(index){
-                var listAll = watcher.getWorkLocationTypeList();
-
-                if ( index >= 0 && index < listAll.config.length){
-                    listAll.config.splice(index, 1);
-                    watcher.updateWorkPlace(listAll);
-                }
-            }
-
-            function setConfigName(index, newname){
-                var listAll = watcher.getWorkLocationTypeList();
-
-                if ( index >= 0 && index < listAll.config.length){
-                    if(listAll.config[index].name != newname){
-                        listAll.config[index].name = newname;
-                        watcher.updateWorkPlace(listAll);
-                    }
-                }
-            }
-
-            function selectConfig(currentIndex){
-                var listAll = watcher.getWorkLocationTypeList();
-
-                listAll.current = currentIndex;
-                watcher.updateWorkPlace(listAll);
-            }
-
-            ActionBar{
-                id:configActionbar
-                positionAction: false
-
-                height: 27
-
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.margins: 4
-                disableDelete:configListModel.count == 1
-                onDoAction: {
-                    if(str == "edit"){
-                        if(configListView.currentIndex != -1){
-                            configListView.currentItem.inEdit = true;
-                        }
-                    }else if(str == "add"){
-                        configListModel.append({"name":"NewConfig"});
-                        configColumn.addConfig("");
-                        configListView.currentIndex = configListModel.count - 1;
-                        configListView.currentItem.inEdit = true;
-                    }else if(str == "delete"){
-                        if(configListModel.count > 1){
-                            configListModel.remove(configListView.currentIndex);
-                            configColumn.removeConfig(configListView.currentIndex);
-                        }
-                    }
-                }
-            }
-
-            ListModel{
-                id:configListModel
-            }
-
-
-            ListView {
-                id: configListView
-                spacing: 0
-                anchors.top: configActionbar.bottom
-                anchors.topMargin: 4
-                anchors.right: parent.right
-                anchors.rightMargin: 4
-                anchors.left: parent.left
-                anchors.leftMargin: 4
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 8
-
-                clip: true
-                highlight: Rectangle{
-                    height: 40
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-
-                    color: "#ffb902"
-                    radius: 0
-                }
-                highlightFollowsCurrentItem: true
-                //highlightMoveDuration: 200
-                currentIndex: 0
-                interactive: true
-                model: configListModel
-
-                ScrollBar.vertical: ScrollBar{}
-
-                delegate: Item{
-                    property bool inEdit: false
-                    height: 40
-                    anchors.left:parent.left
-                    anchors.leftMargin: 0
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
-                    focus:true
-
-                    TextInput{
-                        id:inputArea
-                        visible: inEdit
-                        selectByMouse: true
-
-                        height: 40
-                        font.italic: true
-                        verticalAlignment: Text.AlignVCenter
-                        font.pointSize: 22
-
-                        anchors.left:parent.left
-                        anchors.leftMargin: 0
-                        anchors.right: parent.right
-                        anchors.rightMargin: 0
-                        focus: true
-                        text:name
-
-                        onAccepted: {
-                            configListModel.setProperty(index, "name", text);
-                            configColumn.setConfigName(index, text);
-                            parent.inEdit = false;
-                        }
-                        onVisibleChanged: {
-                            if(visible){
-                                focus = true;
-                                selectAll();
-                                forceActiveFocus();
-                            }
-                        }
-
-                        onFocusChanged: {
-                            if(!focus){
-                                configListModel.setProperty(index, "name", text);
-                                configColumn.setConfigName(index, text);
-                                parent.inEdit = false;
-                            }
-                        }
-                    }
-
-                    TextButton {
-                        visible: !inEdit
-
-                        height: 40
-                        anchors.left:parent.left
-                        anchors.leftMargin: 0
-                        anchors.right: parent.right
-                        anchors.rightMargin: 0
-
-                        fontPixelSize: 20
-
-
-                        buttonradius: 0
-
-                        textValue: name
-                        startColor: "#4c000000"
-                        stopColor: "#2c000000"
-                        onClicked: {
-                            configListView.currentIndex = index;
-                        }
-                    }
-                }
-                onCurrentIndexChanged: {
-                    configColumn.selectConfig(currentIndex);
-                }
-                Component.onCompleted: {
-                    refreshModel();
-                }
-                function refreshModel(){
-                    var listAll = watcher.getWorkLocationTypeList();
-
-                    configListModel.clear();
-                    for(var item in listAll.config){
-                        configListModel.append({"name":listAll.config[item].name});
-                    }
-
-                    configListView.currentIndex = listAll.current;
-
-                }
-            }
-
-        }
-
-        StepGallery{
-            //anchors.right: parent.right
-            anchors.left: configColumn.right
-            anchors.top: column.bottom
+        Flickable{
+            //anchors.top: parent.top
             //anchors.bottom: parent.bottom
-            anchors.topMargin: 10
-            anchors.leftMargin: 10
-            width: 650
-            height: 400
+            anchors.left: parent.left
+            anchors.right: textButton.left
 
-            showLabel: false
-            showCombo: true
+            ScrollBar.vertical: ScrollBar{}
 
-            visible:configListModel.count>0
+            clip:true
+
+            height: globalinput.active?parent.height -globalinput.height:parent.height-10;
+            Behavior on height{
+                PropertyAnimation { duration:200}
+            }
+
+            contentHeight: column.height
+
+            Column {
+                id: column
+                spacing: 2
+
+                width: parent.width
+
+
+               // anchors.top:parent.top
+                //anchors.left: parent.left
+                //anchors.right: parent.right
+               // anchors.topMargin: 0
+                //anchors.leftMargin: 10
+                //anchors.rightMargin: 10
+
+                Text {
+                    id: text3
+                    text: qsTr("Version "+versionVal)
+
+                    width: 220
+                    height: 22
+                    color: "#d9d9d9"
+                    font.bold: true
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideNone
+                    font.pixelSize: 17
+                }
+
+                Row{
+                    spacing: 5
+
+                    Text {
+                        id: text1
+                        width: 220
+                        height: 35
+                        color: "#d9d9d9"
+                        text: qsTr("Machine Address")
+                        font.bold: true
+                        verticalAlignment: Text.AlignVCenter
+                        elide: Text.ElideNone
+                        font.pixelSize: 17
+                    }
+
+                    Rectangle{
+                        width: 200
+                        height: 35
+                        border.width: 2
+                        border.color: "#ffffff"
+                        radius: 4
+                        TextField {
+                            id: textInput
+                            anchors.fill: parent
+                            placeholderText: qsTr("IP Address")
+                            text: IPAddressObject.IpAddress
+                            horizontalAlignment: Text.AlignHCenter
+                            font.pixelSize: 17
+                            inputMethodHints: Qt.ImhDigitsOnly
+
+                            validator: RegExpValidator{regExp: /^(([01]?[0-9]?[0-9]|2([0-4][0-9]|5[0-5]))\.){3}([01]?[0-9]?[0-9]|2([0-4][0-9]|5[0-5]))$/}
+                            //inputMask: "000.000.000.000;_"
+                        }
+                    }
+
+
+                    Text {
+                        id: text4
+                        text: ":"
+                        width: 5
+                        height: 35
+                        color: "#d9d9d9"
+                        font.bold: true
+                        verticalAlignment: Text.AlignVCenter
+                        elide: Text.ElideNone
+                        font.pixelSize: 17
+                    }
+                    Rectangle{
+                        width: 82
+                        height: 35
+                        border.width: 2
+                        border.color: "#ffffff"
+                        radius: 4
+                        TextField {
+                            id: textInput1
+                            anchors.fill: parent
+                            text: IPAddressObject.port
+                            placeholderText: qsTr("port")
+                            horizontalAlignment: Text.AlignHCenter
+                            font.pixelSize: 17
+                            inputMethodHints: Qt.ImhDigitsOnly
+
+                            validator:IntValidator{
+                                bottom: 0
+                                top:65535
+                            }
+                        }
+                    }
+                }
+
+                Row{
+                    spacing: 5
+
+                    Text {
+                        id: text2
+                        width: 220
+                        height: 35
+                        text: qsTr("Max ack waiting time")
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignLeft
+                        font.pixelSize: 17
+                        color: "#d9d9d9"
+                        font.bold: true
+                    }
+
+
+                    Rectangle{
+                        width: 200
+                        height: 35
+                        border.width: 2
+                        border.color: "#ffffff"
+                        radius: 4
+                        TextField {
+                            id: textInput2
+                            anchors.fill: parent
+                            text: IPAddressObject.maxReceiveTime
+                            placeholderText: qsTr("Wait time")
+                            horizontalAlignment: Text.AlignHCenter
+                            font.pixelSize: 17
+                            inputMethodHints: Qt.ImhDigitsOnly
+
+                            validator:IntValidator{
+                                bottom: 0
+                                top:65535
+                            }
+                        }
+                    }
+                }
+
+                Row{
+                    spacing: 5
+                    Item{
+                        id:configColumn
+                        //anchors.top: parent.top
+                        //anchors.left: parent.left
+                        //anchors.bottom: parent.bottom
+                        //anchors.leftMargin: 20
+
+                        width: 130
+                        height: 400
+
+                        StatusViewWatcher{
+                            id:watcher
+                        }
+
+                        function addConfig(newname){
+                            var listAll = watcher.getWorkLocationTypeList();
+
+                            var defaultVal = listAll.default;
+                            defaultVal.name = newname;
+
+                            listAll.config.push(defaultVal);
+                            watcher.updateWorkPlace(listAll);
+                        }
+
+                        function removeConfig(index){
+                            var listAll = watcher.getWorkLocationTypeList();
+
+                            if ( index >= 0 && index < listAll.config.length){
+                                listAll.config.splice(index, 1);
+                                watcher.updateWorkPlace(listAll);
+                            }
+                        }
+
+                        function setConfigName(index, newname){
+                            var listAll = watcher.getWorkLocationTypeList();
+
+                            if ( index >= 0 && index < listAll.config.length){
+                                if(listAll.config[index].name != newname){
+                                    listAll.config[index].name = newname;
+                                    watcher.updateWorkPlace(listAll);
+                                }
+                            }
+                        }
+
+                        function selectConfig(currentIndex){
+                            var listAll = watcher.getWorkLocationTypeList();
+
+                            listAll.current = currentIndex;
+                            watcher.updateWorkPlace(listAll);
+                        }
+
+                        Text {
+                            id: text5
+                            //width: 220
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.top: parent.top
+                            height: 25
+                            text: qsTr("Work place configuration")
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignLeft
+                            font.pixelSize: 17
+                            color: "#d9d9d9"
+                            font.bold: true
+                        }
+
+                        ActionBar{
+                            id:configActionbar
+                            positionAction: false
+
+                            height: 27
+
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.top: text5.bottom
+                            anchors.margins: 2
+                            disableDelete:configListModel.count == 1
+                            onDoAction: {
+                                if(str == "edit"){
+                                    if(configListView.currentIndex != -1){
+                                        configListView.currentItem.inEdit = true;
+                                    }
+                                }else if(str == "add"){
+                                    configListModel.append({"name":"NewConfig"});
+                                    configColumn.addConfig("");
+                                    configListView.currentIndex = configListModel.count - 1;
+                                    configListView.currentItem.inEdit = true;
+                                }else if(str == "delete"){
+                                    if(configListModel.count > 1){
+                                        configListModel.remove(configListView.currentIndex);
+                                        configColumn.removeConfig(configListView.currentIndex);
+                                    }
+                                }
+                            }
+                        }
+
+                        ListModel{
+                            id:configListModel
+                        }
+
+
+                        ListView {
+                            id: configListView
+                            spacing: 0
+                            anchors.top: configActionbar.bottom
+                            anchors.topMargin: 4
+                            anchors.right: parent.right
+                            anchors.rightMargin: 4
+                            anchors.left: parent.left
+                            anchors.leftMargin: 4
+                            anchors.bottom: parent.bottom
+                            anchors.bottomMargin: 8
+
+                            clip: true
+                            highlight: Rectangle{
+                                height: 40
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+
+                                color: "#ffb902"
+                                radius: 0
+                            }
+                            highlightFollowsCurrentItem: true
+                            //highlightMoveDuration: 200
+                            currentIndex: 0
+                            interactive: true
+                            model: configListModel
+
+                            ScrollBar.vertical: ScrollBar{}
+
+                            delegate: Item{
+                                property bool inEdit: false
+                                height: 40
+                                anchors.left:parent.left
+                                anchors.leftMargin: 0
+                                anchors.right: parent.right
+                                anchors.rightMargin: 0
+                                focus:true
+
+                                TextInput{
+                                    id:inputArea
+                                    visible: inEdit
+                                    selectByMouse: true
+
+                                    height: 40
+                                    font.italic: true
+                                    verticalAlignment: Text.AlignVCenter
+                                    font.pointSize: 22
+
+                                    anchors.left:parent.left
+                                    anchors.leftMargin: 0
+                                    anchors.right: parent.right
+                                    anchors.rightMargin: 0
+                                    focus: true
+                                    text:name
+
+                                    onAccepted: {
+                                        configListModel.setProperty(index, "name", text);
+                                        configColumn.setConfigName(index, text);
+                                        parent.inEdit = false;
+                                    }
+                                    onVisibleChanged: {
+                                        if(visible){
+                                            focus = true;
+                                            selectAll();
+                                            forceActiveFocus();
+                                        }
+                                    }
+
+                                    onFocusChanged: {
+                                        if(!focus){
+                                            configListModel.setProperty(index, "name", text);
+                                            configColumn.setConfigName(index, text);
+                                            parent.inEdit = false;
+                                        }
+                                    }
+                                }
+
+                                TextButton {
+                                    visible: !inEdit
+
+                                    height: 40
+                                    anchors.left:parent.left
+                                    anchors.leftMargin: 0
+                                    anchors.right: parent.right
+                                    anchors.rightMargin: 0
+
+                                    fontPixelSize: 20
+
+
+                                    buttonradius: 0
+
+                                    textValue: name
+                                    startColor: "#4c000000"
+                                    stopColor: "#2c000000"
+                                    onClicked: {
+                                        configListView.currentIndex = index;
+                                    }
+                                }
+                            }
+                            onCurrentIndexChanged: {
+                                configColumn.selectConfig(currentIndex);
+                            }
+                            Component.onCompleted: {
+                                refreshModel();
+                            }
+                            function refreshModel(){
+                                var listAll = watcher.getWorkLocationTypeList();
+
+                                configListModel.clear();
+                                for(var item in listAll.config){
+                                    configListModel.append({"name":listAll.config[item].name});
+                                }
+
+                                configListView.currentIndex = listAll.current;
+
+                            }
+                        }
+
+                    }
+
+                    StepGallery{
+                        //anchors.right: textButton.left
+                        //anchors.left: configColumn.right
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        anchors.topMargin: 10
+                        anchors.leftMargin: 10
+                        width: 500
+                        height: 250
+
+                        showLabel: false
+                        showCombo: true
+
+                        visible:configListModel.count>0
+                    }
+
+                }
+            }
+
         }
         TextButton {
             id: textButton

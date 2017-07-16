@@ -27,10 +27,10 @@ Item {
 
     property var columnWidth;
 
-    columnWidth: 165
+    columnWidth: 120
     width: row.width
     Component.onCompleted: {
-        planColumn.state = "expandPlan"
+        planColumn.state = ""
     }
 
 
@@ -161,7 +161,9 @@ Item {
                 anchors.left: parent.left
                 anchors.leftMargin: 4
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 8
+                anchors.bottomMargin: 10
+
+                ScrollBar.vertical: ScrollBar{}
 
                 clip: true
                 highlight: Rectangle{
@@ -174,7 +176,7 @@ Item {
                 }
                 highlightFollowsCurrentItem: true
                 currentIndex: 0
-                interactive: false
+                interactive: true
                 model: planListModel
 
                 delegate: Item{
@@ -277,7 +279,7 @@ Item {
 
         Item {
             id: stepColumn
-            width: columnWidth*1.2
+            width: columnWidth*1.4
             anchors.top: parent.top
             anchors.topMargin: 0
             anchors.bottom: parent.bottom
@@ -438,7 +440,6 @@ Item {
                     }
                 }
 
-                cacheBuffer: 1000
                 spacing: 0
                 anchors.top: stepActionBar.bottom
                 anchors.topMargin: 4
@@ -862,6 +863,9 @@ Item {
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 10
 
+
+                ScrollBar.vertical: ScrollBar{}
+
                 clip: true
                 highlight: Rectangle{
                     height: 40
@@ -877,7 +881,7 @@ Item {
                 }
                 highlightFollowsCurrentItem: false
                 currentIndex: -1
-                interactive: false
+                interactive: true
 
                 delegate: TextButton {
                     height: 40
@@ -933,7 +937,7 @@ Item {
 
         Item {
             id: paramColumn
-            width: columnWidth*2.5
+            width: columnWidth*2
             anchors.bottom: parent.bottom
             anchors.top: parent.top
             //visible: !operationColumn.visible
@@ -982,9 +986,10 @@ Item {
                 anchors.right: parent.right
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
+                anchors.bottomMargin: 10
                 anchors.leftMargin: 5
                 anchors.rightMargin: 5
-                interactive: false
+                interactive: true
                 model: selector.paramListModel
                 //highlightRangeMode: ListView.StrictlyEnforceRange
                 highlight: Item{}
@@ -1015,7 +1020,7 @@ Item {
                         id: paramName
 
                         height:parent.height
-                        width:135
+                        width:125
 
                         text: modelData.Display
                         horizontalAlignment: Text.AlignRight

@@ -133,7 +133,7 @@ int main(int argc, char *argv[])
 #else
     view.setSource(QUrl("qrc:/MainNoKeyboard.qml"));
 #endif
-    view.setMinimumSize(QSize(1400,720));
+    view.setMinimumSize(QSize(800,480));
     QScreen* scn = view.screen();
     qDebug()<<scn->physicalSize();
 #ifdef QT_WS_QWS

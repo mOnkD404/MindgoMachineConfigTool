@@ -48,7 +48,7 @@ Item {
 
             Rectangle{
                 anchors.fill: parent
-                anchors.bottomMargin: 8
+                anchors.bottomMargin: 2
                 radius:8
                 color: "#3c747474"
             }
@@ -86,7 +86,7 @@ Item {
                 anchors.left: parent.left
                 anchors.leftMargin: 4
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 10
+                anchors.bottomMargin: 4
 
                 clip: true
                 highlight: Rectangle{
@@ -100,7 +100,7 @@ Item {
                 highlightFollowsCurrentItem: true
                 highlightMoveDuration: 150
                 currentIndex: 0
-                interactive: false
+                interactive: true
 
                 delegate: TextButton {
                     height: 40
@@ -144,7 +144,7 @@ Item {
 
             Rectangle{
                 anchors.fill: parent
-                anchors.bottomMargin: 8
+                anchors.bottomMargin: 2
                 radius:8
                 color: "#3c747474"
             }
@@ -181,7 +181,8 @@ Item {
                 anchors.rightMargin: 10
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
-                interactive: false
+                anchors.bottomMargin: 4
+                interactive: true
 
                 ScrollBar.vertical: ScrollBar{}
                 //highlightRangeMode: ListView.StrictlyEnforceRange

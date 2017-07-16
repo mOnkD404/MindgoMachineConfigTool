@@ -118,6 +118,7 @@ Item {
                 anchors.top:mainVDewID.top
                 anchors.right: mainVDewID.right
                 anchors.bottom: mainVDewID.bottom
+                width: 160
             }
         }
 
@@ -350,7 +351,10 @@ Item {
                 startColor: "#1f1f1f"
                 stopColor: "#1f1f1f"
 
-                onClicked: subPageRect.state = ""//subPage.subPageUrl = ""
+                onClicked: {
+                    subPageRect.state = ""//subPage.subPageUrl = ""
+                    Qt.inputMethod.hide();
+                }
             }
         }
 

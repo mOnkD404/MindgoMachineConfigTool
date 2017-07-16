@@ -13,42 +13,6 @@ Item {
             anchors.fill: parent
         }
 
-        Item{
-            id: row
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: parent.top
-
-            height: 45
-
-
-            Text{
-                text:qsTr("Plan setting")
-                verticalAlignment: Text.AlignVCenter
-                font.bold: true
-                font.pixelSize: 20
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: parent.left
-                anchors.leftMargin: 30
-                color:"#d9d9d9"
-                visible: showHeader
-            }
-
-            TextButton{
-                width: 130
-                height: 60
-                textValue: qsTr("Save")
-                anchors.right: parent.right
-                anchors.rightMargin: 0
-                fontPixelSize: 20
-                buttonradius: 3
-                borderColor: "#4c5cc5ff"
-                onClicked: {
-                    var result = planList.savePlan()?qsTr("save succeed"):qsTr("save failed");
-                    showPrompt(result);
-                }
-            }
-        }
 
         PlanList{
             id:planList
@@ -94,6 +58,45 @@ Item {
 
             onItemSelected: {
                 planList.setPosition(index);
+            }
+        }
+
+
+        Item{
+            id: row
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+
+            height: 45
+
+
+            Text{
+                text:qsTr("Plan setting")
+                verticalAlignment: Text.AlignVCenter
+                font.bold: true
+                font.pixelSize: 20
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                anchors.leftMargin: 30
+                color:"#d9d9d9"
+                visible: showHeader
+            }
+
+            TextButton{
+                width: 130
+                height: 60
+                textValue: qsTr("Save")
+                anchors.right: parent.right
+                anchors.rightMargin: 0
+                fontPixelSize: 20
+                buttonradius: 3
+                borderColor: "#4c5cc5ff"
+                z:1
+                onClicked: {
+                    var result = planList.savePlan()?qsTr("save succeed"):qsTr("save failed");
+                    showPrompt(result);
+                }
             }
         }
     }

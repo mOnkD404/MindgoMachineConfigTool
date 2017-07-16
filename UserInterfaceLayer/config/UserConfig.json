@@ -7,9 +7,9 @@
                 {
                     "operation": "Load Tip",
                     "params": {
-                        "boardType": 3,
+                        "boardType": 0,
                         "onBoardIndex": 1,
-                        "position": 1,
+                        "position": 0,
                         "tipIndex": 1
                     },
                     "sequenceNumber": 1
@@ -32,6 +32,25 @@
                     "sequenceNumber": 2
                 },
                 {
+                    "operation": "Mix",
+                    "params": {
+                        "boardType": 1,
+                        "cycleCount": 1,
+                        "drainHeight": 0,
+                        "onBoardIndex": 1,
+                        "position": 7,
+                        "postSuction": false,
+                        "postSuctionVolume": 0,
+                        "preSuction": false,
+                        "preSuctionVolume": 0,
+                        "speed": 1,
+                        "suctionHeight": 0,
+                        "tipIndex": 1,
+                        "volume": 0
+                    },
+                    "sequenceNumber": 3
+                },
+                {
                     "operation": "Dispense",
                     "params": {
                         "boardType": 1,
@@ -43,109 +62,15 @@
                         "speed": 1,
                         "tipIndex": 1
                     },
-                    "sequenceNumber": 3
-                },
-                {
-                    "operation": "Mix",
-                    "params": {
-                        "boardType": 1,
-                        "cycleCount": 1,
-                        "drainHeight": 0,
-                        "onBoardIndex": 1,
-                        "position": 7,
-                        "postSuction": false,
-                        "postSuctionVolume": 0,
-                        "preSuction": false,
-                        "preSuctionVolume": 0,
-                        "speed": 1,
-                        "suctionHeight": 0,
-                        "tipIndex": 1,
-                        "volume": 0
-                    },
                     "sequenceNumber": 4
                 },
                 {
                     "operation": "Dump Tip",
                     "params": {
-                        "boardType": 1,
+                        "boardType": 2,
                         "onBoardIndex": 1,
-                        "position": 3,
+                        "position": 9,
                         "tipIndex": 1
-                    },
-                    "sequenceNumber": 5
-                }
-            ]
-        },
-        {
-            "name": "NewPlan",
-            "operations": [
-                {
-                    "operation": "Load Tip",
-                    "params": {
-                        "boardType": 3,
-                        "onBoardIndex": 1,
-                        "position": 7,
-                        "tipIndex": 1
-                    },
-                    "sequenceNumber": 1
-                },
-                {
-                    "operation": "Suction",
-                    "params": {
-                        "boardType": 0,
-                        "onBoardIndex": 1,
-                        "position": 0,
-                        "postSuction": false,
-                        "postSuctionVolume": 0,
-                        "preSuction": false,
-                        "preSuctionVolume": 0,
-                        "speed": 1,
-                        "suctionHeight": 0,
-                        "tipIndex": 1,
-                        "volume": 0
-                    },
-                    "sequenceNumber": 2
-                },
-                {
-                    "operation": "Dispense",
-                    "params": {
-                        "boardType": 1,
-                        "drain": false,
-                        "drainHeight": 0,
-                        "drainVolume": 0,
-                        "onBoardIndex": 1,
-                        "position": 6,
-                        "speed": 1,
-                        "tipIndex": 1
-                    },
-                    "sequenceNumber": 3
-                },
-                {
-                    "operation": "Dump Tip",
-                    "params": {
-                        "boardType": 0,
-                        "onBoardIndex": 1,
-                        "position": 0,
-                        "tipIndex": 1
-                    },
-                    "sequenceNumber": 4
-                },
-                {
-                    "operation": "Mix",
-                    "params": {
-                        "boardType": 0,
-                        "cycleCount": 1,
-                        "drainHeight": 0,
-                        "onBoardIndex": 1,
-                        "position": 0,
-                        "postSuction": false,
-                        "postSuctionVolume": 0,
-                        "preSuction": false,
-                        "preSuctionVolume": 0,
-                        "speed": 1,
-                        "suctionHeight": 0,
-                        "tipIndex": 1,
-                        "volume": 0
                     },
                     "sequenceNumber": 5
                 }

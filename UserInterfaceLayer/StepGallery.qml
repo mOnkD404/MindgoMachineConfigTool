@@ -14,6 +14,10 @@ Item {
 
     height: width*3/4
 
+    clip:true
+
+    id:root
+
     MouseArea{
         anchors.fill: parent
     }
@@ -142,8 +146,8 @@ Item {
         delegate: Rectangle {
             property int gridIndex:index
             property string gridType: type
-            height: gridView.cellHeight * 4/5
-            width: gridView.cellWidth * 7/8
+            height: gridView.cellHeight * 9/10
+            width: gridView.cellWidth * 9/10
 
             color:"#4c000000"
             radius: 8
@@ -316,7 +320,6 @@ Item {
                                 setIndexParam(gridIndex, "tipBox", "volume", text);
                                 focus = false;
                             }
-
                         }
                         Text{
                             id: unitText

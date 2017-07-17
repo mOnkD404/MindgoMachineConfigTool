@@ -244,6 +244,7 @@ Item {
                                 validator: getValidator()
                                 focus:true
                                 activeFocusOnTab: true
+                                inputMethodHints: Qt.ImhDigitsOnly
 
                                 onActiveFocusChanged: {
                                     if(activeFocus){

@@ -15,6 +15,13 @@
                     "sequenceNumber": 1
                 },
                 {
+                    "operation": "Group",
+                    "params": {
+                        "GroupName": "9"
+                    },
+                    "sequenceNumber": 2
+                },
+                {
                     "operation": "Suction",
                     "params": {
                         "boardType": 1,
@@ -29,7 +36,7 @@
                         "tipIndex": 1,
                         "volume": 0
                     },
-                    "sequenceNumber": 2
+                    "sequenceNumber": 3
                 },
                 {
                     "operation": "Mix",
@@ -48,7 +55,7 @@
                         "tipIndex": 1,
                         "volume": 0
                     },
-                    "sequenceNumber": 3
+                    "sequenceNumber": 4
                 },
                 {
                     "operation": "Dispense",
@@ -62,7 +69,7 @@
                         "speed": 1,
                         "tipIndex": 1
                     },
-                    "sequenceNumber": 4
+                    "sequenceNumber": 5
                 },
                 {
                     "operation": "Dump Tip",
@@ -72,7 +79,7 @@
                         "position": 9,
                         "tipIndex": 1
                     },
-                    "sequenceNumber": 5
+                    "sequenceNumber": 6
                 }
             ]
         }
@@ -105,13 +112,15 @@
                         "name": "sbsBoard"
                     },
                     {
-                        "name": "sbsBoard"
+                        "name": "tipBox",
+                        "volume": 250
                     },
                     {
                         "name": "sbsBoard"
                     },
                     {
-                        "name": "sbsBoard"
+                        "name": "tipBox",
+                        "volume": 250
                     },
                     {
                         "name": "sbsBoard"

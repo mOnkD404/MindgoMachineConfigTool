@@ -12,6 +12,8 @@ Item {
     signal typeChanged();
     signal itemSelected(int index);
 
+    property int activeY:0
+
     height: width*3/4
 
     clip:true
@@ -319,6 +321,13 @@ Item {
                             onEditingFinished: {
                                 setIndexParam(gridIndex, "tipBox", "volume", text);
                                 focus = false;
+                            }
+
+                            onActiveFocusChanged: {
+                                if(activeFocus){
+                                    root.activeY = mapToItem(root , cursorRectangle.x, cursorRectangle.y).y;
+
+                                }
                             }
                         }
                         Text{

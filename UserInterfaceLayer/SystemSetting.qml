@@ -12,7 +12,6 @@ Item {
     //        anchors.fill: parent
     //    }
 
-
     Rectangle{
         anchors.fill: parent
         anchors.margins: 10
@@ -24,6 +23,7 @@ Item {
         Flickable{
             //anchors.top: parent.top
             //anchors.bottom: parent.bottom
+            id:scrollableView
             anchors.left: parent.left
             anchors.right: textButton.left
 
@@ -34,6 +34,15 @@ Item {
             height: globalinput.active?parent.height -globalinput.height:parent.height-10;
             Behavior on height{
                 PropertyAnimation { duration:200}
+            }
+            onHeightChanged: {
+                if(globalinput.active){
+                    var itemHeight = 40;
+                    var tempY = mapFromItem(stepGallery, 0, stepGallery.activeY).y;
+                    if(tempY +itemHeight> height){
+                        contentY  += (tempY - height + itemHeight);
+                    }
+                }
             }
 
             contentHeight: column.height
@@ -398,6 +407,7 @@ Item {
                     }
 
                     StepGallery{
+                        id:stepGallery
                         //anchors.right: textButton.left
                         //anchors.left: configColumn.right
                         anchors.top: parent.top

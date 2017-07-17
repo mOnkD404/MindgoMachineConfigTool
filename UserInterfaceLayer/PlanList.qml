@@ -285,6 +285,7 @@ Item {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
 
+
             Rectangle{
                 anchors.fill: parent
                 anchors.bottomMargin: 8
@@ -399,6 +400,16 @@ Item {
                 ScrollBar.vertical: ScrollBar{}
                 moveDisplaced: Transition {
                     NumberAnimation { duration: 200; properties: "x,y"; easing.type: Easing.InOutCubic }
+                }
+
+                onHeightChanged: {
+                    if(globalinput.active){
+                        var itemHeight = 42;
+                        var tempY = mapFromItem(stepListView.currentItem, 0, stepListView.currentItem.y).y;
+                        if(tempY +itemHeight> height){
+                            contentY  += (tempY - height + itemHeight);
+                        }
+                    }
                 }
 
                 function refreshStepListModel(){
@@ -805,7 +816,7 @@ Item {
                 name:"expandOperation"
                 PropertyChanges{
                     target: operationColumn
-                    width: columnWidth
+                    width: columnWidth*2
                 }
                 PropertyChanges {
                     target: paramColumn
@@ -1050,6 +1061,17 @@ Item {
                                 activeFocusOnTab: true
                                 selectByMouse: true
                                 //text: getText()
+
+                                inputMethodHints: {
+                                    if(modelData.Type == "integer"){
+                                        return Qt.ImhDigitsOnly;
+                                    }
+                                    else if(modelData.Type == "float"){
+                                        return Qt.ImhDigitsOnly;
+                                    }
+                                    return Qt.ImhNoAutoUppercase;
+
+                                }
 
                                 Component.onCompleted: {
                                     text = getText();

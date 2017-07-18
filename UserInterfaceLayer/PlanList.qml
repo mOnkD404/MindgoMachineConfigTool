@@ -403,7 +403,7 @@ Item {
                 }
 
                 onHeightChanged: {
-                    if(globalinput.active){
+                    if(globalinput.active && stepListView.currentItem != undefined){
                         var itemHeight = 42;
                         var tempY = mapFromItem(stepListView.currentItem, 0, stepListView.currentItem.y).y;
                         if(tempY +itemHeight> height){

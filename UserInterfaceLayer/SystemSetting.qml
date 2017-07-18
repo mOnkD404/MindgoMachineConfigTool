@@ -18,6 +18,9 @@ Item {
         color:"#58595a"
         MouseArea{
             anchors.fill: parent
+            onClicked: {
+                systemSettingPage.forceActiveFocus();
+            }
         }
 
         Flickable{
@@ -447,9 +450,7 @@ Item {
                 var result = IPAddressObject.onMachineConfigChanged()?qsTr("save succeed"):qsTr("save failed");
                 textButton.showPrompt(result);
 
-                textInput.focus = false;
-                textInput1.focus = false;
-                textInput2.focus = false;
+                forceActiveFocus();
             }
         }
         TextButton {
@@ -467,6 +468,8 @@ Item {
 
             onClicked: {
                 fileDialogExport.visible = true;
+
+                forceActiveFocus();
             }
         }
         TextButton {
@@ -484,6 +487,8 @@ Item {
 
             onClicked: {
                 fileDialogImport.visible = true;
+
+                forceActiveFocus();
             }
         }
     }

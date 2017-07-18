@@ -96,6 +96,48 @@
                 "name": "NewConfig",
                 "type": [
                     {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    }
+                ]
+            },
+            {
+                "count": 12,
+                "name": "NewConfig",
+                "type": [
+                    {
                         "name": "tipBox",
                         "volume": 250
                     },
@@ -103,7 +145,10 @@
                         "name": "sbsBoard"
                     },
                     {
-                        "name": "megneticSeperation"
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "sbsBoard"
                     },
                     {
                         "name": "sbsBoard"
@@ -112,25 +157,19 @@
                         "name": "sbsBoard"
                     },
                     {
-                        "name": "tipBox",
-                        "volume": 250
+                        "name": "sbsBoard"
                     },
                     {
                         "name": "sbsBoard"
                     },
                     {
-                        "name": "tipBox",
-                        "volume": 250
+                        "name": "sbsBoard"
                     },
                     {
                         "name": "sbsBoard"
                     },
                     {
-                        "name": "megneticSeperation"
-                    },
-                    {
-                        "name": "tipBox",
-                        "volume": 250
+                        "name": "sbsBoard"
                     },
                     {
                         "name": "sbsBoard"
@@ -138,7 +177,7 @@
                 ]
             }
         ],
-        "current": 0,
+        "current": 1,
         "default": {
             "count": 12,
             "name": "",

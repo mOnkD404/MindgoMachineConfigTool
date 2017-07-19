@@ -183,7 +183,8 @@
                         "name": "sbsBoard"
                     },
                     {
-                        "name": "sbsBoard"
+                        "name": "tipBox",
+                        "volume": 250
                     },
                     {
                         "name": "sbsBoard"
@@ -192,7 +193,7 @@
                         "name": "sbsBoard"
                     },
                     {
-                        "name": "megneticSeperation"
+                        "name": "sbsBoard"
                     },
                     {
                         "name": "tipBox",

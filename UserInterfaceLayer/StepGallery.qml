@@ -161,6 +161,7 @@ Item {
                 smooth: true
                 antialiasing: true
                 visible: true
+                opacity: showCombo?0.4:1.0
 
                 Rectangle{
                     visible: showLabel||showIndex

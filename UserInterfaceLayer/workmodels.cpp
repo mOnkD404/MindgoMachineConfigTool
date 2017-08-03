@@ -533,6 +533,13 @@ bool TargetMachineObject::onMachineConfigChanged()
     return EnvironmentVariant::instance()->SaveMachineConfig(MachineConfigData(IpAddress, port, maxReceiveTime));
 }
 
+ConfigFileConverter::ConfigFileConverter(QObject* parent)
+    : QObject(parent)
+{
+    m_model = new QFileSystemModel(this);
+    m_model->setRootPath("/E");
+}
+
 bool ConfigFileConverter::importConfigFile(const QUrl& filename)
 {
     return EnvironmentVariant::instance()->ImportConfig(filename.toLocalFile());
@@ -540,4 +547,13 @@ bool ConfigFileConverter::importConfigFile(const QUrl& filename)
 bool ConfigFileConverter::exportConfigFile(const QUrl& filename)
 {
     return EnvironmentVariant::instance()->ExportConfig(filename.toLocalFile());
+}
+QAbstractItemModel* ConfigFileConverter::fileSystemModel()
+{
+    return m_model;
+}
+
+QModelIndex ConfigFileConverter::rootIndex()
+{
+    return m_model->index("/E");
 }

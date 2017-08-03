@@ -467,8 +467,8 @@ Item {
             fontPixelSize: 20
 
             onClicked: {
-                fileDialogExport.visible = true;
-
+                //fileDialogExport.visible = true;
+                fileViewExport.visible = true;
                 forceActiveFocus();
             }
         }
@@ -486,53 +486,26 @@ Item {
             fontPixelSize: 20
 
             onClicked: {
-                fileDialogImport.visible = true;
-
+                //fileDialogImport.visible = true;
+                fileViewImport.visible = true;
                 forceActiveFocus();
             }
         }
     }
 
+    FileView{
+        id:fileViewExport
 
-    FileDialog {
-        id: fileDialogExport
-        title: qsTr("Save file")
-        folder: shortcuts.documents
-        visible: false
-        selectMultiple:false
-        selectExisting:false
-        //fileMode: FileDialog.SaveFile
-        nameFilters: [ "CSV files (*.csv)" ]
-        onAccepted: {
-            var result = configFileConverter.exportConfigFile(fileUrl)?qsTr("export succeed"):qsTr("export failed");
-            textButton2.showPrompt(result);
-            visible = false;
-        }
-        onRejected: {
-            visible = false;
-        }
+        width:400
+        height:400
+        visible:false
     }
-    FileDialog {
-        id: fileDialogImport
-        title: qsTr("Select file")
-        folder: shortcuts.documents
-        visible: false
-        selectMultiple:false
-        selectExisting:true
-        nameFilters: [ "CSV files (*.csv)" ]
-        //fileMode: FileDialog.OpenFile
-        onAccepted: {
-            if(configFileConverter.importConfigFile(fileUrl)){
-                configListView.refreshModel();
-                textButton3.showPrompt(qsTr("import succeed"));
-            }else {
-                textButton3.showPrompt(qsTr("import failed"));
-            }
+    FileView{
+        id:fileViewImport
 
-            visible = false;
-        }
-        onRejected: {
-            visible = false;
-        }
+        width:400
+        height:400
+        visible:false
     }
+
 }

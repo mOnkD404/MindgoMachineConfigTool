@@ -11,6 +11,7 @@
 #include <QDoubleValidator>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QFileSystemModel>
 
 class OperationParamData
 {
@@ -588,11 +589,17 @@ class ConfigFileConverter:public QObject
 {
     Q_OBJECT
 public:
-    ConfigFileConverter(QObject* parent = NULL): QObject(parent){}
+    ConfigFileConverter(QObject* parent = NULL);
 
     Q_INVOKABLE bool importConfigFile(const QUrl& filename);
     Q_INVOKABLE bool exportConfigFile(const QUrl& filename);
+    Q_INVOKABLE QAbstractItemModel* fileSystemModel();
+    Q_INVOKABLE QModelIndex rootIndex();
+
+private:
+    QFileSystemModel *m_model;
 };
+
 
 
 #endif // WORKMODELS_H

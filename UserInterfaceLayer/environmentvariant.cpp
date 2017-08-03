@@ -83,6 +83,7 @@ void EnvironmentVariant::initModels(QQmlContext* context)
     context->setContextProperty("isAdministratorAccount", m_bAdministratorAccount);
     context->setContextProperty("currentDirectory", m_currentDir);
     context->setContextProperty("configFileConverter", &m_configFileConverter);
+
     //m_singleStepPageModel.init(context, m_operationList, m_operationNameDispMap);
 }
 

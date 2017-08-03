@@ -1,4 +1,5 @@
 ﻿#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QStringList>
 
@@ -94,7 +95,7 @@ int main(int argc, char *argv[])
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
 #endif
 
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
     app.setApplicationName("Mindgo");
 
 #ifdef QT_NO_DEBUG

@@ -468,7 +468,7 @@ Item {
 
             onClicked: {
                 //fileDialogExport.visible = true;
-                fileViewExport.visible = true;
+                fileViewExport.open();
                 forceActiveFocus();
             }
         }
@@ -487,7 +487,7 @@ Item {
 
             onClicked: {
                 //fileDialogImport.visible = true;
-                fileViewImport.visible = true;
+                fileViewImport.open();
                 forceActiveFocus();
             }
         }
@@ -496,16 +496,26 @@ Item {
     FileView{
         id:fileViewExport
 
-        width:400
-        height:400
-        visible:false
+        type:"export"
+
+        onAccepted: {
+            var exportFileName = fileUrl + '/MindGoConfigExport_'+Qt.formatDateTime(new Date(), "yyyy-MM-dd_hh_mm_ss")+'.csv';
+            var result = configFileConverter.exportConfigFile(exportFileName.toLocaleString())?qsTr("export succeed"):qsTr("export failed");
+
+            textButton2.showPrompt(result);
+        }
     }
     FileView{
         id:fileViewImport
-
-        width:400
-        height:400
-        visible:false
+        type:"import"
+        onAccepted: {
+            if(configFileConverter.importConfigFile(fileUrl)){
+                configListView.refreshModel();
+                textButton3.showPrompt(qsTr("import succeed"));
+            }else {
+                textButton3.showPrompt(qsTr("import failed"));
+            }
+        }
     }
 
 }

@@ -19,7 +19,6 @@
 #include <QScreen>
 #include <QtPlugin>
 
-
 #ifdef WIN32
 #include <Windows.h>
 #include <iostream>
@@ -71,6 +70,8 @@ void customMessageHandler(QtMsgType type, const QMessageLogContext &context, con
     outputFile.open(QIODevice::WriteOnly | QIODevice::Append);
     QTextStream textStream(&outputFile);
     textStream << txtMessage << endl;
+    QTextStream screenOut(stdout);
+    screenOut<<txtMessage<<endl;
 }
 
 #ifdef MINDGO_ALL_IN_ONE
@@ -112,6 +113,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<PlanSelector>("Common" ,1,0,"PlanSelector");
     qmlRegisterType<StatusViewWatcher>("Common", 1,0,"StatusViewWatcher");
     qmlRegisterType<PlanController>("Common", 1,0,"PlanController");
+    qmlRegisterType<FileViewModel>("Common", 1,0,"FileViewModel");
 
     QFontDatabase::addApplicationFont(getConfigFullName("FZHTJW.TTF"));
     QFont font;

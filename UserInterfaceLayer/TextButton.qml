@@ -40,10 +40,10 @@ Item{
         visible: false
         property alias text: promptText.text
 
-        color: "#4c000000"
+        color: "#cc414141"
         radius: 3
         border.width: 2
-        border.color: "#dc000000"
+        border.color: "#acdfdfdf"
         clip:true
 
         Text{

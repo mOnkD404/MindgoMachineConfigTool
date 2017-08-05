@@ -536,24 +536,65 @@ bool TargetMachineObject::onMachineConfigChanged()
 ConfigFileConverter::ConfigFileConverter(QObject* parent)
     : QObject(parent)
 {
-    m_model = new QFileSystemModel(this);
-    m_model->setRootPath("/E");
 }
 
-bool ConfigFileConverter::importConfigFile(const QUrl& filename)
+bool ConfigFileConverter::importConfigFile(const QString& filename)
 {
-    return EnvironmentVariant::instance()->ImportConfig(filename.toLocalFile());
+    return EnvironmentVariant::instance()->ImportConfig(filename);
 }
-bool ConfigFileConverter::exportConfigFile(const QUrl& filename)
+bool ConfigFileConverter::exportConfigFile(const QString& filename)
 {
-    return EnvironmentVariant::instance()->ExportConfig(filename.toLocalFile());
-}
-QAbstractItemModel* ConfigFileConverter::fileSystemModel()
-{
-    return m_model;
+    return EnvironmentVariant::instance()->ExportConfig(filename);
 }
 
-QModelIndex ConfigFileConverter::rootIndex()
+FileViewModel::FileViewModel(QObject* parent)
+    : QObject(parent)
 {
-    return m_model->index("/E");
+    m_Model = new QFileSystemModel(this);
+#ifdef WIN32
+    m_Model->setRootPath("D:\\");
+#else
+    m_Model->setRootPath("/E");
+#endif
+}
+void FileViewModel::setDirOnly(bool dir)
+{
+    if(dir != dirOnly)
+    {
+        dirOnly = dir;
+        if(dirOnly)
+        {
+            m_Model->setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
+        }
+        else
+        {
+            QStringList filters;
+            filters << "*.csv";
+
+            m_Model->setNameFilters(filters);
+            m_Model->setNameFilterDisables(false);
+        }
+        emit dirOnlyChanged();
+    }
+}
+bool FileViewModel::getDirOnly()
+{
+    return dirOnly;
+}
+QModelIndex FileViewModel::rootIndex()
+{
+#ifdef WIN32
+    return m_Model->index("D:\\");
+#else
+    return m_Model->index("/E");
+#endif
+}
+QAbstractItemModel* FileViewModel::fileSystemModel()
+{
+    return m_Model;
+}
+
+QString FileViewModel::fullFileName(const QModelIndex&index)
+{
+    return m_Model->filePath(index);
 }

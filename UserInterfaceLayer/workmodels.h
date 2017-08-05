@@ -591,13 +591,30 @@ class ConfigFileConverter:public QObject
 public:
     ConfigFileConverter(QObject* parent = NULL);
 
-    Q_INVOKABLE bool importConfigFile(const QUrl& filename);
-    Q_INVOKABLE bool exportConfigFile(const QUrl& filename);
-    Q_INVOKABLE QAbstractItemModel* fileSystemModel();
+    Q_INVOKABLE bool importConfigFile(const QString& filename);
+    Q_INVOKABLE bool exportConfigFile(const QString& filename);
+};
+
+class FileViewModel: public QObject
+{
+    Q_OBJECT
+    Q_PROPERTY(bool dirOnly READ getDirOnly WRITE setDirOnly NOTIFY dirOnlyChanged)
+public:
+    FileViewModel(QObject* parent = NULL);
+
+    void setDirOnly(bool dir);
+    bool getDirOnly();
+
     Q_INVOKABLE QModelIndex rootIndex();
+    Q_INVOKABLE QAbstractItemModel* fileSystemModel();
+    Q_INVOKABLE QString fullFileName(const QModelIndex&);
+
+signals:
+    void dirOnlyChanged();
 
 private:
-    QFileSystemModel *m_model;
+    bool dirOnly;
+    QFileSystemModel *m_Model;
 };
 
 

@@ -13,8 +13,7 @@ Item {
     }
 
     Rectangle{
-
-        height: 70
+        height: 55
         color: "#1f1f1f"
         anchors.right: parent.right
         anchors.rightMargin: 0
@@ -323,7 +322,7 @@ Item {
 
         Rectangle{
             id:subPageheader
-            height: 70
+            height: mainScreenHeader.height
             width: 400
             color: "#1f1f1f"
             anchors.rightMargin: 0

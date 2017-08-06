@@ -40,7 +40,7 @@ Item {
 
         Item {
             id: column
-            width: 150
+            width: 200
             anchors.top: parent.top
             anchors.topMargin: 0
             anchors.bottom: parent.bottom

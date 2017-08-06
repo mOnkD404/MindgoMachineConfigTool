@@ -20,8 +20,10 @@
                     "Mix":"0x8005",
                     "Magnetic Separation":"0x8006",
                     "Relative Motion":"0x8101",
-                    "Absolute Motion":"0x8102",
-                    "Reset":"0x8103"
+                    "Syringe Motion":"0x8102",
+                    "Reset":"0x8103",
+                    "XY Motion":"0x8104",
+                    "Machine Reset":"0x0001"
                 },
                 "byte size":2
             },
@@ -55,15 +57,23 @@
                 },
                 "Relative Motion":{
                     "byte size":10,
-                    "data":["spindleIndex","motionDistance", "motionSpeed"]
+                    "data":["singleSpindleIndex","motionDistance", "motionSpeed"]
                 },
-                "Absolute Motion":{
+                "Syringe Motion":{
                     "byte size":10,
-                    "data":["spindleIndex","motionDistance", "motionSpeed"]
+                    "data":["syringeIndex","injectVolume", "injectSpeed"]
                 },
                 "Reset":{
                     "byte size":6,
-                    "data":["spindleIndex"]
+                    "data":["allSpindleIndex"]
+                },
+                "XY Motion":{
+                    "byte size":10,
+                    "data":["position", "tipIndex", "onBoardIndex"]
+                },
+                "Machine Reset":{
+                    "byte size":4,
+                    "data":[]
                 }
             }
         },
@@ -87,8 +97,10 @@
                     "Mix":"0x8005",
                     "Magnetic Separation":"0x8006",
                     "Relative Motion":"0x8101",
-                    "Absolute Motion":"0x8102",
-                    "Reset":"0x8103"
+                    "Syringe Motion":"0x8102",
+                    "Reset":"0x8103",
+                    "XY Motion":"0x8104",
+                    "Machine Reset":"0x0001"
                 },
                 "byte size":2
             },

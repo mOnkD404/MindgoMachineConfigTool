@@ -174,7 +174,8 @@ Item {
                 }
                 highlightFollowsCurrentItem: true
                 currentIndex: 0
-                interactive: false
+                interactive: true
+                ScrollBar.vertical: ScrollBar{}
                 model: planListModel
 
                 delegate: Item{
@@ -804,7 +805,7 @@ Item {
                 name:"expandOperation"
                 PropertyChanges{
                     target: operationColumn
-                    width: columnWidth
+                    width: columnWidth*1.5
                 }
                 PropertyChanges {
                     target: paramColumn
@@ -862,6 +863,8 @@ Item {
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 10
 
+                ScrollBar.vertical: ScrollBar{}
+
                 clip: true
                 highlight: Rectangle{
                     height: 40
@@ -877,7 +880,7 @@ Item {
                 }
                 highlightFollowsCurrentItem: false
                 currentIndex: -1
-                interactive: false
+                interactive: true
 
                 delegate: TextButton {
                     height: 40

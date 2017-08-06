@@ -75,17 +75,17 @@
         <translation>计划设置</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="312"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="322"/>
         <source>Step list</source>
         <translation>实验流程</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="829"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="839"/>
         <source>Operation type</source>
         <translation>操作类型</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="956"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="968"/>
         <source>Operation param</source>
         <translation>操作参数</translation>
     </message>
@@ -129,42 +129,42 @@
 <context>
     <name>StartPage</name>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="75"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="78"/>
         <source>Confirm</source>
         <translation>确定信息</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="90"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="93"/>
         <source>Test</source>
         <translation>实验名称</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="134"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="137"/>
         <source>Start Step</source>
         <translation>开始步骤</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="172"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="175"/>
         <source>Checking plan...</source>
         <translation>检查计划...</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="174"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="177"/>
         <source>Ready</source>
         <translation>检查完成</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="176"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="179"/>
         <source>Invalid step </source>
         <translation>错误的步骤</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="225"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="228"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StartPage.qml" line="249"/>
+        <location filename="UserInterfaceLayer/StartPage.qml" line="252"/>
         <source>Start</source>
         <translation>开始</translation>
     </message>
@@ -172,27 +172,27 @@
 <context>
     <name>StepGallery</name>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="175"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="184"/>
         <source>Empty</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="175"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="184"/>
         <source>Ready</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="284"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="294"/>
         <source>Vol.</source>
         <translation>容量</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="296"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="306"/>
         <source>Max volume</source>
         <translation>最大容量</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="338"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="348"/>
         <source>Used</source>
         <translation></translation>
     </message>
@@ -230,57 +230,57 @@
         <translation>板位配置</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="473"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="477"/>
         <source>Save config</source>
         <translation>保存配置</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="480"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="484"/>
         <source>save succeed</source>
         <translation>保存成功</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="480"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="484"/>
         <source>save failed</source>
         <translation>保存失败</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="498"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="502"/>
         <source>Export config</source>
         <translation>导出配置</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="515"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="519"/>
         <source>Import config</source>
         <translation>导入配置</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="527"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="531"/>
         <source>Save file</source>
         <translation>保存文件</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="535"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="539"/>
         <source>export succeed</source>
         <translation>导出成功</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="535"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="539"/>
         <source>export failed</source>
         <translation>导出失败</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="545"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="549"/>
         <source>Select file</source>
         <translation>选择文件</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="555"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="559"/>
         <source>import succeed</source>
         <translation>导入成功</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="557"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="561"/>
         <source>import failed</source>
         <translation>导入失败</translation>
     </message>

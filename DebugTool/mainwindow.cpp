@@ -100,6 +100,8 @@ bool WorkerObject::handleData(const QByteArray& array)
         "\x02\x00\x0A\x81\x01",//rel
         "\x02\x00\x0A\x81\x02",//abs
         "\x02\x00\x06\x81\x03",//reset
+        "\x02\x00\x0A\x81\x04",//xy motion
+        "\x02\x00\x04\x00\x01"//machine reset
     };
     char ack[10] = "\x02\x00\x06\x00\x00\x00\x00\x00\x00";
 
@@ -165,6 +167,20 @@ bool WorkerObject::handleData(const QByteArray& array)
     else if(memcmp(array.data(), command[8], 5) == 0)
     {
         dataStream<<"reset command recv";
+
+        memcpy(ack+3, array.data()+3, 4);
+        m_ackData = QByteArray(ack,9);
+    }
+    else if(memcmp(array.data(), command[9], 5) == 0)
+    {
+        dataStream<<"xy motion command recv";
+
+        memcpy(ack+3, array.data()+3, 4);
+        m_ackData = QByteArray(ack,9);
+    }
+    else if(memcmp(array.data(), command[10], 5) == 0)
+    {
+        dataStream<<"machine reset command recv";
 
         memcpy(ack+3, array.data()+3, 4);
         m_ackData = QByteArray(ack,9);

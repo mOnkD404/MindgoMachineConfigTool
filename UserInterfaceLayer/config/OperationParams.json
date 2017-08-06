@@ -1,5 +1,5 @@
 ﻿{
-    "OperationEnum":["Load Tip", "Dump Tip", "Suction", "Dispense", "Mix", "Magnetic Separation", "Relative Motion", "Absolute Motion", "Reset"],
+    "OperationEnum":["Load Tip", "Dump Tip", "Suction", "Dispense", "Mix", "Magnetic Separation", "Relative Motion", "Syringe Motion", "Reset","XY Motion", "Machine Reset"],
     "LogicalControlEnum":["WaitArray","Loop", "EndLoop", "Group"],
     "NormalOperation":{
         "Load Tip":[         "boardType", "position", "tipIndex", "onBoardIndex"],
@@ -8,9 +8,11 @@
         "Mix":["speed", "boardType", "position", "tipIndex", "onBoardIndex", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume",                         "suctionHeight","drainHeight","cycleCount"],
         "Dump Tip":[         "boardType", "position", "tipIndex", "onBoardIndex"],
         "Magnetic Separation":["position", "boardMotion"],
-        "Relative Motion":["spindleIndex","motionDistance", "motionSpeed"],
-        "Absolute Motion":["spindleIndex","motionDistance", "motionSpeed"],
-        "Reset":["spindleIndex"]
+        "Relative Motion":["singleSpindleIndex","motionDistance", "motionSpeed"],
+        "Syringe Motion":["syringeIndex","injectVolume", "injectSpeed"],
+        "Reset":["allSpindleIndex"],
+        "XY Motion":["position", "tipIndex", "onBoardIndex"],
+        "Machine Reset":[]
     },
     "logicalControl":{
         "WaitArray":["waitTime"],
@@ -19,19 +21,21 @@
         "Group":["GroupName"]
     },
     "Operation Display Name":{
-        "Load Tip":"装载针头",
+        "Load Tip":"装载",
         "Suction":"吸液",
         "Dispense":"排液",
         "Mix":"混合",
-        "Dump Tip":"卸载针头",
+        "Dump Tip":"卸载",
         "WaitArray":"等待时间",
         "Loop":"循环",
         "EndLoop":"循环结束",
-        "Magnetic Separation":"磁分离位置",
+        "Magnetic Separation":"磁分离",
         "Relative Motion":"单轴相对运动",
-        "Absolute Motion":"单轴绝对运动",
+        "Syringe Motion":"注射器相对运动",
         "Reset":"单轴复位",
-        "Group":"分组"
+        "Group":"分组",
+        "XY Motion":"XY运动",
+        "Machine Reset":"整机复位"
     },
 
     "params":{
@@ -40,7 +44,7 @@
             "enum":["慢速","中速","快速"],
             "valueEnum":[0,1,2],
             "default":1,
-            "display":"注射器速度"
+            "display":"吸排速度"
         },
         "boardType":{
             "type":"enum",
@@ -141,14 +145,21 @@
         },
         "boardMotion":{
             "type":"enum",
-            "enum":["下降", "抬高"],
+            "enum":["下位", "上位"],
             "valueEnum":[0,1],
             "default":0,
             "display":"深孔板运动"
         },
-        "spindleIndex":{
+        "singleSpindleIndex":{
             "type":"enum",
-            "enum":["0","1","2","3"],
+            "enum":["X","Y","Z"],
+            "valueEnum":[0,1,2],
+            "default":0,
+            "display":"轴编号"
+        },        
+        "allSpindleIndex":{
+            "type":"enum",
+            "enum":["X","Y","Z","注射器"],
             "valueEnum":[0,1,2,3],
             "default":0,
             "display":"轴编号"
@@ -165,7 +176,7 @@
             "type":"float",
             "default":0,
             "display":"运动速度",
-            "unit":"mm",
+            "unit":"mm/s",
             "bottomValue":0,
             "topValue":1000
         },
@@ -180,15 +191,38 @@
             "type":"integer",
             "default":1,
             "display":"吸液头编号",
-            "bottomValue":0,
-            "topValue":95
+            "bottomValue":1,
+            "topValue":96
         },
         "onBoardIndex":{
             "type":"integer",
             "default":1,
             "display":"板位内编号",
+            "bottomValue":1,
+            "topValue":96
+        },
+        "syringeIndex":{
+            "type":"enum",
+            "enum":["注射器"],
+            "valueEnum":[3],
+            "default":0,
+            "display":"轴编号"
+        },
+        "injectVolume":{
+            "type":"integer",
+            "default":0,
+            "display":"注射体积",
+            "unit":"μL",
+            "bottomValue":-1000,
+            "topValue":1000
+        },
+        "injectSpeed":{
+            "type":"integer",
+            "default":0,
+            "display":"注射速度",
+            "unit":"μL/s",
             "bottomValue":0,
-            "topValue":95
+            "topValue":1000
         }
     },
     "workPlace":[
@@ -238,7 +272,7 @@
         },
         {
             "type":"megneticSeperation",
-            "display":"磁分离位置",
+            "display":"磁分离",
             "operation":["Suction", "Dispense", "Mix", "Magnetic Separation"],
             "image":{
                 "ready":"./image/2-1.png",

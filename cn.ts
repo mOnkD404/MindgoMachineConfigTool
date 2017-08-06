@@ -24,7 +24,7 @@
     <message>
         <location filename="UserInterfaceLayer/MainScreen.qml" line="32"/>
         <source>Automatic moving fluid tool</source>
-        <translation>自动移液机系统</translation>
+        <translation>全自动液体处理工作站</translation>
     </message>
     <message>
         <location filename="UserInterfaceLayer/MainScreen.qml" line="49"/>

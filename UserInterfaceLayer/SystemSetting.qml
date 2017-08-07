@@ -39,7 +39,7 @@ Item {
                 PropertyAnimation { duration:200}
             }
             onHeightChanged: {
-                if(globalinput.active){
+                if(globalinput.active && stepGallery.activeY != 0){
                     var itemHeight = 40;
                     var tempY = mapFromItem(stepGallery, 0, stepGallery.activeY).y;
                     if(tempY +itemHeight> height){
@@ -78,7 +78,45 @@ Item {
                 }
 
                 Row{
+                      spacing: 5
+
+                      Text {
+                          id: text6
+                          width: 220
+                          height: 30
+                          text: qsTr("License number")
+                          verticalAlignment: Text.AlignVCenter
+                          horizontalAlignment: Text.AlignLeft
+                          font.pixelSize: 20
+                          color: "#d9d9d9"
+                          font.bold: true
+                      }
+
+
+                      Rectangle{
+                          width: 200
+                          height: 30
+                          border.width: 2
+                          border.color: "#ffffff"
+                          radius: 4
+                          TextField {
+                              id: textInput6
+                              anchors.fill: parent
+                              text: machineConfigObject.licenseNumber
+                              placeholderText: qsTr("license")
+                              horizontalAlignment: Text.AlignHCenter
+                              font.pixelSize: 17
+                              inputMethodHints: Qt.ImhDigitsOnly
+                              selectByMouse:true
+                              validator: RegExpValidator{regExp: /^([0-9]{4}-){3}([0-9]{4})$/}
+                              //inputMask: "0000.0000.0000.0000;_"
+                          }
+                      }
+                  }
+
+                Row{
                     spacing: 5
+                    visible: administratorChecker.bAdministrator
 
                     Text {
                         id: text1
@@ -102,7 +140,7 @@ Item {
                             id: textInput
                             anchors.fill: parent
                             placeholderText: qsTr("IP Address")
-                            text: IPAddressObject.IpAddress
+                            text: machineConfigObject.IpAddress
                             horizontalAlignment: Text.AlignHCenter
                             font.pixelSize: 17
                             inputMethodHints: Qt.ImhDigitsOnly
@@ -133,7 +171,7 @@ Item {
                         TextField {
                             id: textInput1
                             anchors.fill: parent
-                            text: IPAddressObject.port
+                            text: machineConfigObject.port
                             placeholderText: qsTr("port")
                             horizontalAlignment: Text.AlignHCenter
                             font.pixelSize: 17
@@ -149,6 +187,7 @@ Item {
 
                 Row{
                     spacing: 5
+                    visible: administratorChecker.bAdministrator
 
                     Text {
                         id: text2
@@ -172,7 +211,7 @@ Item {
                         TextField {
                             id: textInput2
                             anchors.fill: parent
-                            text: IPAddressObject.maxReceiveTime
+                            text: machineConfigObject.maxReceiveTime
                             placeholderText: qsTr("Wait time")
                             horizontalAlignment: Text.AlignHCenter
                             font.pixelSize: 17
@@ -188,6 +227,7 @@ Item {
 
                 Row{
                     spacing: 5
+                    visible: administratorChecker.bAdministrator
                     Item{
                         id:configColumn
                         //anchors.top: parent.top
@@ -444,10 +484,11 @@ Item {
             fontPixelSize: 20
 
             onClicked: {
-                IPAddressObject.IpAddress = textInput.text;
-                IPAddressObject.port = textInput1.text;
-                IPAddressObject.maxReceiveTime = textInput2.text;
-                var result = IPAddressObject.onMachineConfigChanged()?qsTr("save succeed"):qsTr("save failed");
+                machineConfigObject.IpAddress = textInput.text;
+                machineConfigObject.port = textInput1.text;
+                machineConfigObject.maxReceiveTime = textInput2.text;
+                machineConfigObject.licenseNumber = textInput6.text;
+                var result = machineConfigObject.onMachineConfigChanged()?qsTr("save succeed"):qsTr("save failed");
                 textButton.showPrompt(result);
 
                 forceActiveFocus();
@@ -456,7 +497,7 @@ Item {
         TextButton {
             id: textButton2
             width: 130
-            height: 60
+            height: administratorChecker.bAdministrator?60:0
             anchors.top: textButton.bottom
             anchors.topMargin: 4
             anchors.right: parent.right

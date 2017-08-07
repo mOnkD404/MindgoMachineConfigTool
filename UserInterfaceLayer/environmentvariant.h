@@ -30,6 +30,8 @@ public:
 
     const QMap<QString, QStringList> & operationParamMap() {return m_operationParamMap;}
 
+    void calculateLicense(const QString& license);
+
     QStringList OperationNameList();
     QStringList LogicalControlList();
 
@@ -72,7 +74,7 @@ public:
 
     bool updateWorkPlace(const QJsonObject &jsobj);
 
-    bool isAdministrator(){return m_bAdministratorAccount;}
+    bool isAdministrator(){return m_bAdministratorAccount.isAdministrator();}
 
     void startCheckPlan(int planIndex);
     void stopCheckPlan();
@@ -87,7 +89,7 @@ public:
 signals:
     void workLocationTypeChanged();
 private:
-    EnvironmentVariant():m_context(0), m_bAdministratorAccount(false), m_machineConfig(this), m_workFlow(this) {}
+    EnvironmentVariant():m_context(0), m_bAdministratorAccount(this), m_machineConfig(this), m_workFlow(this) {}
     ~EnvironmentVariant() {}
 
     static EnvironmentVariant* m_instance;
@@ -113,7 +115,7 @@ private:
     TargetMachineObject m_machineConfig;
     ConfigFileConverter m_configFileConverter;
     QJsonObject m_workLocationTypeList;
-    bool m_bAdministratorAccount;
+    AdministratorChecker m_bAdministratorAccount;
 
     QJsonArray m_workPlaceConstraint;
 

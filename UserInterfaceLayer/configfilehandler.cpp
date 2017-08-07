@@ -382,6 +382,10 @@ bool configFileHandler::SaveMachineConfig(const QString& configFile, const Machi
 //    workers["type"] = newTypeList;
     fileObj["workSpace"] = typeConfig;
 
+    fileObj.remove("license");
+    fileObj["license"] = cfgData.licenseNumber;
+
+
     QJsonDocument writeDoc(fileObj);
     QFile::resize(configFile, 0);
     loadFile.open(QIODevice::ReadWrite);
@@ -418,6 +422,10 @@ void configFileHandler::ParseLicense(QByteArray& encodedString)
 
     QCryptographicHash hash(QCryptographicHash::Sha1);
     encodedString = hash.hash(licenseStr, QCryptographicHash::Sha1);
+}
+QString configFileHandler::GetLicense()
+{
+    return m_configFileObj["license"].toString();
 }
 bool configFileHandler::ConvertCSVtoJSON(const QString &csvFile, const QString& jsonFile)
 {

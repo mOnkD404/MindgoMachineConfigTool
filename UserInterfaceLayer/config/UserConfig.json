@@ -1498,7 +1498,8 @@
                 "name": "NewConfig",
                 "type": [
                     {
-                        "name": "sbsBoard"
+                        "name": "tipBox",
+                        "volume": 250
                     },
                     {
                         "name": "sbsBoard"

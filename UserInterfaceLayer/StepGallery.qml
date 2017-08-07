@@ -327,7 +327,9 @@ Item {
                             onActiveFocusChanged: {
                                 if(activeFocus){
                                     root.activeY = mapToItem(root , cursorRectangle.x, cursorRectangle.y).y;
-
+                                }
+                                else if(!globalinput.active){
+                                    root.activeY = 0;
                                 }
                             }
                         }

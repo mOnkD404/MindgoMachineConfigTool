@@ -530,7 +530,7 @@ QJsonArray StatusViewWatcher::getWorkPlaceConstraint()
 
 bool TargetMachineObject::onMachineConfigChanged()
 {
-    return EnvironmentVariant::instance()->SaveMachineConfig(MachineConfigData(IpAddress, port, maxReceiveTime));
+    return EnvironmentVariant::instance()->SaveMachineConfig(MachineConfigData(IpAddress, port, maxReceiveTime, licenseNumber));
 }
 
 bool ConfigFileConverter::importConfigFile(const QUrl& filename)

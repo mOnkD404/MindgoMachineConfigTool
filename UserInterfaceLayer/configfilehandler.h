@@ -30,6 +30,7 @@ public:
 
     void ParseWorkSpaceTypeList(QJsonObject& typelist);
     void ParseLicense(QByteArray& encodedString);
+    QString GetLicense();
 
     bool ConvertCSVtoJSON(const QString &csvFile, const QString& jsonFile);
     bool ConvertJSONtoCSV(const QString &jsonFile, const QString& csvFile);

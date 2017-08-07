@@ -484,11 +484,12 @@ class MachineConfigData
 {
 public:
     MachineConfigData():port(0), maxReceiveTime(0) {}
-    MachineConfigData(const QString& ip, qint16 pt, qint32 time):IpAddress(ip), port(pt), maxReceiveTime(time){}
+    MachineConfigData(const QString& ip, qint16 pt, qint32 time, const QString & license):IpAddress(ip), port(pt), maxReceiveTime(time), licenseNumber(license){}
 
     QString IpAddress;
     qint16 port;
     qint32 maxReceiveTime;
+    QString licenseNumber;
 };
 
 class TargetMachineObject: public QObject, public MachineConfigData
@@ -497,17 +498,19 @@ class TargetMachineObject: public QObject, public MachineConfigData
     Q_PROPERTY(QString IpAddress READ getIpAddress WRITE setIpAddress NOTIFY MachineConfigChanged)
     Q_PROPERTY(qint16 port READ getPort WRITE setPort NOTIFY MachineConfigChanged)
     Q_PROPERTY(qint32 maxReceiveTime READ getMaxReceiveTime WRITE setMaxReceiveTime NOTIFY MachineConfigChanged)
+    Q_PROPERTY(QString licenseNumber READ getLicenseNumber WRITE setLicenseNumber NOTIFY MachineConfigChanged)
 public:
     TargetMachineObject(QObject* parent = NULL): QObject(parent)
     {
         //connect(this, &TargetMachineObject::MachineConfigChanged, this ,&TargetMachineObject::onMachineConfigChanged);
     }
 
-    void init(const QString& ip, qint16 pt, qint32 time)
+    void init(const QString& ip, qint16 pt, qint32 time, const QString& license)
     {
         IpAddress = ip;
         port = pt;
         maxReceiveTime = time;
+        licenseNumber = license;
     }
 
     QString getIpAddress()const {return IpAddress;}
@@ -526,6 +529,16 @@ public:
         if(port != pt)
         {
             port = pt;
+            emit MachineConfigChanged();
+        }
+    }
+
+    QString getLicenseNumber()const{return licenseNumber;}
+    void setLicenseNumber(const QString& licenseStr)
+    {
+        if(licenseNumber != licenseStr)
+        {
+            licenseNumber = licenseStr;
             emit MachineConfigChanged();
         }
     }
@@ -592,6 +605,33 @@ public:
 
     Q_INVOKABLE bool importConfigFile(const QUrl& filename);
     Q_INVOKABLE bool exportConfigFile(const QUrl& filename);
+};
+
+class AdministratorChecker: public QObject
+{
+    Q_OBJECT
+    Q_PROPERTY(bool bAdministrator READ isAdministrator WRITE setAdministrator NOTIFY administratorChanged)
+
+public:
+    AdministratorChecker(QObject* parent=NULL):QObject(parent), bAdministrator(false){}
+
+    bool isAdministrator()
+    {
+        return bAdministrator;
+    }
+    void setAdministrator(bool isAdmin)
+    {
+        if(bAdministrator != isAdmin)
+        {
+            bAdministrator = isAdmin;
+            emit administratorChanged();
+        }
+    }
+signals:
+    void administratorChanged();
+
+private:
+    bool bAdministrator;
 };
 
 

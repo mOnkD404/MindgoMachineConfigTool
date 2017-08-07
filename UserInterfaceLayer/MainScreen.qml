@@ -147,7 +147,7 @@ Item {
 
             TextButton{
                 id:systemSettingButton
-                height: isAdministratorAccount?55:0
+                height: 55
                 fontPixelSize: 22
                 textValue: qsTr("System settings")
                 startColor:"#a9aaac"
@@ -159,7 +159,7 @@ Item {
 
             TextButton{
                 id:planSettingButton
-                height: isAdministratorAccount?55:0
+                height: administratorChecker.bAdministrator?55:0
                 fontPixelSize: 22
                 textValue: qsTr("Plan settings")
                 startColor:"#a9aaac"

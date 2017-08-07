@@ -5,6 +5,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QDir>
+#include <QCryptographicHash>
 
 EnvironmentVariant* EnvironmentVariant::m_instance = 0;
 
@@ -53,25 +54,34 @@ void EnvironmentVariant::initUserConfig(const QString &str)
     m_userConfigFile = str;
     configFileHandler handler(NULL);
     handler.loadConfigFile(str);
-    m_machineConfig.init(handler.ParseHostIP(), handler.ParseHostPort(), handler.ParseHostSingleOperationThreshold());
+    m_machineConfig.init(handler.ParseHostIP(), handler.ParseHostPort(), handler.ParseHostSingleOperationThreshold(), handler.GetLicense());
 
     handler.ParsePlanList(m_planList, m_paramDefaultValueMap);
     handler.ParseWorkSpaceTypeList(m_workLocationTypeList);
+
+    calculateLicense(m_machineConfig.licenseNumber);
+}
+
+void EnvironmentVariant::calculateLicense(const QString& license)
+{
+    QByteArray encodedString;
+    QByteArray licenseStr(license.toLocal8Bit());
+
+    QCryptographicHash hash(QCryptographicHash::Sha1);
+    encodedString = hash.hash(licenseStr, QCryptographicHash::Sha1);
 
     //2328-1768-0720-4852
     const uchar preCalculatedSha1[20] = {
         (uchar)0x9d,(uchar)0x1d,(uchar)0xa4,(uchar)0x38,(uchar)0x9a,(uchar)0x40,(uchar)0xd1,(uchar)0xd0,(uchar)0x9e,(uchar)0xc5,
         (uchar)0x44,(uchar)0xa1,(uchar)0xb2,(uchar)0xdd,(uchar)0x1e,(uchar)0xa0,(uchar)0xba,(uchar)0xb5,(uchar)0xc2,(uchar)0x79
     };
-    QByteArray Sha1;
-    handler.ParseLicense(Sha1);
-    if( 0 == memcmp(Sha1.data(), preCalculatedSha1, 20))
+    if( 0 == memcmp(encodedString.data(), preCalculatedSha1, 20))
     {
-        m_bAdministratorAccount = true;
+        m_bAdministratorAccount.setAdministrator(true);
     }
     else
     {
-        m_bAdministratorAccount = false;
+        m_bAdministratorAccount.setAdministrator(false);
     }
 }
 
@@ -79,8 +89,8 @@ void EnvironmentVariant::initModels(QQmlContext* context)
 {
     m_context = context;
     m_currentDir = QDir::currentPath();
-    context->setContextProperty("IPAddressObject", &m_machineConfig);
-    context->setContextProperty("isAdministratorAccount", m_bAdministratorAccount);
+    context->setContextProperty("machineConfigObject", &m_machineConfig);
+    context->setContextProperty("administratorChecker", &m_bAdministratorAccount);
     context->setContextProperty("currentDirectory", m_currentDir);
     context->setContextProperty("configFileConverter", &m_configFileConverter);
     //m_singleStepPageModel.init(context, m_operationList, m_operationNameDispMap);
@@ -500,6 +510,9 @@ bool EnvironmentVariant::SaveMachineConfig(const MachineConfigData& data)
     m_machineConfig.setIpAddress(data.IpAddress);
     m_machineConfig.setPort(data.port);
     m_machineConfig.setMaxReceiveTime(data.maxReceiveTime);
+    m_machineConfig.setLicenseNumber(data.licenseNumber);
+
+    calculateLicense(m_machineConfig.licenseNumber);
 
     return ret;
 }

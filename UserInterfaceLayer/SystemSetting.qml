@@ -106,7 +106,7 @@ Item {
                               placeholderText: qsTr("license")
                               horizontalAlignment: Text.AlignHCenter
                               font.pixelSize: 17
-                              inputMethodHints: Qt.ImhDigitsOnly
+
                               selectByMouse:true
                               validator: RegExpValidator{regExp: /^([0-9]{4}-){3}([0-9]{4})$/}
                               //inputMask: "0000.0000.0000.0000;_"

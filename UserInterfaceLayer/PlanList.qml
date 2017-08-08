@@ -404,10 +404,10 @@ Item {
 
                 onHeightChanged: {
                     if(globalinput.active && stepListView.currentItem != undefined){
-                        var itemHeight = 42;
-                        var tempY = mapFromItem(stepListView.currentItem, 0, stepListView.currentItem.y).y;
+                        var itemHeight = 40;
+                        var tempY = mapFromItem(stepListView.currentItem, 0, 0).y;
                         if(tempY +itemHeight> height){
-                            contentY  += (tempY - height + itemHeight);
+                            contentY  += (tempY - height +itemHeight);
                         }
                     }
                 }
@@ -1010,8 +1010,7 @@ Item {
                 delegate: Item {
                     property int paramIndex: index
                     height:40
-                    anchors.left: parent.left
-                    anchors.right: parent.right
+                    width:paramList.width
 
 
 

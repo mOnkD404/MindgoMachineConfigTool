@@ -101,7 +101,7 @@ Item {
                 highlightMoveDuration: 150
                 currentIndex: 0
                 interactive: true
-
+                ScrollBar.vertical: ScrollBar { }
                 delegate: TextButton {
                     height: 40
 

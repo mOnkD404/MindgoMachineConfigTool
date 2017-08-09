@@ -58,6 +58,8 @@ public:
 
     bool SaveMachineConfig(const MachineConfigData& data);
 
+    void SetSystemTime(const QDateTime&);
+
 
     QJsonObject formatSingleOperationParam(const SingleOperationData & obj);
 

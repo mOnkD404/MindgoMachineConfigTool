@@ -12,6 +12,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QFileSystemModel>
+#include <QDateTime>
 
 class OperationParamData
 {
@@ -485,12 +486,14 @@ class MachineConfigData
 {
 public:
     MachineConfigData():port(0), maxReceiveTime(0) {}
-    MachineConfigData(const QString& ip, qint16 pt, qint32 time, const QString& license):IpAddress(ip), port(pt), maxReceiveTime(time), licenseNumber(license){}
+    MachineConfigData(const QString& ip, qint16 pt, qint32 time, const QString& license, const QDateTime& datetime)
+        :IpAddress(ip), port(pt), maxReceiveTime(time), licenseNumber(license), dateTime(datetime){}
 
     QString IpAddress;
     qint16 port;
     qint32 maxReceiveTime;
     QString licenseNumber;
+    QDateTime dateTime;
 };
 
 class TargetMachineObject: public QObject, public MachineConfigData
@@ -500,6 +503,7 @@ class TargetMachineObject: public QObject, public MachineConfigData
     Q_PROPERTY(qint16 port READ getPort WRITE setPort NOTIFY MachineConfigChanged)
     Q_PROPERTY(qint32 maxReceiveTime READ getMaxReceiveTime WRITE setMaxReceiveTime NOTIFY MachineConfigChanged)
     Q_PROPERTY(QString licenseNumber READ getLicenseNumber WRITE setLicenseNumber NOTIFY MachineConfigChanged)
+    Q_PROPERTY(QDateTime dateTime READ getDateTime WRITE setDateTime NOTIFY MachineConfigChanged)
 public:
     TargetMachineObject(QObject* parent = NULL): QObject(parent)
     {
@@ -549,6 +553,16 @@ public:
         if(licenseNumber != licenseStr)
         {
             licenseNumber = licenseStr;
+            emit MachineConfigChanged();
+        }
+    }
+
+    QDateTime getDateTime()const{return dateTime;}
+    void setDateTime(const QDateTime& DateTime)
+    {
+        if(dateTime != DateTime)
+        {
+            dateTime = DateTime;
             emit MachineConfigChanged();
         }
     }

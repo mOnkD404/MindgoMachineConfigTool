@@ -6,6 +6,11 @@
 #include <QJsonDocument>
 #include <QDir>
 #include <QCryptographicHash>
+#include <QDateTime>
+
+#ifndef WIN32
+#include <sys/time.h>
+#endif
 
 EnvironmentVariant* EnvironmentVariant::m_instance = 0;
 
@@ -507,6 +512,8 @@ bool EnvironmentVariant::SaveMachineConfig(const MachineConfigData& data)
     configFileHandler handler(NULL);
     bool ret = handler.SaveMachineConfig(m_userConfigFile, data, m_workLocationTypeList);
 
+    SetSystemTime(data.dateTime);
+
     //todo
     m_machineConfig.setIpAddress(data.IpAddress);
     m_machineConfig.setPort(data.port);
@@ -515,6 +522,39 @@ bool EnvironmentVariant::SaveMachineConfig(const MachineConfigData& data)
 
     calculateLicense(m_machineConfig.licenseNumber);
     return ret;
+}
+
+
+void EnvironmentVariant::SetSystemTime(const QDateTime& date)
+{
+#ifndef WIN32
+
+    struct tm mytime;
+    struct timeval garfield;
+    time_t new_time;
+    int result;
+
+    mytime.tm_sec = date.time().second();
+    mytime.tm_min = date.time().minute();
+    mytime.tm_hour = date.time().hour();
+    mytime.tm_mday = date.date().day();
+    mytime.tm_mon = date.date().month()-1;
+    mytime.tm_year = date.date().year()-1900;
+
+    new_time = mktime(&mytime);
+    garfield.tv_sec = new_time;
+    garfield.tv_usec = 0;
+
+    result = settimeofday(&garfield, NULL);
+    if(result < 0)
+    {
+        qDebug()<<"set system time error.";
+    }
+    return ;
+
+#else
+    qDebug()<<"set system time "<<date;
+#endif
 }
 
 void EnvironmentVariant::StartPlan(int planIndex, int stepIndex)

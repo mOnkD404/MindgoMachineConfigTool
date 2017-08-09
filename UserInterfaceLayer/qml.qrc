@@ -29,5 +29,6 @@
         <file>image/3-4.png</file>
         <file>Progressbar.qml</file>
         <file>FileView.qml</file>
+        <file>DateTimeEdit.qml</file>
     </qresource>
 </RCC>

@@ -68,7 +68,7 @@ Item {
                     id: text3
                     text: qsTr("Version "+versionVal)
 
-                    width: 220
+                    width: 130
                     height: 22
                     color: "#d9d9d9"
                     font.bold: true
@@ -82,7 +82,7 @@ Item {
 
                       Text {
                           id: text6
-                          width: 220
+                          width: 130
                           height: 30
                           text: qsTr("License number")
                           verticalAlignment: Text.AlignVCenter
@@ -120,7 +120,7 @@ Item {
 
                     Text {
                         id: text1
-                        width: 220
+                        width: 130
                         height: 35
                         color: "#d9d9d9"
                         text: qsTr("Machine Address")
@@ -191,7 +191,7 @@ Item {
 
                     Text {
                         id: text2
-                        width: 220
+                        width: 130
                         height: 35
                         text: qsTr("Max ack waiting time")
                         verticalAlignment: Text.AlignVCenter
@@ -356,7 +356,9 @@ Item {
                             interactive: true
                             model: configListModel
 
-                            ScrollBar.vertical: ScrollBar{}
+                            ScrollBar.vertical: ScrollBar{
+                                contentItem.opacity: 1
+                            }
 
                             delegate: Item{
                                 property bool inEdit: false
@@ -467,8 +469,32 @@ Item {
                     }
 
                 }
-            }
 
+
+                Row{
+                      spacing: 5
+
+                      Text {
+                          id: textTime
+                          width: 130
+                          height: 30
+                          text: qsTr("System time")
+                          verticalAlignment: Text.AlignVCenter
+                          horizontalAlignment: Text.AlignLeft
+                          font.pixelSize: 20
+                          color: "#d9d9d9"
+                          font.bold: true
+                      }
+
+
+                      DateTimeEdit {
+                          id:datetimePicker
+
+                          height: 300
+                          width: 450
+                      }
+                  }
+            }
         }
         TextButton {
             id: textButton
@@ -488,6 +514,7 @@ Item {
                 machineConfigObject.port = textInput1.text;
                 machineConfigObject.maxReceiveTime = textInput2.text;
                 machineConfigObject.licenseNumber = textInput6.text;
+                machineConfigObject.dateTime = datetimePicker.date();
                 var result = machineConfigObject.onMachineConfigChanged()?qsTr("save succeed"):qsTr("save failed");
                 textButton.showPrompt(result);
 

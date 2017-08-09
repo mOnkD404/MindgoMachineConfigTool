@@ -2,6 +2,19 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN" sourcelanguage="en">
 <context>
+    <name>DateTimeEdit</name>
+    <message>
+        <location filename="UserInterfaceLayer/DateTimeEdit.qml" line="77"/>
+        <source>Hours</source>
+        <translation>时</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/DateTimeEdit.qml" line="84"/>
+        <source>Minutes</source>
+        <translation>分</translation>
+    </message>
+</context>
+<context>
     <name>FileView</name>
     <message>
         <location filename="UserInterfaceLayer/FileView.qml" line="136"/>
@@ -209,7 +222,7 @@
         <translation>最大容量</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/StepGallery.qml" line="360"/>
+        <location filename="UserInterfaceLayer/StepGallery.qml" line="362"/>
         <source>Used</source>
         <translation></translation>
     </message>
@@ -217,57 +230,72 @@
 <context>
     <name>SystemSetting</name>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="88"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="87"/>
+        <source>License number</source>
+        <translation>许可</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="106"/>
+        <source>license</source>
+        <translation>输入许可</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="126"/>
         <source>Machine Address</source>
         <translation>下位机IP</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="104"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="142"/>
         <source>IP Address</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="137"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="175"/>
         <source>port</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="157"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="196"/>
         <source>Max ack waiting time</source>
         <translation>最大等待时间</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="176"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="215"/>
         <source>Wait time</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="249"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="289"/>
         <source>Work place configuration</source>
         <translation>板位配置</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="443"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="481"/>
+        <source>System time</source>
+        <translation>系统时间</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="509"/>
         <source>Save config</source>
         <translation>保存配置</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="450"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="518"/>
         <source>save succeed</source>
         <translation>保存成功</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="450"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="518"/>
         <source>save failed</source>
         <translation>保存失败</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="466"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="534"/>
         <source>Export config</source>
         <translation>导出配置</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="485"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="553"/>
         <source>Import config</source>
         <translation>导入配置</translation>
     </message>
@@ -276,12 +304,12 @@
         <translation type="vanished">保存文件</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="511"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="579"/>
         <source>export succeed</source>
         <translation>导出成功</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="511"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="579"/>
         <source>export failed</source>
         <translation>导出失败</translation>
     </message>
@@ -290,12 +318,12 @@
         <translation type="vanished">选择文件</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="526"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="594"/>
         <source>import succeed</source>
         <translation>导入成功</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/SystemSetting.qml" line="528"/>
+        <location filename="UserInterfaceLayer/SystemSetting.qml" line="596"/>
         <source>import failed</source>
         <translation>导入失败</translation>
     </message>

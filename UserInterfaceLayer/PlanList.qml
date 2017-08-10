@@ -173,6 +173,7 @@ Item {
                     radius: 0
                 }
                 highlightFollowsCurrentItem: true
+                highlightMoveDuration: 200
                 currentIndex: 0
                 interactive: true
                 ScrollBar.vertical: ScrollBar{}
@@ -1077,6 +1078,7 @@ Item {
 
                                 function getValidator(){
                                     if(modelData.Type == "integer"){
+
                                         return intValidator;
                                     }
                                     else if(modelData.Type == "float"){                                        
@@ -1102,7 +1104,14 @@ Item {
                                 onTextChanged: {
                                     if(init == true){
                                         if(modelData.Type == "integer"){
-                                            modelData.IntegerValue = Number(text);
+                                            var value = Number(text);
+                                            if(value > intValidator.top){
+                                                value = intValidator.top;
+                                            }else if(value < intValidator.bottom){
+                                                value = intValidator.bottom;
+                                            }
+                                            text = value.toString();
+                                            modelData.IntegerValue = value;
                                         }
                                         else if(modelData.Type == "float"){
                                             modelData.FloatValue = Number(text);
@@ -1119,6 +1128,21 @@ Item {
                                         }
                                     }
                                 }
+
+                                onEditingFinished: {
+                                    if(init == true){
+                                        if(modelData.Type == "integer"){
+                                            modelData.IntegerValue = Number(text);
+                                        }
+                                        else if(modelData.Type == "float"){
+                                            modelData.FloatValue = Number(text);
+                                        }
+                                        else{
+                                            modelData.StringValue = text;
+                                        }
+                                    }
+                                }
+
                                 onEnabledChanged: {
                                     if(enabled == false)
                                         text = "";

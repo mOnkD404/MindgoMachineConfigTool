@@ -6,7 +6,7 @@ import QtQuick.Dialogs 1.2
 
 Item {
     id:systemSettingPage
-    property string versionVal: "1.6.1"
+    property string versionVal: "1.6.2"
 
     //    MouseArea{
     //        anchors.fill: parent
@@ -522,6 +522,7 @@ Item {
             fontPixelSize: 20
 
             onClicked: {
+                forceActiveFocus();
                 machineConfigObject.IpAddress = textInput.text;
                 machineConfigObject.port = textInput1.text;
                 machineConfigObject.maxReceiveTime = textInput2.text;
@@ -548,6 +549,7 @@ Item {
             fontPixelSize: 20
 
             onClicked: {
+                forceActiveFocus();
                 fileDialogExport.visible = true;
             }
         }
@@ -565,6 +567,7 @@ Item {
             fontPixelSize: 20
 
             onClicked: {
+                forceActiveFocus();
                 fileDialogImport.visible = true;
             }
         }

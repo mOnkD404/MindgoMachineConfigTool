@@ -75,17 +75,17 @@
         <translation>计划设置</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="322"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="323"/>
         <source>Step list</source>
         <translation>实验流程</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="839"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="840"/>
         <source>Operation type</source>
         <translation>操作类型</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="968"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="969"/>
         <source>Operation param</source>
         <translation>操作参数</translation>
     </message>

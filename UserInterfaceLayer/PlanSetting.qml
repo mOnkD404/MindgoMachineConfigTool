@@ -44,6 +44,7 @@ Item {
                 buttonradius: 3
                 borderColor: "#4c5cc5ff"
                 onClicked: {
+                    forceActiveFocus();
                     var result = planList.savePlan()?qsTr("save succeed"):qsTr("save failed");
                     showPrompt(result);
                 }

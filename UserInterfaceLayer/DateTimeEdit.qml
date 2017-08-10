@@ -110,7 +110,7 @@ Rectangle {
                     model: 24
                     delegate: delegateComponent
                     visibleItemCount: 7
-                    width:frame.width/2
+                    width:frame.width/2 - 5
                     height: frame.height
                 }
 
@@ -119,7 +119,7 @@ Rectangle {
                     model: 60
                     delegate: delegateComponent
                     visibleItemCount: 7
-                    width:frame.width/2
+                    width:frame.width/2 - 5
                     height: frame.height
                 }
             }

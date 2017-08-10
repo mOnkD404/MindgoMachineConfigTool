@@ -569,14 +569,14 @@ Item {
                         Text{
                             id:textItem
                             anchors.fill: parent
-                            anchors.leftMargin: 18
+                            anchors.leftMargin: 10
                             horizontalAlignment: Text.AlignLeft//Text.AlignHCenter
 
                             text:(index+1) + ". " + name
                             color:"#e1e8e2"
 
-                            font.pixelSize: 20
-                            font.bold: true
+                            font.pixelSize: 17
+                            //font.bold: true
                             verticalAlignment: Text.AlignVCenter
                             styleColor: "#3a3a3a"
                             style: Text.Raised
@@ -1030,14 +1030,14 @@ Item {
                         id: paramName
 
                         height:parent.height
-                        width:125
+                        width:110
 
                         text: modelData.Display
                         horizontalAlignment: Text.AlignRight
                         verticalAlignment: Text.AlignVCenter
                         color:"#d9d9d9"
-                        font.pixelSize: 20
-                        font.bold: true
+                        font.pixelSize: 17
+                        //font.bold: true
                     }
 
                     Component{

@@ -425,7 +425,7 @@ Item {
 
         onOkClicked: {
             //statusList.visible = true;
-            controller.startPlan(index, 0);
+            controller.startPlan(planIndex, stepIndex);
         }
     }
 }

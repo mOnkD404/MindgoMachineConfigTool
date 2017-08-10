@@ -281,7 +281,14 @@ Item {
 
                                 onTextChanged: {
                                     if(modelData.Type == "integer"){
-                                        modelData.IntegerValue = Number(text);
+                                        var value = Number(text);
+                                        if(value > intValidator.top){
+                                            value = intValidator.top;
+                                        }else if(value < intValidator.bottom){
+                                            value = intValidator.bottom;
+                                        }
+                                        text = value.toString();
+                                        modelData.IntegerValue = value;
                                     }
                                     else if(modelData.Type == "float"){
                                         modelData.FloatValue = Number(text);

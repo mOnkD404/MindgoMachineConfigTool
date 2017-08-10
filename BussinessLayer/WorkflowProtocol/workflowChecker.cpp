@@ -39,8 +39,13 @@ void SubThreadCheckWorker::doCheck(const QJsonObject&jsObj)
     {
         QJsonObject sendobj = opList[currentIndex].toObject();
 
-        bool check1 =  CheckBoardConstraint(sendobj);
-        check1 = check1 && CheckParamConstraint(sendobj);
+        bool check1 =  true;
+
+        if(!isFilteredCommand(sendobj))
+        {
+            check1 = CheckBoardConstraint(sendobj);
+            check1 = check1 && CheckParamConstraint(sendobj);
+        }
 
         if(!check1)
         {
@@ -73,6 +78,31 @@ void SubThreadCheckWorker::doCheck(const QJsonObject&jsObj)
     retObj["end"] = true;
     emit statusChanged(retObj);
 }
+
+bool SubThreadCheckWorker::isFilteredCommand(const QJsonObject& obj)
+{
+    QString opName = obj["operation"].toString();
+
+    QList<QString> logicalList;
+    logicalList.append("WaitArray");
+    logicalList.append("Loop");
+    logicalList.append("EndLoop");
+    logicalList.append("Relative Motion");
+    logicalList.append("Syringe Motion");
+    logicalList.append("Reset");
+    logicalList.append("XY Motion");
+    logicalList.append("Machine Reset");
+
+    foreach (const QString& str, logicalList)
+    {
+        if(opName == str)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 bool SubThreadCheckWorker::CheckBoardConstraint(const QJsonObject& obj)
 {

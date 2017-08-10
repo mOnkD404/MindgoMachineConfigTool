@@ -5,7 +5,7 @@ import QtQuick.Controls 2.1
 Item {
     property string checkingState: "checking"
     property int errorStep: -1
-    signal okClicked(int index);
+    signal okClicked(int planIndex, int stepIndex);
 
     function updatePlanList(){
         plancomboBox.model = selector.planListModel()
@@ -251,7 +251,9 @@ Item {
 
             textValue: qsTr("Start")
             onClicked: {
-                okClicked(plancomboBox.currentIndex);
+                var itemStr = stepcomboBox.currentText.split('.');
+
+                okClicked(plancomboBox.currentIndex, parseInt(itemStr[0])-1);
                 root.visible = false;
             }
         }

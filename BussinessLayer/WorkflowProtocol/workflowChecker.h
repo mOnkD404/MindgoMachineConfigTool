@@ -28,6 +28,7 @@ signals:
 protected:
     bool CheckBoardConstraint(const QJsonObject&);
     bool CheckParamConstraint(const QJsonObject&);
+    bool isFilteredCommand(const QJsonObject& obj);
 
 private:
     bool m_bForceStop;

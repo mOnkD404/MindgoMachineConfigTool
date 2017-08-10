@@ -214,7 +214,7 @@ Item {
             ColumnLayout{
                 visible: showCombo
                 anchors.fill: parent
-                anchors.margins: 7
+                anchors.margins: 5
                 spacing: 2
                 clip: true
 
@@ -225,6 +225,8 @@ Item {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     height:35
+
+                    font.pixelSize: 15
 
                     //anchors.centerIn: parent
                     textRole: "name"
@@ -300,9 +302,9 @@ Item {
                             text: qsTr("Vol.")
                             verticalAlignment: Text.AlignVCenter
                             horizontalAlignment: Text.AlignHCenter
-                            font.pixelSize: 17
+                            font.pixelSize: 15
                             color: "#373839"
-                            font.bold: true
+                            //font.bold: true
                         }
                         TextField{
                             id: volumeInput
@@ -311,7 +313,7 @@ Item {
                             width:65
                             placeholderText: qsTr("Max volume")
                             //horizontalAlignment: Text.AlignHCenter
-                            font.pixelSize: 17
+                            font.pixelSize: 15
                             inputMethodHints: Qt.ImhDigitsOnly
                             selectByMouse:true
 

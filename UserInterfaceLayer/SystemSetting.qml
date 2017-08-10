@@ -459,7 +459,7 @@ Item {
                         anchors.bottom: parent.bottom
                         anchors.topMargin: 10
                         anchors.leftMargin: 10
-                        width: 500
+                        width: 520
                         height: 250
 
                         showLabel: false

@@ -242,8 +242,8 @@ QStringList EnvironmentVariant::planSelectStepListModel(int planIndex)
                     {
                         steplist.append(QString::number(currentIndex+1) + ". "+m_operationNameDispMap[pda.operationName]);
                     }
-                    currentIndex++;
                 }
+                currentIndex++;
 
                 if(pda.operationName == "Loop")
                 {

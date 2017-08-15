@@ -55,6 +55,7 @@ public:
 
     void StartPlan(int planIndex, int stepIndex);
     void StopPlan();
+    void PausePlan();
 
     bool SaveMachineConfig(const MachineConfigData& data);
 

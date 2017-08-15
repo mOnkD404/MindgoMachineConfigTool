@@ -15,11 +15,26 @@
                     "sequenceNumber": 1
                 },
                 {
-                    "operation": "Loop",
+                    "operation": "WaitArray",
                     "params": {
-                        "cycleCount": 1
+                        "permanent": true,
+                        "waitTime": 1
                     },
                     "sequenceNumber": 2
+                },
+                {
+                    "operation": "Group",
+                    "params": {
+                        "GroupName": ""
+                    },
+                    "sequenceNumber": 3
+                },
+                {
+                    "operation": "Loop",
+                    "params": {
+                        "cycleCount": 2
+                    },
+                    "sequenceNumber": 4
                 },
                 {
                     "operation": "Suction",
@@ -36,7 +51,7 @@
                         "tipIndex": 1,
                         "volume": 0
                     },
-                    "sequenceNumber": 3
+                    "sequenceNumber": 5
                 },
                 {
                     "operation": "Mix",
@@ -55,7 +70,7 @@
                         "tipIndex": 10,
                         "volume": 0
                     },
-                    "sequenceNumber": 4
+                    "sequenceNumber": 6
                 },
                 {
                     "operation": "Dispense",
@@ -69,7 +84,7 @@
                         "speed": 1,
                         "tipIndex": 1
                     },
-                    "sequenceNumber": 5
+                    "sequenceNumber": 7
                 },
                 {
                     "operation": "Dump Tip",
@@ -79,13 +94,13 @@
                         "position": 0,
                         "tipIndex": 1
                     },
-                    "sequenceNumber": 6
+                    "sequenceNumber": 8
                 },
                 {
                     "operation": "EndLoop",
                     "params": {
                     },
-                    "sequenceNumber": 7
+                    "sequenceNumber": 9
                 },
                 {
                     "operation": "Suction",
@@ -102,14 +117,14 @@
                         "tipIndex": 1,
                         "volume": 0
                     },
-                    "sequenceNumber": 8
+                    "sequenceNumber": 10
                 },
                 {
                     "operation": "Reset",
                     "params": {
                         "allSpindleIndex": 0
                     },
-                    "sequenceNumber": 9
+                    "sequenceNumber": 11
                 }
             ]
         }

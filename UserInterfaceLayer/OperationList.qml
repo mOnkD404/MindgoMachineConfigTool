@@ -204,9 +204,10 @@ Item {
                     enabled:getSwitchState()
                     function getSwitchState()
                     {
+                        var revert = modelData.RevertSwitch;
                         var obj = selector.getSwitch(modelData.SwitchValue);
                         if (obj)
-                            return obj.BoolValue;
+                            return revert? (!obj.BoolValue) : (obj.BoolValue);
                         else
                             return true;
                     }

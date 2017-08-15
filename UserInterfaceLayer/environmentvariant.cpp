@@ -579,6 +579,11 @@ void EnvironmentVariant::StopPlan()
     m_workFlow.stopCurrentTask();
 }
 
+void EnvironmentVariant::PausePlan()
+{
+    m_workFlow.pauseCurrentTask();
+}
+
 SingleOperationData EnvironmentVariant::defaultValue(const QString& Operationname)
 {
     if(m_operationParamMap.contains(Operationname))

@@ -205,7 +205,7 @@ Item {
                 value = prog;
             }
             onValueChanged:{
-                console.debug(value);
+                //console.debug(value);
             }
 
         }

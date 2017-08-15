@@ -8,7 +8,7 @@ Item {
         id:controller
 
         onTaskStateChanged: {
-            actionBarID.state = actionBarID.newState;
+            actionBarID.state = stateString;
         }
     }
 
@@ -180,7 +180,7 @@ Item {
 
                 onClicked: {
                     startPage.visible = true;
-                    actionBarID.newState = "start";
+                    //actionBarID.newState = "start";
 
                     statusList.clearModel();
                     stepGallery.resetGridView();
@@ -198,12 +198,12 @@ Item {
 
                 onClicked: {
                     controller.stopPlan();
-                    if(actionBarID.state == "start"){
-                        actionBarID.newState = "";
-                    }else if(actionBarID.state == "pause"){
-                        //already stopped
-                        actionBarID.state = "";
-                    }
+//                    if(actionBarID.state == "start"){
+//                        actionBarID.newState = "";
+//                    }else if(actionBarID.state == "pause"){
+//                        //already stopped
+//                        actionBarID.state = "";
+//                    }
                 }
             }
             TextButton{
@@ -217,8 +217,8 @@ Item {
                 visible:false
 
                 onClicked: {
-                    controller.stopPlan();
-                    actionBarID.newState = "pause";
+                    controller.pausePlan();
+                    //actionBarID.newState = "pause";
                 }
             }
             TextButton{
@@ -233,7 +233,7 @@ Item {
 
                 onClicked: {
                     controller.resumePlan();
-                    actionBarID.newState = "start";
+                    //actionBarID.newState = "start";
                 }
             }
 

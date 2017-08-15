@@ -120,8 +120,9 @@ QMap<QString, OperationParamData> configFileHandler::ParseParamValue(const QStri
         QList<int> valueEnum;
         QString switchVal;
         QString unit;
-        int bottomVal;
-        int topVal;
+        int bottomVal = 0;
+        int topVal = 0;
+        bool revertSwitch = false;
 
         QJsonObject subObj = iter.value().toObject();
         for (QJsonObject::Iterator iter2 = subObj.begin(); iter2 != subObj.end(); iter2++)
@@ -175,13 +176,17 @@ QMap<QString, OperationParamData> configFileHandler::ParseParamValue(const QStri
             {
                 topVal = iter2.value().toInt();
             }
+            else if(iter2.key() == "revertSwitch")
+            {
+                revertSwitch = iter2.value().toBool();
+            }
         }
         if(iter.key() == "boardType")
         {
             enums = boardTypeList;
             valueEnum = boardHeightList;
         }
-        retmap[iter.key()] = OperationParamData(iter.key(), type, strVal, enums, boolVal, intVal, floatVal, display, valueEnum, switchVal, unit, bottomVal, topVal);
+        retmap[iter.key()] = OperationParamData(iter.key(), type, strVal, enums, boolVal, intVal, floatVal, display, valueEnum, switchVal, unit, bottomVal, topVal, revertSwitch);
     }
     return retmap;
 }

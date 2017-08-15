@@ -18,7 +18,7 @@ public:
     OperationParamData():BoolValue(false), IntegerValue(0), FloatValue(0.0) {}
     OperationParamData(const QString& oname, const QString& otype, const QString& ostringValue, const QStringList& ostringlistValue,
                        bool oboolvalue, int ointegerValue, int ofloatValue, const QString& display, const QList<int> intlist, const QString& switchVal,
-                       const QString& unit, int bottomVal, int topVal)
+                       const QString& unit, int bottomVal, int topVal, bool revertSwitch)
     {
         Name = oname;
         Type = otype;
@@ -33,6 +33,7 @@ public:
         Unit = unit;
         BottomValue = bottomVal;
         TopValue = topVal;
+        RevertSwitch = revertSwitch;
     }
     OperationParamData(const OperationParamData& opd)
     {
@@ -49,6 +50,7 @@ public:
         Unit = opd.Unit;
         BottomValue = opd.BottomValue;
         TopValue = opd.TopValue;
+        RevertSwitch = opd.RevertSwitch;
     }
 
 public:
@@ -65,6 +67,7 @@ public:
     QString Unit;
     int BottomValue;
     int TopValue;
+    bool RevertSwitch;
 };
 
 class OperationParamObject: public QObject, public OperationParamData
@@ -83,6 +86,7 @@ class OperationParamObject: public QObject, public OperationParamData
     Q_PROPERTY(QString Unit READ unit WRITE setUnit NOTIFY UnitChanged)
     Q_PROPERTY(int BottomValue READ bottomValue WRITE setBottomValue NOTIFY bottomValueChanged)
     Q_PROPERTY(int TopValue READ topValue WRITE setTopValue NOTIFY topValueChanged)
+    Q_PROPERTY(bool RevertSwitch READ revertSwitch WRITE setRevertSwitch NOTIFY revertSwitchChanged)
 
 public:
     OperationParamObject(QObject* parent = NULL):QObject(parent){}
@@ -222,6 +226,16 @@ public:
         }
     }
 
+    bool revertSwitch()const {return RevertSwitch;}
+    void setRevertSwitch(bool sw)
+    {
+        if (RevertSwitch != sw)
+        {
+            RevertSwitch = sw;
+            emit revertSwitchChanged();
+        }
+    }
+
 
 signals:
     void nameChanged();
@@ -237,6 +251,7 @@ signals:
     void UnitChanged();
     void bottomValueChanged();
     void topValueChanged();
+    void revertSwitchChanged();
 
 //private:
 //    QString Name;
@@ -447,13 +462,14 @@ public:
 
     Q_INVOKABLE void startPlan(int planIndex, int startStepIndex);
     Q_INVOKABLE void stopPlan();
+    Q_INVOKABLE void pausePlan();
     Q_INVOKABLE void resumePlan();
 
 
     virtual bool eventFilter(QObject *watched, QEvent *event);
 
  signals:
-    void taskStateChanged(bool isRunning);
+    void taskStateChanged(const QString& stateString);
 
 protected:
     int m_planIndex;

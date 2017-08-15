@@ -81,10 +81,12 @@ public slots:
     void changeHost(const QString& host, quint16 port);
     void configProtocol(const QString& );
     void stopTask();
+    void pauseTask();
+    void updateStopState();
 
 signals:
     void statusChanged(const QJsonObject&);
-    void taskStateChanged(bool running, int index);
+    void taskStateChanged(const QString& running, int index);
 
 protected:
     bool handleControlCommand(Communication& com, QJsonObject& cmdObj);
@@ -110,6 +112,8 @@ private:
     volatile bool m_forceStop;
     int m_maxReceiveTime;
     int m_startIndex;
+    QString m_stateString;
+    volatile bool m_pause;
 };
 
 #ifdef MINDGO_ALL_IN_ONE
@@ -127,18 +131,21 @@ public:
     void runTask(const QJsonObject & jsObj);
     void runTunning(const QJsonObject& jsObj);
     void stopCurrentTask();
+    void pauseCurrentTask();
     void sethost(const QString& host, quint16 port);
 
 signals:
     void runNewTunning(const QJsonObject&);
     void runNewTask(const QJsonObject&);
     void stopTask();
+    void pauseTask();
     void changeHost(const QString& host, quint16 port);
     void configProtocol(const QString&);
+    void updateStopState();
 
 public slots:
     void statusChanged(const QJsonObject&);
-    void taskStateChanged(bool running, int index);
+    void taskStateChanged(const QString& runningState, int index);
 
 protected:
     QThread m_thread;
@@ -155,13 +162,13 @@ public:
 class RunningStateChangeEvent: public QEvent
 {
 public:
-    RunningStateChangeEvent(bool bRun, int index)
-        :QEvent(static_cast<QEvent::Type>(QEvent::User+2)), running(bRun), stepIndex(index)
+    RunningStateChangeEvent(QString sRun, int index)
+        :QEvent(static_cast<QEvent::Type>(QEvent::User+2)), state(sRun), stepIndex(index)
     {
 
     }
 
-    bool running;
+    QString state;
     int stepIndex;
 };
 

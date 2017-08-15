@@ -226,7 +226,7 @@ void WorkflowProtocol::unserializeRecvFrame(const QByteArray& buff)
 
 
 SubThreadWorker::SubThreadWorker(WorkflowProtocol* protocol, QObject*parent)
-    :QObject(parent), m_protocol(protocol), m_forceStop(false), m_maxReceiveTime(0)
+    :QObject(parent), m_protocol(protocol), m_forceStop(false), m_maxReceiveTime(0), m_pause(false)
 {
 
 }
@@ -249,6 +249,7 @@ void SubThreadWorker::doTunning(const QJsonObject& jsObj)
     }
 
     m_forceStop = false;
+    m_pause = false;
     m_maxReceiveTime = jsObj["maxReceiveTime"].toInt();
     QJsonObject sendobj = jsObj["operation"].toObject();
 
@@ -270,11 +271,13 @@ void SubThreadWorker::doWork(const QJsonObject &jsObj)
     }
 
     m_forceStop = false;
+    m_pause = false;
     m_maxReceiveTime = jsObj["maxReceiveTime"].toInt();
     QJsonArray opList = jsObj["operations"].toArray();
     int currentIndex = jsObj["startIndex"].toInt();
-
-    emit taskStateChanged(true, currentIndex);
+    m_stateString = "start";
+    emit taskStateChanged(m_stateString, currentIndex);
+    m_stateString = "";
 
     while (currentIndex >=0 && currentIndex < opList.size())
     {
@@ -316,13 +319,19 @@ void SubThreadWorker::doWork(const QJsonObject &jsObj)
         {
             break;
         }
+        else if(m_pause)
+        {
+            m_stateString = "pause";
+            break;
+        }
     }
     com.disconnect();
 
-    emit taskStateChanged(false, currentIndex);
-    if(m_forceStop)
+    emit taskStateChanged(m_stateString, currentIndex);
+    if(m_forceStop || m_pause)
     {
         m_forceStop = false;
+        m_pause  =  false;
     }
     else
     {
@@ -376,6 +385,7 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
     retObj["logicalCommand"] = true;
     retObj["waitArray"] = 0;
     retObj["waitting"] = 0;
+    retObj["waitPermanent"] = false;
     retObj["loopCount"] = 0;
     retObj["remainLoopCount"] = 0;
 
@@ -386,6 +396,15 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
     if(opname == "WaitArray")
     {
         int time = param["waitTime"].toInt();
+        bool permanent = param["permanent"].toBool();
+        if(permanent)
+        {
+            retObj["waitPermanent"] = true;
+            emit statusChanged(retObj);
+            m_pause = true;
+
+            return true;
+        }
         if (time > 0)
         {
             retObj["waitArray"] = time;
@@ -395,7 +414,7 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
 
             for(int index = 0; index < time; index++)
             {
-                if(m_forceStop)
+                if(m_forceStop || m_pause)
                 {
                     //retVal = false;
                     break;
@@ -592,6 +611,20 @@ void SubThreadWorker::stopTask()
     m_forceStop = true;
 }
 
+void SubThreadWorker::pauseTask()
+{
+    m_pause = true;
+}
+
+void SubThreadWorker::updateStopState()
+{
+    if(m_stateString != "")
+    {
+        m_stateString = "";
+        emit taskStateChanged(m_stateString, 0);
+    }
+}
+
 WorkflowController::WorkflowController(QObject *parent)
     :QObject(parent)
 {
@@ -605,7 +638,9 @@ WorkflowController::WorkflowController(QObject *parent)
     connect(this, &WorkflowController::changeHost, worker, &SubThreadWorker::changeHost);
     connect(this, &WorkflowController::configProtocol, worker, &SubThreadWorker::configProtocol);
     connect(this, &WorkflowController::stopTask, worker, &SubThreadWorker::stopTask, Qt::DirectConnection);
+    connect(this, &WorkflowController::pauseTask, worker, &SubThreadWorker::pauseTask, Qt::DirectConnection);
     connect(worker, &SubThreadWorker::taskStateChanged, this, &WorkflowController::taskStateChanged);
+    connect(this, &WorkflowController::updateStopState, worker, &SubThreadWorker::updateStopState);
     m_thread.start();
 }
 
@@ -653,9 +688,17 @@ void WorkflowController::stopCurrentTask()
     if(m_thread.isRunning())
     {
         emit stopTask();
+        emit updateStopState();
     }
 }
 
+void WorkflowController::pauseCurrentTask()
+{
+    if(m_thread.isRunning())
+    {
+        emit pauseTask();
+    }
+}
 
 void WorkflowController::sethost(const QString& host, quint16 port)
 {
@@ -669,9 +712,9 @@ void WorkflowController::statusChanged(const QJsonObject &obj)
     qApp->postEvent(qApp, userEvent);
 }
 
-void WorkflowController::taskStateChanged(bool running, int index)
+void WorkflowController::taskStateChanged(const QString& runningState, int index)
 {
-    RunningStateChangeEvent* userEvent = new RunningStateChangeEvent(running, index);
+    RunningStateChangeEvent* userEvent = new RunningStateChangeEvent(runningState, index);
     qApp->postEvent(qApp, userEvent);
 }
 

@@ -448,6 +448,11 @@ void PlanController::stopPlan()
     EnvironmentVariant::instance()->StopPlan();
 }
 
+void PlanController::pausePlan()
+{
+    EnvironmentVariant::instance()->PausePlan();
+}
+
 void PlanController::resumePlan()
 {
     if(m_planIndex >= 0 && m_pauseIndex >= 0)
@@ -463,7 +468,7 @@ bool PlanController::eventFilter(QObject *watched, QEvent *event)
         RunningStateChangeEvent* evt = dynamic_cast<RunningStateChangeEvent*>(event);
         if(evt)
         {
-            emit taskStateChanged(evt->running);
+            emit taskStateChanged(evt->state);
             m_pauseIndex = evt->stepIndex;
             return true;
         }

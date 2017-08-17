@@ -966,10 +966,11 @@ Item {
                 id: paramColumn
                 //width: columnWidth*2.5
                 anchors.bottom: boardColumn.top
+                anchors.bottomMargin: 10
                 anchors.top: parent.top
                 anchors.left: parent.left
                 anchors.right: parent.right
-                height: 500
+                //height: 500
                 //visible: !operationColumn.visible
                 clip:true
                 Behavior on width{
@@ -980,7 +981,7 @@ Item {
 
                 Rectangle{
                     anchors.fill: parent
-                    anchors.bottomMargin: 8
+                    anchors.bottomMargin: 0
                     radius:8
                     color: "#3c747474"
                 }
@@ -1016,9 +1017,10 @@ Item {
                     anchors.right: parent.right
                     anchors.left: parent.left
                     anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 4
                     anchors.leftMargin: 5
                     anchors.rightMargin: 5
-                    interactive: false
+                    interactive: true
                     model: selector.paramListModel
                     //highlightRangeMode: ListView.StrictlyEnforceRange
                     highlight: Item{}
@@ -1276,7 +1278,7 @@ Item {
             Item {
                 id: boardColumn
                 width: columnWidth*1.2
-                height: 200
+                height: 120
 
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 0

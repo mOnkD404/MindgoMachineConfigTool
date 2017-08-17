@@ -41,6 +41,8 @@ public:
     QStringList StepList(int planIndex );
     QStringList planSelectStepListModel(int planIndex);
     SingleOperationData planStepParam(int planIndex, int stepIndex);
+    int planBoardConfig(int planIndex);
+    void setPlanBoardConfig(int planIndex, int boardIndex);
 
     void AddPlanStep(int planIndex, int before, int operationIndex);
     void SetPlanStepToDefault(int planIndex, int stepIndex, int operationIndex);
@@ -81,6 +83,7 @@ public:
     void stopCheckPlan();
 
     int getBoardTypeIndexByPosition(int index);
+    int getPlanBoardTypeIndexByPosition(int planIndex, int index);
 
     bool ImportConfig(const QString& file);
     bool ExportConfig(const QString& file);
@@ -104,7 +107,7 @@ private:
     QMap<QString, QString> m_operationDispNameMap;
     QMap<QString, OperationParamData> m_paramDefaultValueMap;
 
-    QList<QPair<QString, QList<SingleOperationData> > >  m_planList;
+    QList<SinglePlanData>  m_planList;
 
     QString m_configFilename;
 

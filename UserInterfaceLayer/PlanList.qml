@@ -6,7 +6,9 @@ import QtQml.Models 2.2
 Item {
     property alias operationState: operationColumn.state
     signal positionSelected(int index);
-    id: root    
+    signal boardIndexSelected(int index);
+
+    id: root
     clip:true
     function savePlan(){
         return selector.onSave();
@@ -16,6 +18,26 @@ Item {
         for(var ind = 0; ind < paramList.model.length; ind++){
             if(paramList.model[ind].Name == "position"){
                 paramList.model[ind].IntegerValue = index;
+                break;
+            }
+        }
+    }
+
+    function refreshBoardType(index){
+        var boardIndex = selector.getPlanBoardTypeIndexByPosition(planListView.currentIndex, index);
+
+        for(var ind = 0; ind < paramList.model.length; ind++){
+            if(paramList.model[ind].Name == "boardType"){
+                paramList.model[ind].IntegerValue = boardIndex;
+                break;
+            }
+        }
+    }
+    function forceRefreshBoardType(){
+        for(var ind = 0; ind < paramList.model.length; ind++){
+            if(paramList.model[ind].Name == "position"){
+                var pos = paramList.model[ind].IntegerValue;
+                refreshBoardType(pos);
                 break;
             }
         }
@@ -48,7 +70,7 @@ Item {
             anchors.topMargin: 0
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
-            clip: true            
+            clip: true
 
 
             Behavior on width{
@@ -254,8 +276,8 @@ Item {
 
                 }
                 Component.onCompleted: {
-//                    refreshPlanListModel();
-//                    stepListView.refreshStepListModel();
+                    //                    refreshPlanListModel();
+                    //                    stepListView.refreshStepListModel();
                 }
                 onVisibleChanged: {
                     if(visible){
@@ -379,12 +401,12 @@ Item {
                 id:stepListModel
             }
 
-//            DelegateModel{
-//                id:stepVisualModel
+            //            DelegateModel{
+            //                id:stepVisualModel
 
-//                model: stepListModel
-//                delegate:stepDelegate
-//            }
+            //                model: stepListModel
+            //                delegate:stepDelegate
+            //            }
 
             ListView {
                 id: stepListView
@@ -392,9 +414,9 @@ Item {
                 property int scrollingDirection:0
                 signal scrollOver(int direction);
 
-//                Behavior on contentY{
-//                    NumberAnimation{duration:100}
-//                }
+                //                Behavior on contentY{
+                //                    NumberAnimation{duration:100}
+                //                }
 
                 ScrollBar.vertical: ScrollBar{}
                 moveDisplaced: Transition {
@@ -769,19 +791,19 @@ Item {
 
                             }
                         }
-//                        onPositionChanged: {
-//                            judgeListScroll(drag.x, drag.y);
-//                        }
-//                        function judgeListScroll(x, y){
-//                            console.debug(stepListView.mapFromItem(dropDelegate, x, y));
-//                            if(stepListView.mapFromItem(dropDelegate, x, y).y >= stepListView.height - dropDelegate.height/2){
-//                                console.debug("should scroll down");
-//                                stepListView.flick(0,-200);
-//                            }else if(stepListView.mapFromItem(dropDelegate, x, y).y <= dropDelegate.height/2){
-//                                console.debug("shold scroll up");
-//                                stepListView.flick(0,200);
-//                            }
-//                        }
+                        //                        onPositionChanged: {
+                        //                            judgeListScroll(drag.x, drag.y);
+                        //                        }
+                        //                        function judgeListScroll(x, y){
+                        //                            console.debug(stepListView.mapFromItem(dropDelegate, x, y));
+                        //                            if(stepListView.mapFromItem(dropDelegate, x, y).y >= stepListView.height - dropDelegate.height/2){
+                        //                                console.debug("should scroll down");
+                        //                                stepListView.flick(0,-200);
+                        //                            }else if(stepListView.mapFromItem(dropDelegate, x, y).y <= dropDelegate.height/2){
+                        //                                console.debug("shold scroll up");
+                        //                                stepListView.flick(0,200);
+                        //                            }
+                        //                        }
                     }
                 }
             }
@@ -926,103 +948,390 @@ Item {
                     currentIndex = -1;
                 }
                 onStateChanged: {
-//                    if((operationColumn.changeOperation == "edit") && (operationColumn.state == "expandOperation")){
-//                        currentIndex = selector.operationCurrentIndex();
-//                    }else {
-//                        currentIndex = -1;
-//                    }
+                    //                    if((operationColumn.changeOperation == "edit") && (operationColumn.state == "expandOperation")){
+                    //                        currentIndex = selector.operationCurrentIndex();
+                    //                    }else {
+                    //                        currentIndex = -1;
+                    //                    }
                 }
             }
         }
 
-        Item {
-            id: paramColumn
+        Item{
             width: columnWidth*2.5
-            anchors.bottom: parent.bottom
             anchors.top: parent.top
-            //visible: !operationColumn.visible
-            clip:true
-            Behavior on width{
-                PropertyAnimation{
-                    duration: 200
-                }
-            }
+            anchors.bottom: parent.bottom
 
-            Rectangle{
-                anchors.fill: parent
-                anchors.bottomMargin: 8
-                radius:8
-                color: "#3c747474"
-            }
-
-            Rectangle{
-                id: operationParam
-                anchors.right: parent.right
-                anchors.rightMargin: 0
-                anchors.left: parent.left
-                anchors.leftMargin: 0
+            Item {
+                id: paramColumn
+                //width: columnWidth*2.5
+                anchors.bottom: boardColumn.top
                 anchors.top: parent.top
-                color:"#747474"
-                height: 40
+                anchors.left: parent.left
+                anchors.right: parent.right
+                height: 500
+                //visible: !operationColumn.visible
+                clip:true
+                Behavior on width{
+                    PropertyAnimation{
+                        duration: 200
+                    }
+                }
 
-                Text {
-                    text: qsTr("Operation param")
+                Rectangle{
                     anchors.fill: parent
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    font.pixelSize: 20
-                    font.bold: true
+                    anchors.bottomMargin: 8
+                    radius:8
+                    color: "#3c747474"
+                }
 
-                    color:"#d9d9d9"
+                Rectangle{
+                    id: operationParam
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    anchors.top: parent.top
+                    color:"#747474"
+                    height: 40
+
+                    Text {
+                        text: qsTr("Operation param")
+                        anchors.fill: parent
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        font.pixelSize: 20
+                        font.bold: true
+
+                        color:"#d9d9d9"
+                    }
+                }
+
+                ListView {
+                    id: paramList
+                    clip:true
+                    spacing: 2
+                    anchors.top: operationParam.bottom
+                    anchors.topMargin: 4
+                    anchors.right: parent.right
+                    anchors.left: parent.left
+                    anchors.bottom: parent.bottom
+                    anchors.leftMargin: 5
+                    anchors.rightMargin: 5
+                    interactive: false
+                    model: selector.paramListModel
+                    //highlightRangeMode: ListView.StrictlyEnforceRange
+                    highlight: Item{}
+                    highlightFollowsCurrentItem:true
+                    ScrollBar.vertical: ScrollBar{}
+
+                    delegate: Item {
+                        property int paramIndex: index
+                        height:40
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+
+
+
+                        enabled:getSwitchState()
+                        function getSwitchState()
+                        {
+                            var revert = modelData.RevertSwitch;
+                            var obj = selector.getSwitch(modelData.SwitchValue);
+                            if (obj)
+                                return revert? (!obj.BoolValue) : (obj.BoolValue);
+                            else
+                                return true;
+                        }
+
+                        opacity: enabled? 1.0: 0.5
+
+                        Text {
+                            id: paramName
+
+                            height:parent.height
+                            width:135
+
+                            text: modelData.Display
+                            horizontalAlignment: Text.AlignRight
+                            verticalAlignment: Text.AlignVCenter
+                            color:"#d9d9d9"
+                            font.pixelSize: 20
+                            font.bold: true
+                        }
+
+                        Component{
+                            id: texteditComponent
+
+                            Rectangle{
+                                anchors.fill: parent
+                                border.width: 2
+                                border.color: "#ffffff"
+                                radius: 4
+
+                                TextInput{
+                                    id: textedit
+                                    property bool init: false
+                                    anchors.fill: parent
+                                    anchors.leftMargin: 2
+                                    verticalAlignment: TextEdit.AlignVCenter
+                                    validator: getValidator()
+                                    focus:true
+                                    activeFocusOnTab: true
+                                    selectByMouse: true
+                                    //text: getText()
+
+                                    Component.onCompleted: {
+                                        text = getText();
+                                        init = true;
+                                    }
+                                    onActiveFocusChanged: {
+                                        if(activeFocus){
+                                            selectAll();
+                                            if(paramList.currentIndex != paramIndex){
+                                                paramList.currentIndex = paramIndex;
+                                                forceActiveFocus();
+                                            }
+                                        }else{
+                                            deselect();
+                                        }
+                                    }
+
+                                    function getText() {
+                                        if(modelData.Type == "integer"){
+                                            return modelData.IntegerValue.toString();
+                                        }else if(modelData.Type == "float"){
+                                            return modelData.FloatValue.toFixed(1);
+                                        }else{
+                                            return modelData.StringValue;
+                                        }
+                                    }
+
+                                    function getValidator(){
+                                        if(modelData.Type == "integer"){
+
+                                            return intValidator;
+                                        }
+                                        else if(modelData.Type == "float"){
+                                            return floatValidator;
+                                        }
+                                        return validator;
+                                    }
+
+
+                                    IntValidator{
+                                        id:intValidator
+                                        bottom: modelData.BottomValue
+                                        top:modelData.TopValue
+                                    }
+
+                                    TextFieldDoubleValidator{
+                                        id:floatValidator
+                                        bottom:modelData.BottomValue
+                                        top:modelData.TopValue
+                                        decimals: 1
+                                    }
+
+                                    onTextChanged: {
+                                        if(init == true){
+                                            if(modelData.Type == "integer"){
+                                                var value = Number(text);
+                                                if(value > intValidator.top){
+                                                    value = intValidator.top;
+                                                }else if(value < intValidator.bottom){
+                                                    value = intValidator.bottom;
+                                                }
+                                                text = value.toString();
+                                                modelData.IntegerValue = value;
+                                            }
+                                            else if(modelData.Type == "float"){
+                                                modelData.FloatValue = Number(text);
+                                            }
+                                            else{
+                                                modelData.StringValue = text;
+                                            }
+
+                                            selector.commitParam(planListView.currentIndex, stepListView.currentIndex, modelData.Name, text);
+
+                                            if(modelData.Name=="GroupName"){
+                                                var list = selector.stepListModel(planListView.currentIndex);
+                                                stepListModel.setProperty(stepListView.currentIndex, "name", list[stepListView.currentIndex]);
+                                            }
+                                        }
+                                    }
+
+                                    onEditingFinished: {
+                                        if(init == true){
+                                            if(modelData.Type == "integer"){
+                                                modelData.IntegerValue = Number(text);
+                                            }
+                                            else if(modelData.Type == "float"){
+                                                modelData.FloatValue = Number(text);
+                                            }
+                                            else{
+                                                modelData.StringValue = text;
+                                            }
+                                        }
+                                    }
+
+                                    onEnabledChanged: {
+                                        if(enabled == false)
+                                            text = "";
+                                    }
+
+                                }
+                            }
+                        }
+                        Component{
+                            id:comboboxComponent
+
+                            ComboBox{
+                                id: combox
+                                anchors.fill: parent
+                                anchors.verticalCenter: parent.verticalCenter
+                                model: modelData.StringListValue
+                                currentIndex: modelData.IntegerValue
+                                focus:true
+                                activeFocusOnTab: true
+
+                                onCurrentIndexChanged: {
+                                    modelData.IntegerValue = currentIndex;
+
+                                    selector.commitParam(planListView.currentIndex, stepListView.currentIndex, modelData.Name, currentIndex);
+
+                                    if (modelData.Name == "position"){
+                                        positionSelected(currentIndex);
+                                        refreshBoardType(currentIndex);
+
+                                    }
+                                }
+                            }
+                        }
+                        Component{
+                            id:checkboxComponent
+                            CheckBox{
+                                id: checkbox
+                                anchors.fill: parent
+                                anchors.verticalCenter: parent.verticalCenter
+                                focus:true
+                                activeFocusOnTab: true
+                                checked: modelData.BoolValue
+
+                                onCheckedChanged: {
+                                    modelData.BoolValue = checked;
+
+                                    selector.commitParam(planListView.currentIndex, stepListView.currentIndex, modelData.Name, checked);
+                                }
+                            }
+                        }
+
+                        Loader{
+                            id: paramInput
+                            anchors.left: paramName.right
+                            anchors.top: parent.top
+                            anchors.bottom: parent.bottom
+                            anchors.right: paramUnit.left
+                            anchors.rightMargin: 3
+                            anchors.leftMargin: 4
+
+                            height: parent.height
+
+                            enabled: modelData.Name != "boardType"
+
+                            sourceComponent:getcomponent(modelData.Type)
+
+
+                            function getcomponent(typename, val){
+                                if (typename == "integer" || typename == "string" || typename == "float"){
+                                    return texteditComponent;
+                                }
+                                else if(typename == "enum"){
+                                    return comboboxComponent;
+                                }
+                                else if(typename == "bool"){
+                                    return checkboxComponent;
+                                }
+
+                            }
+                        }
+                        Text {
+                            id: paramUnit
+                            height:30
+                            width:(modelData.Unit.length > 0 )? modelData.Unit.width: 0
+                            text: modelData.Unit
+                            horizontalAlignment: Text.AlignLeft
+                            verticalAlignment: Text.AlignVCenter
+                            color:"#d9d9d9"
+                            font.pixelSize: 20
+                            font.bold: true
+                            anchors.top: parent.top
+                            anchors.bottom: parent.bottom
+                            anchors.right: parent.right
+                        }
+
+                    }
                 }
             }
 
-            ListView {
-                id: paramList
-                clip:true
-                spacing: 2
-                anchors.top: operationParam.bottom
-                anchors.topMargin: 4
-                anchors.right: parent.right
-                anchors.left: parent.left
-                anchors.bottom: parent.bottom
-                anchors.leftMargin: 5
-                anchors.rightMargin: 5
-                interactive: false
-                model: selector.paramListModel
-                //highlightRangeMode: ListView.StrictlyEnforceRange
-                highlight: Item{}
-                highlightFollowsCurrentItem:true
-                ScrollBar.vertical: ScrollBar{}
+            Item {
+                id: boardColumn
+                width: columnWidth*1.2
+                height: 200
 
-                delegate: Item {
-                    property int paramIndex: index
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 0
+                anchors.left: parent.left
+                anchors.right: parent.right
+
+                Rectangle{
+                    anchors.fill: parent
+                    anchors.bottomMargin: 8
+                    radius:8
+                    color: "#3c747474"
+                }
+
+                Rectangle{
+                    id: boardConfig
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    anchors.top: parent.top
+                    color:"#747474"
+                    height: 40
+
+                    Text {
+                        text: qsTr("Board Config")
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        //anchors.fill: parent
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        anchors.right: parent.right
+                        anchors.left: expandButton.visible?expandButton.right:parent.left
+                        font.pixelSize: 20
+                        font.bold: true
+                        //width: 120
+                        color:"#d9d9d9"
+                    }
+                }
+                Item {
                     height:40
                     anchors.left: parent.left
                     anchors.right: parent.right
+                    anchors.top: boardConfig.bottom
+                    anchors.topMargin: 5
+                    //anchors.bottom: parent.bottom
 
-
-
-                    enabled:getSwitchState()
-                    function getSwitchState()
-                    {
-                        var revert = modelData.RevertSwitch;
-                        var obj = selector.getSwitch(modelData.SwitchValue);
-                        if (obj)
-                            return revert? (!obj.BoolValue) : (obj.BoolValue);
-                        else
-                            return true;
-                    }
 
                     opacity: enabled? 1.0: 0.5
 
                     Text {
-                        id: paramName
-
+                        id:boardName
                         height:parent.height
                         width:135
 
-                        text: modelData.Display
+                        text: qsTr("Board Config")
                         horizontalAlignment: Text.AlignRight
                         verticalAlignment: Text.AlignVCenter
                         color:"#d9d9d9"
@@ -1030,221 +1339,58 @@ Item {
                         font.bold: true
                     }
 
-                    Component{
-                        id: texteditComponent
-
-                        Rectangle{
-                            anchors.fill: parent
-                            border.width: 2
-                            border.color: "#ffffff"
-                            radius: 4
-
-                            TextInput{
-                                id: textedit
-                                property bool init: false
-                                anchors.fill: parent
-                                anchors.leftMargin: 2
-                                verticalAlignment: TextEdit.AlignVCenter
-                                validator: getValidator()
-                                focus:true
-                                activeFocusOnTab: true
-                                selectByMouse: true
-                                //text: getText()
-
-                                Component.onCompleted: {
-                                    text = getText();
-                                    init = true;
-                                }
-                                onActiveFocusChanged: {
-                                    if(activeFocus){
-                                        selectAll();
-                                        if(paramList.currentIndex != paramIndex){
-                                            paramList.currentIndex = paramIndex;
-                                            forceActiveFocus();
-                                        }
-                                    }else{
-                                        deselect();
-                                    }
-                                }
-
-                                function getText() {
-                                    if(modelData.Type == "integer"){
-                                        return modelData.IntegerValue.toString();
-                                    }else if(modelData.Type == "float"){                                        
-                                        return modelData.FloatValue.toFixed(1);
-                                    }else{
-                                        return modelData.StringValue;
-                                    }
-                                }
-
-                                function getValidator(){
-                                    if(modelData.Type == "integer"){
-
-                                        return intValidator;
-                                    }
-                                    else if(modelData.Type == "float"){                                        
-                                        return floatValidator;
-                                    }
-                                    return validator;
-                                }
-
-
-                                IntValidator{
-                                    id:intValidator
-                                    bottom: modelData.BottomValue
-                                    top:modelData.TopValue
-                                }
-
-                                TextFieldDoubleValidator{
-                                    id:floatValidator
-                                    bottom:modelData.BottomValue
-                                    top:modelData.TopValue
-                                    decimals: 1
-                                }
-
-                                onTextChanged: {
-                                    if(init == true){
-                                        if(modelData.Type == "integer"){
-                                            var value = Number(text);
-                                            if(value > intValidator.top){
-                                                value = intValidator.top;
-                                            }else if(value < intValidator.bottom){
-                                                value = intValidator.bottom;
-                                            }
-                                            text = value.toString();
-                                            modelData.IntegerValue = value;
-                                        }
-                                        else if(modelData.Type == "float"){
-                                            modelData.FloatValue = Number(text);
-                                        }
-                                        else{
-                                            modelData.StringValue = text;
-                                        }
-
-                                        selector.commitParam(planListView.currentIndex, stepListView.currentIndex, modelData.Name, text);
-
-                                        if(modelData.Name=="GroupName"){
-                                            var list = selector.stepListModel(planListView.currentIndex);
-                                            stepListModel.setProperty(stepListView.currentIndex, "name", list[stepListView.currentIndex]);
-                                        }
-                                    }
-                                }
-
-                                onEditingFinished: {
-                                    if(init == true){
-                                        if(modelData.Type == "integer"){
-                                            modelData.IntegerValue = Number(text);
-                                        }
-                                        else if(modelData.Type == "float"){
-                                            modelData.FloatValue = Number(text);
-                                        }
-                                        else{
-                                            modelData.StringValue = text;
-                                        }
-                                    }
-                                }
-
-                                onEnabledChanged: {
-                                    if(enabled == false)
-                                        text = "";
-                                }
-
-                            }
-                        }
+                    ListModel{
+                        id:boardconfigListModel
                     }
-                    Component{
-                        id:comboboxComponent
-
-                        ComboBox{
-                            id: combox
-                            anchors.fill: parent
-                            anchors.verticalCenter: parent.verticalCenter
-                            model: modelData.StringListValue
-                            currentIndex: modelData.IntegerValue
-                            focus:true
-                            activeFocusOnTab: true
-
-                            onCurrentIndexChanged: {
-                                modelData.IntegerValue = currentIndex;
-
-                                selector.commitParam(planListView.currentIndex, stepListView.currentIndex, modelData.Name, currentIndex);
-
-                                if (modelData.Name == "position"){
-                                    positionSelected(currentIndex);
-                                    var boardIndex = selector.getBoardTypeIndexByPosition(currentIndex);
-
-                                    for(var ind = 0; ind < paramList.model.length; ind++){
-                                        if(paramList.model[ind].Name == "boardType"){
-                                            paramList.model[ind].IntegerValue = boardIndex;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    Component{
-                        id:checkboxComponent
-                        CheckBox{
-                            id: checkbox
-                            anchors.fill: parent
-                            anchors.verticalCenter: parent.verticalCenter
-                            focus:true
-                            activeFocusOnTab: true
-                            checked: modelData.BoolValue
-
-                            onCheckedChanged: {
-                                modelData.BoolValue = checked;
-
-                                selector.commitParam(planListView.currentIndex, stepListView.currentIndex, modelData.Name, checked);
-                            }
-                        }
+                    WorkLocationManager{
+                        id:workLocationMgr
                     }
 
-                    Loader{
-                        id: paramInput
-                        anchors.left: paramName.right
+                    ComboBox{
+                        id: combox2
+                        property bool init: false
+                        anchors.left: boardName.right
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
-                        anchors.right: paramUnit.left
+                        anchors.right: parent.right
                         anchors.rightMargin: 3
                         anchors.leftMargin: 4
 
                         height: parent.height
 
-                        enabled: modelData.Name != "boardType"
+                        model: boardconfigListModel
+                        focus:true
+                        activeFocusOnTab: true
 
-                        sourceComponent:getcomponent(modelData.Type)
-
-
-                        function getcomponent(typename, val){
-                            if (typename == "integer" || typename == "string" || typename == "float"){
-                                return texteditComponent;
+                        onCurrentIndexChanged: {
+                            if(init){
+                                selector.setBoardConfigIndex(planListView.currentIndex, currentIndex);
+                                boardIndexSelected(currentIndex);
+                                forceRefreshBoardType();
                             }
-                            else if(typename == "enum"){
-                                return comboboxComponent;
-                            }
-                            else if(typename == "bool"){
-                                return checkboxComponent;
-                            }
+                        }
 
+                        function refreshModel(){
+                            var listAll = workLocationMgr.getWorkLocationTypeList();
+
+                            boardconfigListModel.clear();
+                            for(var item in listAll.config){
+                                boardconfigListModel.append({"key":listAll.config[item].name});
+                            }
+                        }
+                        onVisibleChanged: {
+                            if(visible){
+                                refreshModel();
+                                currentIndex = selector.boardConfigIndex(planListView.currentIndex);
+                                init = true;
+                                boardIndexSelected(currentIndex);
+
+                                forceRefreshBoardType();
+                            }else{
+                                init = false;
+                            }
                         }
                     }
-                    Text {
-                        id: paramUnit
-                        height:30
-                        width:(modelData.Unit.length > 0 )? modelData.Unit.width: 0
-                        text: modelData.Unit
-                        horizontalAlignment: Text.AlignLeft
-                        verticalAlignment: Text.AlignVCenter
-                        color:"#d9d9d9"
-                        font.pixelSize: 20
-                        font.bold: true
-                        anchors.top: parent.top
-                        anchors.bottom: parent.bottom
-                        anchors.right: parent.right
-                    }
-
                 }
             }
         }

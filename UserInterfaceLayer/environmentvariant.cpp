@@ -178,9 +178,9 @@ QStringList EnvironmentVariant::LogicalControlList()
 QStringList EnvironmentVariant::PlanList()
 {
     QStringList strlist;
-    for(QList<QPair<QString, QList<SingleOperationData> > >::Iterator iter = m_planList.begin(); iter != m_planList.end(); iter++)
+    for(QList<SinglePlanData>::Iterator iter = m_planList.begin(); iter != m_planList.end(); iter++)
     {
-        strlist.append(iter->first);
+        strlist.append(iter->planName);
     }
     return strlist;
 }
@@ -190,7 +190,7 @@ QStringList EnvironmentVariant::StepList(int planIndex)
     QStringList steplist;
     if(planIndex >= 0 && planIndex < m_planList.size())
     {
-        const QList<SingleOperationData> & data = m_planList[planIndex].second;
+        const QList<SingleOperationData> & data = m_planList[planIndex].operations;
         foreach (const SingleOperationData& pda, data)
         {
             if(m_operationNameDispMap.contains(pda.operationName))
@@ -225,7 +225,7 @@ QStringList EnvironmentVariant::planSelectStepListModel(int planIndex)
     int currentIndex = 0;
     if(planIndex >= 0 && planIndex < m_planList.size())
     {
-        const QList<SingleOperationData> & data = m_planList[planIndex].second;
+        const QList<SingleOperationData> & data = m_planList[planIndex].operations;
         foreach (const SingleOperationData& pda, data)
         {
             if(m_operationNameDispMap.contains(pda.operationName))
@@ -260,16 +260,16 @@ SingleOperationData EnvironmentVariant::planStepParam(int planIndex, int stepInd
     if (planIndex < 0 || planIndex >= m_planList.size())
         return retData;
 
-    const QPair<QString, QList<SingleOperationData> > & plan = m_planList[planIndex];
-    if(stepIndex < 0 || stepIndex >= plan.second.size())
+    const SinglePlanData & plan = m_planList[planIndex];
+    if(stepIndex < 0 || stepIndex >= plan.operations.size())
         return retData;
 
-    if(!m_operationParamMap.contains(plan.second[stepIndex].operationName))
+    if(!m_operationParamMap.contains(plan.operations[stepIndex].operationName))
         return retData;
 
-    retData = defaultValue(plan.second[stepIndex].operationName);
+    retData = defaultValue(plan.operations[stepIndex].operationName);
 
-    const QList<OperationParamData> & paramData = plan.second[stepIndex].params;
+    const QList<OperationParamData> & paramData = plan.operations[stepIndex].params;
 
     for(int index = 0; index < retData.params.size(); index++)
     {
@@ -289,6 +289,27 @@ SingleOperationData EnvironmentVariant::planStepParam(int planIndex, int stepInd
         }
     }
     return retData;
+}
+
+int EnvironmentVariant::planBoardConfig(int planIndex)
+{
+    if(planIndex >= 0 && planIndex < m_planList.size())
+    {
+        return m_planList.at(planIndex).boardConfig;
+    }
+    return 0;
+}
+
+
+void EnvironmentVariant::setPlanBoardConfig(int planIndex, int boardIndex)
+{
+    if(planIndex >= 0 && planIndex < m_planList.size())
+    {
+        if(m_planList[planIndex].boardConfig != boardIndex)
+        {
+            m_planList[planIndex].boardConfig = boardIndex;
+        }
+    }
 }
 
 QJsonObject EnvironmentVariant::formatSingleOperationParam(const SingleOperationData & obj)
@@ -360,17 +381,17 @@ void EnvironmentVariant::AddPlanStep(int planIndex, int before, int operationInd
     if(planIndex < 0 || planIndex >= m_planList.size())
         return;
 
-    QPair<QString, QList<SingleOperationData> > plan = m_planList[planIndex];
+    SinglePlanData plan = m_planList[planIndex];
 
     SingleOperationData data = defaultValue(m_controlOperationList[operationIndex]);
 
-    if(before < 0 || before > plan.second.size())
+    if(before < 0 || before > plan.operations.size())
     {
-        plan.second.append(data);
+        plan.operations.append(data);
     }
     else
     {
-        plan.second.insert(before, data);
+        plan.operations.insert(before, data);
     }
 
     m_planList[planIndex] = plan;
@@ -381,11 +402,11 @@ void EnvironmentVariant::RemovePlanStep(int planIndex, int stepIndex)
     if(planIndex < 0 || planIndex >= m_planList.size())
         return;
 
-    QPair<QString, QList<SingleOperationData> > &plan = m_planList[planIndex];
+    SinglePlanData &plan = m_planList[planIndex];
 
-    if(stepIndex >= 0 && stepIndex < plan.second.size())
+    if(stepIndex >= 0 && stepIndex < plan.operations.size())
     {
-        plan.second.removeAt(stepIndex);
+        plan.operations.removeAt(stepIndex);
     }
 }
 
@@ -394,13 +415,13 @@ void EnvironmentVariant::MovePlanStep(int planIndex, int stepIndex, int newIndex
     if(planIndex < 0 || planIndex >= m_planList.size())
         return;
 
-    QPair<QString, QList<SingleOperationData> > &plan = m_planList[planIndex];
+    SinglePlanData &plan = m_planList[planIndex];
 
-    if(stepIndex >= 0 && stepIndex < plan.second.size() && newIndex >=0 && newIndex < plan.second.size())
+    if(stepIndex >= 0 && stepIndex < plan.operations.size() && newIndex >=0 && newIndex < plan.operations.size())
     {
-        SingleOperationData data = plan.second.at(stepIndex);
-        plan.second.removeAt(stepIndex);
-        plan.second.insert(newIndex, data);
+        SingleOperationData data = plan.operations.at(stepIndex);
+        plan.operations.removeAt(stepIndex);
+        plan.operations.insert(newIndex, data);
     }
 }
 
@@ -409,12 +430,12 @@ void EnvironmentVariant::SetPlanStepToDefault(int planIndex, int stepIndex, int 
     if(planIndex < 0 || planIndex >= m_planList.size())
         return;
 
-    QPair<QString, QList<SingleOperationData> > &plan = m_planList[planIndex];
+    SinglePlanData &plan = m_planList[planIndex];
 
-    if(stepIndex >= 0 && stepIndex < plan.second.size())
+    if(stepIndex >= 0 && stepIndex < plan.operations.size())
     {
         SingleOperationData data = defaultValue(m_controlOperationList[operationIndex]);
-        plan.second[stepIndex] = data;
+        plan.operations[stepIndex] = data;
         //m_planList[planIndex] = plan;
     }
 
@@ -425,11 +446,11 @@ void EnvironmentVariant::SetPlanStepParam(int planIndex, int stepIndex, const QL
     if(planIndex < 0 || planIndex >= m_planList.size())
         return;
 
-    QPair<QString, QList<SingleOperationData> > &plan = m_planList[planIndex];
+    SinglePlanData &plan = m_planList[planIndex];
 
-    if(stepIndex >= 0 && stepIndex < plan.second.size())
+    if(stepIndex >= 0 && stepIndex < plan.operations.size())
     {
-        plan.second[stepIndex].params = data;
+        plan.operations[stepIndex].params = data;
     }
 }
 
@@ -439,12 +460,12 @@ void EnvironmentVariant::SetPlanStepSingleParam(int planIndex, int stepIndex, co
     if(planIndex < 0 || planIndex >= m_planList.size())
         return;
 
-    QPair<QString, QList<SingleOperationData> > &plan = m_planList[planIndex];
+    SinglePlanData &plan = m_planList[planIndex];
 
-    if(stepIndex < 0 || stepIndex >= plan.second.size())
+    if(stepIndex < 0 || stepIndex >= plan.operations.size())
         return;
 
-    QList<OperationParamData> & params = plan.second[stepIndex].params;
+    QList<OperationParamData> & params = plan.operations[stepIndex].params;
 
     for(QList<OperationParamData>::Iterator iterdata = params.begin(); iterdata != params.end(); iterdata++)
     {
@@ -477,14 +498,14 @@ void EnvironmentVariant::SetPlanName(int planIndex, const QString &name)
     if(planIndex < 0 || planIndex >= m_planList.size())
         return;
 
-    QPair<QString, QList<SingleOperationData> > &plan = m_planList[planIndex];
+    SinglePlanData &plan = m_planList[planIndex];
 
-    plan.first = name;
+    plan.planName = name;
 }
 
 void EnvironmentVariant::AddPlan(const QString &name)
 {
-    m_planList.append(qMakePair(name, QList<SingleOperationData>()));
+    m_planList.append(SinglePlanData(name, 0,QList<SingleOperationData>()));
 }
 
 void EnvironmentVariant::RemovePlan(int planIndex)
@@ -522,7 +543,7 @@ void EnvironmentVariant::StartPlan(int planIndex, int stepIndex)
     if(planIndex < 0 || planIndex >= m_planList.size())
         return;
 
-    const QList<SingleOperationData> & stepList = m_planList.at(planIndex).second;
+    const QList<SingleOperationData> & stepList = m_planList.at(planIndex).operations;
 
 
     QJsonObject planObj;
@@ -656,7 +677,7 @@ void EnvironmentVariant::startCheckPlan(int planIndex)
     if(planIndex < 0 || planIndex >= m_planList.size())
         return;
 
-    const QList<SingleOperationData> & stepList = m_planList.at(planIndex).second;
+    const QList<SingleOperationData> & stepList = m_planList.at(planIndex).operations;
 
 
     QJsonObject planObj;
@@ -718,6 +739,40 @@ int EnvironmentVariant::getBoardTypeIndexByPosition(int index)
     const QJsonArray& workConstraint = m_workPlaceConstraint;
 
     QJsonArray boardConfig = workPlace["config"].toArray()[workPlace["current"].toInt()].toObject()["type"].toArray();
+    if(index < 0 || index >= boardConfig.size())
+    {
+        return -1;
+    }
+
+    QString boardtype = boardConfig[index].toObject()["name"].toString();
+    int boardIndex = 0;
+    for(; boardIndex < workConstraint.size(); boardIndex++)
+    {
+        if(workConstraint[boardIndex].toObject()["type"].toString() == boardtype)
+        {
+            break;
+        }
+    }
+    if(boardIndex < workConstraint.size())
+    {
+        return boardIndex;
+    }
+    return -1;
+}
+
+
+int EnvironmentVariant::getPlanBoardTypeIndexByPosition(int planIndex, int index)
+{
+    const QJsonObject& workPlace = m_workLocationTypeList;
+    const QJsonArray& workConstraint = m_workPlaceConstraint;
+
+    int workIndex = workPlace["current"].toInt();
+    if(planIndex >= 0 && planIndex < m_planList.size())
+    {
+        workIndex = m_planList[planIndex].boardConfig;
+    }
+
+    QJsonArray boardConfig = workPlace["config"].toArray()[workIndex].toObject()["type"].toArray();
     if(index < 0 || index >= boardConfig.size())
     {
         return -1;

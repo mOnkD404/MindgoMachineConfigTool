@@ -11,12 +11,17 @@ Item {
     property alias currentIndex: gridView.currentIndex
     signal typeChanged();
     signal itemSelected(int index);
+    property int  boardIndex: -1
 
     height: width*3/4
 
     MouseArea{
         anchors.fill: parent
     }
+    WorkLocationManager{
+        id:workLocationMgr
+    }
+
     StatusViewWatcher{
         id:watcher
         onStatusChanged: {
@@ -52,38 +57,42 @@ Item {
     }
 
     function setWorkPlaceType(gridIndex, typeVal){
-        var listAll = watcher.getWorkLocationTypeList();
+        var listAll = workLocationMgr.getWorkLocationTypeList();
         var configIndex = listAll.current;
         if(listAll.config[configIndex].type[gridIndex].name != typeVal.type){
             listAll.config[configIndex].type[gridIndex] = typeVal;
-            watcher.updateWorkPlace(listAll);
+            workLocationMgr.updateWorkPlace(listAll);
         }
     }
 
     function setIndexParam(gridIndex, type, param, value){
-        var listAll = watcher.getWorkLocationTypeList();
+        var listAll = workLocationMgr.getWorkLocationTypeList();
         var configIndex = listAll.current;
         if(listAll.config[configIndex].type[gridIndex].name == type){
             listAll.config[configIndex].type[gridIndex][param] = parseInt(value);
-            watcher.updateWorkPlace(listAll);
+            workLocationMgr.updateWorkPlace(listAll);
         }
     }
 
     function refreshModel(){
 
-        var comboItem = watcher.getWorkPlaceConstraint();
+        var comboItem = workLocationMgr.getWorkPlaceConstraint();
         //.refresh listview
 //        var tipsReadyImage =  "./image/2-1.png";
 //        var tipsUsedImage = "./image/2-4.png";
 //        var tubesReadyImage =  "./image/4-1.png";
 //        var tubesUsedImage = "./image/4-4.png";
 
-        var listAll = watcher.getWorkLocationTypeList();
+        var listAll = workLocationMgr.getWorkLocationTypeList();
         if(listAll.current < 0 || listAll.current >= listAll.config.length){
             return;
         }
+        var useIndex = listAll.current;
+        if(boardIndex >= 0 && boardIndex < listAll.config.length){
+            useIndex = boardIndex;
+        }
 
-        var listData = listAll.config[listAll.current].type;
+        var listData = listAll.config[useIndex].type;
         for(var index = 0; index < listData.length; index++){
 //            if(listData[index]=="tips"){
 //                displayModel.set(index, {"type":"tips", "readyImage":tipsReadyImage, "usedImage":tipsUsedImage});
@@ -104,6 +113,11 @@ Item {
             }
         }
     }
+
+    onBoardIndexChanged: {
+        refreshModel();
+    }
+
     Component.onCompleted: refreshModel()
 
     ListModel{
@@ -113,7 +127,7 @@ Item {
 //        ListElement{name:qsTr("null"); type: "null"}
 
         Component.onCompleted: {
-            var comboItem = watcher.getWorkPlaceConstraint();
+            var comboItem = workLocationMgr.getWorkPlaceConstraint();
             for(var index = 0; index < comboItem.length; index++){
                 comboboxModel.append({"name":comboItem[index].display, "type":comboItem[index].type});
             }
@@ -225,10 +239,12 @@ Item {
                     model:comboboxModel
                     currentIndex: {
                         var ind = -1;
-                        for(var index = 0; index < comboboxModel.count; index++){
-                            if(comboboxModel.get(index).type == gridType){
-                                ind = index;
-                                break;
+                        if(showCombo){
+                            for(var index = 0; index < comboboxModel.count; index++){
+                                if(comboboxModel.get(index).type == gridType){
+                                    ind = index;
+                                    break;
+                                }
                             }
                         }
                         return ind;
@@ -246,9 +262,9 @@ Item {
                             boardTypeVar.name = newtype;
 
                             //watcher.setWorkLocationType(0,gridIndex, model.get(currentIndex).type);
-                            var listAll = watcher.getWorkLocationTypeList();
+                            var listAll = workLocationMgr.getWorkLocationTypeList();
                             var listData = listAll.config[listAll.current].type[gridIndex];
-                            var constraint = watcher.getWorkPlaceConstraint();
+                            var constraint = workLocationMgr.getWorkPlaceConstraint();
 
                             for(var ind = 0; ind < constraint.length; ind++){
                                 if(constraint[ind].type == newtype){
@@ -262,7 +278,7 @@ Item {
                                             boardTypeVar["volume"] = constraint[ind].params.volume.default;
                                         }
                                     }
-                                    editVolume.visible = showVolume;
+                                    //editVolume.visible = showVolume;
                                     break;
                                 }
                             }
@@ -270,7 +286,7 @@ Item {
                             var configIndex = listAll.current;
                             if(listAll.config[configIndex].type[gridIndex].name != newtype){
                                 listAll.config[configIndex].type[gridIndex] = boardTypeVar;
-                                watcher.updateWorkPlace(listAll);
+                                workLocationMgr.updateWorkPlace(listAll);
                             }
                         }
                     }

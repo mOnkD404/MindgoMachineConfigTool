@@ -296,6 +296,16 @@ QStringList PlanSelector::planSelectStepListModel(int planIndex)
     return EnvironmentVariant::instance()->planSelectStepListModel(planIndex);
 }
 
+void PlanSelector::setBoardConfigIndex(int planIndex, int boardIndex)
+{
+    return EnvironmentVariant::instance()->setPlanBoardConfig(planIndex, boardIndex);
+
+}
+int PlanSelector::boardConfigIndex(int planIndex)
+{
+    return EnvironmentVariant::instance()->planBoardConfig(planIndex);
+}
+
 void PlanSelector::setSelectedStep(int planIndex, int stepIndex)
 {
     m_operationData = EnvironmentVariant::instance()->planStepParam(planIndex, stepIndex);
@@ -385,6 +395,10 @@ void PlanSelector::commitParam(int planIndex, int stepIndex, const QString& para
 int PlanSelector::getBoardTypeIndexByPosition(int index)
 {
     return EnvironmentVariant::instance()->getBoardTypeIndexByPosition(index);
+}
+int PlanSelector::getPlanBoardTypeIndexByPosition(int planIndex, int index)
+{
+    return EnvironmentVariant::instance()->getPlanBoardTypeIndexByPosition(planIndex, index);
 }
 
 QObject* PlanSelector::getSwitch(const QString &name)
@@ -502,12 +516,23 @@ bool StatusViewWatcher::eventFilter(QObject *watched, QEvent *event)
     return false;
 }
 
-QJsonObject StatusViewWatcher::getWorkLocationTypeList()
+WorkLocationManager::WorkLocationManager(QObject* parent)
+    :QObject(parent)
+{
+
+}
+
+WorkLocationManager::~WorkLocationManager()
+{
+
+}
+
+QJsonObject WorkLocationManager::getWorkLocationTypeList()
 {
     return EnvironmentVariant::instance()->getWorkLocationTypeList();
 }
 
-bool StatusViewWatcher::setWorkLocationType(int configIndex, int workPlaceIndex, const QString& type)
+bool WorkLocationManager::setWorkLocationType(int configIndex, int workPlaceIndex, const QString& type)
 {
     if(EnvironmentVariant::instance()->setWorkLocationType(configIndex, workPlaceIndex, type))
     {
@@ -516,7 +541,7 @@ bool StatusViewWatcher::setWorkLocationType(int configIndex, int workPlaceIndex,
     return false;
 }
 
-bool StatusViewWatcher::updateWorkPlace(const QJsonObject &jsobj)
+bool WorkLocationManager::updateWorkPlace(const QJsonObject &jsobj)
 {
     if(EnvironmentVariant::instance()->updateWorkPlace(jsobj))
     {
@@ -528,7 +553,7 @@ bool StatusViewWatcher::updateWorkPlace(const QJsonObject &jsobj)
     }
 }
 
-QJsonArray StatusViewWatcher::getWorkPlaceConstraint()
+QJsonArray WorkLocationManager::getWorkPlaceConstraint()
 {
     return EnvironmentVariant::instance()->WorkPlaceConstraint();
 }

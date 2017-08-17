@@ -218,7 +218,7 @@ QJsonArray configFileHandler::ParseWorkPlaceConstraint()
     return workSpace;
 }
 
-void configFileHandler::ParsePlanList(QList<QPair<QString, QList<SingleOperationData> > >& planMap, const QMap<QString, OperationParamData> & defaultParamMap)
+void configFileHandler::ParsePlanList(QList<SinglePlanData>& planMap, const QMap<QString, OperationParamData> & defaultParamMap)
 {
     planMap.clear();
 
@@ -227,6 +227,7 @@ void configFileHandler::ParsePlanList(QList<QPair<QString, QList<SingleOperation
     {
         QJsonObject planObj = objIter->toObject();
         QString planName = planObj["name"].toString();
+        int boardConfig = planObj["workSpace"].toInt();
 
         QJsonArray steplist = planObj["operations"].toArray();
         QList<SingleOperationData> oplist;
@@ -276,12 +277,12 @@ void configFileHandler::ParsePlanList(QList<QPair<QString, QList<SingleOperation
             }
             oplist.append(opData);
         }
-        planMap.append(qMakePair(planName,oplist));
+        planMap.append(SinglePlanData(planName,boardConfig, oplist));
     }
 
 }
 
-bool configFileHandler::SavePlanList(const QString& configFile, const QList<QPair<QString, QList<SingleOperationData> > > & planData, const QMap<QString, QStringList> &paramMap)
+bool configFileHandler::SavePlanList(const QString& configFile, const QList<SinglePlanData > & planData, const QMap<QString, QStringList> &paramMap)
 {
     QFile loadFile(configFile);
     if(!loadFile.open(QIODevice::ReadWrite))
@@ -299,12 +300,13 @@ bool configFileHandler::SavePlanList(const QString& configFile, const QList<QPai
     QJsonArray planArray;
 
 
-    for(QList<QPair<QString, QList<SingleOperationData> > >::const_iterator iter = planData.begin(); iter != planData.end(); iter++)
+    for(QList<SinglePlanData>::const_iterator iter = planData.begin(); iter != planData.end(); iter++)
     {
         QJsonObject planObj;
         int seq = 1;
-        QString planName = iter->first;
-        const QList<SingleOperationData>& opList = iter->second;
+        QString planName = iter->planName;
+        int boardConfig = iter->boardConfig;
+        const QList<SingleOperationData>& opList = iter->operations;
         QJsonArray planStepList;
         for(QList<SingleOperationData>::const_iterator iter2 = opList.begin(); iter2 != opList.end(); iter2++)
         {
@@ -339,6 +341,7 @@ bool configFileHandler::SavePlanList(const QString& configFile, const QList<QPai
 
 
         planObj["name"] = planName;
+        planObj["workSpace"] = boardConfig;
         planObj["operations"] = planStepList;
 
         planArray.append(planObj);

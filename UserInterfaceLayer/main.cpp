@@ -111,6 +111,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<PlanSelector>("Common" ,1,0,"PlanSelector");
     qmlRegisterType<StatusViewWatcher>("Common", 1,0,"StatusViewWatcher");
     qmlRegisterType<PlanController>("Common", 1,0,"PlanController");
+    qmlRegisterType<WorkLocationManager>("Common", 1, 0,"WorkLocationManager");
 
     QFontDatabase::addApplicationFont(getConfigFullName("FZHTJW.TTF"));
     QFont font;

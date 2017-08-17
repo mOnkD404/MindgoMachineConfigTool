@@ -1,4 +1,5 @@
 ﻿import QtQuick 2.7
+import Common 1.0
 
 Item {
     property bool showHeader: false
@@ -72,6 +73,31 @@ Item {
             Behavior on height{
                 PropertyAnimation { duration:200}
             }
+
+            onBoardIndexSelected: {
+                planStepGallery.boardIndex = index;
+            }
+        }
+
+        StatusViewWatcher{
+            id:watcher
+        }
+        function refreshModel(){
+            var listAll = watcher.getWorkLocationTypeList();
+
+            configListModel.clear();
+            for(var item in listAll.config){
+                configListModel.append({"name":listAll.config[item].name});
+            }
+
+            configListView.currentIndex = listAll.current;
+
+        }
+        function selectConfig(currentIndex){
+            var listAll = watcher.getWorkLocationTypeList();
+
+            listAll.current = currentIndex;
+            watcher.updateWorkPlace(listAll);
         }
 
         StepGallery{

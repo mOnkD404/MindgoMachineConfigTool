@@ -7,7 +7,7 @@
                 {
                     "operation": "Load Tip",
                     "params": {
-                        "boardType": 0,
+                        "boardType": 3,
                         "onBoardIndex": 1,
                         "position": 0,
                         "tipIndex": 1
@@ -126,7 +126,8 @@
                     },
                     "sequenceNumber": 11
                 }
-            ]
+            ],
+            "workSpace": 1
         }
     ],
     "target": {
@@ -145,37 +146,80 @@
                         "volume": 250
                     },
                     {
-                        "name": "sbsBoard"
+                        "name": "null"
                     },
                     {
-                        "name": "sbsBoard"
+                        "name": "null"
                     },
                     {
-                        "name": "megneticSeperation"
+                        "name": "tipBox",
+                        "volume": 250
                     },
                     {
-                        "name": "sbsBoard"
+                        "name": "null"
                     },
                     {
-                        "name": "sbsBoard"
+                        "name": "null"
                     },
                     {
-                        "name": "megneticSeperation"
+                        "name": "null"
                     },
                     {
-                        "name": "sbsBoard"
+                        "name": "null"
                     },
                     {
-                        "name": "sbsBoard"
+                        "name": "null"
                     },
                     {
-                        "name": "sbsBoard"
+                        "name": "null"
                     },
                     {
-                        "name": "sbsBoard"
+                        "name": "null"
                     },
                     {
-                        "name": "sbsBoard"
+                        "name": "null"
+                    }
+                ]
+            },
+            {
+                "count": 12,
+                "name": "222",
+                "type": [
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "null"
                     }
                 ]
             }

@@ -23,8 +23,8 @@ public:
     QString ParseHostIP();
     qint16 ParseHostPort();
     qint32 ParseHostSingleOperationThreshold();
-    void ParsePlanList(QList<QPair<QString, QList<SingleOperationData> > >& planMap, const QMap<QString, OperationParamData> &);
-    bool SavePlanList(const QString& configFile, const QList<QPair<QString, QList<SingleOperationData> > > & planData, const QMap<QString, QStringList> &);
+    void ParsePlanList(QList<SinglePlanData>& planMap, const QMap<QString, OperationParamData> &);
+    bool SavePlanList(const QString& configFile, const QList<SinglePlanData> & planData, const QMap<QString, QStringList> &);
 
     bool SaveMachineConfig(const QString& configFile, const MachineConfigData&, const QJsonObject& );
 

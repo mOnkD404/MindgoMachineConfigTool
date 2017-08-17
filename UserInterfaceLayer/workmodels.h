@@ -375,6 +375,21 @@ public:
     QList<OperationParamData> params;
 };
 
+class SinglePlanData
+{
+public:
+    QString planName;
+    int boardConfig;
+    QList<SingleOperationData> operations;
+
+    SinglePlanData(const QString& name, int bd, const QList<SingleOperationData>& op)
+        :planName(name), boardConfig(bd), operations(op)
+    {
+
+    }
+
+};
+
 class SingleOperationObject:public QObject, SingleOperationData
 {
     Q_OBJECT
@@ -408,6 +423,9 @@ public:
     Q_INVOKABLE QStringList planSelectStepListModel(int planIndex);
     Q_INVOKABLE QStringList operationListModel() {return m_operationListModel;}
 
+    Q_INVOKABLE void setBoardConfigIndex(int planIndex, int boardIndex);
+    Q_INVOKABLE int boardConfigIndex(int planIndex);
+
     Q_INVOKABLE void startCheckPlan(int planIndex);
     Q_INVOKABLE void stopCheckPlan();
 
@@ -440,6 +458,7 @@ public:
     Q_INVOKABLE void commitParam(int planIndex, int stepIndex, const QString& paramName, const QVariant& value);
 
     Q_INVOKABLE int getBoardTypeIndexByPosition(int index);
+    Q_INVOKABLE int getPlanBoardTypeIndexByPosition(int planIndex, int index);
 
 protected:
     bool eventFilter(QObject *watched, QEvent *event);
@@ -485,15 +504,25 @@ public:
 
     virtual bool eventFilter(QObject *watched, QEvent *event);
 
-    Q_INVOKABLE QJsonObject getWorkLocationTypeList();
-    Q_INVOKABLE bool setWorkLocationType(int configIndex, int workPlaceISndex, const QString& type);
-    Q_INVOKABLE bool updateWorkPlace(const QJsonObject &jsobj);
-    Q_INVOKABLE QJsonArray getWorkPlaceConstraint();
 
 
 signals:
     void statusChanged(const QJsonObject& jsobj);
     void workLocationTypeChanged();
+};
+
+class WorkLocationManager: public QObject
+{
+    Q_OBJECT
+public:
+    WorkLocationManager(QObject* parent = 0);
+    ~WorkLocationManager();
+
+
+    Q_INVOKABLE QJsonObject getWorkLocationTypeList();
+    Q_INVOKABLE bool setWorkLocationType(int configIndex, int workPlaceISndex, const QString& type);
+    Q_INVOKABLE bool updateWorkPlace(const QJsonObject &jsobj);
+    Q_INVOKABLE QJsonArray getWorkPlaceConstraint();
 };
 
 class MachineConfigData

@@ -298,45 +298,45 @@ Item {
 
             width: 220
 
-            StatusViewWatcher{
-                id:watcher
+            WorkLocationManager{
+                id:workLocationMgr
             }
 
             function addConfig(newname){
-                var listAll = watcher.getWorkLocationTypeList();
+                var listAll = workLocationMgr.getWorkLocationTypeList();
 
                 var defaultVal = listAll.default;
                 defaultVal.name = newname;
 
                 listAll.config.push(defaultVal);
-                watcher.updateWorkPlace(listAll);
+                workLocationMgr.updateWorkPlace(listAll);
             }
 
             function removeConfig(index){
-                var listAll = watcher.getWorkLocationTypeList();
+                var listAll = workLocationMgr.getWorkLocationTypeList();
 
                 if ( index >= 0 && index < listAll.config.length){
                     listAll.config.splice(index, 1);
-                    watcher.updateWorkPlace(listAll);
+                    workLocationMgr.updateWorkPlace(listAll);
                 }
             }
 
             function setConfigName(index, newname){
-                var listAll = watcher.getWorkLocationTypeList();
+                var listAll = workLocationMgr.getWorkLocationTypeList();
 
                 if ( index >= 0 && index < listAll.config.length){
                     if(listAll.config[index].name != newname){
                         listAll.config[index].name = newname;
-                        watcher.updateWorkPlace(listAll);
+                        workLocationMgr.updateWorkPlace(listAll);
                     }
                 }
             }
 
             function selectConfig(currentIndex){
-                var listAll = watcher.getWorkLocationTypeList();
+                var listAll = workLocationMgr.getWorkLocationTypeList();
 
                 listAll.current = currentIndex;
-                watcher.updateWorkPlace(listAll);
+                workLocationMgr.updateWorkPlace(listAll);
             }
 
             ActionBar{
@@ -479,7 +479,7 @@ Item {
                     refreshModel();
                 }
                 function refreshModel(){
-                    var listAll = watcher.getWorkLocationTypeList();
+                    var listAll = workLocationMgr.getWorkLocationTypeList();
 
                     configListModel.clear();
                     for(var item in listAll.config){

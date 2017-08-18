@@ -1098,6 +1098,16 @@ Item {
                                             }
                                         }else{
                                             deselect();
+                                            if(modelData.Type == "integer"){
+                                                var value = Number(text);
+                                                if(value > intValidator.top){
+                                                    value = intValidator.top;
+                                                }else if(value < intValidator.bottom){
+                                                    value = intValidator.bottom;
+                                                }
+                                                text = value.toString();
+                                                modelData.IntegerValue = Number(text);
+                                            }
                                         }
                                     }
 
@@ -1139,14 +1149,7 @@ Item {
                                     onTextChanged: {
                                         if(init == true){
                                             if(modelData.Type == "integer"){
-                                                var value = Number(text);
-                                                if(value > intValidator.top){
-                                                    value = intValidator.top;
-                                                }else if(value < intValidator.bottom){
-                                                    value = intValidator.bottom;
-                                                }
-                                                text = value.toString();
-                                                modelData.IntegerValue = value;
+                                                modelData.IntegerValue = Number(text);
                                             }
                                             else if(modelData.Type == "float"){
                                                 modelData.FloatValue = Number(text);
@@ -1160,20 +1163,6 @@ Item {
                                             if(modelData.Name=="GroupName"){
                                                 var list = selector.stepListModel(planListView.currentIndex);
                                                 stepListModel.setProperty(stepListView.currentIndex, "name", list[stepListView.currentIndex]);
-                                            }
-                                        }
-                                    }
-
-                                    onEditingFinished: {
-                                        if(init == true){
-                                            if(modelData.Type == "integer"){
-                                                modelData.IntegerValue = Number(text);
-                                            }
-                                            else if(modelData.Type == "float"){
-                                                modelData.FloatValue = Number(text);
-                                            }
-                                            else{
-                                                modelData.StringValue = text;
                                             }
                                         }
                                     }

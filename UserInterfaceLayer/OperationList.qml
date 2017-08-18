@@ -247,9 +247,22 @@ Item {
 
                                 onActiveFocusChanged: {
                                     if(activeFocus){
+                                        selectAll();
                                         if(paramList.currentIndex != paramIndex){
                                             paramList.currentIndex = paramIndex;
                                             forceActiveFocus();
+                                        }
+                                    }else{
+                                        deselect();
+                                        if(modelData.Type == "integer"){
+                                            var value = Number(text);
+                                            if(value > intValidator.top){
+                                                value = intValidator.top;
+                                            }else if(value < intValidator.bottom){
+                                                value = intValidator.bottom;
+                                            }
+                                            text = value.toString();
+                                            modelData.IntegerValue = Number(text);
                                         }
                                     }
                                 }
@@ -280,14 +293,7 @@ Item {
 
                                 onTextChanged: {
                                     if(modelData.Type == "integer"){
-                                        var value = Number(text);
-                                        if(value > intValidator.top){
-                                            value = intValidator.top;
-                                        }else if(value < intValidator.bottom){
-                                            value = intValidator.bottom;
-                                        }
-                                        text = value.toString();
-                                        modelData.IntegerValue = value;
+                                        modelData.IntegerValue = Number(text);
                                     }
                                     else if(modelData.Type == "float"){
                                         modelData.FloatValue = Number(text);
@@ -296,6 +302,7 @@ Item {
                                         modelData.StringValue = text;
                                     }
                                 }
+
                                 onEnabledChanged: {
                                     if(enabled == false)
                                         text = "";

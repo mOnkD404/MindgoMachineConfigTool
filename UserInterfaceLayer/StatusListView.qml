@@ -23,10 +23,11 @@ Item {
             {
                 displayModel.append(jsobj);
             }
-
-            running = jsobj.running;
-
             statusList.currentIndex = displayModel.count - 1;
+
+            if(jsobj.hasOwnProperty("running")){
+                running = jsobj.running;
+            }
         }
     }
 
@@ -184,6 +185,23 @@ Item {
                 }
             }
             Component{
+                id:waittingPermanentCmd
+                Column {
+                    id: column
+                    anchors.fill: parent
+                    anchors.leftMargin: 5
+                    anchors.topMargin: 3
+
+                    //anchors { fill: parent; margins: 2 }
+
+
+                    Text { text: 'Step: ' + sequence; color:"#d9d9d9"; font.pixelSize: 15 }
+                    Text { text: operation; color:"#d9d9d9"; font.pixelSize: 15 }
+                    Text { text: 'Wait: Permanent' ; color:"#d9d9d9"; font.bold: true; font.pixelSize: 15 }
+
+                }
+            }
+            Component{
                 id: loopStartCmd
                 Column {
                     id: column
@@ -224,8 +242,12 @@ Item {
                 function getSource(){
                     if(!logicalCommand){
                         return controlCmd;
-                    }else if (operation == "WaitArray"){
-                        return wattingArrayCmd;
+                    }else if (operation == "WaitArray" ){
+                        if(waitPermanent){
+                            return waittingPermanentCmd;
+                        }else{
+                            return wattingArrayCmd;
+                        }
                     }else if (operation == "Loop"){
                         return loopStartCmd;
                     }else if (operation == "EndLoop"){

@@ -396,7 +396,7 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
     if(opname == "WaitArray")
     {
         int time = param["waitTime"].toInt();
-        bool permanent = param["permanent"].toBool();
+        bool permanent = (bool)(param["permanent"].toInt());
         if(permanent)
         {
             retObj["waitPermanent"] = true;
@@ -450,6 +450,7 @@ bool SubThreadWorker::handleLoopCommand(QJsonObject& cmdObj, int& currentIndex)
     retObj["logicalCommand"] = true;
     retObj["waitArray"] = 0;
     retObj["waitting"] = 0;
+    retObj["waitPermanent"] = false;
     retObj["loopCount"] = 0;
     retObj["remainLoopCount"] = 0;
 
@@ -525,6 +526,7 @@ bool SubThreadWorker::handleControlCommand(Communication& com, QJsonObject& cmdO
     retObj["logicalCommand"] = false;
     retObj["waitArray"] = 0;
     retObj["waitting"] = 0;
+    retObj["waitPermanent"] = false;
     retObj["loopCount"] = 0;
     retObj["remainLoopCount"] = 0;
     retObj["running"] = true;

@@ -7,17 +7,17 @@
                 {
                     "operation": "Load Tip",
                     "params": {
-                        "boardType": 1,
+                        "boardType": 0,
                         "onBoardIndex": 1,
-                        "position": 4,
-                        "tipIndex": 1
+                        "position": 0,
+                        "tipIndex": 22
                     },
                     "sequenceNumber": 1
                 },
                 {
                     "operation": "WaitArray",
                     "params": {
-                        "permanent": true,
+                        "permanent": false,
                         "waitTime": 1
                     },
                     "sequenceNumber": 2

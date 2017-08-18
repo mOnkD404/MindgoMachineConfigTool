@@ -47,6 +47,7 @@ Item {
                 borderColor: "#4c5cc5ff"
                 fontPixelSize: 25
                 onClicked: {
+                    forceActiveFocus();
                     singleStepOperation.commitData();
                     console.debug("Execute single step operation.");
                 }

@@ -38,6 +38,8 @@ Item {
                 width: height*2
                 height: parent.height
 
+                enabled: !singleStepStatus.running
+
                 textValue: qsTr("Execute")
                 anchors.right: parent.right
                 anchors.rightMargin: 0

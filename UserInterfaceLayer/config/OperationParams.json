@@ -241,13 +241,6 @@
                 "ready":"./image/3-1.png",
                 "used":"./image/3-4.png"
             },
-            "constraint":{
-                "volume":{
-                    "comboJudge":["preSuctionVolume", "volume", "postSuctionVolume"],
-                    "startTrigger":["Load Tip"],
-                    "endTrigger":["Dump Tip"]
-                }
-            },
             "params":{
                 "height":{
                     "unit":"mm",

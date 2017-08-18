@@ -274,6 +274,8 @@ Item {
                 onCurrentIndexChanged: {
                     stepListView.refreshStepListModel();
 
+                    boardtypeCombobox.currentIndex = selector.boardConfigIndex(planListView.currentIndex);
+
                 }
                 Component.onCompleted: {
                     //                    refreshPlanListModel();
@@ -1349,7 +1351,7 @@ Item {
                     }
 
                     ComboBox{
-                        id: combox2
+                        id: boardtypeCombobox
                         property bool init: false
                         anchors.left: boardName.right
                         anchors.top: parent.top

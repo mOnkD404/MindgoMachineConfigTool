@@ -57,7 +57,7 @@ bool WorkflowProtocol::parseJsonObjectToSendFrame(const QJsonObject & jsObj, QJs
 
     ushort seq = jsObj["sequence"].toInt();
     QJsonObject userParams = jsObj["params"].toObject();
-
+    qDebug()<<userParams;
 
     retObj["operation"] = operationName;
     retObj["sequence"] = seq;
@@ -527,6 +527,7 @@ bool SubThreadWorker::handleControlCommand(Communication& com, QJsonObject& cmdO
     retObj["waitting"] = 0;
     retObj["loopCount"] = 0;
     retObj["remainLoopCount"] = 0;
+    retObj["running"] = true;
 
     m_protocol->parseJsonObjectToSendFrame(cmdObj, retObj);
     QByteArray btarray = m_protocol->serializeSendFrame();
@@ -563,6 +564,8 @@ bool SubThreadWorker::handleControlCommand(Communication& com, QJsonObject& cmdO
     emit statusChanged(retObj);
     if (!sendret)
     {
+        retObj["running"] = false;
+        emit statusChanged(retObj);
         return false;
     }
 
@@ -586,6 +589,8 @@ bool SubThreadWorker::handleControlCommand(Communication& com, QJsonObject& cmdO
 
     retObj["newOperationItem"] = false;
     retObj["ack"] = recvret;
+
+    retObj["running"] = false;
 
     emit statusChanged(retObj);
     if(!recvret || retObj["ackResult"] != 0)

@@ -3,6 +3,7 @@ import QtQuick.Controls 2.1
 import Common 1.0
 
 Item {
+    property bool running: false
     id:root
     function clearModel(){
         displayModel.clear();
@@ -22,6 +23,8 @@ Item {
             {
                 displayModel.append(jsobj);
             }
+
+            running = jsobj.running;
 
             statusList.currentIndex = displayModel.count - 1;
         }

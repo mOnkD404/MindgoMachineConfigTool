@@ -15,7 +15,7 @@
         "Machine Reset":[]
     },
     "logicalControl":{
-        "WaitArray":["waitTime"],
+        "WaitArray":["waitTime","permanent"],
         "Loop":[ "cycleCount"],
         "EndLoop":[],
         "Group":["GroupName"]
@@ -141,7 +141,9 @@
             "display":"等待时间",
             "unit":"s",
             "bottomValue":1,
-            "topValue":10000
+            "topValue":10000,
+            "switch":"permanent",
+            "revertSwitch":true
         },
         "boardMotion":{
             "type":"enum",
@@ -223,6 +225,11 @@
             "unit":"μL/s",
             "bottomValue":0,
             "topValue":1000
+        },
+        "permanent":{
+            "type":"bool",
+            "default":false,
+            "display":"永久"
         }
     },
     "workPlace":[
@@ -233,13 +240,6 @@
             "image":{
                 "ready":"./image/3-1.png",
                 "used":"./image/3-4.png"
-            },
-            "constraint":{
-                "volume":{
-                    "comboJudge":["preSuctionVolume", "volume", "postSuctionVolume"],
-                    "startTrigger":["Load Tip"],
-                    "endTrigger":["Dump Tip"]
-                }
             },
             "params":{
                 "height":{

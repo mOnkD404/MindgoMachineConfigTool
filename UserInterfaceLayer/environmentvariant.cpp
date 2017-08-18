@@ -580,7 +580,7 @@ void EnvironmentVariant::StartPlan(int planIndex, int stepIndex)
             }
             else if(data.Type == "bool")
             {
-                paramobj[data.Name] = data.BoolValue;
+                paramobj[data.Name] = (int)data.BoolValue;
             }
         }
         singleOperationObj["params"] = paramobj;
@@ -678,7 +678,7 @@ void EnvironmentVariant::startCheckPlan(int planIndex)
         return;
 
     const QList<SingleOperationData> & stepList = m_planList.at(planIndex).operations;
-
+    int boardIndex = m_planList.at(planIndex).boardConfig;
 
     QJsonObject planObj;
     QJsonArray oparray;
@@ -723,7 +723,7 @@ void EnvironmentVariant::startCheckPlan(int planIndex)
 
     }
     planObj["operations"] = oparray;
-    planObj["boardConfig"] = m_workLocationTypeList["config"].toArray()[m_workLocationTypeList["current"].toInt()].toObject()["type"];
+    planObj["boardConfig"] = m_workLocationTypeList["config"].toArray()[boardIndex].toObject()["type"];
 
     m_workflowChecker.checkTask(planObj);
 }

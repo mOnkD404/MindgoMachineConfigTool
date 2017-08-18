@@ -30,7 +30,9 @@ Item {
             errorStep =  jsObj.errorStep;
         }
     }
-
+    WorkLocationManager{
+        id: workLocationMgr
+    }
 
     id:root
     anchors.fill: parent
@@ -55,7 +57,7 @@ Item {
     Rectangle{
         id: rectangle1
         width: 400
-        height: 300
+        height: 350
         color: "#818382"
         radius: 0
         border.width: 0
@@ -127,6 +129,7 @@ Item {
             onCurrentIndexChanged: {
                 stepcomboBox.model = selector.planSelectStepListModel(plancomboBox.currentIndex);
                 selector.startCheckPlan(plancomboBox.currentIndex);
+                boardcomboBox.refreshModel();
             }
         }
 
@@ -163,6 +166,56 @@ Item {
             onVisibleChanged: {
                 if(visible){
                     model = selector.planSelectStepListModel(plancomboBox.currentIndex)
+                }
+            }
+        }
+
+        Text{
+            id: text6
+            width: 130
+            height: 35
+            text: qsTr("Board config")
+            anchors.top: text5.bottom
+            anchors.topMargin: 10
+            anchors.left: parent.left
+            anchors.leftMargin: 21
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: 25
+            color: "#b5b7b6"
+        }
+        ComboBox {
+            id: boardcomboBox
+            width: 200
+            height: 35
+            anchors.left: text6.right
+            anchors.leftMargin: 10
+            anchors.top: stepcomboBox.bottom
+            anchors.topMargin: 10
+            font.pixelSize: 25
+            enabled: false
+
+            model: ListModel{
+                id: boardcomboBoxModel
+            }
+            currentIndex: 0
+            focus:true
+            activeFocusOnTab: true
+
+            function refreshModel(){
+                var listAll = workLocationMgr.getWorkLocationTypeList();
+
+                boardcomboBoxModel.clear();
+                for(var item in listAll.config){
+                    boardcomboBoxModel.append({"key":listAll.config[item].name});
+                }
+
+                currentIndex = selector.boardConfigIndex(plancomboBox.currentIndex);
+            }
+
+            onVisibleChanged: {
+                if(visible){
+                    refreshModel();
                 }
             }
         }
@@ -251,6 +304,12 @@ Item {
 
             textValue: qsTr("Start")
             onClicked: {
+                var listAll = workLocationMgr.getWorkLocationTypeList();
+                if(listAll.current != boardcomboBox.currentIndex){
+                    listAll.current = boardcomboBox.currentIndex;
+                    workLocationMgr.updateWorkPlace(listAll);
+                }
+
                 var itemStr = stepcomboBox.currentText.split('.');
 
                 okClicked(plancomboBox.currentIndex, parseInt(itemStr[0])-1);

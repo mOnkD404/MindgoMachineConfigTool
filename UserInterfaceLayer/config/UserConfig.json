@@ -7,9 +7,9 @@
                 {
                     "operation": "Load Tip",
                     "params": {
-                        "boardType": 0,
+                        "boardType": 1,
                         "onBoardIndex": 1,
-                        "position": 0,
+                        "position": 4,
                         "tipIndex": 1
                     },
                     "sequenceNumber": 1
@@ -56,7 +56,7 @@
                 {
                     "operation": "Mix",
                     "params": {
-                        "boardType": 3,
+                        "boardType": 1,
                         "cycleCount": 1,
                         "drainHeight": 0,
                         "onBoardIndex": 1,
@@ -76,7 +76,7 @@
                     "operation": "Dispense",
                     "params": {
                         "boardType": 1,
-                        "drain": false,
+                        "drain": true,
                         "drainHeight": 0,
                         "drainVolume": 0,
                         "onBoardIndex": 1,
@@ -128,6 +128,26 @@
                 }
             ],
             "workSpace": 0
+        },
+        {
+            "name": "NewPlan",
+            "operations": [
+                {
+                    "operation": "Dispense",
+                    "params": {
+                        "boardType": 1,
+                        "drain": false,
+                        "drainHeight": 0,
+                        "drainVolume": 0,
+                        "onBoardIndex": 1,
+                        "position": 1,
+                        "speed": 1,
+                        "tipIndex": 1
+                    },
+                    "sequenceNumber": 1
+                }
+            ],
+            "workSpace": 0
         }
     ],
     "target": {
@@ -146,7 +166,7 @@
                         "volume": 250
                     },
                     {
-                        "name": "null"
+                        "name": "sbsBoard"
                     },
                     {
                         "name": "null"
@@ -156,25 +176,25 @@
                         "volume": 250
                     },
                     {
-                        "name": "null"
+                        "name": "sbsBoard"
                     },
                     {
                         "name": "null"
                     },
                     {
-                        "name": "null"
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "sbsBoard"
                     },
                     {
                         "name": "null"
                     },
                     {
-                        "name": "null"
+                        "name": "sbsBoard"
                     },
                     {
-                        "name": "null"
-                    },
-                    {
-                        "name": "null"
+                        "name": "megneticSeperation"
                     },
                     {
                         "name": "null"
@@ -186,7 +206,7 @@
                 "name": "222",
                 "type": [
                     {
-                        "name": "null"
+                        "name": "sbsBoard"
                     },
                     {
                         "name": "null"

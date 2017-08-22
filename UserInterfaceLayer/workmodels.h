@@ -447,6 +447,8 @@ public:
     Q_INVOKABLE void removeStep(int planIndex, int stepIndex);
     Q_INVOKABLE void moveStep(int planIndex, int stepIndex, int newIndex);
 
+    Q_INVOKABLE QString copyStep(int planIndex, int fromStepIndex, int toStepIndex);
+
     Q_INVOKABLE void setPlanName(int planIndex, const QString& name);
     Q_INVOKABLE void addPlan(const QString& name);
     Q_INVOKABLE void removePlan(int index);

@@ -425,6 +425,22 @@ void EnvironmentVariant::MovePlanStep(int planIndex, int stepIndex, int newIndex
     }
 }
 
+QString EnvironmentVariant::CopyPlanStep(int planIndex, int fromStepIndex, int toStepIndex)
+{
+    if(planIndex < 0 || planIndex >= m_planList.size())
+        return QString();
+
+    SinglePlanData &plan = m_planList[planIndex];
+
+    if(fromStepIndex >= 0 && fromStepIndex < plan.operations.size() && toStepIndex >=0 && toStepIndex < plan.operations.size()+1)
+    {
+        SingleOperationData data = plan.operations.at(fromStepIndex);
+        plan.operations.insert(toStepIndex, data);
+        return m_operationNameDispMap[data.operationName];
+    }
+    return QString();
+}
+
 void EnvironmentVariant::SetPlanStepToDefault(int planIndex, int stepIndex, int operationIndex)
 {
     if(planIndex < 0 || planIndex >= m_planList.size())

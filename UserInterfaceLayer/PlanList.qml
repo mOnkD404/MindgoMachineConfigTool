@@ -302,8 +302,9 @@ Item {
 
 
         Item {
+            property int copyIndex:-1
             id: stepColumn
-            width: columnWidth*1.2
+            width: columnWidth*1.5
             anchors.top: parent.top
             anchors.topMargin: 0
             anchors.bottom: parent.bottom
@@ -370,6 +371,8 @@ Item {
                 anchors.right: parent.right
                 anchors.margins: 4
 
+                disablePaste: ((stepColumn.copyIndex < 0 ) || (stepColumn.copyIndex >= stepColumn.count))
+
                 onDoAction: {
                     stepListView.expandAll();
                     if (str == "add"){
@@ -395,6 +398,17 @@ Item {
                                 //paramList.model = selector.paramListModel();
                             }
                         }
+                    }else if(str == "copy"){
+                        stepColumn.copyIndex = stepListView.currentIndex;
+                    }else if(str == "paste"){
+                        if(stepColumn.copyIndex >= 0 && stepColumn.copyIndex < stepListModel.count){
+                            var textValue = selector.copyStep(planListView.currentIndex, stepColumn.copyIndex, stepListView.currentIndex+1);
+
+                            stepListModel.insert(stepListView.currentIndex+1, {"name":textValue, "showStep":true});
+
+                            stepListView.currentIndex = stepListView.currentIndex + 1;
+                        }
+                        stepColumn.copyIndex = -1;
                     }
                 }
             }
@@ -930,12 +944,13 @@ Item {
 
 
                         if(operationColumn.changeOperation == "add"){
-                            selector.addStep(planListView.currentIndex, stepListView.count, index);
-                            stepListModel.append({"name":textValue, "showStep":true});
+                            selector.addStep(planListView.currentIndex, stepListView.currentIndex+1, index);
+                            stepListModel.insert(stepListView.currentIndex+1, {"name":textValue, "showStep":true});
+                            //stepListModel.append({"name":textValue, "showStep":true});
 
                             //paramList.model = selector.paramListModel();
 
-                            stepListView.currentIndex = stepListView.count - 1;
+                            stepListView.currentIndex = stepListView.currentIndex + 1;
                         }else if (operationColumn.changeOperation == "edit"){
                             selector.setSelectedOperation(planListView.currentIndex, stepListView.currentIndex, index);
                             stepListModel.setProperty(stepListView.currentIndex, "name", textValue);

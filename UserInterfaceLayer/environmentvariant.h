@@ -50,6 +50,8 @@ public:
     void SetPlanStepSingleParam(int planIndex, int stepIndex, const QString& paramName, const QVariant& value);
     void RemovePlanStep(int planIndex, int stepIndex);
     void MovePlanStep(int planIndex, int stepIndex, int newIndex);
+    QString CopyPlanStep(int planIndex, int fromStepIndex, int toStepIndex);
+
     void SetPlanName(int planIndex, const QString& name);
     void AddPlan(const QString& name);
     void RemovePlan(int planIndex);

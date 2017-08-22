@@ -5,6 +5,7 @@
 Item {
     property var positionAction;
     property bool disableDelete: false
+    property bool disablePaste: true
     signal doAction(var str);
 
     positionAction: true
@@ -29,6 +30,16 @@ Item {
         ListElement{
             name:"edit"
             icon:"./image/edit.png"
+            colorVal:"#36b278"
+        }
+        ListElement{
+            name:"copy"
+            icon:"./image/copy.png"
+            colorVal:"#36b278"
+        }
+        ListElement{
+            name:"paste"
+            icon:"./image/paste.png"
             colorVal:"#36b278"
         }
         ListElement{
@@ -63,6 +74,8 @@ Item {
         Rectangle{
             enabled: {
                 if(disableDelete && name == "delete"){
+                    return false;
+                }else if(disablePaste && name == "paste"){
                     return false;
                 }else{
                     return true;

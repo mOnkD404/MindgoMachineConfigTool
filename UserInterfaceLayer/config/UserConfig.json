@@ -54,6 +54,28 @@
                     "sequenceNumber": 5
                 },
                 {
+                    "operation": "Dispense",
+                    "params": {
+                        "boardType": 0,
+                        "drain": false,
+                        "drainHeight": 0,
+                        "drainVolume": 0,
+                        "onBoardIndex": 1,
+                        "position": 0,
+                        "speed": 1,
+                        "tipIndex": 1
+                    },
+                    "sequenceNumber": 6
+                },
+                {
+                    "operation": "Magnetic Separation",
+                    "params": {
+                        "boardMotion": 0,
+                        "position": 0
+                    },
+                    "sequenceNumber": 7
+                },
+                {
                     "operation": "Mix",
                     "params": {
                         "boardType": 1,
@@ -70,7 +92,7 @@
                         "tipIndex": 10,
                         "volume": 0
                     },
-                    "sequenceNumber": 6
+                    "sequenceNumber": 8
                 },
                 {
                     "operation": "Dispense",
@@ -84,7 +106,7 @@
                         "speed": 1,
                         "tipIndex": 1
                     },
-                    "sequenceNumber": 7
+                    "sequenceNumber": 9
                 },
                 {
                     "operation": "Dump Tip",
@@ -94,13 +116,13 @@
                         "position": 0,
                         "tipIndex": 1
                     },
-                    "sequenceNumber": 8
+                    "sequenceNumber": 10
                 },
                 {
                     "operation": "EndLoop",
                     "params": {
                     },
-                    "sequenceNumber": 9
+                    "sequenceNumber": 11
                 },
                 {
                     "operation": "Suction",
@@ -117,14 +139,14 @@
                         "tipIndex": 1,
                         "volume": 0
                     },
-                    "sequenceNumber": 10
+                    "sequenceNumber": 12
                 },
                 {
                     "operation": "Reset",
                     "params": {
                         "allSpindleIndex": 0
                     },
-                    "sequenceNumber": 11
+                    "sequenceNumber": 13
                 }
             ],
             "workSpace": 0

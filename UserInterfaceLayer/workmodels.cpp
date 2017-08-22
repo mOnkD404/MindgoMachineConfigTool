@@ -362,6 +362,10 @@ void PlanSelector::moveStep(int planIndex, int stepIndex, int newIndex)
 {
     EnvironmentVariant::instance()->MovePlanStep(planIndex, stepIndex, newIndex);
 }
+QString PlanSelector::copyStep(int planIndex, int fromStepIndex, int toStepIndex)
+{
+    return EnvironmentVariant::instance()->CopyPlanStep(planIndex, fromStepIndex, toStepIndex);
+}
 
 void PlanSelector::setPlanName(int planIndex, const QString &name)
 {

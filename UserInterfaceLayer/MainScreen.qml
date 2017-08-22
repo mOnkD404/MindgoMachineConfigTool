@@ -112,7 +112,7 @@ Item {
             }
 
 
-            StatusListView{
+            PlanStepView{
                 id:statusList
                 visible: true
                 anchors.top:mainVDewID.top

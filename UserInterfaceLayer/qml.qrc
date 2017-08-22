@@ -30,5 +30,7 @@
         <file>Progressbar.qml</file>
         <file>image/copy.png</file>
         <file>image/paste.png</file>
+        <file>PlanStepView.qml</file>
+        <file>functions.js</file>
     </qresource>
 </RCC>

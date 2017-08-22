@@ -34,4 +34,7 @@ Item {
             }
         }
     }
+    Environment{
+        id:env
+    }
 }

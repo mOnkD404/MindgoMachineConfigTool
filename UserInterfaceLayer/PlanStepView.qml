@@ -88,15 +88,19 @@ Item {
         ScrollBar.vertical: ScrollBar{}
         clip:true
 
-        delegate: Rectangle{
-            id:delegateRect
+        delegate: Item{
             anchors.left: parent.left
             anchors.right: parent.right
-            radius:5
-            border.width: 2
-            border.color:"#747474"
-            color:"transparent"
-            opacity: 0.8
+
+            Rectangle{
+                id:delegateRect
+                anchors.fill: parent
+                radius:5
+                border.width: 2
+                border.color:"#747474"
+                color:"transparent"
+                opacity: 0.6
+            }
 
             height: 80
 
@@ -119,10 +123,10 @@ Item {
                                     return qsTr('Watting');
                                 }else{
                                     if(ackResult==0){
-                                        delegateRect.color = "steelblue";
+                                        delegateRect.color = "lightgreen";
                                         return qsTr('Success');
                                     }else{
-                                        delegateRect.color = "darkred";
+                                        delegateRect.color = "steelred";
                                         return qsTr('Fail: ')+ Script.decodeError(ackResult.toString());
                                     }
                                 }
@@ -150,14 +154,14 @@ Item {
 
                     Text { text: sequence + '.' + operation; color:"#d9d9d9"; font.pixelSize: 17 }
                     Text { text: qsTr('Wait: ') + waitArray; color:"#d9d9d9"; font.bold: true; font.pixelSize: 17 }
-                    Text { text: qsTr('Waitting: ') + waitting; color:"#d9d9d9"; font.bold: true; font.pixelSize: 17 }
+                    Text { text: qsTr('Waitting: ') + waitting; color:"#d9d9d9"; font.bold: true; font.pixelSize: 17
 
-                    Component.onCompleted: {
-                        if((waitArray == watting)){
-                            delegateRect.color = "steelblue";
+                        onTextChanged: {
+                            if((waitArray > 0)&&(waitArray == waitting)){
+                                delegateRect.color = "lightgreen";
+                            }
                         }
                     }
-
                 }
             }
             Component{
@@ -175,7 +179,7 @@ Item {
                     Text { text: qsTr('Wait: Permanent') ; color:"#d9d9d9"; font.bold: true; font.pixelSize: 17 }
                     Component.onCompleted: {
                         if((sequence == statusList.currentIndex + 1)){
-                            delegateRect.color = "steelblue";
+                            delegateRect.color = "lightgreen";
                         }
                     }
                 }

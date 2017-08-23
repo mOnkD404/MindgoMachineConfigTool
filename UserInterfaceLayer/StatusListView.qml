@@ -1,6 +1,7 @@
 ﻿import QtQuick 2.7
 import QtQuick.Controls 2.1
 import Common 1.0
+import "functions.js" as Script
 
 Item {
     property bool running: false
@@ -29,39 +30,6 @@ Item {
                 running = jsobj.running;
             }
         }
-    }
-
-    function decodeError(errCode){
-        var retVal;
-        switch(parseInt(errCode)){
-        case 0x1001:
-            retVal = 'X轴定位失败';
-            break;
-        case 0x1002:
-            retVal = 'Y轴定位失败';
-            break;
-        case 0x1003:
-            retVal = 'Z轴定位失败';
-            break;
-        case 0x1004:
-            retVal = 'U轴定位失败';
-            break;
-        case 0x2001:
-            retVal = 'XY轴超限';
-            break;
-        case 0x2002:
-            retVal = '装载力过大';
-            break;
-        case 0x2003:
-            retVal = '装载力过小';
-            break;
-        case 0x3001:
-            retVal = '手动急停按下';
-            break;
-        default:
-            break;
-        }
-        return retVal;
     }
 
     width: 220
@@ -152,7 +120,7 @@ Item {
                                     if(ackResult==0){
                                         return 'Success';
                                     }else{
-                                        return 'Fail: '+ root.decodeError(ackResult.toString());
+                                        return 'Fail: '+ Script.decodeError(ackResult.toString());
                                     }
                                 }
                             }else{

@@ -93,8 +93,8 @@ bool WorkerObject::handleData(const QByteArray& array)
     const char* command[] = {
         "\x02\x00\x0c\x80\x01",//load tip
         "\x02\x00\x0c\x80\x02",//dump tip
-        "\x02\x00\x16\x80\x03",//suction
-        "\x02\x00\x14\x80\x04",//dispense
+        "\x02\x00\x18\x80\x03",//suction
+        "\x02\x00\x16\x80\x04",//dispense
         "\x02\x00\x1a\x80\x05",//mix
         "\x02\x00\x0A\x80\x06",//magnetic sep
         "\x02\x00\x0A\x81\x01",//rel

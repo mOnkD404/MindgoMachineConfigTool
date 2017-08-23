@@ -61,8 +61,8 @@ QMAKE_LFLAGS_RELEASE += /debug /opt:ref
 }
 
 win32:{
-Release:QMAKE_CXXFLAGS += /MT
-Debug:QMAKE_CXXFLAGS += /MTd
+CONFIG(release, debug|release):QMAKE_CXXFLAGS += /MT
+CONFIG(debug, debug|release):QMAKE_CXXFLAGS += /MTd
 }
 
 win32:CONFIG(release, debug|release): QMAKE_LFLAGS += /MANIFESTUAC:\"level=\'requireAdministrator\' uiAccess=\'false\'\"

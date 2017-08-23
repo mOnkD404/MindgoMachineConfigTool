@@ -93,6 +93,8 @@ bool SubThreadCheckWorker::isFilteredCommand(const QJsonObject& obj)
     logicalList.append("Reset");
     logicalList.append("XY Motion");
     logicalList.append("Machine Reset");
+    logicalList.append("Group");
+    logicalList.append("EndGroup");
 
     foreach (const QString& str, logicalList)
     {

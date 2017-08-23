@@ -3,9 +3,9 @@
     "LogicalControlEnum":["WaitArray","Loop", "EndLoop", "Group"],
     "NormalOperation":{
         "Load Tip":[         "boardType", "position", "tipIndex", "onBoardIndex"],
-        "Suction": ["speed", "boardType", "position", "tipIndex", "onBoardIndex", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume",                        "suctionHeight"],
-        "Dispense":["speed", "boardType", "position", "tipIndex", "onBoardIndex","drain", "drainVolume",                 "drainHeight"],
-        "Mix":["speed", "boardType", "position", "tipIndex", "onBoardIndex", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume",                         "suctionHeight","drainHeight","cycleCount"],
+        "Suction": ["speed", "boardType", "position", "tipIndex", "onBoardIndex", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume","suctionHeight","postSuctionWaitTime"],
+        "Dispense":["speed", "boardType", "position", "tipIndex", "onBoardIndex","drain", "drainVolume", "drainHeight","preDispenseWaitTime"],
+        "Mix":["speed", "boardType", "position", "tipIndex", "onBoardIndex", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume","suctionHeight","drainHeight","cycleCount"],
         "Dump Tip":[         "boardType", "position", "tipIndex", "onBoardIndex"],
         "Magnetic Separation":["position", "boardMotion"],
         "Relative Motion":["singleSpindleIndex","motionDistance", "motionSpeed"],
@@ -124,7 +124,8 @@
             "display":"吸液离底高度",
             "unit":"mm",
             "bottomValue":0,
-            "topValue":100
+            "topValue":100,
+            "factor":10
         },
         "drainHeight":{
             "type":"float",
@@ -132,7 +133,8 @@
             "display":"排液离底高度",
             "unit":"mm",
             "bottomValue":0,
-            "topValue":100
+            "topValue":100,
+            "factor":10
         },
 
         "waitTime":{
@@ -172,7 +174,8 @@
             "display":"运动距离",
             "unit":"mm",
             "bottomValue":-1000,
-            "topValue":1000
+            "topValue":1000,
+            "factor":10
         },
         "motionSpeed":{
             "type":"float",
@@ -180,7 +183,8 @@
             "display":"运动速度",
             "unit":"mm/s",
             "bottomValue":0,
-            "topValue":1000
+            "topValue":1000,
+            "factor":10
         },
         "GroupName":{
             "type":"string",
@@ -230,6 +234,24 @@
             "type":"bool",
             "default":false,
             "display":"永久"
+        },
+        "postSuctionWaitTime":{
+            "type":"float",
+            "default":0,
+            "display":"吸液后等待时间",
+            "unit":"s",
+            "bottomValue":0,
+            "topValue":1000,
+            "factor":100
+        },
+        "preDispenseWaitTime":{
+            "type":"float",
+            "detault":0,
+            "display":"排液前等待时间",
+            "unit":"s",
+            "bottomValue":0,
+            "topValue":1000,
+            "factor":100
         }
     },
     "workPlace":[

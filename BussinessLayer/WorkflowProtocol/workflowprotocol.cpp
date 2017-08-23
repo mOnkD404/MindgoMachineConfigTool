@@ -293,13 +293,20 @@ void SubThreadWorker::doWork(const QJsonObject &jsObj)
         {
             if(m_loopControl.empty()  || (!m_loopControl.empty() && !m_loopControl.back().fakeLoop))
             {
-                if(isLogicalCommand(opName))
+                if(isDummyCommand(opName))
                 {
-                    retVal = handleLogicalCommand(sendobj, currentIndex);
+                    retVal = true;
                 }
                 else
                 {
-                    retVal = handleControlCommand(com, sendobj);
+                    if(isLogicalCommand(opName))
+                    {
+                        retVal = handleLogicalCommand(sendobj, currentIndex);
+                    }
+                    else
+                    {
+                        retVal = handleControlCommand(com, sendobj);
+                    }
                 }
             }
             else
@@ -345,6 +352,22 @@ bool SubThreadWorker::isLogicalCommand(const QString& name)
     logicalList.append("WaitArray");
 
     foreach (const QString& str, logicalList)
+    {
+        if(name == str)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool SubThreadWorker::isDummyCommand(const QString& name)
+{
+    QList<QString> dummyList;
+    dummyList.append("Group");
+    dummyList.append("EndGroup");
+
+    foreach (const QString& str, dummyList)
     {
         if(name == str)
         {

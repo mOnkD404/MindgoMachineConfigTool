@@ -93,6 +93,7 @@ protected:
     bool handleLogicalCommand(QJsonObject& cmdObj, int& currentIndex);
     bool isLogicalCommand(const QString& name);
     bool isLoopCommand(const QString& name);
+    bool isDummyCommand(const QString& name);
     bool handleLoopCommand(QJsonObject& cmdObj, int& currentIndex);
 
 private:

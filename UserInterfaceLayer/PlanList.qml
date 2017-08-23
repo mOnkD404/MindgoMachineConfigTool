@@ -2,6 +2,7 @@
 import QtQuick.Controls 2.1
 import Common 1.0
 import QtQml.Models 2.2
+import "functions.js" as Script
 
 Item {
     property alias operationState: operationColumn.state
@@ -304,7 +305,7 @@ Item {
         Item {
             property int copyIndex:-1
             id: stepColumn
-            width: columnWidth*1.5
+            width: columnWidth*1.3
             anchors.top: parent.top
             anchors.topMargin: 0
             anchors.bottom: parent.bottom
@@ -458,12 +459,12 @@ Item {
                 function toggleGroup(index){
                     var retVal = true;
                     for(var cur = index+1; cur < stepListModel.count; cur++){
-                        if( stepListModel.get(cur).name.substring(0,2)=="分组"){
+                        var vi = stepListModel.get(cur).showStep;
+                        stepListModel.setProperty(cur, "showStep", !vi);
+                        retVal = !vi;
+
+                        if( Script.isGroupEnd(stepListModel.get(cur).name)){
                             break;
-                        }else{
-                            var vi = stepListModel.get(cur).showStep;
-                            stepListModel.setProperty(cur, "showStep", !vi);
-                            retVal = !vi;
                         }
                     }
                     return retVal;
@@ -623,7 +624,7 @@ Item {
                             color: collapseButton.pressed?"lightblue":"transparent"
                             border.color: "#e1e8e2"
                             border.width: 1
-                            visible:(name.substring(0,2) == "分组")
+                            visible:Script.isGroupBegin(name)
                             clip:true
                             rotation: collapseContent.collapsed?0:-90
 
@@ -649,7 +650,7 @@ Item {
 
                                 onClicked: {
                                     stepContent.clicked(mouse);
-                                    if(name.substring(0,2) == "分组"){
+                                    if(Script.isGroupBegin(name)){
                                         if (stepListView.toggleGroup(stepContent.DelegateModel.itemsIndex)){
                                             collapseContent.collapsed = false;
                                         }else{
@@ -1069,7 +1070,7 @@ Item {
                             id: paramName
 
                             height:parent.height
-                            width:135
+                            width:140
 
                             text: modelData.Display
                             horizontalAlignment: Text.AlignRight
@@ -1086,7 +1087,7 @@ Item {
                                 anchors.fill: parent
                                 border.width: 2
                                 border.color: "#ffffff"
-                                radius: 4
+                                radius: 0
 
                                 TextInput{
                                     id: textedit

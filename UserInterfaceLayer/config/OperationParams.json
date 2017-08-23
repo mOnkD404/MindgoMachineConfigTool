@@ -1,11 +1,11 @@
 ﻿{
     "OperationEnum":["Load Tip", "Dump Tip", "Suction", "Dispense", "Mix", "Magnetic Separation", "Relative Motion", "Syringe Motion", "Reset","XY Motion", "Machine Reset"],
-    "LogicalControlEnum":["WaitArray","Loop", "EndLoop", "Group"],
+    "LogicalControlEnum":["WaitArray","Loop", "EndLoop", "Group", "EndGroup"],
     "NormalOperation":{
-        "Load Tip":[         "boardType", "position", "tipIndex", "onBoardIndex"],
-        "Suction": ["speed", "boardType", "position", "tipIndex", "onBoardIndex", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume",                        "suctionHeight"],
-        "Dispense":["speed", "boardType", "position", "tipIndex", "onBoardIndex","drain", "drainVolume",                 "drainHeight"],
-        "Mix":["speed", "boardType", "position", "tipIndex", "onBoardIndex", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume",                         "suctionHeight","drainHeight","cycleCount"],
+        "Load Tip":["boardType", "position", "tipIndex", "onBoardIndex"],
+        "Suction": ["speed", "boardType", "position", "tipIndex", "onBoardIndex", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume","suctionHeight","postSuctionWaitTime"],
+        "Dispense":["speed", "boardType", "position", "tipIndex", "onBoardIndex","drain", "drainVolume", "drainHeight","preDispenseWaitTime"],
+        "Mix":["speed", "boardType", "position", "tipIndex", "onBoardIndex", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume","suctionHeight","drainHeight","cycleCount"],
         "Dump Tip":[         "boardType", "position", "tipIndex", "onBoardIndex"],
         "Magnetic Separation":["position", "boardMotion"],
         "Relative Motion":["singleSpindleIndex","motionDistance", "motionSpeed"],
@@ -18,7 +18,8 @@
         "WaitArray":["waitTime","permanent"],
         "Loop":[ "cycleCount"],
         "EndLoop":[],
-        "Group":["GroupName"]
+        "Group":["GroupName"],
+        "EndGroup":[]
     },
     "Operation Display Name":{
         "Load Tip":"装载",
@@ -34,6 +35,7 @@
         "Syringe Motion":"注射器相对运动",
         "Reset":"单轴复位",
         "Group":"分组",
+        "EndGroup":"分组结束",
         "XY Motion":"XY运动",
         "Machine Reset":"整机复位"
     },
@@ -124,7 +126,8 @@
             "display":"吸液离底高度",
             "unit":"mm",
             "bottomValue":0,
-            "topValue":100
+            "topValue":100,
+            "factor":10
         },
         "drainHeight":{
             "type":"float",
@@ -132,7 +135,8 @@
             "display":"排液离底高度",
             "unit":"mm",
             "bottomValue":0,
-            "topValue":100
+            "topValue":100,
+            "factor":10
         },
 
         "waitTime":{
@@ -172,7 +176,8 @@
             "display":"运动距离",
             "unit":"mm",
             "bottomValue":-1000,
-            "topValue":1000
+            "topValue":1000,
+            "factor":10
         },
         "motionSpeed":{
             "type":"float",
@@ -180,7 +185,8 @@
             "display":"运动速度",
             "unit":"mm/s",
             "bottomValue":0,
-            "topValue":1000
+            "topValue":1000,
+            "factor":10
         },
         "GroupName":{
             "type":"string",
@@ -230,6 +236,24 @@
             "type":"bool",
             "default":false,
             "display":"永久"
+        },
+        "postSuctionWaitTime":{
+            "type":"float",
+            "default":0,
+            "display":"吸液后等待时间",
+            "unit":"s",
+            "bottomValue":0,
+            "topValue":1000,
+            "factor":100
+        },
+        "preDispenseWaitTime":{
+            "type":"float",
+            "detault":0,
+            "display":"排液前等待时间",
+            "unit":"s",
+            "bottomValue":0,
+            "topValue":1000,
+            "factor":100
         }
     },
     "workPlace":[

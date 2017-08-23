@@ -233,7 +233,7 @@ Item {
                             anchors.fill: parent
                             border.width: 2
                             border.color: "#ffffff"
-                            radius: 4
+                            radius: 0
 
                             TextInput{
                                 id: textedit

@@ -32,3 +32,24 @@ function decodeError(errCode){
     }
     return retVal;
 }
+
+function isGroupBegin(name){
+    return name.match(/.*分组\[.*\]/);
+}
+
+function isGroupEnd(name){
+    return name.match(/.*分组结束/);
+}
+
+function isLogicalCommand(name){
+    var ret = false;
+    switch(name){
+    case "等待时间":
+    case "循环":
+    case "循环结束":
+        ret = true;
+        break;
+    default: break;
+    }
+    return ret;
+}

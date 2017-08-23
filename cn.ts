@@ -70,28 +70,28 @@
 <context>
     <name>PlanList</name>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="108"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="109"/>
         <source>Plan list</source>
         <translation>计划设置</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="347"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="349"/>
         <source>Step list</source>
         <translation>实验流程</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="864"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="879"/>
         <source>Operation type</source>
         <translation>操作类型</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="1002"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="1018"/>
         <source>Operation param</source>
         <translation>操作参数</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="1308"/>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="1338"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="1313"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="1343"/>
         <source>Board Config</source>
         <translation>板位配置</translation>
     </message>
@@ -117,6 +117,49 @@
         <location filename="UserInterfaceLayer/PlanSetting.qml" line="49"/>
         <source>save failed</source>
         <translation>保存失败</translation>
+    </message>
+</context>
+<context>
+    <name>PlanStepView</name>
+    <message>
+        <location filename="UserInterfaceLayer/PlanStepView.qml" line="117"/>
+        <source>Watting</source>
+        <translation>等待中</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/PlanStepView.qml" line="120"/>
+        <source>Success</source>
+        <translation>执行成功</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/PlanStepView.qml" line="122"/>
+        <source>Fail: </source>
+        <translation>执行失败:</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/PlanStepView.qml" line="148"/>
+        <source>Wait: </source>
+        <translation>等待时间:</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/PlanStepView.qml" line="149"/>
+        <source>Waitting: </source>
+        <translation>正在等待:</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/PlanStepView.qml" line="165"/>
+        <source>Wait: Permanent</source>
+        <translation>暂停运行</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/PlanStepView.qml" line="180"/>
+        <source>Count: </source>
+        <translation>循环总次数：</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/PlanStepView.qml" line="196"/>
+        <source>Remain: </source>
+        <translation>剩余次数：</translation>
     </message>
 </context>
 <context>

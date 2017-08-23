@@ -437,7 +437,6 @@ bool PlanSelector::eventFilter(QObject *watched, QEvent *event)
         if(evt)
         {
             emit planCheckStatusChanged(evt->m_status);
-            return true;
         }
     }
     return false;
@@ -488,7 +487,6 @@ bool PlanController::eventFilter(QObject *watched, QEvent *event)
         {
             emit taskStateChanged(evt->state);
             m_pauseIndex = evt->stepIndex;
-            return true;
         }
     }
     return false;

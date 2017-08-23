@@ -40,12 +40,12 @@
                     "data":["boardType","position", "tipIndex", "onBoardIndex"]
                 },
                 "Suction":{
-                    "byte size":22,
-                    "data":["boardType","position", "tipIndex", "onBoardIndex","speed","preSuctionVolume","postSuctionVolume","volume","suctionHeight"]
+                    "byte size":24,
+                    "data":["boardType","position", "tipIndex", "onBoardIndex","speed","preSuctionVolume","postSuctionVolume","volume","suctionHeight","postSuctionWaitTime"]
                 },
                 "Dispense":{
-                    "byte size":20,
-                    "data":["boardType","position", "tipIndex", "onBoardIndex","speed","drainVolume","drain","drainHeight"]
+                    "byte size":22,
+                    "data":["boardType","position", "tipIndex", "onBoardIndex","speed","drainVolume","drain","drainHeight", "preDispenseWaitTime"]
                 },
                 "Mix":{
                     "byte size":26,

@@ -15,10 +15,10 @@
 class OperationParamData
 {
 public:
-    OperationParamData():BoolValue(false), IntegerValue(0), FloatValue(0.0) {}
+    OperationParamData():BoolValue(false), IntegerValue(0), FloatValue(0.0), Factor(1) {}
     OperationParamData(const QString& oname, const QString& otype, const QString& ostringValue, const QStringList& ostringlistValue,
                        bool oboolvalue, int ointegerValue, int ofloatValue, const QString& display, const QList<int> intlist, const QString& switchVal,
-                       const QString& unit, int bottomVal, int topVal, bool revertSwitch)
+                       const QString& unit, int bottomVal, int topVal, bool revertSwitch, int factor)
     {
         Name = oname;
         Type = otype;
@@ -34,6 +34,7 @@ public:
         BottomValue = bottomVal;
         TopValue = topVal;
         RevertSwitch = revertSwitch;
+        Factor = factor;
     }
     OperationParamData(const OperationParamData& opd)
     {
@@ -51,6 +52,7 @@ public:
         BottomValue = opd.BottomValue;
         TopValue = opd.TopValue;
         RevertSwitch = opd.RevertSwitch;
+        Factor = opd.Factor;
     }
 
 public:
@@ -68,6 +70,7 @@ public:
     int BottomValue;
     int TopValue;
     bool RevertSwitch;
+    int Factor;
 };
 
 class OperationParamObject: public QObject, public OperationParamData
@@ -87,6 +90,7 @@ class OperationParamObject: public QObject, public OperationParamData
     Q_PROPERTY(int BottomValue READ bottomValue WRITE setBottomValue NOTIFY bottomValueChanged)
     Q_PROPERTY(int TopValue READ topValue WRITE setTopValue NOTIFY topValueChanged)
     Q_PROPERTY(bool RevertSwitch READ revertSwitch WRITE setRevertSwitch NOTIFY revertSwitchChanged)
+    Q_PROPERTY(int Factor READ factor WRITE setFactor NOTIFY factorChanged)
 
 public:
     OperationParamObject(QObject* parent = NULL):QObject(parent){}
@@ -236,6 +240,15 @@ public:
         }
     }
 
+    int factor() const {return Factor;}
+    void setFactor(int factor)
+    {
+        if(Factor != factor)
+        {
+            Factor = factor;
+            emit factorChanged();
+        }
+    }
 
 signals:
     void nameChanged();
@@ -252,6 +265,7 @@ signals:
     void bottomValueChanged();
     void topValueChanged();
     void revertSwitchChanged();
+    void factorChanged();
 
 //private:
 //    QString Name;

@@ -252,8 +252,9 @@ void SubThreadWorker::doTunning(const QJsonObject& jsObj)
     m_pause = false;
     m_maxReceiveTime = jsObj["maxReceiveTime"].toInt();
     QJsonObject sendobj = jsObj["operation"].toObject();
-
+    const QString opName = sendobj["operation"].toString();
     //emit taskStateChanged(true, currentIndex);
+
 
     handleControlCommand(com, sendobj);
 
@@ -456,7 +457,6 @@ bool SubThreadWorker::handleLogicalCommand(QJsonObject& cmdObj, int& currentInde
 
     return retVal;
 }
-
 
 bool SubThreadWorker::handleLoopCommand(QJsonObject& cmdObj, int& currentIndex)
 {

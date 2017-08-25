@@ -64,7 +64,9 @@ public:
     bool SaveMachineConfig(const MachineConfigData& data);
 
 
-    QJsonObject formatSingleOperationParam(const SingleOperationData & obj);
+    QJsonArray formatSingleOperationParam(const SingleOperationData & obj);
+
+    void formatTipMotion(const SingleOperationData &, QJsonArray&);
 
     void StartTunning(const SingleOperationData& data);
     void runTask(const QJsonObject& task);

@@ -24,7 +24,8 @@ Item {
                                     "waitting":0,
                                     "waitPermanent":false,
                                     "loopCount":0,
-                                    "remainLoopCount":0
+                                    "remainLoopCount":0,
+                                    "position":-1
                                 });
         }
     }
@@ -42,6 +43,7 @@ Item {
                     displayModel.setProperty(jsobj.sequence-1, "waitPermanent", jsobj.waitPermanent);
                     displayModel.setProperty(jsobj.sequence-1, "loopCount", jsobj.loopCount);
                     displayModel.setProperty(jsobj.sequence-1, "remainLoopCount", jsobj.remainLoopCount);
+                    displayModel.setProperty(jsobj.sequence-1, "position", jsobj.position);
                     statusList.currentIndex = jsobj.sequence - 1;
                 }
 
@@ -96,7 +98,7 @@ Item {
                 id:delegateRect
                 anchors.fill: parent
                 radius:5
-                border.width: 2
+                border.width: 3
                 border.color:"#747474"
                 color:"transparent"
                 opacity: 0.6
@@ -116,6 +118,7 @@ Item {
                     //anchors { fill: parent; margins: 2 }
 
                     Text { text: sequence + '.' + operation; color:"#d9d9d9"; visible: (sequence == 0xffff)?false:true; font.pixelSize: 17 }
+                    Text { text: qsTr('position: ') + position; color: "#d9d9d9"; font.pixelSize: 17; visible: (position != -1)}
                     Text {
                         text: {
                             if(send==true){
@@ -123,10 +126,10 @@ Item {
                                     return qsTr('Watting');
                                 }else{
                                     if(ackResult==0){
-                                        delegateRect.color = "lightgreen";
+                                        delegateRect.border.color = "lightgreen";
                                         return qsTr('Success');
                                     }else{
-                                        delegateRect.color = "steelred";
+                                        delegateRect.border.color = "steelred";
                                         return qsTr('Fail: ')+ Script.decodeError(ackResult.toString());
                                     }
                                 }
@@ -158,7 +161,7 @@ Item {
 
                         onTextChanged: {
                             if((waitArray > 0)&&(waitArray == waitting)){
-                                delegateRect.color = "lightgreen";
+                                delegateRect.border.color = "lightgreen";
                             }
                         }
                     }
@@ -179,7 +182,7 @@ Item {
                     Text { text: qsTr('Wait: Permanent') ; color:"#d9d9d9"; font.bold: true; font.pixelSize: 17 }
                     Component.onCompleted: {
                         if((sequence == statusList.currentIndex + 1)){
-                            delegateRect.color = "lightgreen";
+                            delegateRect.border.color = "lightgreen";
                         }
                     }
                 }

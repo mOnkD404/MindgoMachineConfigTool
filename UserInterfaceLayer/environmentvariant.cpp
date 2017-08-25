@@ -326,56 +326,257 @@ void EnvironmentVariant::setPlanBoardConfig(int planIndex, int boardIndex)
     }
 }
 
-QJsonObject EnvironmentVariant::formatSingleOperationParam(const SingleOperationData & obj)
+void EnvironmentVariant::formatTipMotion(const SingleOperationData & obj, QJsonArray& oplist)
 {
-    QJsonObject opObj;
-    QJsonObject singleOperationObj;
-    singleOperationObj["operation"] = m_operationDispNameMap[obj.operationName];
-    singleOperationObj["sequence"] = QJsonValue(0xffff);//QJsonValue(obj.sequenceNumber);
-    QJsonObject paramobj;
+    int sequence = obj.sequenceNumber;
+    QString tipPositionCmd;
+    int loadTipBoard = 0;
+    int suctionBoard = 0;
+    int dispenseBoard = 0;
+    int dumpBoard = 0;
+    int suctionSpeed = 0;
+    int dispenseSpeed = 0;
+    int loadTipIndex = 0;
+    int preSuctionVolume = 0;
+    int postSuctionVolume = 0;
+    int suctionHeight = 0;
+    int drainHeight = 0;
+    int postSuctionWaitTime= 0;
+    int preDispenseWaitTIme = 0;
+
     foreach(const OperationParamData& data, obj.params)
     {
-
-            if (data.Type == "enum")
-            {
-                paramobj[data.Name] = data.IntListValue[data.IntegerValue];
-            }
-            else if(data.Type == "integer")
-            {
-                paramobj[data.Name] = data.IntegerValue;
-            }
-            else if(data.Type == "float")
-            {
-                paramobj[data.Name] = qRound(data.FloatValue*(double)data.Factor);
-            }
-            else if(data.Type == "string")
-            {
-                paramobj[data.Name] = data.StringValue;
-            }
-            else if(data.Type == "bool")
-            {
-                paramobj[data.Name] = (int)data.BoolValue;
-            }
-
+        if(data.Name == "motionSequence")
+        {
+            tipPositionCmd = data.StringValue;
+        }
+        else if(data.Name == "loadTipIndex")
+        {
+            loadTipIndex = data.IntegerValue;
+        }
+        else if(data.Name == "loadTipBoard")
+        {
+            loadTipBoard = m_paramDefaultValueMap[data.Name].IntListValue[data.IntegerValue];;
+        }
+        else if(data.Name == "sunctionBoard")
+        {
+            suctionBoard =m_paramDefaultValueMap[data.Name].IntListValue[data.IntegerValue];;
+        }
+        else if(data.Name == "dispenseBoard")
+        {
+            dispenseBoard = m_paramDefaultValueMap[data.Name].IntListValue[data.IntegerValue];;
+        }
+        else if(data.Name == "dumpTipBoard")
+        {
+            dumpBoard = m_paramDefaultValueMap[data.Name].IntListValue[data.IntegerValue];;
+        }
+        else if(data.Name == "sunctionSpeed")
+        {
+            suctionSpeed = m_paramDefaultValueMap[data.Name].IntListValue[data.IntegerValue];;
+        }
+        else if(data.Name == "dispenseSpeed")
+        {
+            dispenseSpeed = m_paramDefaultValueMap[data.Name].IntListValue[data.IntegerValue];;
+        }
+        else if(data.Name == "preSuctionVolume")
+        {
+            preSuctionVolume = data.IntegerValue;
+        }
+        else if(data.Name == "postSuctionVolume")
+        {
+            postSuctionVolume = data.IntegerValue;
+        }
+        else if(data.Name == "suctionHeight")
+        {
+            suctionHeight = (int)(data.FloatValue*data.Factor);
+        }
+        else if(data.Name == "drainHeight")
+        {
+            drainHeight =  (int)(data.FloatValue*data.Factor);
+        }
+        else if(data.Name == "postSuctionWaitTime")
+        {
+            postSuctionWaitTime = (int)(data.FloatValue*data.Factor);
+        }
+        else if(data.Name == "preDispenseWaitTime")
+        {
+            preDispenseWaitTIme =  (int)(data.FloatValue*data.Factor);
+        }
     }
-    singleOperationObj["params"] = paramobj;
 
+    QStringList lines = tipPositionCmd.split('\n');
+    for(QStringList::iterator iter = lines.begin(); iter != lines.end(); iter++)
+    {
+        if(iter->size() > 0)
+        {
+            if (iter->at(iter->size()-1) == '\r')
+            {
+                iter->resize(iter->size()-1);
+            }
+        }
+    }
 
-//    QJsonArray oparray;
-//    oparray.append(singleOperationObj);
-    opObj["operation"] = singleOperationObj;
-    opObj["maxReceiveTime"] = m_machineConfig.maxReceiveTime;
-//    opObj["startIndex"] = 0;
+    for(int lineIndex = 0; lineIndex < lines.size(); lineIndex++)
+    {
+        const QString& line = lines[lineIndex];
+        QStringList words = line.split(',');
+        if(words.size() == 3)
+        {
+            int suctionOnBoardIndex = words.at(0).toInt();
+            int dispenseOnBoardIndex = words.at(1).toInt();
+            int volume = words.at(2).toInt();
 
-    return opObj;
+            if(suctionOnBoardIndex == 0 || dispenseOnBoardIndex == 0 || volume == 0)
+            {
+                continue;
+            }
+
+            //1.装载
+            {
+                QJsonObject opData;
+                QJsonObject opParams;
+                opData["operation"] = "Load Tip";
+                opData["sequence"] = sequence;
+
+                opParams["boardType"] = m_paramDefaultValueMap["boardType"].IntListValue[getBoardTypeIndexByPosition(loadTipBoard)];
+                opParams["position"] = loadTipBoard;
+                opParams["tipIndex"] = 96;
+                opParams["onBoardIndex"] = loadTipIndex+lineIndex;
+
+                opData["params"] = opParams;
+
+                QJsonObject opObj;
+                opObj["operation"] = opData;
+                opObj["maxReceiveTime"] = m_machineConfig.maxReceiveTime;
+
+                oplist.append(opData);
+            }
+
+            //2.吸液
+            {
+                QJsonObject opData;
+                QJsonObject opParams;
+                opData["operation"] = "Suction";
+                opData["sequence"] = sequence;
+
+                opParams["speed"] = suctionSpeed;
+                opParams["boardType"] = m_paramDefaultValueMap["boardType"].IntListValue[getBoardTypeIndexByPosition(suctionBoard)];
+                opParams["position"] = suctionBoard;
+                opParams["tipIndex"] = 96;
+                opParams["onBoardIndex"] = suctionOnBoardIndex;
+                opParams["preSuction"] = 1;
+                opParams["preSuctionVolume"] = preSuctionVolume;
+                opParams["postSuction"] = 1;
+                opParams["postSuctionVolume"] = postSuctionVolume;
+                opParams["volume"] = volume;
+                opParams["suctionHeight"] = suctionHeight;
+                opParams["postSuctionWaitTime"] = postSuctionWaitTime;
+
+                opData["params"] = opParams;
+
+                oplist.append(opData);
+            }
+
+            //3.排液
+            {
+                QJsonObject opData;
+                QJsonObject opParams;
+                opData["operation"] = "Dispense";
+                opData["sequence"] = sequence;
+
+                opParams["speed"] = dispenseSpeed;
+                opParams["boardType"] = m_paramDefaultValueMap["boardType"].IntListValue[getBoardTypeIndexByPosition(dispenseBoard)];
+                opParams["position"] = dispenseBoard;
+                opParams["tipIndex"] = 96;
+                opParams["onBoardIndex"] = dispenseOnBoardIndex;
+                opParams["drain"] = 1;
+                opParams["drainVolume"] = volume;
+                opParams["drainHeight"] = drainHeight;
+                opParams["preDispenseWaitTime"] = preDispenseWaitTIme;
+
+                opData["params"] = opParams;
+
+                oplist.append(opData);
+            }
+            //4.卸载
+            {
+                QJsonObject opData;
+                QJsonObject opParams;
+                opData["operation"] = "Dump Tip";
+                opData["sequence"] = sequence;
+
+                opParams["boardType"] = m_paramDefaultValueMap["boardType"].IntListValue[getBoardTypeIndexByPosition(dumpBoard)];
+                opParams["position"] = dumpBoard;
+                opParams["tipIndex"] = 1;
+                opParams["onBoardIndex"] =1;
+
+                opData["params"] = opParams;
+
+                oplist.append(opData);
+            }
+        }
+    }
+}
+
+QJsonArray EnvironmentVariant::formatSingleOperationParam(const SingleOperationData & obj)
+{
+    QJsonArray opList;
+    if(m_operationDispNameMap[obj.operationName]=="Single Tip Motion")
+    {
+        formatTipMotion(obj, opList);
+    }
+    else
+    {
+        QJsonObject opObj;
+        QJsonObject singleOperationObj;
+        singleOperationObj["operation"] = m_operationDispNameMap[obj.operationName];
+        singleOperationObj["sequence"] = QJsonValue(0xffff);//QJsonValue(obj.sequenceNumber);
+        QJsonObject paramobj;
+        foreach(const OperationParamData& data, obj.params)
+        {
+
+                if (data.Type == "enum")
+                {
+                    paramobj[data.Name] =  m_paramDefaultValueMap[data.Name].IntListValue[data.IntegerValue];
+                }
+                else if(data.Type == "integer")
+                {
+                    paramobj[data.Name] = data.IntegerValue;
+                }
+                else if(data.Type == "float")
+                {
+                    paramobj[data.Name] = qRound(data.FloatValue*(double)data.Factor);
+                }
+                else if(data.Type == "string")
+                {
+                    paramobj[data.Name] = data.StringValue;
+                }
+                else if(data.Type == "bool")
+                {
+                    paramobj[data.Name] = (int)data.BoolValue;
+                }
+
+        }
+        singleOperationObj["params"] = paramobj;
+
+        opList.append(singleOperationObj);
+    }
+
+    return opList;
 }
 
 
 void EnvironmentVariant::StartTunning(const SingleOperationData& data)
 {
-    QJsonObject operationObj = EnvironmentVariant::instance()->formatSingleOperationParam(data);
+    QJsonArray operationObj = EnvironmentVariant::instance()->formatSingleOperationParam(data);
+    foreach (const QJsonValue& obj, operationObj) {
+        QJsonObject sendObj;
 
-    EnvironmentVariant::instance()->runTunning(operationObj);
+        sendObj["operation"] = obj;
+        sendObj["maxReceiveTime"] = m_machineConfig.maxReceiveTime;
+
+        EnvironmentVariant::instance()->runTunning(sendObj);
+    }
 }
 
 void EnvironmentVariant::runTask(const QJsonObject &task)
@@ -580,42 +781,47 @@ void EnvironmentVariant::StartPlan(int planIndex, int stepIndex)
     QJsonArray oparray;
     int seq = 1;
 
-    foreach(const SingleOperationData& opData, stepList)
+    foreach(const SingleOperationData& opsData, stepList)
     {
-//        if(opData.operationName == "Group")
-//        {
-//            continue;
-//        }
-        QJsonObject singleOperationObj;
-        singleOperationObj["operation"] = opData.operationName;
-        singleOperationObj["sequence"] = seq++;
-        QJsonObject paramobj;
-        foreach(const OperationParamData& data, opData.params)
+        SingleOperationData opData = opsData;
+        opData.sequenceNumber = seq;
+        if(opData.operationName=="Single Tip Motion")
         {
-            if (data.Type == "enum")
-            {
-                paramobj[data.Name] = m_paramDefaultValueMap[data.Name].IntListValue[data.IntegerValue];
-            }
-            else if(data.Type == "integer")
-            {
-                paramobj[data.Name] = data.IntegerValue;
-            }
-            else if(data.Type == "float")
-            {
-                paramobj[data.Name] = qRound(data.FloatValue*(double)data.Factor);
-            }
-            else if(data.Type == "string")
-            {
-                paramobj[data.Name] = data.StringValue;
-            }
-            else if(data.Type == "bool")
-            {
-                paramobj[data.Name] = (int)data.BoolValue;
-            }
+            formatTipMotion(opData, oparray);
         }
-        singleOperationObj["params"] = paramobj;
+        else
+        {
+            QJsonObject singleOperationObj;
+            singleOperationObj["operation"] = opData.operationName;
+            singleOperationObj["sequence"] = seq++;
+            QJsonObject paramobj;
+            foreach(const OperationParamData& data, opData.params)
+            {
+                if (data.Type == "enum")
+                {
+                    paramobj[data.Name] = m_paramDefaultValueMap[data.Name].IntListValue[data.IntegerValue];
+                }
+                else if(data.Type == "integer")
+                {
+                    paramobj[data.Name] = data.IntegerValue;
+                }
+                else if(data.Type == "float")
+                {
+                    paramobj[data.Name] = qRound(data.FloatValue*(double)data.Factor);
+                }
+                else if(data.Type == "string")
+                {
+                    paramobj[data.Name] = data.StringValue;
+                }
+                else if(data.Type == "bool")
+                {
+                    paramobj[data.Name] = (int)data.BoolValue;
+                }
+            }
+            singleOperationObj["params"] = paramobj;
 
-        oparray.append(singleOperationObj);
+            oparray.append(singleOperationObj);
+        }
 
     }
     planObj["operations"] = oparray;
@@ -714,43 +920,47 @@ void EnvironmentVariant::startCheckPlan(int planIndex)
     QJsonArray oparray;
     int seq = 1;
 
-    foreach(const SingleOperationData& opData, stepList)
+    foreach(const SingleOperationData& opsData, stepList)
     {
-//        if(opData.operationName == "Group")
-//        {
-//            continue;
-//        }
-        QJsonObject singleOperationObj;
-        singleOperationObj["operation"] = opData.operationName;
-        singleOperationObj["sequence"] = seq++;
-        QJsonObject paramobj;
-        foreach(const OperationParamData& data, opData.params)
+        SingleOperationData opData = opsData;
+        opData.sequenceNumber = seq;
+        if(opData.operationName=="Single Tip Motion")
         {
-            if (data.Type == "enum")
-            {
-                paramobj[data.Name] = m_paramDefaultValueMap[data.Name].IntListValue[data.IntegerValue];
-            }
-            else if(data.Type == "integer")
-            {
-                paramobj[data.Name] = data.IntegerValue;
-            }
-            else if(data.Type == "float")
-            {
-                paramobj[data.Name] = qRound(data.FloatValue*10.0);
-            }
-            else if(data.Type == "string")
-            {
-                paramobj[data.Name] = data.StringValue;
-            }
-            else if(data.Type == "bool")
-            {
-                paramobj[data.Name] = data.BoolValue;
-            }
+            formatTipMotion(opData, oparray);
         }
-        singleOperationObj["params"] = paramobj;
+        else
+        {
+            QJsonObject singleOperationObj;
+            singleOperationObj["operation"] = opData.operationName;
+            singleOperationObj["sequence"] = seq++;
+            QJsonObject paramobj;
+            foreach(const OperationParamData& data, opData.params)
+            {
+                if (data.Type == "enum")
+                {
+                    paramobj[data.Name] = m_paramDefaultValueMap[data.Name].IntListValue[data.IntegerValue];
+                }
+                else if(data.Type == "integer")
+                {
+                    paramobj[data.Name] = data.IntegerValue;
+                }
+                else if(data.Type == "float")
+                {
+                    paramobj[data.Name] = qRound(data.FloatValue*10.0);
+                }
+                else if(data.Type == "string")
+                {
+                    paramobj[data.Name] = data.StringValue;
+                }
+                else if(data.Type == "bool")
+                {
+                    paramobj[data.Name] = data.BoolValue;
+                }
+            }
+            singleOperationObj["params"] = paramobj;
 
-        oparray.append(singleOperationObj);
-
+            oparray.append(singleOperationObj);
+        }
     }
     planObj["operations"] = oparray;
     planObj["boardConfig"] = m_workLocationTypeList["config"].toArray()[boardIndex].toObject()["type"];

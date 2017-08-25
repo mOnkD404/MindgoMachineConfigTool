@@ -32,5 +32,6 @@
         <file>image/paste.png</file>
         <file>PlanStepView.qml</file>
         <file>functions.js</file>
+        <file>SingleTipMotion.qml</file>
     </qresource>
 </RCC>

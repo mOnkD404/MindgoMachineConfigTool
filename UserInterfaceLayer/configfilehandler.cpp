@@ -257,6 +257,7 @@ void configFileHandler::ParsePlanList(QList<SinglePlanData>& planMap, const QMap
                     if(data.Type == "enum")
                     {
                         paramData.IntegerValue = iter2->toInt();
+                        paramData.IntListValue = data.IntListValue;
                     }
                     else if(data.Type == "integer")
                     {
@@ -267,6 +268,7 @@ void configFileHandler::ParsePlanList(QList<SinglePlanData>& planMap, const QMap
                     {
                         paramData.FloatValue = iter2->toDouble();
                         paramData.StringValue = QString::number(paramData.FloatValue, 'f', 2);
+                        paramData.Factor = data.Factor;
                     }
                     else if(data.Type == "bool")
                     {

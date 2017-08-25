@@ -666,6 +666,7 @@ public:
 
     Q_INVOKABLE bool importConfigFile(const QUrl& filename);
     Q_INVOKABLE bool exportConfigFile(const QUrl& filename);
+    Q_INVOKABLE QString readConfigFIle(const QUrl& filename);
 };
 
 class AdministratorChecker: public QObject

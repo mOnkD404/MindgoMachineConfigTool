@@ -57,41 +57,61 @@
 <context>
     <name>OperationList</name>
     <message>
-        <location filename="UserInterfaceLayer/OperationList.qml" line="67"/>
+        <location filename="UserInterfaceLayer/OperationList.qml" line="68"/>
         <source>Operation type</source>
         <translation>操作类型</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/OperationList.qml" line="163"/>
+        <location filename="UserInterfaceLayer/OperationList.qml" line="164"/>
         <source>Operation param</source>
         <translation>操作参数</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/OperationList.qml" line="376"/>
+        <source>import</source>
+        <translation>导入</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/OperationList.qml" line="410"/>
+        <source>Select file</source>
+        <translation>选择文件</translation>
     </message>
 </context>
 <context>
     <name>PlanList</name>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="109"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="110"/>
         <source>Plan list</source>
         <translation>计划设置</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="349"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="350"/>
         <source>Step list</source>
         <translation>实验流程</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="879"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="880"/>
         <source>Operation type</source>
         <translation>操作类型</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="1018"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="1019"/>
         <source>Operation param</source>
         <translation>操作参数</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="1313"/>
-        <location filename="UserInterfaceLayer/PlanList.qml" line="1343"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="1249"/>
+        <source>import</source>
+        <translation>导入</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="1284"/>
+        <source>Select file</source>
+        <translation>选择文件</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="1387"/>
+        <location filename="UserInterfaceLayer/PlanList.qml" line="1417"/>
         <source>Board Config</source>
         <translation>板位配置</translation>
     </message>
@@ -122,42 +142,47 @@
 <context>
     <name>PlanStepView</name>
     <message>
-        <location filename="UserInterfaceLayer/PlanStepView.qml" line="117"/>
+        <location filename="UserInterfaceLayer/PlanStepView.qml" line="121"/>
+        <source>position: </source>
+        <translation>板位：</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/PlanStepView.qml" line="126"/>
         <source>Watting</source>
         <translation>等待中</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanStepView.qml" line="120"/>
+        <location filename="UserInterfaceLayer/PlanStepView.qml" line="130"/>
         <source>Success</source>
         <translation>执行成功</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanStepView.qml" line="122"/>
+        <location filename="UserInterfaceLayer/PlanStepView.qml" line="133"/>
         <source>Fail: </source>
         <translation>执行失败:</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanStepView.qml" line="148"/>
+        <location filename="UserInterfaceLayer/PlanStepView.qml" line="159"/>
         <source>Wait: </source>
         <translation>等待时间:</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanStepView.qml" line="149"/>
+        <location filename="UserInterfaceLayer/PlanStepView.qml" line="160"/>
         <source>Waitting: </source>
         <translation>正在等待:</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanStepView.qml" line="165"/>
+        <location filename="UserInterfaceLayer/PlanStepView.qml" line="182"/>
         <source>Wait: Permanent</source>
         <translation>暂停运行</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanStepView.qml" line="180"/>
+        <location filename="UserInterfaceLayer/PlanStepView.qml" line="201"/>
         <source>Count: </source>
         <translation>循环总次数：</translation>
     </message>
     <message>
-        <location filename="UserInterfaceLayer/PlanStepView.qml" line="196"/>
+        <location filename="UserInterfaceLayer/PlanStepView.qml" line="217"/>
         <source>Remain: </source>
         <translation>剩余次数：</translation>
     </message>
@@ -173,6 +198,24 @@
         <location filename="UserInterfaceLayer/SingleStepPage.qml" line="43"/>
         <source>Execute</source>
         <translation>执行</translation>
+    </message>
+</context>
+<context>
+    <name>SingleTipMotion</name>
+    <message>
+        <location filename="UserInterfaceLayer/SingleTipMotion.qml" line="109"/>
+        <source>Sunction Tip Index</source>
+        <translation>吸液编号</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/SingleTipMotion.qml" line="114"/>
+        <source>Dispense Tip Index</source>
+        <translation>排液编号</translation>
+    </message>
+    <message>
+        <location filename="UserInterfaceLayer/SingleTipMotion.qml" line="119"/>
+        <source>Volume</source>
+        <translation>体积</translation>
     </message>
 </context>
 <context>

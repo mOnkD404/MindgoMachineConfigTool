@@ -249,7 +249,7 @@ void OperationParamSelector::onCompleteSingleOperation()
 {
     SingleOperationData opobj;
     opobj.operationName = EnvironmentVariant::instance()->OperationNameList().at(m_currentIndex);
-    opobj.sequenceNumber = 0;
+    opobj.sequenceNumber = 0xffff;
     foreach(QObject* pObj, paramModel)
     {
         OperationParamObject* pParam = qobject_cast<OperationParamObject*>(pObj);
@@ -572,4 +572,16 @@ bool ConfigFileConverter::importConfigFile(const QUrl& filename)
 bool ConfigFileConverter::exportConfigFile(const QUrl& filename)
 {
     return EnvironmentVariant::instance()->ExportConfig(filename.toLocalFile());
+}
+QString ConfigFileConverter::readConfigFIle(const QUrl& filename)
+{
+    QFile loadFile(filename.toLocalFile());
+    if(!loadFile.open(QIODevice::ReadWrite))
+    {
+        qWarning("read file error");
+        return QString();
+    }
+    QByteArray importdata = loadFile.readAll();
+    loadFile.close();
+    return QString(importdata);
 }

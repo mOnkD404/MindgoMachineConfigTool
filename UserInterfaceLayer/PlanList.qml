@@ -2,6 +2,7 @@
 import QtQuick.Controls 2.1
 import Common 1.0
 import QtQml.Models 2.2
+import QtQuick.Dialogs 1.2
 import "functions.js" as Script
 
 Item {
@@ -441,6 +442,7 @@ Item {
                 }
 
                 function refreshStepListModel(){
+                    positionSelected(-1);
                     var list = selector.stepListModel(planListView.currentIndex);
                     stepListModel.clear();
                     for(var ind = 0; ind < list.length; ind++){
@@ -514,11 +516,10 @@ Item {
                 interactive: true
 
                 onCurrentIndexChanged: {
+                    positionSelected(-1);
                     selector.setSelectedStep(planListView.currentIndex, currentIndex);
                     if(operationColumn.state == "expandOperation") operationColumn.state = "";
                 }
-
-
                 SmoothedAnimation {
                     id: upAnimation
                     target: stepListView
@@ -1047,7 +1048,13 @@ Item {
 
                     delegate: Item {
                         property int paramIndex: index
-                        height:40
+                        height:{
+                            if(modelData.Display == "操作流程"){
+                                return 200;
+                            }else{
+                                return 40;
+                            }
+                        }
                         anchors.left: parent.left
                         anchors.right: parent.right
 
@@ -1069,15 +1076,27 @@ Item {
                         Text {
                             id: paramName
 
-                            height:parent.height
-                            width:140
+                            height:40
+                            width:120
 
                             text: modelData.Display
                             horizontalAlignment: Text.AlignRight
                             verticalAlignment: Text.AlignVCenter
                             color:"#d9d9d9"
-                            font.pixelSize: 20
+                            font.pixelSize: 17
                             font.bold: true
+                        }
+                        IntValidator{
+                            id:intValidator
+                            bottom: modelData.BottomValue
+                            top:modelData.TopValue
+                        }
+
+                        TextFieldDoubleValidator{
+                            id:floatValidator
+                            bottom:modelData.BottomValue
+                            top:modelData.TopValue
+                            decimals: 1
                         }
 
                         Component{
@@ -1146,20 +1165,6 @@ Item {
                                             return floatValidator;
                                         }
                                         return validator;
-                                    }
-
-
-                                    IntValidator{
-                                        id:intValidator
-                                        bottom: modelData.BottomValue
-                                        top:modelData.TopValue
-                                    }
-
-                                    TextFieldDoubleValidator{
-                                        id:floatValidator
-                                        bottom:modelData.BottomValue
-                                        top:modelData.TopValue
-                                        decimals: 1
                                     }
 
                                     onTextChanged: {
@@ -1233,6 +1238,68 @@ Item {
                                 }
                             }
                         }
+                        Component{
+                            id:tipMotionComponent
+                            Item{
+                                anchors.fill: parent
+                                TextButton{
+                                    id:importMotion
+                                    height:30
+                                    width:100
+                                    textValue: qsTr("import")
+                                    buttonradius: 0
+                                    borderColor: "#4c5cc5ff"
+
+                                    anchors.top: parent.top
+                                    anchors.right: parent.right
+
+                                    visible: (modelData.Display=="操作流程")
+
+                                    onClicked: {
+                                        forceActiveFocus();
+                                        fileDialogImport.visible = true;
+                                    }
+
+                                }
+                                SingleTipMotion{
+                                    id: singleTipMotion
+                                    anchors.top: importMotion.bottom
+                                    anchors.left: parent.left
+                                    anchors.bottom: parent.bottom
+                                    anchors.right: parent.right
+
+                                    intvalidator.bottom:  intValidator.bottom
+                                    intvalidator.top: intValidator.top
+
+                                    modelStr: modelData.StringValue
+
+                                    focus:true
+
+
+                                    onSetModelStr: {
+                                        selector.commitParam(planListView.currentIndex, stepListView.currentIndex, modelData.Name, str);
+                                    }
+                                    FileDialog {
+                                        id: fileDialogImport
+                                        title: qsTr("Select file")
+                                        folder: shortcuts.documents
+                                        visible: false
+                                        selectMultiple:false
+                                        selectExisting:true
+                                        nameFilters: [ "CSV files (*.csv)" ]
+                                        //fileMode: FileDialog.OpenFile
+                                        onAccepted: {
+                                            singleTipMotion.modelStr = configFileConverter.readConfigFIle(fileUrl);
+
+                                            visible = false;
+                                        }
+                                        onRejected: {
+                                            visible = false;
+                                        }
+                                    }
+                                }
+                            }
+                        }
 
                         Loader{
                             id: paramInput
@@ -1240,18 +1307,18 @@ Item {
                             anchors.top: parent.top
                             anchors.bottom: parent.bottom
                             anchors.right: paramUnit.left
-                            anchors.rightMargin: 3
+                            anchors.rightMargin: 7
                             anchors.leftMargin: 4
 
                             height: parent.height
 
                             enabled: modelData.Name != "boardType"
 
-                            sourceComponent:getcomponent(modelData.Type)
+                            sourceComponent:getcomponent(modelData.Type, modelData.Display)
 
 
-                            function getcomponent(typename, val){
-                                if (typename == "integer" || typename == "string" || typename == "float"){
+                            function getcomponent(typename, strVal){
+                                if (typename == "integer" || typename == "float"){
                                     return texteditComponent;
                                 }
                                 else if(typename == "enum"){
@@ -1259,6 +1326,13 @@ Item {
                                 }
                                 else if(typename == "bool"){
                                     return checkboxComponent;
+                                }
+                                else if(typename == "string" ){
+                                    if(strVal == "操作流程"){
+                                        return tipMotionComponent;
+                                    }else{
+                                        return texteditComponent;
+                                    }
                                 }
 
                             }

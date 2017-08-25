@@ -1,24 +1,26 @@
 ﻿{
-    "OperationEnum":["Load Tip", "Dump Tip", "Suction", "Dispense", "Mix", "Magnetic Separation", "Relative Motion", "Syringe Motion", "Reset","XY Motion", "Machine Reset"],
-    "LogicalControlEnum":["WaitArray","Loop", "EndLoop", "Group"],
+    "OperationEnum":["Load Tip", "Dump Tip", "Suction", "Dispense", "Mix", "Magnetic Separation", "Relative Motion", "Syringe Motion", "Reset","XY Motion","Single Tip Motion", "Machine Reset"],
+    "LogicalControlEnum":["WaitArray","Loop", "EndLoop", "Group", "EndGroup"],
     "NormalOperation":{
-        "Load Tip":[         "boardType", "position", "tipIndex", "onBoardIndex"],
+        "Load Tip":["boardType", "position", "tipIndex", "onBoardIndex"],
         "Suction": ["speed", "boardType", "position", "tipIndex", "onBoardIndex", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume","suctionHeight","postSuctionWaitTime"],
         "Dispense":["speed", "boardType", "position", "tipIndex", "onBoardIndex","drain", "drainVolume", "drainHeight","preDispenseWaitTime"],
         "Mix":["speed", "boardType", "position", "tipIndex", "onBoardIndex", "preSuction", "preSuctionVolume", "postSuction", "postSuctionVolume", "volume","suctionHeight","drainHeight","cycleCount"],
-        "Dump Tip":[         "boardType", "position", "tipIndex", "onBoardIndex"],
+        "Dump Tip":["boardType", "position", "tipIndex", "onBoardIndex"],
         "Magnetic Separation":["position", "boardMotion"],
         "Relative Motion":["singleSpindleIndex","motionDistance", "motionSpeed"],
         "Syringe Motion":["syringeIndex","injectVolume", "injectSpeed"],
         "Reset":["allSpindleIndex"],
         "XY Motion":["position", "tipIndex", "onBoardIndex"],
+        "Single Tip Motion":["loadTipBoard","loadTipIndex", "sunctionBoard","sunctionSpeed","preSuctionVolume","postSuctionVolume","suctionHeight","postSuctionWaitTime","dispenseBoard","dispenseSpeed","drainHeight","preDispenseWaitTime","dumpTipBoard","motionSequence"],
         "Machine Reset":[]
     },
     "logicalControl":{
         "WaitArray":["waitTime","permanent"],
         "Loop":[ "cycleCount"],
         "EndLoop":[],
-        "Group":["GroupName"]
+        "Group":["GroupName"],
+        "EndGroup":[]
     },
     "Operation Display Name":{
         "Load Tip":"装载",
@@ -34,7 +36,9 @@
         "Syringe Motion":"注射器相对运动",
         "Reset":"单轴复位",
         "Group":"分组",
+        "EndGroup":"分组结束",
         "XY Motion":"XY运动",
+        "Single Tip Motion":"单Tip移液",
         "Machine Reset":"整机复位"
     },
 
@@ -252,6 +256,62 @@
             "bottomValue":0,
             "topValue":1000,
             "factor":100
+        },
+        "loadTipIndex":{
+            "type":"integer",
+            "default":1,
+            "display":"起始装载位置",
+            "bottomValue":1,
+            "topValue":96
+        },
+        "loadTipBoard":{
+            "type":"enum",
+            "enum":["1","2","3","4","5","6","7","8","9","10","11","12"],
+            "valueEnum":[0,1,2,3,4,5,6,7,8,9,10,11],
+            "default":0,
+            "display":"装载板位编号"
+        },
+        "sunctionBoard":{
+            "type":"enum",
+            "enum":["1","2","3","4","5","6","7","8","9","10","11","12"],
+            "valueEnum":[0,1,2,3,4,5,6,7,8,9,10,11],
+            "default":0,
+            "display":"吸液板位编号"
+        },
+        "dispenseBoard":{
+            "type":"enum",
+            "enum":["1","2","3","4","5","6","7","8","9","10","11","12"],
+            "valueEnum":[0,1,2,3,4,5,6,7,8,9,10,11],
+            "default":0,
+            "display":"排液板位编号"
+        },
+        "dumpTipBoard":{
+            "type":"enum",
+            "enum":["1","2","3","4","5","6","7","8","9","10","11","12"],
+            "valueEnum":[0,1,2,3,4,5,6,7,8,9,10,11],
+            "default":0,
+            "display":"卸载板位编号"
+        },
+        "sunctionSpeed":{
+            "type":"enum",
+            "enum":["慢速","中速","快速"],
+            "valueEnum":[0,1,2],
+            "default":1,
+            "display":"吸液速度"
+        },
+        "dispenseSpeed":{
+            "type":"enum",
+            "enum":["慢速","中速","快速"],
+            "valueEnum":[0,1,2],
+            "default":1,
+            "display":"排液速度"
+        },
+        "motionSequence":{
+            "type":"string",
+            "default":"",
+            "display":"操作流程",
+            "bottomValue":1,
+            "topValue":96
         }
     },
     "workPlace":[

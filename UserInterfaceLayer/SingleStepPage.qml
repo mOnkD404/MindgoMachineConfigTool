@@ -115,6 +115,12 @@ Item {
 
             //height: 400
             width: 200
+
+            onVisibleChanged: {
+                if(visible){
+                    clearModel();
+                }
+            }
         }
     }
 

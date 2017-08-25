@@ -5,96 +5,22 @@
             "name": "testplan2",
             "operations": [
                 {
-                    "operation": "Load Tip",
+                    "operation": "Single Tip Motion",
                     "params": {
-                        "boardType": 0,
-                        "onBoardIndex": 1,
-                        "position": 0,
-                        "tipIndex": 22
-                    },
-                    "sequenceNumber": 1
-                },
-                {
-                    "operation": "WaitArray",
-                    "params": {
-                        "permanent": false,
-                        "waitTime": 3
-                    },
-                    "sequenceNumber": 2
-                },
-                {
-                    "operation": "Loop",
-                    "params": {
-                        "cycleCount": 4
-                    },
-                    "sequenceNumber": 3
-                },
-                {
-                    "operation": "Mix",
-                    "params": {
-                        "boardType": 1,
-                        "cycleCount": 1,
-                        "drainHeight": 0,
-                        "onBoardIndex": 1,
-                        "position": 6,
-                        "postSuction": false,
-                        "postSuctionVolume": 0,
-                        "preSuction": false,
-                        "preSuctionVolume": 0,
-                        "speed": 1,
-                        "suctionHeight": 0,
-                        "tipIndex": 1,
-                        "volume": 0
-                    },
-                    "sequenceNumber": 4
-                },
-                {
-                    "operation": "Dispense",
-                    "params": {
-                        "boardType": 1,
-                        "drain": true,
-                        "drainHeight": 0,
-                        "drainVolume": 0,
-                        "onBoardIndex": 1,
-                        "position": 1,
-                        "speed": 1,
-                        "tipIndex": 1
-                    },
-                    "sequenceNumber": 5
-                },
-                {
-                    "operation": "EndLoop",
-                    "params": {
-                    },
-                    "sequenceNumber": 6
-                },
-                {
-                    "operation": "Dump Tip",
-                    "params": {
-                        "boardType": 0,
-                        "onBoardIndex": 1,
-                        "position": 0,
-                        "tipIndex": 1
-                    },
-                    "sequenceNumber": 7
-                }
-            ],
-            "workSpace": 0
-        },
-        {
-            "name": "NewPlan",
-            "operations": [
-                {
-                    "operation": "Dispense",
-                    "params": {
-                        "boardType": 1,
-                        "drain": false,
-                        "drainHeight": 0,
-                        "drainVolume": 0,
-                        "onBoardIndex": 1,
-                        "position": 1,
-                        "speed": 1,
-                        "tipIndex": 1
+                        "dispenseBoard": 4,
+                        "dispenseSpeed": 1,
+                        "drainHeight": 6,
+                        "dumpTipBoard": 3,
+                        "loadTipBoard": 0,
+                        "loadTipIndex": 1,
+                        "motionSequence": "2,3,4\r\n3,4,5\r\n,,\r\n,,\r\n,,\r\n,,\r\n,,\r\n,,\r\n,,\r\n",
+                        "postSuctionVolume": 3,
+                        "postSuctionWaitTime": 5,
+                        "preDispenseWaitTime": 7,
+                        "preSuctionVolume": 2,
+                        "suctionHeight": 4,
+                        "sunctionBoard": 1,
+                        "sunctionSpeed": 1
                     },
                     "sequenceNumber": 1
                 }

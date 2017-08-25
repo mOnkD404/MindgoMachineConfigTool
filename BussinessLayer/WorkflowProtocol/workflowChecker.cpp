@@ -39,6 +39,7 @@ void SubThreadCheckWorker::doCheck(const QJsonObject&jsObj)
     {
         QJsonObject sendobj = opList[currentIndex].toObject();
 
+        int seq = sendobj["sequence"].toInt();
         bool check1 =  true;
 
         if(!isFilteredCommand(sendobj))
@@ -49,7 +50,7 @@ void SubThreadCheckWorker::doCheck(const QJsonObject&jsObj)
 
         if(!check1)
         {
-            errstep = currentIndex+1;
+            errstep = seq;
             break;
         }
 
@@ -95,6 +96,7 @@ bool SubThreadCheckWorker::isFilteredCommand(const QJsonObject& obj)
     logicalList.append("Machine Reset");
     logicalList.append("Group");
     logicalList.append("EndGroup");
+    logicalList.append("Single Tip Motion");
 
     foreach (const QString& str, logicalList)
     {

@@ -407,7 +407,7 @@ Item {
                         if(stepColumn.copyString.length > 0){
                             selector.pasteStep(planListView.currentIndex, stepListView.currentIndex+1);
                             //var textValue = selector.copyStep(planListView.currentIndex, stepColumn.copyIndex, stepListView.currentIndex+1);
-                            stepListModel.insert(stepListView.currentIndex+1, {"name":stepColumn.copyString, "showStep":true});
+                            stepListModel.insert(stepListView.currentIndex+1, {"name":stepColumn.copyString, "showStep":true, "collapse":false});
 
                             stepListView.currentIndex = stepListView.currentIndex + 1;
                         }
@@ -447,7 +447,7 @@ Item {
                     var list = selector.stepListModel(planListView.currentIndex);
                     stepListModel.clear();
                     for(var ind = 0; ind < list.length; ind++){
-                        stepListModel.append({"name":list[ind],"showStep":true});
+                        stepListModel.append({"name":list[ind],"showStep":true, "collapse":false});
                     }
                     if(stepListModel.count > 0){
                         currentIndex = 0;
@@ -458,17 +458,23 @@ Item {
                     }
                 }
                 
-                function toggleGroup(index, collapse){
+                function toggleGroup(index){
+                    if(!Script.isGroupBegin(stepListModel.get(index).name)){
+                        return;
+                    }
+
+                    var collapsed = !stepListModel.get(index).collapse;
+                    stepListModel.setProperty(index, "collapse", collapsed);
+
                     var stackIndex = 0;
                     for(var cur = index+1; cur < stepListModel.count; cur++){
-                        if(stackIndex==0){
-                            stepListModel.setProperty(cur, "showStep", !collapse);
-                        }
+
+                        stepListModel.setProperty(cur, "collapse", collapsed);
+                        stepListModel.setProperty(cur, "showStep", !collapsed);
+
                         if(Script.isGroupBegin(stepListModel.get(cur).name)){
                             stackIndex++;
-                        }
-
-                        if(Script.isGroupEnd(stepListModel.get(cur).name)){
+                        }else if(Script.isGroupEnd(stepListModel.get(cur).name)){
                             if(stackIndex >0){
                                 stackIndex--;
                             }else{
@@ -480,10 +486,8 @@ Item {
 
                 function expandAll(){
                     for(var cur = 0; cur < stepListModel.count; cur++){
-                        if( stepListModel.get(cur).name.substring(0,2)!="分组"){
-                            var vi = stepListModel.get(cur).showStep;
-                            stepListModel.setProperty(cur, "showStep", true);
-                        }
+                        stepListModel.setProperty(cur, "showStep", true);
+                        stepListModel.setProperty(cur, "collapse", false);
                     }
                 }
 
@@ -567,6 +571,12 @@ Item {
                     width: parent.width
                     height: showStep?40:0
 
+                    property bool collapsed: collapse
+
+                    onCollapsedChanged: {
+                        collapseContent.rotation = collapsed?0:-90;
+                    }
+
                     Behavior on height {
                         PropertyAnimation{
                             easing.type: Easing.InOutSine
@@ -621,7 +631,6 @@ Item {
 
                         Rectangle{
                             id:collapseContent
-                            property bool collapsed: false
                             anchors.top: parent.top
                             anchors.right: parent.right
                             anchors.bottom: parent.bottom
@@ -633,7 +642,8 @@ Item {
                             border.width: 1
                             visible:Script.isGroupBegin(name)
                             clip:true
-                            rotation: collapseContent.collapsed?0:-90
+                            rotation: -90
+
 
                             Behavior on rotation{
                                 PropertyAnimation{
@@ -658,8 +668,7 @@ Item {
                                 onClicked: {
                                     stepContent.clicked(mouse);
                                     if(Script.isGroupBegin(name)){
-                                        collapseContent.collapsed = !collapseContent.collapsed;
-                                        stepListView.toggleGroup(stepContent.DelegateModel.itemsIndex, collapseContent.collapsed);
+                                        stepListView.toggleGroup(stepContent.DelegateModel.itemsIndex);
 
                                     }
 
@@ -951,7 +960,7 @@ Item {
 
                         if(operationColumn.changeOperation == "add"){
                             selector.addStep(planListView.currentIndex, stepListView.currentIndex+1, index);
-                            stepListModel.insert(stepListView.currentIndex+1, {"name":textValue, "showStep":true});
+                            stepListModel.insert(stepListView.currentIndex+1, {"name":textValue, "showStep":true, "collapse":false});
                             //stepListModel.append({"name":textValue, "showStep":true});
 
                             //paramList.model = selector.paramListModel();

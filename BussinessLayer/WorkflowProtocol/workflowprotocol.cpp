@@ -595,9 +595,10 @@ bool SubThreadWorker::handleControlCommand(Communication& com, QJsonObject& cmdO
     timer.restart();
     bool recvret = false;
     QByteArray recvArray;
+    const int maxOneFrameTimeOut = 3000;
     while(com.connected() && timer.elapsed() < m_maxReceiveTime*1000)// && !m_forceStop)
     {
-        const QByteArray &array = com.readData(1000);
+        const QByteArray &array = com.readData(maxOneFrameTimeOut);
         if(array.size() > 0)
         {
             qDebug()<<"recv ack"<<hex<<array;

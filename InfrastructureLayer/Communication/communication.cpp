@@ -2,6 +2,7 @@
 #include <QHostAddress>
 #include <QNetworkProxy>
 #include <QTimer>
+#include <QEvent>
 
 Communication::Communication(QObject* parent):QObject(parent),m_closeTimer(0)
 {
@@ -14,6 +15,10 @@ bool Communication::connectToServer(const QString& host, quint16 port)
         if(m_socket.peerAddress() == QHostAddress(host) && m_socket.peerPort() == port)
         {
             killTimer(m_closeTimer);
+            if(m_socket.bytesAvailable() > 0)
+            {
+                m_socket.readAll();
+            }
             return true;
         }
         else
@@ -58,7 +63,11 @@ void Communication::disconnect()
     if(m_socket.isOpen())
     {
         m_socket.close();
-        m_socket.waitForDisconnected();
+        if (m_socket.state() == QAbstractSocket::UnconnectedState ||
+                  m_socket.waitForDisconnected())
+        {
+            qDebug()<<"socket closed";
+        }
     }
 }
 
@@ -72,11 +81,9 @@ void Communication::disconnectLater(int time)
 
 void Communication::timerEvent(QTimerEvent* event)
 {
-    if(m_socket.isOpen())
+    if(event->timerId() == m_closeTimer)
     {
-        m_socket.close();
-        m_socket.waitForDisconnected();
+        disconnect();
         killTimer(m_closeTimer);
     }
-
 }

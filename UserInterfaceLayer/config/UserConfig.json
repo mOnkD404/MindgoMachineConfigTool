@@ -35,6 +35,13 @@
                     "sequenceNumber": 2
                 },
                 {
+                    "operation": "Group",
+                    "params": {
+                        "GroupName": ""
+                    },
+                    "sequenceNumber": 3
+                },
+                {
                     "operation": "Suction",
                     "params": {
                         "boardType": 1,
@@ -50,28 +57,16 @@
                         "tipIndex": 1,
                         "volume": 0
                     },
-                    "sequenceNumber": 3
-                },
-                {
-                    "operation": "Mix",
-                    "params": {
-                        "boardType": 1,
-                        "cycleCount": 1,
-                        "drainHeight": 0,
-                        "onBoardIndex": 1,
-                        "position": 1,
-                        "postSuction": false,
-                        "postSuctionVolume": 0,
-                        "preSuction": false,
-                        "preSuctionVolume": 0,
-                        "speed": 1,
-                        "suctionHeight": 0,
-                        "tipIndex": 1,
-                        "volume": 0
-                    },
                     "sequenceNumber": 4
                 },
                 {
+                    "operation": "Group",
+                    "params": {
+                        "GroupName": ""
+                    },
+                    "sequenceNumber": 5
+                },
+                {
                     "operation": "Mix",
                     "params": {
                         "boardType": 1,
@@ -88,7 +83,38 @@
                         "tipIndex": 1,
                         "volume": 0
                     },
-                    "sequenceNumber": 5
+                    "sequenceNumber": 6
+                },
+                {
+                    "operation": "EndGroup",
+                    "params": {
+                    },
+                    "sequenceNumber": 7
+                },
+                {
+                    "operation": "Mix",
+                    "params": {
+                        "boardType": 1,
+                        "cycleCount": 1,
+                        "drainHeight": 0,
+                        "onBoardIndex": 1,
+                        "position": 1,
+                        "postSuction": false,
+                        "postSuctionVolume": 0,
+                        "preSuction": false,
+                        "preSuctionVolume": 0,
+                        "speed": 1,
+                        "suctionHeight": 0,
+                        "tipIndex": 1,
+                        "volume": 0
+                    },
+                    "sequenceNumber": 8
+                },
+                {
+                    "operation": "EndGroup",
+                    "params": {
+                    },
+                    "sequenceNumber": 9
                 }
             ],
             "workSpace": 0

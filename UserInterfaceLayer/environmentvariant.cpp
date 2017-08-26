@@ -309,6 +309,11 @@ int EnvironmentVariant::planBoardConfig(int planIndex)
 {
     if(planIndex >= 0 && planIndex < m_planList.size())
     {
+        QJsonArray boardList =  m_workLocationTypeList["config"].toArray();
+        if(m_planList.at(planIndex).boardConfig >= boardList.size())
+        {
+            m_planList[planIndex].boardConfig = 0;
+        }
         return m_planList.at(planIndex).boardConfig;
     }
     return 0;
@@ -934,6 +939,26 @@ bool EnvironmentVariant::updateWorkPlace(const QJsonObject &jsobj)
     }
 }
 
+bool EnvironmentVariant::removeBoardIndex(int index)
+{
+    if(index >= 0)
+    {
+        for(QList<SinglePlanData>::iterator iter = m_planList.begin(); iter != m_planList.end(); iter++)
+        {
+            if(iter->boardConfig == index)
+            {
+                iter->boardConfig = 0;
+            }
+            else if(iter->boardConfig > index)
+            {
+                iter->boardConfig = iter->boardConfig - 1;
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
 void EnvironmentVariant::startCheckPlan(int planIndex)
 {
     if(planIndex < 0 || planIndex >= m_planList.size())
@@ -989,7 +1014,13 @@ void EnvironmentVariant::startCheckPlan(int planIndex)
         }
     }
     planObj["operations"] = oparray;
-    planObj["boardConfig"] = m_workLocationTypeList["config"].toArray()[boardIndex].toObject()["type"];
+    QJsonArray boardList =  m_workLocationTypeList["config"].toArray();
+    if(boardIndex >= boardList.size())
+    {
+        boardIndex = 0;
+        m_planList[planIndex].boardConfig = 0;
+    }
+    planObj["boardConfig"] =boardList[boardIndex].toObject()["type"];
 
     m_workflowChecker.checkTask(planObj);
 }
@@ -1029,16 +1060,22 @@ int EnvironmentVariant::getBoardTypeIndexByPosition(int index)
 
 int EnvironmentVariant::getPlanBoardTypeIndexByPosition(int planIndex, int index)
 {
-    const QJsonObject& workPlace = m_workLocationTypeList;
     const QJsonArray& workConstraint = m_workPlaceConstraint;
 
-    int workIndex = workPlace["current"].toInt();
+    int workIndex = m_workLocationTypeList["current"].toInt();
+    QJsonArray configArray = m_workLocationTypeList["config"].toArray();
+
     if(planIndex >= 0 && planIndex < m_planList.size())
     {
         workIndex = m_planList[planIndex].boardConfig;
+        if(workIndex >= configArray.size())
+        {
+            workIndex = 0;
+            m_planList[planIndex].boardConfig = workIndex;
+        }
     }
 
-    QJsonArray boardConfig = workPlace["config"].toArray()[workIndex].toObject()["type"].toArray();
+    QJsonArray boardConfig = configArray[workIndex].toObject()["type"].toArray();
     if(index < 0 || index >= boardConfig.size())
     {
         return -1;

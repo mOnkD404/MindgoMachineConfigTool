@@ -318,6 +318,7 @@ Item {
                 if ( index >= 0 && index < listAll.config.length){
                     listAll.config.splice(index, 1);
                     workLocationMgr.updateWorkPlace(listAll);
+                    workLocationMgr.onRemoveIndex(index);
                 }
             }
 

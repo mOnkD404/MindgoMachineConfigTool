@@ -555,14 +555,12 @@ bool WorkLocationManager::setWorkLocationType(int configIndex, int workPlaceInde
 
 bool WorkLocationManager::updateWorkPlace(const QJsonObject &jsobj)
 {
-    if(EnvironmentVariant::instance()->updateWorkPlace(jsobj))
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return EnvironmentVariant::instance()->updateWorkPlace(jsobj);
+}
+
+bool WorkLocationManager::onRemoveIndex(int index)
+{
+    return EnvironmentVariant::instance()->removeBoardIndex(index);
 }
 
 QJsonArray WorkLocationManager::getWorkPlaceConstraint()

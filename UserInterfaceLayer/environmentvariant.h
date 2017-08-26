@@ -82,6 +82,7 @@ public:
     bool setWorkLocationType(int configIndex, int workPlaceIndex, const QString& type);
 
     bool updateWorkPlace(const QJsonObject &jsobj);
+    bool removeBoardIndex(int index);
 
     bool isAdministrator(){return m_bAdministratorAccount.isAdministrator();}
 

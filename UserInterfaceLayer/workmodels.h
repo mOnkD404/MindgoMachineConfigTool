@@ -541,6 +541,7 @@ public:
     Q_INVOKABLE QJsonObject getWorkLocationTypeList();
     Q_INVOKABLE bool setWorkLocationType(int configIndex, int workPlaceISndex, const QString& type);
     Q_INVOKABLE bool updateWorkPlace(const QJsonObject &jsobj);
+    Q_INVOKABLE bool onRemoveIndex(int index);
     Q_INVOKABLE QJsonArray getWorkPlaceConstraint();
 };
 

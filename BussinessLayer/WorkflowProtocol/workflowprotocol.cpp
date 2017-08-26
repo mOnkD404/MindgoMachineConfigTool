@@ -226,7 +226,7 @@ void WorkflowProtocol::unserializeRecvFrame(const QByteArray& buff)
 
 
 SubThreadWorker::SubThreadWorker(WorkflowProtocol* protocol, QObject*parent)
-    :QObject(parent), m_protocol(protocol), m_forceStop(false), m_maxReceiveTime(0), m_pause(false)
+    :QObject(parent), m_protocol(protocol), m_forceStop(false), m_maxReceiveTime(0), m_pause(false),m_com(this)
 {
 
 }
@@ -242,8 +242,7 @@ SubThreadWorker::~SubThreadWorker()
 
 void SubThreadWorker::doTunning(const QJsonObject& jsObj)
 {
-    Communication com;
-    if(!com.connectToServer(m_ip, m_port))
+    if(!m_com.connectToServer(m_ip, m_port))
     {
         return;
     }
@@ -256,17 +255,16 @@ void SubThreadWorker::doTunning(const QJsonObject& jsObj)
     //emit taskStateChanged(true, currentIndex);
 
 
-    handleControlCommand(com, sendobj);
+    handleControlCommand(m_com, sendobj);
 
-    com.disconnect();
+    m_com.disconnectLater();
 
     //emit taskStateChanged(false, currentIndex);
 }
 
 void SubThreadWorker::doWork(const QJsonObject &jsObj)
 {
-    Communication com;
-    if(!com.connectToServer(m_ip, m_port))
+    if(!m_com.connectToServer(m_ip, m_port))
     {
         return;
     }
@@ -306,7 +304,7 @@ void SubThreadWorker::doWork(const QJsonObject &jsObj)
                     }
                     else
                     {
-                        retVal = handleControlCommand(com, sendobj);
+                        retVal = handleControlCommand(m_com, sendobj);
                     }
                 }
             }
@@ -333,7 +331,7 @@ void SubThreadWorker::doWork(const QJsonObject &jsObj)
             break;
         }
     }
-    com.disconnect();
+    m_com.disconnectLater();
 
     emit taskStateChanged(m_stateString, currentIndex);
     if(m_forceStop || m_pause)

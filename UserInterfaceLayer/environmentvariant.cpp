@@ -656,6 +656,32 @@ QString EnvironmentVariant::CopyPlanStep(int planIndex, int fromStepIndex, int t
     return QString();
 }
 
+void EnvironmentVariant::copyStep(int planIndex, int stepIndex)
+{
+    if(planIndex < 0 || planIndex >= m_planList.size())
+        return ;
+
+    SinglePlanData &plan = m_planList[planIndex];
+
+    if(stepIndex >= 0 && stepIndex < plan.operations.size())
+    {
+        m_clipBoard = plan.operations.at(stepIndex);
+    }
+}
+
+void EnvironmentVariant::pasteStep(int planIndex, int stepIndex)
+{
+    if(m_clipBoard.operationName.isEmpty())
+        return ;
+    if(planIndex < 0 || planIndex >= m_planList.size())
+        return ;
+
+    SinglePlanData &plan = m_planList[planIndex];
+
+    plan.operations.insert(stepIndex, m_clipBoard);
+
+}
+
 void EnvironmentVariant::SetPlanStepToDefault(int planIndex, int stepIndex, int operationIndex)
 {
     if(planIndex < 0 || planIndex >= m_planList.size())
@@ -784,7 +810,7 @@ void EnvironmentVariant::StartPlan(int planIndex, int stepIndex)
     foreach(const SingleOperationData& opsData, stepList)
     {
         SingleOperationData opData = opsData;
-        opData.sequenceNumber = seq;
+        opData.sequenceNumber = seq++;
         if(opData.operationName=="Single Tip Motion")
         {
             formatTipMotion(opData, oparray);
@@ -793,7 +819,7 @@ void EnvironmentVariant::StartPlan(int planIndex, int stepIndex)
         {
             QJsonObject singleOperationObj;
             singleOperationObj["operation"] = opData.operationName;
-            singleOperationObj["sequence"] = seq++;
+            singleOperationObj["sequence"] = opData.sequenceNumber;
             QJsonObject paramobj;
             foreach(const OperationParamData& data, opData.params)
             {
@@ -923,7 +949,7 @@ void EnvironmentVariant::startCheckPlan(int planIndex)
     foreach(const SingleOperationData& opsData, stepList)
     {
         SingleOperationData opData = opsData;
-        opData.sequenceNumber = seq;
+        opData.sequenceNumber = seq++;
         if(opData.operationName=="Single Tip Motion")
         {
             formatTipMotion(opData, oparray);
@@ -932,7 +958,7 @@ void EnvironmentVariant::startCheckPlan(int planIndex)
         {
             QJsonObject singleOperationObj;
             singleOperationObj["operation"] = opData.operationName;
-            singleOperationObj["sequence"] = seq++;
+            singleOperationObj["sequence"] = opData.sequenceNumber ;
             QJsonObject paramobj;
             foreach(const OperationParamData& data, opData.params)
             {

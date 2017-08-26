@@ -77,13 +77,13 @@ void WorkerObject::newConnection()
                     skt->waitForBytesWritten();
                 }
             }
-
         }
         else
         {
             break;
         }
     }
+     emit logInfo("socket closed.");
     skt->close();
     delete skt;
 }

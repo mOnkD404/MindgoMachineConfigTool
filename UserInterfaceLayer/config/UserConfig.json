@@ -13,7 +13,7 @@
                         "dumpTipBoard": 3,
                         "loadTipBoard": 0,
                         "loadTipIndex": 1,
-                        "motionSequence": "2,3,4\r\n3,4,5\r\n,,\r\n,,\r\n,,\r\n,,\r\n,,\r\n,,\r\n,,\r\n",
+                        "motionSequence": "2,3,4\r\n11,12,13\r\n",
                         "postSuctionVolume": 3,
                         "postSuctionWaitTime": 5,
                         "preDispenseWaitTime": 7,
@@ -23,14 +23,80 @@
                         "sunctionSpeed": 1
                     },
                     "sequenceNumber": 1
+                },
+                {
+                    "operation": "Load Tip",
+                    "params": {
+                        "boardType": 0,
+                        "onBoardIndex": 1,
+                        "position": 3,
+                        "tipIndex": 1
+                    },
+                    "sequenceNumber": 2
+                },
+                {
+                    "operation": "Suction",
+                    "params": {
+                        "boardType": 1,
+                        "onBoardIndex": 1,
+                        "position": 1,
+                        "postSuction": false,
+                        "postSuctionVolume": 0,
+                        "postSuctionWaitTime": 0,
+                        "preSuction": false,
+                        "preSuctionVolume": 0,
+                        "speed": 1,
+                        "suctionHeight": 0,
+                        "tipIndex": 1,
+                        "volume": 0
+                    },
+                    "sequenceNumber": 3
+                },
+                {
+                    "operation": "Mix",
+                    "params": {
+                        "boardType": 1,
+                        "cycleCount": 1,
+                        "drainHeight": 0,
+                        "onBoardIndex": 1,
+                        "position": 1,
+                        "postSuction": false,
+                        "postSuctionVolume": 0,
+                        "preSuction": false,
+                        "preSuctionVolume": 0,
+                        "speed": 1,
+                        "suctionHeight": 0,
+                        "tipIndex": 1,
+                        "volume": 0
+                    },
+                    "sequenceNumber": 4
+                },
+                {
+                    "operation": "Mix",
+                    "params": {
+                        "boardType": 1,
+                        "cycleCount": 1,
+                        "drainHeight": 0,
+                        "onBoardIndex": 1,
+                        "position": 1,
+                        "postSuction": false,
+                        "postSuctionVolume": 0,
+                        "preSuction": false,
+                        "preSuctionVolume": 0,
+                        "speed": 1,
+                        "suctionHeight": 0,
+                        "tipIndex": 1,
+                        "volume": 0
+                    },
+                    "sequenceNumber": 5
                 }
             ],
             "workSpace": 0
         }
     ],
     "target": {
-        "IP": "127.0.0.1",
-        "maxReceiveTime": 20,
+        "IP": "127.0.0.6",
+        "maxReceiveTime": 5,
         "port": 20000
     },
     "workSpace": {

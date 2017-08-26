@@ -443,6 +443,9 @@ public:
     Q_INVOKABLE void startCheckPlan(int planIndex);
     Q_INVOKABLE void stopCheckPlan();
 
+    Q_INVOKABLE void copyStep(int planIndex, int stepIndex);
+    Q_INVOKABLE void pasteStep(int planIndex, int stepIndex);
+
     QList<QObject*> getParamListModel() {return paramListModel;}
     void setParamListModel(const QList<QObject*> &paramlist)
     {

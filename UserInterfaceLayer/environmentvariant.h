@@ -51,6 +51,8 @@ public:
     void RemovePlanStep(int planIndex, int stepIndex);
     void MovePlanStep(int planIndex, int stepIndex, int newIndex);
     QString CopyPlanStep(int planIndex, int fromStepIndex, int toStepIndex);
+    void copyStep(int planIndex, int stepIndex);
+    void pasteStep(int planIndex, int stepIndex);
 
     void SetPlanName(int planIndex, const QString& name);
     void AddPlan(const QString& name);
@@ -128,6 +130,8 @@ private:
     QJsonArray m_workPlaceConstraint;
 
     QString m_currentDir;
+
+    SingleOperationData m_clipBoard;
 };
 
 #endif // ENVIRONMENTVARIANT_H

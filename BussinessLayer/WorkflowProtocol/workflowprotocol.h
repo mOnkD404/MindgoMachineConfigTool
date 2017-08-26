@@ -115,6 +115,7 @@ private:
     int m_startIndex;
     QString m_stateString;
     volatile bool m_pause;
+    Communication m_com;
 };
 
 #ifdef MINDGO_ALL_IN_ONE

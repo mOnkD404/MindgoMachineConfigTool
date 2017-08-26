@@ -304,7 +304,7 @@ Item {
 
 
         Item {
-            property int copyIndex:-1
+            property string copyString;
             id: stepColumn
             width: columnWidth*1.3
             anchors.top: parent.top
@@ -373,7 +373,7 @@ Item {
                 anchors.right: parent.right
                 anchors.margins: 4
 
-                disablePaste: ((stepColumn.copyIndex < 0 ) || (stepColumn.copyIndex >= stepColumn.count))
+                disablePaste: (stepColumn.copyString.length == 0 )
 
                 onDoAction: {
                     stepListView.expandAll();
@@ -401,16 +401,17 @@ Item {
                             }
                         }
                     }else if(str == "copy"){
-                        stepColumn.copyIndex = stepListView.currentIndex;
+                        stepColumn.copyString = stepListModel.get(stepListView.currentIndex).name;
+                        selector.copyStep(planListView.currentIndex, stepListView.currentIndex);
                     }else if(str == "paste"){
-                        if(stepColumn.copyIndex >= 0 && stepColumn.copyIndex < stepListModel.count){
-                            var textValue = selector.copyStep(planListView.currentIndex, stepColumn.copyIndex, stepListView.currentIndex+1);
-
-                            stepListModel.insert(stepListView.currentIndex+1, {"name":textValue, "showStep":true});
+                        if(stepColumn.copyString.length > 0){
+                            selector.pasteStep(planListView.currentIndex, stepListView.currentIndex+1);
+                            //var textValue = selector.copyStep(planListView.currentIndex, stepColumn.copyIndex, stepListView.currentIndex+1);
+                            stepListModel.insert(stepListView.currentIndex+1, {"name":stepColumn.copyString, "showStep":true});
 
                             stepListView.currentIndex = stepListView.currentIndex + 1;
                         }
-                        stepColumn.copyIndex = -1;
+                        stepColumn.copyString = "";
                     }
                 }
             }
@@ -457,19 +458,24 @@ Item {
                     }
                 }
                 
-                //return visible status
-                function toggleGroup(index){
-                    var retVal = true;
+                function toggleGroup(index, collapse){
+                    var stackIndex = 0;
                     for(var cur = index+1; cur < stepListModel.count; cur++){
-                        var vi = stepListModel.get(cur).showStep;
-                        stepListModel.setProperty(cur, "showStep", !vi);
-                        retVal = !vi;
+                        if(stackIndex==0){
+                            stepListModel.setProperty(cur, "showStep", !collapse);
+                        }
+                        if(Script.isGroupBegin(stepListModel.get(cur).name)){
+                            stackIndex++;
+                        }
 
-                        if( Script.isGroupEnd(stepListModel.get(cur).name)){
-                            break;
+                        if(Script.isGroupEnd(stepListModel.get(cur).name)){
+                            if(stackIndex >0){
+                                stackIndex--;
+                            }else{
+                                break;
+                            }
                         }
                     }
-                    return retVal;
                 }
 
                 function expandAll(){
@@ -652,11 +658,9 @@ Item {
                                 onClicked: {
                                     stepContent.clicked(mouse);
                                     if(Script.isGroupBegin(name)){
-                                        if (stepListView.toggleGroup(stepContent.DelegateModel.itemsIndex)){
-                                            collapseContent.collapsed = false;
-                                        }else{
-                                            collapseContent.collapsed = true;
-                                        }
+                                        collapseContent.collapsed = !collapseContent.collapsed;
+                                        stepListView.toggleGroup(stepContent.DelegateModel.itemsIndex, collapseContent.collapsed);
+
                                     }
 
                                 }
@@ -1258,11 +1262,12 @@ Item {
                                     onClicked: {
                                         forceActiveFocus();
                                         fileDialogImport.visible = true;
-                                    }
 
+                                    }
                                 }
-                                SingleTipMotion{
+                                SingleTipMotion{                                    
                                     id: singleTipMotion
+
                                     anchors.top: importMotion.bottom
                                     anchors.left: parent.left
                                     anchors.bottom: parent.bottom
@@ -1279,6 +1284,8 @@ Item {
                                     onSetModelStr: {
                                         selector.commitParam(planListView.currentIndex, stepListView.currentIndex, modelData.Name, str);
                                     }
+
+
                                     FileDialog {
                                         id: fileDialogImport
                                         title: qsTr("Select file")
@@ -1288,9 +1295,12 @@ Item {
                                         selectExisting:true
                                         nameFilters: [ "CSV files (*.csv)" ]
                                         //fileMode: FileDialog.OpenFile
-                                        onAccepted: {
-                                            singleTipMotion.modelStr = configFileConverter.readConfigFIle(fileUrl);
 
+                                        onAccepted: {
+                                            console.debug(singleTipMotion.modelStr);
+                                            singleTipMotion.modelStr = configFileConverter.readConfigFIle(fileUrl);
+                                            singleTipMotion.refreshModel();
+                                            console.debug(singleTipMotion.modelStr);
                                             visible = false;
                                         }
                                         onRejected: {

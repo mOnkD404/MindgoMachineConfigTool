@@ -429,6 +429,16 @@ void PlanSelector::stopCheckPlan()
     EnvironmentVariant::instance()->stopCheckPlan();
 }
 
+void PlanSelector::copyStep(int planIndex, int stepIndex)
+{
+    EnvironmentVariant::instance()->copyStep(planIndex, stepIndex);
+}
+
+void PlanSelector::pasteStep(int planIndex, int stepIndex)
+{
+    EnvironmentVariant::instance()->pasteStep(planIndex, stepIndex);
+}
+
 bool PlanSelector::eventFilter(QObject *watched, QEvent *event)
 {
     if(event->type() == QEvent::User+3)
@@ -576,7 +586,7 @@ bool ConfigFileConverter::exportConfigFile(const QUrl& filename)
 QString ConfigFileConverter::readConfigFIle(const QUrl& filename)
 {
     QFile loadFile(filename.toLocalFile());
-    if(!loadFile.open(QIODevice::ReadWrite))
+    if(!loadFile.open(QIODevice::ReadOnly))
     {
         qWarning("read file error");
         return QString();

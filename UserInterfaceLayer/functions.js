@@ -34,7 +34,7 @@ function decodeError(errCode){
 }
 
 function isGroupBegin(name){
-    return name.match(/.*分组\[.*\]/);
+    return name.match(/.*分组\[.*\]/) || name.match(/.*分组$/);
 }
 
 function isGroupEnd(name){

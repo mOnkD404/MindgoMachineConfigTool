@@ -47,11 +47,11 @@
                         "boardType": 1,
                         "onBoardIndex": 1,
                         "position": 1,
-                        "postSuction": false,
-                        "postSuctionVolume": 0,
+                        "postSuction": true,
+                        "postSuctionVolume": 1,
                         "postSuctionWaitTime": 0,
-                        "preSuction": false,
-                        "preSuctionVolume": 0,
+                        "preSuction": true,
+                        "preSuctionVolume": 1,
                         "speed": 1,
                         "suctionHeight": 0,
                         "tipIndex": 1,
@@ -118,6 +118,124 @@
                 }
             ],
             "workSpace": 0
+        },
+        {
+            "name": "testplan2",
+            "operations": [
+                {
+                    "operation": "Single Tip Motion",
+                    "params": {
+                        "dispenseBoard": 4,
+                        "dispenseSpeed": 1,
+                        "drainHeight": 6,
+                        "dumpTipBoard": 3,
+                        "loadTipBoard": 0,
+                        "loadTipIndex": 1,
+                        "motionSequence": "2,3,4\r\n11,12,13\r\n",
+                        "postSuctionVolume": 3,
+                        "postSuctionWaitTime": 5,
+                        "preDispenseWaitTime": 7,
+                        "preSuctionVolume": 2,
+                        "suctionHeight": 4,
+                        "sunctionBoard": 1,
+                        "sunctionSpeed": 1
+                    },
+                    "sequenceNumber": 1
+                },
+                {
+                    "operation": "Load Tip",
+                    "params": {
+                        "boardType": 0,
+                        "onBoardIndex": 1,
+                        "position": 3,
+                        "tipIndex": 1
+                    },
+                    "sequenceNumber": 2
+                },
+                {
+                    "operation": "Group",
+                    "params": {
+                        "GroupName": ""
+                    },
+                    "sequenceNumber": 3
+                },
+                {
+                    "operation": "Suction",
+                    "params": {
+                        "boardType": 1,
+                        "onBoardIndex": 1,
+                        "position": 1,
+                        "postSuction": 1,
+                        "postSuctionVolume": 1,
+                        "postSuctionWaitTime": 0,
+                        "preSuction": 1,
+                        "preSuctionVolume": 1,
+                        "speed": 1,
+                        "suctionHeight": 0,
+                        "tipIndex": 1,
+                        "volume": 0
+                    },
+                    "sequenceNumber": 4
+                },
+                {
+                    "operation": "Group",
+                    "params": {
+                        "GroupName": ""
+                    },
+                    "sequenceNumber": 5
+                },
+                {
+                    "operation": "Mix",
+                    "params": {
+                        "boardType": 1,
+                        "cycleCount": 1,
+                        "drainHeight": 0,
+                        "onBoardIndex": 1,
+                        "position": 1,
+                        "postSuction": 0,
+                        "postSuctionVolume": 0,
+                        "preSuction": 0,
+                        "preSuctionVolume": 0,
+                        "speed": 1,
+                        "suctionHeight": 0,
+                        "tipIndex": 1,
+                        "volume": 0
+                    },
+                    "sequenceNumber": 6
+                },
+                {
+                    "operation": "EndGroup",
+                    "params": {
+                    },
+                    "sequenceNumber": 7
+                },
+                {
+                    "operation": "Mix",
+                    "params": {
+                        "boardType": 1,
+                        "cycleCount": 1,
+                        "drainHeight": 0,
+                        "onBoardIndex": 1,
+                        "position": 1,
+                        "postSuction": 0,
+                        "postSuctionVolume": 0,
+                        "preSuction": 0,
+                        "preSuctionVolume": 0,
+                        "speed": 1,
+                        "suctionHeight": 0,
+                        "tipIndex": 1,
+                        "volume": 0
+                    },
+                    "sequenceNumber": 8
+                },
+                {
+                    "operation": "EndGroup",
+                    "params": {
+                    },
+                    "sequenceNumber": 9
+                }
+            ],
+            "workSpace": 1
         }
     ],
     "target": {
@@ -170,9 +288,53 @@
                         "name": "null"
                     }
                 ]
+            },
+            {
+                "count": 12,
+                "name": "NewConfig",
+                "type": [
+                    {
+                        "name": "tipBox",
+                        "volume": "250"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "tipBox",
+                        "volume": "250"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "null"
+                    },
+                    {
+                        "name": "sbsBoard"
+                    },
+                    {
+                        "name": "megneticSeperation"
+                    },
+                    {
+                        "name": "null"
+                    }
+                ]
             }
         ],
-        "current": 0,
+        "current": 1,
         "default": {
             "count": 12,
             "name": "",

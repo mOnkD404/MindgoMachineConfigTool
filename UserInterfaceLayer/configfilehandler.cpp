@@ -527,6 +527,11 @@ QString configFileHandler::ParsePlan(const QJsonArray& obj)
         headerString += planObj["name"].toString();
         headerString += ',';
         headerString += "\r\n";
+        //board index
+        headerString += "board index,";
+        headerString += QString::number(planObj["workSpace"].toInt());
+        headerString += ',';
+        headerString += "\r\n";
         //param header
         headerString += "params,";
         QStringList paramList;
@@ -561,7 +566,20 @@ QString configFileHandler::ParsePlan(const QJsonArray& obj)
             {
                 if(param.contains(paramList[index]))
                 {
-                    opString += QString::number(param[paramList[index]].toInt());
+                    QJsonValue::Type type = param[paramList[index]].type();
+                    if(type == QJsonValue::String)
+                    {
+                        QString strtemp = convertStringToASCII(param[paramList[index]].toString());
+                        opString += strtemp;
+                    }
+                    else if(type == QJsonValue::Bool)
+                    {
+                        opString += QString::number(param[paramList[index]].toBool()?1:0);
+                    }
+                    else
+                    {
+                        opString +=      QString::number(param[paramList[index]].toInt());
+                    }
                 }
                 opString += ',';
             }
@@ -644,18 +662,23 @@ bool configFileHandler::ImportConfig(QJsonObject& fileObj, const QByteArray&impo
             }
         }
     }
+
+    int oldWorkCount = 0;
+    int newWorkCount = 0;
     //work space
-    ImportWorkSpace(lines, fileObj);
+    ImportWorkSpace(lines, fileObj, oldWorkCount, newWorkCount);
+
     //plan
-    ImportPlan(lines, fileObj);
+    ImportPlan(lines, fileObj, oldWorkCount, newWorkCount);
 
     return true;
 }
 
-bool configFileHandler::ImportWorkSpace(const QList<QByteArray> & lines, QJsonObject& fileObj)
+bool configFileHandler::ImportWorkSpace(const QList<QByteArray> & lines, QJsonObject& fileObj, int& oldWorkCount, int& newWorkCount)
 {
     QJsonObject workSpaceOld = fileObj["workSpace"].toObject();
     QJsonArray configArray = workSpaceOld["config"].toArray();
+    oldWorkCount = configArray.size();
 
     QJsonObject workSpaceObj;
 
@@ -725,6 +748,7 @@ bool configFileHandler::ImportWorkSpace(const QList<QByteArray> & lines, QJsonOb
         }
     }
 
+    newWorkCount = configArray.size();
     workSpaceOld["config"] = configArray;
     workSpaceOld["current"] = configArray.size()-1;
     fileObj.remove("workSpace");
@@ -733,17 +757,20 @@ bool configFileHandler::ImportWorkSpace(const QList<QByteArray> & lines, QJsonOb
     return true;
 }
 
-bool configFileHandler::ImportPlan(const QList<QByteArray> & lines, QJsonObject& fileObj)
+bool configFileHandler::ImportPlan(const QList<QByteArray> & lines, QJsonObject& fileObj, int& oldWorkCount, int& newWorkCount)
 {
     QJsonArray planArray = fileObj["plan"].toArray();
 
     bool header = false;
+    bool boardconfig = false;
     bool params = false;
     const char* workHeaderName = "plan name";
+    const char* boardIndexName = "board index";
     QStringList paramList;
     int seq = 1;
     QJsonArray singlePlan;
     QString planName;
+    int boardIndex = 0;
 
     for(QList<QByteArray>::const_iterator iter = lines.begin(); iter != lines.end(); iter++)
     {
@@ -756,6 +783,23 @@ bool configFileHandler::ImportPlan(const QList<QByteArray> & lines, QJsonObject&
                 {
                     planName = QString(words[1]);
                     header = true;
+                }
+            }
+        }
+        else if(!boardconfig)
+        {
+            if(iter->left(strlen(boardIndexName)) == QString(boardIndexName))
+            {
+                QList<QByteArray> words = iter->split(',');
+                if(words.size() >= 2)
+                {
+                    int indextemp = QString(words[1]).toInt();
+                    if(indextemp >= newWorkCount){
+                        indextemp = 0;
+                    }
+
+                    boardIndex = indextemp + oldWorkCount;
+                    boardconfig = true;
                 }
             }
         }
@@ -781,10 +825,13 @@ bool configFileHandler::ImportPlan(const QList<QByteArray> & lines, QJsonObject&
                 QJsonObject planObj;
                 planObj["name"] = planName;
                 planObj["operations"] = singlePlan;
+                planObj["workSpace"] = boardIndex;
                 planArray.append(planObj);
 
                 header = false;
                 params = false;
+                boardconfig = false;
+                boardIndex = 0;
                 paramList.clear();
                 seq = 1;
                 singlePlan = QJsonArray();
@@ -795,11 +842,20 @@ bool configFileHandler::ImportPlan(const QList<QByteArray> & lines, QJsonObject&
             QJsonObject operation;
             operation["operation"] = QString(words[0]);
             QJsonObject paramObj;
+            const QString strHead("ASCII");
             for(int index = 0; index < words.size(); index++)
             {
                 if(index > 0 && !words.at(index).isEmpty() && words.at(index)!="\r" && paramList.size() > index-1)
                 {
-                    paramObj[paramList.at(index-1)] = QString::number(words.at(index).toInt());
+                    QString strtemp(words.at(index));
+                    if(strtemp.left(strHead.length()) == strHead)
+                    {
+                        paramObj[paramList.at(index-1)] = convertASCIIToString(strtemp);
+                    }
+                    else
+                    {
+                        paramObj[paramList.at(index-1)] = QJsonValue(strtemp.toInt());
+                    }
                 }
             }
             operation["params"] =paramObj;
@@ -813,4 +869,70 @@ bool configFileHandler::ImportPlan(const QList<QByteArray> & lines, QJsonObject&
     fileObj["plan"] = planArray;
 
     return true;
+}
+
+QChar configFileHandler::toChar(quint8 val)
+{
+    static const QChar  mapTable[] = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+
+    if(val < sizeof(mapTable)/sizeof(QChar))
+    {
+        return mapTable[val];
+    }
+    return '\0';
+}
+
+quint8 configFileHandler::fromChar(QChar ch)
+{
+    static const QChar  mapTable[] = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+
+    for(int indx = 0; indx < sizeof(mapTable)/sizeof(QChar); indx++)
+    {
+        if(ch == mapTable[indx])
+        {
+            return (quint8)indx;
+        }
+    }
+    return 0;
+}
+
+QString configFileHandler::convertStringToASCII(const QString&str)
+{
+    const QString head = "ASCII";
+    QString decodeStr;
+    decodeStr+=head;
+
+    for(int indx = 0; indx < str.length(); indx++)
+    {
+        QChar qch = str.at(indx);
+        quint8 ch = (quint8)qch.toLatin1();
+        QChar ch1 = toChar(((ch&0xf0)>>4));
+        QChar ch2 = toChar(ch&0x0f);
+        if(ch1 != 0 && ch2 != 0 )
+        {
+            decodeStr +=ch1;
+            decodeStr += ch2;
+        }
+    }
+    return decodeStr;
+}
+
+QString configFileHandler::convertASCIIToString(const QString&str)
+{
+    const QString head = "ASCII";
+    QString encodeStr;
+    if(str.left(head.length()) != head)
+        return QString();
+
+    for(int indx = head.length(); indx+1 < str.length(); indx+=2)
+    {
+        quint8 val1 = fromChar(str.at(indx));
+        quint8 val2 = fromChar(str.at(indx+1));
+
+        QChar ch = ((val1<<4)|val2);
+
+        if(ch != 0)
+            encodeStr += ch;
+    }
+    return encodeStr;
 }

@@ -39,8 +39,14 @@ public:
     QString ParseWorkSpace(const QJsonObject& obj);
 
     bool ImportConfig(QJsonObject& fileObj, const QByteArray&importdata);
-    bool ImportWorkSpace(const QList<QByteArray> & filelines, QJsonObject& fileObj);
-    bool ImportPlan(const QList<QByteArray> & filelines, QJsonObject& fileObj);
+    bool ImportWorkSpace(const QList<QByteArray> & filelines, QJsonObject& fileObj, int& oldWorkCount, int& newWorkCount);
+    bool ImportPlan(const QList<QByteArray> & filelines, QJsonObject& fileObj, int& oldWorkCount, int& newWorkCount);
+
+    QString convertStringToASCII(const QString&);
+    QString convertASCIIToString(const QString&);
+
+    QChar toChar(quint8 val);
+    quint8 fromChar(QChar ch);
 
 signals:
 

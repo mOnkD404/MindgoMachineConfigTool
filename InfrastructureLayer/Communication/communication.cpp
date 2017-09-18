@@ -3,6 +3,7 @@
 #include <QNetworkProxy>
 #include <QTimer>
 #include <QEvent>
+#include <QThread>
 
 Communication::Communication(QObject* parent):QObject(parent),m_closeTimer(0)
 {
@@ -34,6 +35,7 @@ bool Communication::connectToServer(const QString& host, quint16 port)
 
 qint64 Communication::write(const QByteArray &byteArray)
 {
+    QThread::msleep(500);
     if(m_socket.isWritable())
     {
         return m_socket.write(byteArray);

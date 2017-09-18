@@ -6,7 +6,7 @@ import QtQuick.Dialogs 1.2
 
 Item {
     id:systemSettingPage
-    property string versionVal: "1.7.8"
+    property string versionVal: "1.7.10"
 
     //    MouseArea{
     //        anchors.fill: parent

@@ -35,7 +35,7 @@ bool Communication::connectToServer(const QString& host, quint16 port)
 
 qint64 Communication::write(const QByteArray &byteArray)
 {
-    QThread::msleep(500);
+    QThread::msleep(100);
     if(m_socket.isWritable())
     {
         return m_socket.write(byteArray);

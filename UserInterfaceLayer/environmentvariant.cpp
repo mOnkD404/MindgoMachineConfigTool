@@ -523,23 +523,29 @@ void EnvironmentVariant::formatTipMotion(const SingleOperationData & obj, QJsonA
     }
 }
 
-QJsonArray EnvironmentVariant::formatSingleOperationParam(const SingleOperationData & obj)
+
+void EnvironmentVariant::StartTunning(const SingleOperationData& obj)
 {
-    QJsonArray opList;
     if(m_operationDispNameMap[obj.operationName]=="Single Tip Motion")
     {
+        QJsonObject planObj;
+        QJsonArray opList;
         formatTipMotion(obj, opList);
+
+        planObj["operations"] = opList;
+        planObj["maxReceiveTime"] = m_machineConfig.maxReceiveTime;
+        planObj["startIndex"] = 0;
+
+        runTask(planObj);
     }
     else
     {
-        QJsonObject opObj;
         QJsonObject singleOperationObj;
         singleOperationObj["operation"] = m_operationDispNameMap[obj.operationName];
         singleOperationObj["sequence"] = QJsonValue(0xffff);//QJsonValue(obj.sequenceNumber);
         QJsonObject paramobj;
         foreach(const OperationParamData& data, obj.params)
         {
-
                 if (data.Type == "enum")
                 {
                     paramobj[data.Name] =  m_paramDefaultValueMap[data.Name].IntListValue[data.IntegerValue];
@@ -564,23 +570,11 @@ QJsonArray EnvironmentVariant::formatSingleOperationParam(const SingleOperationD
         }
         singleOperationObj["params"] = paramobj;
 
-        opList.append(singleOperationObj);
-    }
-
-    return opList;
-}
-
-
-void EnvironmentVariant::StartTunning(const SingleOperationData& data)
-{
-    QJsonArray operationObj = EnvironmentVariant::instance()->formatSingleOperationParam(data);
-    foreach (const QJsonValue& obj, operationObj) {
         QJsonObject sendObj;
 
-        sendObj["operation"] = obj;
+        sendObj["operation"] = singleOperationObj;
         sendObj["maxReceiveTime"] = m_machineConfig.maxReceiveTime;
-
-        EnvironmentVariant::instance()->runTunning(sendObj);
+        runTunning(sendObj);
     }
 }
 

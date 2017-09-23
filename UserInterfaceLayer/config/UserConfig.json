@@ -5,6 +5,13 @@
             "name": "testplan2",
             "operations": [
                 {
+                    "operation": "Group",
+                    "params": {
+                        "GroupName": ""
+                    },
+                    "sequenceNumber": 1
+                },
+                {
                     "operation": "Single Tip Motion",
                     "params": {
                         "dispenseBoard": 4,
@@ -21,13 +28,6 @@
                         "suctionHeight": 4,
                         "sunctionBoard": 1,
                         "sunctionSpeed": 1
-                    },
-                    "sequenceNumber": 1
-                },
-                {
-                    "operation": "Group",
-                    "params": {
-                        "GroupName": ""
                     },
                     "sequenceNumber": 2
                 },
@@ -334,7 +334,7 @@
                 ]
             }
         ],
-        "current": 1,
+        "current": 0,
         "default": {
             "count": 12,
             "name": "",

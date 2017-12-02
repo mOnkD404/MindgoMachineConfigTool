@@ -71,13 +71,14 @@
             "display":"前吸"
         },
         "preSuctionVolume":{
-            "type":"integer",
+            "type":"float",
             "default":0,
             "display":"前吸体积",
             "switch":"preSuction",
             "unit":"μL",
             "bottomValue":0,
-            "topValue":250
+            "topValue":250,
+            "factor":10
         },
         "postSuction":{
             "type":"bool",
@@ -85,21 +86,23 @@
             "display":"后吸"
         },
         "postSuctionVolume":{
-            "type":"integer",
+            "type":"float",
             "default":0,
             "display":"后吸体积",
             "switch":"postSuction",
             "unit":"μL",
             "bottomValue":0,
-            "topValue":250
+            "topValue":250,
+            "factor":10
         },
         "volume":{
-            "type":"integer",
+            "type":"float",
             "default":0,
             "display":"吸液体积",
             "unit":"μL",
             "bottomValue":0,
-            "topValue":250
+            "topValue":250,
+            "factor":10
         },
 
         "drain":{
@@ -108,12 +111,13 @@
             "display":"排空"
         },
         "drainVolume":{
-            "type":"integer",
+            "type":"float",
             "default":0,
             "display":"排液体积",
             "unit":"μL",
             "bottomValue":0,
-            "topValue":250
+            "topValue":250,
+            "factor":10
         },
         "cycleCount":{
             "type":"integer",
@@ -219,12 +223,13 @@
             "display":"轴编号"
         },
         "injectVolume":{
-            "type":"integer",
+            "type":"float",
             "default":0,
             "display":"注射体积",
             "unit":"μL",
             "bottomValue":-1000,
-            "topValue":1000
+            "topValue":1000,
+            "factor":10
         },
         "injectSpeed":{
             "type":"integer",
